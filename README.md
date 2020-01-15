@@ -1,20 +1,40 @@
-# Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+# Mashreq Web 
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+## Table of contents
+* [Technologies](#technologies)
+* [Installation and Setup](#installation-and-setup)
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+## Technologies
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+Project is created with:
+* React : 16.12.0
+* Redux : 4.0.5
+* Redux-Saga : 1.1.3
+* Typescript : 3.7.2
+* Testing-Library : 9.3.2
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Installation and Setup
+
+Clone down this repository. You will need `node` and `npm` installed globally on your machine.  
+
+
+First install all the dependent packages: 
+`yarn install` / `npm install`
+
+To Run Test Suite:  
+`yarn test` / `npm run test`
+
+To Run Eslint:  
+`yarn lint`  / `npm run lint`
+
+To Run Prettier:
+`yarn lint:fix` / `npm run lint:fix`
+
+To Run Production Build:
+`yarn build` / `npm run build`
+It bundles and generate minified code of react app and stored in `build/` folder
+
+To Start Server:
+`yarn start / `npm start`
+To Visit App: `localhost:3000`
+

@@ -1,0 +1,16 @@
+{
+    "prelaunch": {
+      "language": {
+        "ar": "عربى",
+        "en": "EN",
+        "arabic": "عربى",
+        "english": "English",
+        "choose": "Choose your language",
+        "save": "Save & Continue"
+      },
+      "intro": "Welcome to Mashreq",
+      "login": "Login",
+      "register": "Register"
+      }
+  }
+  
