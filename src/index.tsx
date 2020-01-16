@@ -8,13 +8,16 @@ import Routes from './router';
 import './i18n';
 import * as serviceWorker from './serviceWorker';
 import store from './store/store';
+import { ThemeProvider, mashreqTheme } from "@mashreq-digital/ui";
 
 ReactDOM.render(
+  <ThemeProvider theme={mashreqTheme}>
   <Provider store={store}>
     <Router>
       <Routes />
     </Router>
-  </Provider>,
+  </Provider>
+  </ThemeProvider>,
   document.getElementById('root')
 );
 
