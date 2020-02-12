@@ -5,19 +5,18 @@ import {
   H1,
   Select,
   H5,
-  FilledInput,
-  InputAdornment,
+  TextField,
   IconButton,
   FormControl,
-  InputLabel,
   Button,
   Switch,
   FormControlLabel,
   FormGroup,
   makeStyles,
-  Description,
+  Caption,
   H4,
-  Box
+  Box,
+  SectionSplitter
 } from "@mashreq-digital/ui";
 import { getMashreqLogo } from "@mashreq-digital/webassets";
 import { default as SubMain } from "./SubMain";
@@ -32,22 +31,8 @@ interface State {
 }
 
 const useStyles = makeStyles(theme => ({
-  buttonBox: {
-    marginTop: theme.spacing(20),
-    display: "flex",
-    justifyContent: "space-between",
-    paddingTop: theme.spacing(4),
-    borderTop: `1px solid rgb(173, 184, 191)`
-  },
-  protectedBox: {
-    marginTop: theme.spacing(8),
-    paddingTop: theme.spacing(2),
-    borderTop: `1px solid rgb(173, 184, 191)`
-  },
   backgroundImg: {
     backgroundImage: `url(${landing})`,
-    width:"100%",
-    height:"100%"
  },
   signinButton: {
     width: theme.spacing(20.8)
@@ -60,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const LeftContent = () => {
-  const { buttonBox, formGroup, signinButton, inputBox, protectedBox } = useStyles();
+  const { formGroup, signinButton, inputBox } = useStyles();
 
   const [values, setValues] = React.useState<State>({
     username: "",
@@ -81,6 +66,7 @@ const LeftContent = () => {
     setValues({ ...values, [name]: event.target.checked });
   };
   const handleClickShowPassword = () => {
+    console.log({ ...values, showPassword: !values.showPassword });
     setValues({ ...values, showPassword: !values.showPassword });
   };
 
@@ -91,14 +77,16 @@ const LeftContent = () => {
   };
 
   return (
-    <div>
+    <SectionSplitter 
+    top={
+      <div>
       <H1>Welcome to Mashreq Online Banking</H1>
       <FormGroup className={formGroup}>
-        <FormControl className={inputBox} variant="filled">
-          <InputLabel htmlFor="filled-adornment-username">Uername</InputLabel>
-          <FilledInput
+        <FormControl className={inputBox} >
+          <TextField
             id="username"
             value={values.username}
+            label="Username"
             onChange={handleChange("username")}
             aria-describedby="username"
             inputProps={{
@@ -107,24 +95,23 @@ const LeftContent = () => {
           />
         </FormControl>
 
-        <FormControl className={inputBox} variant="filled">
-          <InputLabel htmlFor="filled-adornment-password">Password</InputLabel>
-          <FilledInput
+        <FormControl className={inputBox}>
+          <TextField
             id="password"
+            label="Password"
             type={values.showPassword ? "text" : "password"}
             value={values.password}
             onChange={handleChange("password")}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {values.showPassword ? <Eye2 /> : <EyeCross />}
-                </IconButton>
-              </InputAdornment>
-            }
+            InputProps={{
+              endAdornment: (<IconButton
+              aria-label="toggle password visibility"
+              onClick={handleClickShowPassword}
+              onMouseDown={handleMouseDownPassword}
+            >
+              {values.showPassword ? <Eye2 /> : <EyeCross />}
+            </IconButton>)
+            }}
+
           />
         </FormControl>
 
@@ -140,13 +127,17 @@ const LeftContent = () => {
           label="Virtual Keyboard"
         />
 
-        <div className={protectedBox}>
+        <Box mt={8} pt={2} borderTop={1} borderColor="rgba(151, 151, 151, 0.2)">
         <H4> Ensure You are Always Protected </H4>
-        <Description> Check out these security tips to protect yourself from being a victim of online threats. <span color="primary">Read More</span></Description>
-       </div>
+        <Caption> Check out these security tips to protect yourself from being a victim of online threats. <span color="primary">Read More</span></Caption>
+        </Box>
+
       </FormGroup>
 
-      <div className={buttonBox}>
+    </div>
+    }
+    bottom = {
+      <Box borderTop={1} display="flex" justifyContent="space-between" borderColor="rgb(173, 184, 191)" pt={3}>
         <Button variant="outlined" color="primary" size="medium">
           <span color="primary">Forgot your Username or Password </span>
         </Button>
@@ -155,8 +146,10 @@ const LeftContent = () => {
           variant="contained"
           size="medium"
           color="primary">Signin</Button>
-      </div>
-    </div>
+          </Box>
+    }
+    />
+    
   );
 };
 
@@ -180,7 +173,7 @@ const Login = () => {
       main={
         <SubMain
           content={<LeftContent />}
-          image={<Box className={backgroundImg}></Box>}
+          image={<Box width="100%" height = "100%" className={backgroundImg}></Box>}
         />
       }
       footer={<H5>Footer</H5>}
