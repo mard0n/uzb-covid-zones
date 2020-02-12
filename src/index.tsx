@@ -8,10 +8,10 @@ import Routes from './router';
 import './i18n';
 import * as serviceWorker from './serviceWorker';
 import store from './store/store';
-import { ThemeProvider, mashreqTheme } from "@mashreq-digital/ui";
+import { ThemeProvider, getMashreqTheme } from "@mashreq-digital/ui";
 
 ReactDOM.render(
-  <ThemeProvider theme={mashreqTheme}>
+  <ThemeProvider theme={getMashreqTheme()}>
   <Provider store={store}>
     <Router>
       <Routes />
