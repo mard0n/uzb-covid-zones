@@ -12,10 +12,10 @@ import {
   Caption,
   Grid,
   Box,
-  SectionSplitter
+  SectionSplitter,
+  SubMain
 } from "@mashreq-digital/ui";
 import { getMashreqLogo } from "@mashreq-digital/webassets";
-import { default as SubMain } from "../authentication/SubMain";
 
 interface State {
   notify: Boolean;
@@ -65,12 +65,14 @@ const LeftContent = () => {
           control={
             <Switch
               // checked={values.notify}
+              variant="ios"
               onChange={handleSwitchChange("notify")}
               value="showKeyboard"
             />
           }
           label="Notify me when ready"
         />
+
         </Box>
         </Box>
         </Grid>

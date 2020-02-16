@@ -2,19 +2,17 @@ import React from "react";
 import {
   Header,
   Main,
-  H1,
+  H2,
   Select,
   H5,
   TextField,
   IconButton,
   FormControl,
   Button,
-  Switch,
-  FormControlLabel,
+  Grid,
   FormGroup,
   makeStyles,
   Caption,
-  H4,
   Box,
   SectionSplitter,
   SubMain
@@ -31,10 +29,6 @@ interface State {
 }
 
 const useStyles = makeStyles(theme => ({
-  backgroundImg: {
-    backgroundImage: `url(${landing})`,
-    backgroundSize: "cover"
- },
   signinButton: {
     width: theme.spacing(20.8)
   },
@@ -46,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const LeftContent = () => {
-  const { formGroup, signinButton, inputBox } = useStyles();
+  const { formGroup, inputBox } = useStyles();
 
   const [values, setValues] = React.useState<State>({
     username: "",
@@ -77,11 +71,24 @@ const LeftContent = () => {
     event.preventDefault();
   };
 
+
+
   return (
     <SectionSplitter 
     top={
-      <div>
-      <H1>Welcome to Mashreq Online Banking</H1>
+      <Grid 
+      xs={6}
+      sm={6}
+      md={6}
+      lg={6}
+      xl={6}
+      >     
+
+    
+      <H2>Let’s Login</H2>
+      <Box mt={2}>
+      <Caption> We’re making the process easier for our customers, let’s start with your current login details.</Caption>
+      </Box>
       <FormGroup className={formGroup}>
         <FormControl className={inputBox} >
           <TextField
@@ -95,6 +102,7 @@ const LeftContent = () => {
             }}
           />
         </FormControl>
+        <Caption color="primary">Forgot your Username?</Caption>
 
         <FormControl className={inputBox}>
           <TextField
@@ -115,29 +123,13 @@ const LeftContent = () => {
 
           />
         </FormControl>
+        <Caption color="primary">Forgot your Password?</Caption>
 
-        <FormControlLabel
-          className={inputBox}
-          control={
-            <Switch
-              checked={values.showKeyboard}
-              variant = "ios"
-              onChange={handleSwitchChange("showKeyboard")}
-              value="showKeyboard"
-            />
-          }
-          label="Virtual Keyboard"
-        />
-
-        <Box mt={8} pt={2} borderTop={1} borderColor="rgba(151, 151, 151, 0.2)">
-        <H4> Ensure You are Always Protected </H4>
-        <Caption> Check out these security tips to protect yourself from being a victim of online threats. <span color="primary">Read More</span></Caption>
-        </Box>
 
       </FormGroup>
 
-    </div>
-    }
+     </Grid>
+      }
     bottom = {
       <Box borderTop={1} display="flex" justifyContent="space-between" borderColor="rgb(173, 184, 191)" pt={3}>
         <Button variant="outlined" color="primary">
@@ -153,8 +145,7 @@ const LeftContent = () => {
   );
 };
 
-const Login = () => {
-  const { backgroundImg } = useStyles();
+const PreLogin = () => {
 
   let LogoSimbol = getMashreqLogo();
   return (
@@ -173,11 +164,11 @@ const Login = () => {
       main={
         <SubMain
           content={<LeftContent />}
-          image={<Box width="100%" height = "100%" className={backgroundImg}></Box>}
+          image={<Box></Box>}
         />
       }
       footer={<H5>Footer</H5>}
     />
   );
 };
-export default Login;
+export default PreLogin;

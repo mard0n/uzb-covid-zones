@@ -6,6 +6,9 @@ import {default as Login} from "./features/authentication/Login";
 import {default as PersonalInfo} from "./features/personalInfo/MobileInfo";
 import {default as Terms} from "./features/personalInfo/Terms";
 import {default as Locked} from "./features/personalInfo/Locked";
+import {default as AuthOtp} from "./features/personalInfo/AuthOtp";
+import {default as PreLogin} from "./features/authentication/PreLogin";
+
 
 const Routes: React.FC = () => (
   <Switch>
@@ -15,6 +18,8 @@ const Routes: React.FC = () => (
   <Route path="/personal"  component={PersonalInfo}/>
   <Route path="/terms"  component={Terms}/>
   <Route path="/locked"  component={Locked}/>
+  <Route path="/otp"  component={AuthOtp}/>
+  <Route path="/pre"  component={PreLogin}/>
 
   </Switch>
 );

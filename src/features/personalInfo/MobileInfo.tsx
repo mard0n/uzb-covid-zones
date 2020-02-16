@@ -12,10 +12,10 @@ import {
   Caption,
   Box,
   Grid,
-  SectionSplitter
+  SectionSplitter,
+  SubMain
 } from "@mashreq-digital/ui";
 import { getMashreqLogo } from "@mashreq-digital/webassets";
-import { default as SubMain } from "../authentication/SubMain";
 
 interface State {
   number: string;

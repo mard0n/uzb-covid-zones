@@ -2,45 +2,43 @@ import React from "react";
 import {
   Header,
   Main,
-  H2,
+  H1,
   Select,
   H5,
-  Switch,
-  FormControlLabel,
   Button,
   makeStyles,
   Caption,
-  Grid,
   Box,
-  SectionSplitter
+  OTP,
+  Grid,
+  SectionSplitter,
+  MobileIconText,
+  SubMain
 } from "@mashreq-digital/ui";
 import { getMashreqLogo } from "@mashreq-digital/webassets";
-import { default as SubMain } from "../authentication/SubMain";
 
 interface State {
-  notify: Boolean;
+  number: string;
 }
 
 const useStyles = makeStyles(theme => ({
-  signinButton: {
+  proceedButton: {
     width: theme.spacing(20.8)
-  },
-
+  }
 }));
 const LeftContent = () => {
   const {
-    signinButton,
+    proceedButton,
   } = useStyles();
 
   const [values, setValues] = React.useState<State>({
-    notify: false
+    number: ""
   });
 
-
-  const handleSwitchChange = (name: string) => (
+  const handleChange = (prop: keyof State) => (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setValues({ ...values, [name]: event.target.checked });
+    setValues({ ...values, [prop]: event.target.value });
   };
 
   return (
@@ -52,27 +50,21 @@ const LeftContent = () => {
         md={6}
         lg={6}
         xl={6}
-        >        
+        >
         <Box mt={20}>
-          <H2>You’ve been locked out</H2>
+          <H1>Authentification</H1>
+          <Box pt={3}>
           <Caption>
-          Too many authentication attemps.
-          For your security we have disabled this device for 15 min
+          Please enter the 6 digit code sent to your mobile number <br/>
           </Caption>
 
-          <Box mt={3}>
-          <FormControlLabel
-          control={
-            <Switch
-              // checked={values.notify}
-              onChange={handleSwitchChange("notify")}
-              value="showKeyboard"
-            />
-          }
-          label="Notify me when ready"
-        />
-        </Box>
-        </Box>
+          <MobileIconText/>
+          
+          </Box>
+            <Box mt={4.5}>
+            <OTP/>
+              </Box>
+         </Box>
         </Grid>
       }
       bottom={
@@ -87,12 +79,12 @@ const LeftContent = () => {
             <span color="primary"> Back </span>
           </Button>
           <Button
-            className={signinButton}
+            className={proceedButton}
             variant="contained"
             size="medium"
             color="primary"
           >
-            Try again
+            Proceed
           </Button>
         </Box>
       }

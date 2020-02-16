@@ -10,27 +10,22 @@ import {
   makeStyles,
   Caption,
   Box,
-  SectionSplitter
+  SectionSplitter,
+  SubMain
 } from "@mashreq-digital/ui";
 import { getMashreqLogo } from "@mashreq-digital/webassets";
-import { default as SubMain } from "../authentication/SubMain";
 
 interface State {
   number: string;
 }
 
 const useStyles = makeStyles(theme => ({
-  signinButton: {
-    width: theme.spacing(20.8)
-  },
+
   formGroup: {
     width: theme.spacing(52.5)
   },
 }));
 const LeftContent = (props:any) => {
-  const {
-    signinButton,
-  } = useStyles(props);
 
   const [values, setValues] = React.useState<State>({
     number: ""
@@ -78,12 +73,11 @@ const LeftContent = (props:any) => {
             <span color="primary"> Back </span>
           </Button>
           <Button
-            className={signinButton}
             variant="contained"
             size="medium"
             color="primary"
           >
-            Proceed
+          Agree and proceed 
           </Button>
         </Box>
       }
