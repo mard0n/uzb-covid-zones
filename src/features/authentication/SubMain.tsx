@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid , Box} from "@mashreq-digital/ui";
+import { Grid } from "@mashreq-digital/ui";
 
 
 export default function SubMain({content,image}:any) {
@@ -13,18 +13,25 @@ export default function SubMain({content,image}:any) {
         lg={7}
         xl={7}
       >
-      <Box mr={5}> 
         {content}
-        </Box>
       </Grid>
 
       <Grid
+      item
+      xs={1}
+      sm={1}
+      md={1}
+      lg={1}
+      xl={1}
+    >        </Grid>
+
+      <Grid
         item
-        xs={5}
-        sm={5}
-        md={5}
-        lg={5}
-        xl={5}
+        xs={4}
+        sm={4}
+        md={4}
+        lg={4}
+        xl={4}
       >{image}</Grid>
     </Grid>
   );

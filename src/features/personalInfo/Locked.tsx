@@ -5,13 +5,12 @@ import {
   H2,
   Select,
   H5,
-  TextField,
-  InputAdornment,
-  FormControl,
+  Switch,
+  FormControlLabel,
   Button,
-  FormGroup,
   makeStyles,
   Caption,
+  Grid,
   Box,
   SectionSplitter
 } from "@mashreq-digital/ui";
@@ -19,60 +18,62 @@ import { getMashreqLogo } from "@mashreq-digital/webassets";
 import { default as SubMain } from "../authentication/SubMain";
 
 interface State {
-  number: string;
+  notify: Boolean;
 }
 
 const useStyles = makeStyles(theme => ({
   signinButton: {
     width: theme.spacing(20.8)
   },
-  formGroup: {
-    width: theme.spacing(52.5)
-  },
+
 }));
 const LeftContent = () => {
   const {
-    formGroup,
     signinButton,
   } = useStyles();
 
   const [values, setValues] = React.useState<State>({
-    number: ""
+    notify: false
   });
 
-  const handleChange = (prop: keyof State) => (
+
+  const handleSwitchChange = (name: string) => (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setValues({ ...values, [prop]: event.target.value });
+    setValues({ ...values, [name]: event.target.checked });
   };
 
   return (
     <SectionSplitter
       top={
-        <div>
-          <H2>Let’s start with your mobile number.</H2>
+        <Grid 
+        xs={6}
+        sm={6}
+        md={6}
+        lg={6}
+        xl={6}
+        >        
+        <Box mt={20}>
+          <H2>You’ve been locked out</H2>
           <Caption>
-            Please enter your mobile number <b>registered with Mashreq </b>. We will
-            send you a text message with a 6 digit code for authentication.
+          Too many authentication attemps.
+          For your security we have disabled this device for 15 min
           </Caption>
 
-          <FormGroup className={formGroup}>
-            <FormControl>
-            <Box mt={4.5}>
-              <TextField
-                label="Mobile Number"
-                id="mobile-number"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">+971</InputAdornment>
-                  )
-                }}
-                variant="filled"
-              />
-              </Box>
-            </FormControl>
-          </FormGroup>
-        </div>
+          <Box mt={3}>
+          <FormControlLabel
+          control={
+            <Switch
+              // checked={values.notify}
+              onChange={handleSwitchChange("notify")}
+              value="showKeyboard"
+            />
+          }
+          label="Notify me when ready"
+        />
+        </Box>
+        </Box>
+        </Grid>
       }
       bottom={
         <Box
@@ -91,7 +92,7 @@ const LeftContent = () => {
             size="medium"
             color="primary"
           >
-            Proceed
+            Try again
           </Button>
         </Box>
       }
@@ -99,7 +100,7 @@ const LeftContent = () => {
   );
 };
 
-const Terms = () => {
+const Locked = () => {
   let LogoSimbol = getMashreqLogo();
   return (
     <Main
@@ -119,4 +120,4 @@ const Terms = () => {
     />
   );
 };
-export default Terms;
+export default Locked;

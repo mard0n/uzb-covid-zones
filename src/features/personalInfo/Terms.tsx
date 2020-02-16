@@ -7,7 +7,6 @@ import {
   H5,
   Container,
   Button,
-  FormGroup,
   makeStyles,
   Caption,
   Box,
@@ -46,10 +45,10 @@ const LeftContent = (props:any) => {
   return (
     <SectionSplitter
       top={
-        <div>
+        <>
           <H1> Terms &amp; Conditions</H1>
           <Container>
-          <Box my={2}>
+          <Box my={2} style={{height:'490px',overflowY: 'scroll'}}>
           <Caption>
             {[...new Array(12)]
               .map(
@@ -65,7 +64,7 @@ const LeftContent = (props:any) => {
               </Caption>
           </Box>
         </Container>
-        </div>
+        </>
       }
       bottom={
         <Box
