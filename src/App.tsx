@@ -34,7 +34,7 @@ const App: FunctionComponent<AppProps & { activeStepTitle: string }> = (
               <Box>
               <MashreqLogo width="50px" height="25px" />
 
-              {props.match.url === "/homepage" ? null : (
+              {props.match.url === "/login" ? null : (
                 <Caption>
                   {activeStepTitle}
                 </Caption>
@@ -77,8 +77,8 @@ const App: FunctionComponent<AppProps & { activeStepTitle: string }> = (
 };
 
 const mapStateToProps = (state: any) => ({
-  activeStepTitle: state.preLogin.activeStepTitle,
-  activeStep: state.preLogin.activeStep
+  activeStepTitle: state.createAccount.activeStepTitle,
+  activeStep: state.createAccount.activeStep
 });
 
 App.defaultProps = {

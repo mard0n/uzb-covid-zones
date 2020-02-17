@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   H1,
   Button,
@@ -9,7 +9,8 @@ import {
   Grid,
   SectionSplitter,
   MobileIconText,
-  SubMain
+  SubMain,
+  ResendOTP
 } from "@mashreq-digital/ui";
 
 interface State {
@@ -21,14 +22,58 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(20.8)
   }
 }));
-const LeftContent = () => {
-  const {
-    proceedButton,
-  } = useStyles();
+const LeftContent = (props: any) => {
+  const [otp, setOtp] = useState("");
+  const [error, setError] = useState(false);
+  const [onCompleteResendTimer, setOnCompleteResendTimer] = useState(false);
+  const [enableResend, setEnableResend] = useState(false);
+
+  const onChange = (val: any) => {
+    setOtp(val);
+    console.log(val.length);
+    const trimValue = val;
+    setTimeout(() => {
+      if (trimValue && trimValue.length === 6) {
+        let isError = val && val === "111111";
+        setError(isError);
+        setEnableResend(isError);
+        setOtp("");
+        if (!isError) {
+          props.onFinish();
+        }
+      }
+    }, 100);
+  };
+
+  const onResendClick = () => {
+    setError(false);
+    setOnCompleteResendTimer(true);
+  };
+
+  const onTimerComplete = () => {
+    setOnCompleteResendTimer(false);
+  };
+
+  const renderButton = (renderButtonProps: any) => {
+    const { ...rest } = renderButtonProps;
+    return (
+      <Box mt={1.8}>
+        <Button {...rest} mt={1.8} color="primary" variant="contained">
+          Resend
+        </Button>
+      </Box>
+    );
+  };
+
+  const { proceedButton } = useStyles();
 
   const [values, setValues] = React.useState<State>({
     number: ""
   });
+
+  const renderTime = (remainingTime: any) => {
+    return <Caption>Resend OTP {remainingTime} sec </Caption>;
+  };
 
   const handleChange = (prop: keyof State) => (
     event: React.ChangeEvent<HTMLInputElement>
@@ -39,27 +84,39 @@ const LeftContent = () => {
   return (
     <SectionSplitter
       top={
-        <Grid 
-        xs={6}
-        sm={6}
-        md={6}
-        lg={6}
-        xl={6}
-        >
-        <Box pt={20}>
-          <H1>Authentification</H1>
-          <Box pt={3}>
-          <Caption>
-          Please enter the 6 digit code sent to your mobile number <br/>
-          </Caption>
+        <Grid xs={6} sm={6} md={6} lg={6} xl={6}>
+          <Box pt={20}>
+            <H1>Authentification</H1>
+            <Box pt={3}>
+              <Caption>
+                Please enter the 6 digit code sent to your mobile number <br />
+              </Caption>
 
-          <MobileIconText/>
-          
-          </Box>
+              <MobileIconText />
+            </Box>
             <Box mt={4.5}>
-            <OTP/>
-              </Box>
-         </Box>
+              <OTP
+                inputClassName={error ? "error" : ""}
+                autoFocus
+                disabled={onCompleteResendTimer}
+                value={otp}
+                otpType="number"
+                onChange={onChange}
+              />
+              {error && <Caption>Please enter the valid OTP</Caption>}
+              {enableResend && (
+                <ResendOTP
+                  renderButton={renderButton}
+                  renderTime={renderTime}
+                  onResendClick={onResendClick}
+                  maxTime={5}
+                  onTimerComplete={onTimerComplete}
+                  style={{}}
+                  className={{}}
+                />
+              )}
+            </Box>
+          </Box>
         </Grid>
       }
       bottom={
@@ -88,10 +145,7 @@ const LeftContent = () => {
 };
 
 const AuthOtp = () => {
-  return (
-    <SubMain content={<LeftContent />} image={<Box></Box>} />
-  );
+  return <SubMain content={<LeftContent />} image={<Box></Box>} />;
 };
-
 
 export default AuthOtp;
