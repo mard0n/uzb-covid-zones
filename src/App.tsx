@@ -3,7 +3,6 @@ import Routes from "./router";
 import { AppProps } from "./types";
 import {
   Footer,
-  Copyright,
   Main,
   Header,
   LinearProgressBar,
@@ -32,13 +31,10 @@ const App: FunctionComponent<AppProps & { activeStepTitle: string }> = (
           <Header
             left={
               <Box>
-              <MashreqLogo width="50px" height="25px" />
-
-              {props.match.url === "/login" ? null : (
-                <Caption>
-                  {activeStepTitle}
-                </Caption>
-              )}
+                <MashreqLogo width="40px" height="25px" />
+                {props.match.url === "/login" ? null : (
+                  <Caption>{activeStepTitle}</Caption>
+                )}
               </Box>
             }
             right={
@@ -67,9 +63,16 @@ const App: FunctionComponent<AppProps & { activeStepTitle: string }> = (
       main={<Routes />}
       footer={
         <Footer>
-          <Copyright fontSize="30">
-            Copyright &copy; 2019 Mashreq | All Rights Reserved
-          </Copyright>
+          <Box>
+            <Box style={{float:"left"}}>  
+            <Caption> © 2019 Mashreq </Caption>
+            </Box>
+            <Box style={{float:"right"}}>
+              <Caption>
+                Requirements | Security | Privacy policy | Service Terms{" "}
+              </Caption>
+            </Box>
+          </Box>
         </Footer>
       }
     />

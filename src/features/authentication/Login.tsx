@@ -41,8 +41,9 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(4.3)
   }
 }));
-const LeftContent = () => {
+const LeftContent = (props:any) => {
   const { formGroup, signinButton, inputBox } = useStyles();
+  const { history } = props;
 
   const [values, setValues] = React.useState<State>({
     username: "",
@@ -55,6 +56,16 @@ const LeftContent = () => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const onSignIn = () =>{
+    if(values.username === "demo" && values.password === "demo")
+  {
+  console.log("demo signin");
+  history.push("/account/prelogin");
+
+  }
+  
   };
 
   const handleSwitchChange = (name: string) => (
@@ -111,7 +122,7 @@ const LeftContent = () => {
 
           />
         </FormControl>
-
+            <Box ml={3}>
         <FormControlLabel
           className={inputBox}
           control={
@@ -124,7 +135,7 @@ const LeftContent = () => {
           }
           label="Virtual Keyboard"
         />
-
+        </Box>
         <Box mt={8} pt={2} borderTop={1} borderColor="rgba(151, 151, 151, 0.2)">
         <H4> Ensure You are Always Protected </H4>
         <Caption> Check out these security tips to protect yourself from being a victim of online threats. <span color="primary">Read More</span></Caption>
@@ -134,24 +145,28 @@ const LeftContent = () => {
     </div>
     }
     bottom = {
-      <Box borderTop={1} display="flex" justifyContent="space-between" borderColor="rgb(173, 184, 191)" pt={3}>
+      <Box display="flex" justifyContent="space-between">
         <Button variant="outlined" color="primary">
           <span color="primary">Forgot your Username or Password </span>
         </Button>
         <Button
           variant="contained"
-          color="primary">Signin</Button>
+          color="primary"
+          onClick={onSignIn}
+          >Signin</Button>
           </Box>
     }
+    borderTop={true}
+
     />
   );
 };
 
-const Login = () => {
+const Login = (props:any) => {
   const { backgroundImg } = useStyles();
   return (
     <SubMain
-    content={<LeftContent />}
+    content={<LeftContent {...props}/>}
     image={<Box width="100%" height = "100%" className={backgroundImg}></Box>}
   />
   );

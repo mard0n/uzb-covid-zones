@@ -78,13 +78,8 @@ const LeftContent = (props:any) => {
         </Grid>
       }
       bottom={
-        <Box
-          borderTop={1}
-          display="flex"
-          justifyContent="space-between"
-          borderColor="rgb(173, 184, 191)"
-          pt={3}
-        >
+        <Box display="flex" justifyContent="space-between">
+
           <Button variant="outlined" color="primary" onClick={handleBack} size="medium">
             <span color="primary"> Back </span>
           </Button>
@@ -99,6 +94,7 @@ const LeftContent = (props:any) => {
           </Button>
         </Box>
       }
+      borderTop={true}
     />
   );
 };

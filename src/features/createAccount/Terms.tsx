@@ -50,13 +50,8 @@ const LeftContent = (props:any) => {
         </Box>
       }
       bottom={
-        <Box
-          borderTop={1}
-          display="flex"
-          justifyContent="space-between"
-          borderColor="rgb(173, 184, 191)"
-          pt={3}
-        >
+        <Box display="flex" justifyContent="space-between">
+
           <Button
             variant="contained"
             size="medium"
@@ -66,6 +61,8 @@ const LeftContent = (props:any) => {
           </Button>
         </Box>
       }
+      borderTop={true}
+
     />
   );
 };

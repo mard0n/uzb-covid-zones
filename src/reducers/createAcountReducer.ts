@@ -10,7 +10,6 @@ export const stepsID = [
     "personalinfo",
     "authentication",
     "terms",
-    "locked",
     "success"
 ];
 
@@ -19,7 +18,6 @@ const stepsTitles = [
     "Step 2. Personal Information",
     "Step 3. Authentication",
     "Step 4. Terms and Condition",
-    "Step 5. Locked",
     "Success",
 ];
 

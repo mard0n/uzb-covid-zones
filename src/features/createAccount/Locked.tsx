@@ -61,6 +61,7 @@ const LeftContent = () => {
             <Switch
               // checked={values.notify}
               variant="ios"
+              size="small"
               onChange={handleSwitchChange("notify")}
               value="showKeyboard"
             />
@@ -73,16 +74,8 @@ const LeftContent = () => {
         </Grid>
       }
       bottom={
-        <Box
-          borderTop={1}
-          display="flex"
-          justifyContent="space-between"
-          borderColor="rgb(173, 184, 191)"
-          pt={3}
-        >
-          <Button variant="outlined" color="primary" size="medium">
-            <span color="primary"> Back </span>
-          </Button>
+        <Box display="flex" justifyContent="space-between">
+
           <Button
             className={signinButton}
             variant="contained"
@@ -93,6 +86,8 @@ const LeftContent = () => {
           </Button>
         </Box>
       }
+      borderTop={true}
+
     />
   );
 };

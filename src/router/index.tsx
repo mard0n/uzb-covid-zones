@@ -11,19 +11,17 @@ const Routes: FunctionComponent = (): JSX.Element => {
   return (
     <Switch>
       <Route
+        exact
+        path={ROUTE_LOGINPAGE}
+        render={routerProps => <Login {...routerProps} />}
+      />
+      <Route
         path={ROUTER_ACCOUNT_CREATE}
         render={routerProps => <CreateAccount {...routerProps} />}
       />
-      <Route  path="*" component={NoMatchPage} />
+      <Route path="*" component={NoMatchPage} />
     </Switch>
   );
 };
 
 export default Routes;
-
-
-// <Route
-// exact
-//  path={ROUTE_LOGINPAGE}
-//  render={routerProps => <Login {...routerProps} />}
-// />

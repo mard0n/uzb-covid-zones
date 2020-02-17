@@ -35,11 +35,6 @@ const useStyles = makeStyles(theme => ({
 }));
 const LeftContent = (props:any) => {
   const { history } = props;
-
-  const handleBack = () => {
-    history.push("/login");
-  };
-
   const { formGroup, inputBox } = useStyles();
 
   const [values, setValues] = React.useState<State>({
@@ -48,6 +43,19 @@ const LeftContent = (props:any) => {
     showPassword: false,
     showKeyboard: false
   });
+
+  const handleBack = () => {
+    history.push("/login");
+  };
+
+  const handlePreSignin = () => {
+  if(values.username === "demo" && values.password === "demo"){
+    props.handleNextStep();
+   }
+ 
+  };
+
+
 
   const handleChange = (prop: keyof State) => (
     event: React.ChangeEvent<HTMLInputElement>
@@ -131,16 +139,18 @@ const LeftContent = (props:any) => {
 
       }
     bottom = {
-      <Box borderTop={1} display="flex" justifyContent="space-between" borderColor="rgb(173, 184, 191)" pt={3}>
+      <Box display="flex" justifyContent="space-between">
         <Button variant="outlined" color="primary" onClick={handleBack}>
           <span color="primary">Back </span>
         </Button>
         <Button
           variant="contained"
-          onClick={props.handleNextStep}
+          onClick={ handlePreSignin}
           color="primary">Signin</Button>
           </Box>
     }
+    borderTop={true}
+
     />
     
   );
