@@ -1,10 +1,6 @@
 import React from "react";
 import {
-  Header,
-  Main,
   H1,
-  Select,
-  H5,
   TextField,
   IconButton,
   FormControl,
@@ -19,7 +15,6 @@ import {
   SectionSplitter,
   SubMain
 } from "@mashreq-digital/ui";
-import { getMashreqLogo } from "@mashreq-digital/webassets";
 import { Eye2, EyeCross } from "@mashreq-digital/webassets";
 let landing = require("../../assets/images/landing.png");
 
@@ -33,7 +28,8 @@ interface State {
 const useStyles = makeStyles(theme => ({
   backgroundImg: {
     backgroundImage: `url(${landing})`,
-    backgroundSize: "cover"
+    backgroundSize: "cover",
+    backgroundPosition: "100%"
  },
   signinButton: {
     width: theme.spacing(20.8)
@@ -155,29 +151,11 @@ const LeftContent = () => {
 
 const Login = () => {
   const { backgroundImg } = useStyles();
-
-  let LogoSimbol = getMashreqLogo();
   return (
-    <Main
-      header={
-        <Header
-          left={<LogoSimbol width="40px" height="40px" />}
-          right={
-            <Select native onChange={() => {}}>
-              <option value="English">English</option>
-              <option value="Arabic">Arabic</option>
-            </Select>
-          }
-        />
-      }
-      main={
-        <SubMain
-          content={<LeftContent />}
-          image={<Box width="100%" height = "100%" className={backgroundImg}></Box>}
-        />
-      }
-      footer={<H5>Footer</H5>}
-    />
+    <SubMain
+    content={<LeftContent />}
+    image={<Box width="100%" height = "100%" className={backgroundImg}></Box>}
+  />
   );
 };
 export default Login;

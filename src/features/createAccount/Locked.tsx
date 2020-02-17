@@ -1,10 +1,6 @@
 import React from "react";
 import {
-  Header,
-  Main,
   H2,
-  Select,
-  H5,
   Switch,
   FormControlLabel,
   Button,
@@ -15,7 +11,6 @@ import {
   SectionSplitter,
   SubMain
 } from "@mashreq-digital/ui";
-import { getMashreqLogo } from "@mashreq-digital/webassets";
 
 interface State {
   notify: Boolean;
@@ -47,11 +42,11 @@ const LeftContent = () => {
     <SectionSplitter
       top={
         <Grid 
-        xs={6}
-        sm={6}
-        md={6}
-        lg={6}
-        xl={6}
+        xs={8}
+        sm={8}
+        md={8}
+        lg={8}
+        xl={8}
         >        
         <Box mt={20}>
           <H2>You’ve been locked out</H2>
@@ -103,23 +98,8 @@ const LeftContent = () => {
 };
 
 const Locked = () => {
-  let LogoSimbol = getMashreqLogo();
   return (
-    <Main
-      header={
-        <Header
-          left={<LogoSimbol width="40px" height="40px" />}
-          right={
-            <Select native onChange={() => {}}>
-              <option value="English">English</option>
-              <option value="Arabic">Arabic</option>
-            </Select>
-          }
-        />
-      }
-      main={<SubMain content={<LeftContent />} image={<Box></Box>} />}
-      footer={<H5>Footer</H5>}
-    />
+    <SubMain content={<LeftContent />} image={<Box></Box>} />
   );
 };
 export default Locked;

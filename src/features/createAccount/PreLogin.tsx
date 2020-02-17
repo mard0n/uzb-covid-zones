@@ -1,10 +1,6 @@
 import React from "react";
 import {
-  Header,
-  Main,
   H2,
-  Select,
-  H5,
   TextField,
   IconButton,
   FormControl,
@@ -17,9 +13,7 @@ import {
   SectionSplitter,
   SubMain
 } from "@mashreq-digital/ui";
-import { getMashreqLogo } from "@mashreq-digital/webassets";
 import { Eye2, EyeCross } from "@mashreq-digital/webassets";
-let landing = require("../../assets/images/landing.png");
 
 interface State {
   username: string;
@@ -39,7 +33,13 @@ const useStyles = makeStyles(theme => ({
     marginTop: theme.spacing(4.3)
   }
 }));
-const LeftContent = () => {
+const LeftContent = (props:any) => {
+  const { history } = props;
+
+  const handleBack = () => {
+    history.push("/login");
+  };
+
   const { formGroup, inputBox } = useStyles();
 
   const [values, setValues] = React.useState<State>({
@@ -55,11 +55,7 @@ const LeftContent = () => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleSwitchChange = (name: string) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setValues({ ...values, [name]: event.target.checked });
-  };
+
   const handleClickShowPassword = () => {
     console.log({ ...values, showPassword: !values.showPassword });
     setValues({ ...values, showPassword: !values.showPassword });
@@ -76,6 +72,12 @@ const LeftContent = () => {
   return (
     <SectionSplitter 
     top={
+
+      <Box mt={20}>
+                <H2>Let’s Login</H2>
+      <Box mt={2}>
+      <Caption> We’re making the process easier for our customers, let’s start with your current login details.</Caption>
+      </Box>
       <Grid 
       xs={6}
       sm={6}
@@ -84,11 +86,7 @@ const LeftContent = () => {
       xl={6}
       >     
 
-    
-      <H2>Let’s Login</H2>
-      <Box mt={2}>
-      <Caption> We’re making the process easier for our customers, let’s start with your current login details.</Caption>
-      </Box>
+
       <FormGroup className={formGroup}>
         <FormControl className={inputBox} >
           <TextField
@@ -127,16 +125,19 @@ const LeftContent = () => {
 
 
       </FormGroup>
-
      </Grid>
+
+     </Box>
+
       }
     bottom = {
       <Box borderTop={1} display="flex" justifyContent="space-between" borderColor="rgb(173, 184, 191)" pt={3}>
-        <Button variant="outlined" color="primary">
-          <span color="primary">Forgot your Username or Password </span>
+        <Button variant="outlined" color="primary" onClick={handleBack}>
+          <span color="primary">Back </span>
         </Button>
         <Button
           variant="contained"
+          onClick={props.handleNextStep}
           color="primary">Signin</Button>
           </Box>
     }
@@ -145,30 +146,12 @@ const LeftContent = () => {
   );
 };
 
-const PreLogin = () => {
-
-  let LogoSimbol = getMashreqLogo();
+const PreLogin = (props : any) => {
   return (
-    <Main
-      header={
-        <Header
-          left={<LogoSimbol width="40px" height="40px" />}
-          right={
-            <Select native onChange={() => {}}>
-              <option value="English">English</option>
-              <option value="Arabic">Arabic</option>
-            </Select>
-          }
-        />
-      }
-      main={
-        <SubMain
-          content={<LeftContent />}
-          image={<Box></Box>}
-        />
-      }
-      footer={<H5>Footer</H5>}
-    />
+    <SubMain
+    content={<LeftContent {...props}/>}
+    image={<Box></Box>}
+  />
   );
 };
 export default PreLogin;

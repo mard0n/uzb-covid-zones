@@ -1,10 +1,6 @@
 import React from "react";
 import {
-  Header,
-  Main,
   H1,
-  Select,
-  H5,
   Button,
   makeStyles,
   Caption,
@@ -15,7 +11,6 @@ import {
   MobileIconText,
   SubMain
 } from "@mashreq-digital/ui";
-import { getMashreqLogo } from "@mashreq-digital/webassets";
 
 interface State {
   number: string;
@@ -51,7 +46,7 @@ const LeftContent = () => {
         lg={6}
         xl={6}
         >
-        <Box mt={20}>
+        <Box pt={20}>
           <H1>Authentification</H1>
           <Box pt={3}>
           <Caption>
@@ -93,23 +88,10 @@ const LeftContent = () => {
 };
 
 const AuthOtp = () => {
-  let LogoSimbol = getMashreqLogo();
   return (
-    <Main
-      header={
-        <Header
-          left={<LogoSimbol width="40px" height="40px" />}
-          right={
-            <Select native onChange={() => {}}>
-              <option value="English">English</option>
-              <option value="Arabic">Arabic</option>
-            </Select>
-          }
-        />
-      }
-      main={<SubMain content={<LeftContent />} image={<Box></Box>} />}
-      footer={<H5>Footer</H5>}
-    />
+    <SubMain content={<LeftContent />} image={<Box></Box>} />
   );
 };
+
+
 export default AuthOtp;

@@ -1,49 +1,37 @@
 import React from "react";
 import {
-  Header,
-  Main,
-  H1,
-  Select,
-  H5,
+  H2,
   Container,
   Button,
-  makeStyles,
   Caption,
   Box,
   SectionSplitter,
   SubMain
 } from "@mashreq-digital/ui";
-import { getMashreqLogo } from "@mashreq-digital/webassets";
 
 interface State {
   number: string;
 }
 
-const useStyles = makeStyles(theme => ({
-
-  formGroup: {
-    width: theme.spacing(52.5)
-  },
-}));
 const LeftContent = (props:any) => {
 
-  const [values, setValues] = React.useState<State>({
-    number: ""
-  });
+  // const [values, setValues] = React.useState<State>({
+  //   number: ""
+  // });
 
-  const handleChange = (prop: keyof State) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+  // const handleChange = (prop: keyof State) => (
+  //   event: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   setValues({ ...values, [prop]: event.target.value });
+  // };
 
   return (
     <SectionSplitter
       top={
-        <>
-          <H1> Terms &amp; Conditions</H1>
+        <Box mt={10}>
+          <H2> Terms &amp; Conditions</H2>
           <Container>
-          <Box my={2} style={{height:'490px',overflowY: 'scroll'}}>
+          <Box my={2} style={{height:'490px',overflowY: 'scroll', }}>
           <Caption>
             {[...new Array(12)]
               .map(
@@ -59,7 +47,7 @@ const LeftContent = (props:any) => {
               </Caption>
           </Box>
         </Container>
-        </>
+        </Box>
       }
       bottom={
         <Box
@@ -69,9 +57,6 @@ const LeftContent = (props:any) => {
           borderColor="rgb(173, 184, 191)"
           pt={3}
         >
-          <Button variant="outlined" color="primary" size="medium">
-            <span color="primary"> Back </span>
-          </Button>
           <Button
             variant="contained"
             size="medium"
@@ -85,24 +70,9 @@ const LeftContent = (props:any) => {
   );
 };
 
-const MobileInfo = () => {
-  let LogoSimbol = getMashreqLogo();
+const Terms = () => {
   return (
-    <Main
-      header={
-        <Header
-          left={<LogoSimbol width="40px" height="40px" />}
-          right={
-            <Select native onChange={() => {}}>
-              <option value="English">English</option>
-              <option value="Arabic">Arabic</option>
-            </Select>
-          }
-        />
-      }
-      main={<SubMain content={<LeftContent />} image={<Box></Box>} />}
-      footer={<H5>Footer</H5>}
-    />
+    <SubMain content={<LeftContent />} image={<Box></Box>} />
   );
 };
-export default MobileInfo;
+export default Terms;

@@ -1,10 +1,6 @@
 import React from "react";
 import {
-  Header,
-  Main,
   H2,
-  Select,
-  H5,
   TextField,
   InputAdornment,
   Button,
@@ -15,7 +11,6 @@ import {
   SectionSplitter,
   SubMain
 } from "@mashreq-digital/ui";
-import { getMashreqLogo } from "@mashreq-digital/webassets";
 
 interface State {
   number: string;
@@ -26,30 +21,32 @@ const useStyles = makeStyles(theme => ({
     width: theme.spacing(20.8)
   }
 }));
+
+
 const LeftContent = () => {
   const {
     proceedButton,
   } = useStyles();
 
-  const [values, setValues] = React.useState<State>({
-    number: ""
-  });
+  // const [values, setValues] = React.useState<State>({
+  //   number: ""
+  // });
 
-  const handleChange = (prop: keyof State) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
+  // const handleChange = (prop: keyof State) => (
+  //   event: React.ChangeEvent<HTMLInputElement>
+  // ) => {
+  //   setValues({ ...values, [prop]: event.target.value });
+  // };
 
   return (
     <SectionSplitter
       top={
         <Grid 
-        xs={6}
-        sm={6}
-        md={6}
-        lg={6}
-        xl={6}
+        xs={8}
+        sm={8}
+        md={8}
+        lg={8}
+        xl={8}
         >
         <Box mt={20}>
           <H2>Let’s start with your mobile number.</H2>
@@ -100,23 +97,8 @@ const LeftContent = () => {
 };
 
 const MobileInfo = () => {
-  let LogoSimbol = getMashreqLogo();
-  return (
-    <Main
-      header={
-        <Header
-          left={<LogoSimbol width="40px" height="40px" />}
-          right={
-            <Select native onChange={() => {}}>
-              <option value="English">English</option>
-              <option value="Arabic">Arabic</option>
-            </Select>
-          }
-        />
-      }
-      main={<SubMain content={<LeftContent />} image={<Box></Box>} />}
-      footer={<H5>Footer</H5>}
-    />
+    return (
+    <SubMain content={<LeftContent />} image={<Box></Box>} />
   );
 };
 export default MobileInfo;
