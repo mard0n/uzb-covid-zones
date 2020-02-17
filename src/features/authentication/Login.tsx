@@ -13,7 +13,8 @@ import {
   H4,
   Box,
   SectionSplitter,
-  SubMain
+  SubMain,
+  Grid
 } from "@mashreq-digital/ui";
 import { Eye2, EyeCross } from "@mashreq-digital/webassets";
 let landing = require("../../assets/images/landing.png");
@@ -87,9 +88,24 @@ const LeftContent = (props:any) => {
   return (
     <SectionSplitter 
     top={
-      <div>
+      <Grid 
+      xs={10}
+      sm={10}
+      md={10}
+      lg={10}
+      xl={10}
+      >  
+      <Box mt={10}>
       <H1>Welcome to Mashreq Online Banking</H1>
-      <FormGroup className={formGroup}>
+      <Grid 
+      xs={7}
+      sm={7}
+      md={7}
+      lg={7}
+      xl={7}
+      > 
+
+      <FormGroup>
         <FormControl className={inputBox} >
           <TextField
             id="username"
@@ -141,8 +157,9 @@ const LeftContent = (props:any) => {
         <Caption> Check out these security tips to protect yourself from being a victim of online threats. <span color="primary">Read More</span></Caption>
         </Box>
       </FormGroup>
-
-    </div>
+      </Grid>
+      </Box>
+      </Grid>
     }
     bottom = {
       <Box display="flex" justifyContent="space-between">

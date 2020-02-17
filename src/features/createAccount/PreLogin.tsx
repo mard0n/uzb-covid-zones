@@ -81,7 +81,7 @@ const LeftContent = (props:any) => {
     <SectionSplitter 
     top={
 
-      <Box>
+      <Box mt={20}>
       <H2>Let’s Login</H2>
       <Box mt={2}>
       <Caption> We’re making the process easier for our customers, let’s start with your current login details.</Caption>

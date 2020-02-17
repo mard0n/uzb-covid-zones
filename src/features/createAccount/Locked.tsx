@@ -49,7 +49,7 @@ const LeftContent = () => {
         lg={8}
         xl={8}
         >        
-        <Box>
+        <Box mt={20}>
           <H2>You’ve been locked out</H2>
           <Grid 
         xs={8}

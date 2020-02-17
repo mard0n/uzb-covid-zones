@@ -26,7 +26,7 @@ const LeftContent = (props:any) => {
         lg={8}
         xl={8}
         >        
-        <Box>
+        <Box mt={20}> 
           <H2>Succuss</H2>
           <Grid 
         xs={8}

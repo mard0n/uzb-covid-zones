@@ -28,7 +28,7 @@ const LeftContent = (props:any) => {
   return (
     <SectionSplitter
       top={
-        <Box>
+        <Box mt={20}>
           <H2> Terms &amp; Conditions</H2>
           <Container>
           <Box my={2} style={{height:'490px',overflowY: 'scroll' }}>

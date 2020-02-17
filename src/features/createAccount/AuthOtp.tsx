@@ -68,8 +68,8 @@ const LeftContent = (props: any) => {
     const { ...rest } = renderButtonProps;
     return (
       <Box mt={3}>
-        <Button {...rest} color="primary" size="small">
-          Resend OTP Code
+        <Button {...rest}  size="small">
+         <Caption color="primary"> Resend OTP Code </Caption>
         </Button>
       </Box>
     );
@@ -98,7 +98,7 @@ const LeftContent = (props: any) => {
     <SectionSplitter
      borderTop={false}
       top={
-        <div>
+        <Box mt={20}>
           <Snackbar
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
             open={open}
@@ -146,7 +146,7 @@ const LeftContent = (props: any) => {
               </Box>
             </Box>
           </Grid>
-        </div>
+          </Box>
       }
       bottom={<Box></Box>}
     />

@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import {
   H2,
   TextField,
-  InputAdornment,
   Button,
   makeStyles,
   Caption,
@@ -58,7 +57,7 @@ const LeftContent = (props:any) => {
         lg={8}
         xl={8}
         >
-        <Box>
+        <Box mt={20}>
           <H2>Let’s start with your mobile number.</H2>
           <Box mt={3}>
           <Caption>
@@ -73,7 +72,6 @@ const LeftContent = (props:any) => {
                 type="tel"
                 variant="filled"
                 onChange={handleChange('number')}
-
               />
               </Box>
          </Box>
