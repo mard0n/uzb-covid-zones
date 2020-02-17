@@ -28,10 +28,10 @@ const LeftContent = (props:any) => {
   return (
     <SectionSplitter
       top={
-        <Box mt={10}>
+        <Box>
           <H2> Terms &amp; Conditions</H2>
           <Container>
-          <Box my={2} style={{height:'490px',overflowY: 'scroll', }}>
+          <Box my={2} style={{height:'490px',overflowY: 'scroll' }}>
           <Caption>
             {[...new Array(12)]
               .map(
@@ -50,12 +50,12 @@ const LeftContent = (props:any) => {
         </Box>
       }
       bottom={
-        <Box display="flex" justifyContent="space-between">
-
+        <Box display="flex" justifyContent="flex-end">
           <Button
             variant="contained"
             size="medium"
             color="primary"
+            onClick={props.handleNextStep}
           >
           Agree and proceed 
           </Button>
@@ -67,9 +67,9 @@ const LeftContent = (props:any) => {
   );
 };
 
-const Terms = () => {
+const Terms = (props:any) => {
   return (
-    <SubMain content={<LeftContent />} image={<Box></Box>} />
+    <SubMain content={<LeftContent {...props}/>} image={<Box></Box>} />
   );
 };
 export default Terms;

@@ -30,10 +30,12 @@ const App: FunctionComponent<AppProps & { activeStepTitle: string }> = (
         <div>
           <Header
             left={
-              <Box>
-                <MashreqLogo width="40px" height="25px" />
+              <Box display="flex" alignItems="center">
+              <MashreqLogo width="40px" height="25px" />
                 {props.match.url === "/login" ? null : (
-                  <Caption>{activeStepTitle}</Caption>
+                  <Box ml={2.5}>
+                    <Caption>{activeStepTitle}</Caption>
+                  </Box>
                 )}
               </Box>
             }

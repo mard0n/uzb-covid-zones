@@ -7,11 +7,10 @@ import { ReduxAction, stepsID } from "../../reducers/createAcountReducer";
 import { CreateAccountActions } from "../../actions/createAccountActions";
 import { Dispatch } from "redux";
 import AuthOtp from "./AuthOtp";
-import Locked from "./Locked";
 import MobileInfo from "./MobileInfo";
 import PreLogin from "./PreLogin";
 import Terms from "./Terms";
-
+import Succuss from "./Succuss";
 
 const PersonalInformatin = (props: any) => {
   const {
@@ -47,17 +46,18 @@ const PersonalInformatin = (props: any) => {
     switch (step) {
       case 0:
         return (
-          <PreLogin
-            handleNextStep={handleNextStep}
-           // handleBack={handleBack}
-            {...props}
-          />
+          <MobileInfo
+          handleNextStep={handleNextStep}
+          handleBack={handleBack}
+          {...props}
+        />
+         
         );
       case 1:
         return (
-          <MobileInfo
+          <PreLogin
             handleNextStep={handleNextStep}
-            handleBack={handleBack}
+           // handleBack={handleBack}
             {...props}
           />
         );
@@ -80,20 +80,19 @@ const PersonalInformatin = (props: any) => {
         );
       case 4:
         return (
-          <Locked
+          <Succuss
           handleNextStep={handleNextStep}
           handleBack={handleBack}
           {...props}
         />
         );
-
       default:
         return (
-          <PreLogin
-            handleNextStep={handleNextStep}
-           // handleBack={handleBack}
-            {...props}
-          />
+          <MobileInfo
+          handleNextStep={handleNextStep}
+          handleBack={handleBack}
+          {...props}
+        />
         );
     }
   };

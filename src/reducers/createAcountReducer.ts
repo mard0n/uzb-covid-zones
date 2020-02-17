@@ -6,16 +6,16 @@ export interface ReduxAction extends Action {
 }
 
 export const stepsID = [
-    "prelogin",
     "personalinfo",
+    "prelogin",
     "authentication",
     "terms",
     "success"
 ];
 
 const stepsTitles = [
-    "Step 1. Pre Login ",
-    "Step 2. Personal Information",
+    "Step 1. Personal Information",
+    "Step 2. Pre Login ",
     "Step 3. Authentication",
     "Step 4. Terms and Condition",
     "Success",

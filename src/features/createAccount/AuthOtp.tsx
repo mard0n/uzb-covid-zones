@@ -111,7 +111,7 @@ const LeftContent = (props: any) => {
           </Snackbar>
 
           <Grid xs={6} sm={6} md={6} lg={6} xl={6}>
-            <Box pt={20}>
+            <Box pt={10}>
               <H1>Authentification</H1>
               <Box pt={3}>
                 <Caption>

@@ -45,7 +45,7 @@ const LeftContent = (props:any) => {
   });
 
   const handleBack = () => {
-    history.push("/login");
+    history.push("/account/personalinfo");
   };
 
   const handlePreSignin = () => {
@@ -81,7 +81,7 @@ const LeftContent = (props:any) => {
     <SectionSplitter 
     top={
 
-      <Box mt={20}>
+      <Box>
       <H2>Let’s Login</H2>
       <Box mt={2}>
       <Caption> We’re making the process easier for our customers, let’s start with your current login details.</Caption>
@@ -108,8 +108,9 @@ const LeftContent = (props:any) => {
             }}
           />
         </FormControl>
+        <Box mt={2}>
         <Caption color="primary">Forgot your Username?</Caption>
-
+        </Box>
         <FormControl className={inputBox}>
           <TextField
             id="password"
@@ -129,9 +130,10 @@ const LeftContent = (props:any) => {
 
           />
         </FormControl>
+
+        <Box mt={2}>
         <Caption color="primary">Forgot your Password?</Caption>
-
-
+        </Box>
       </FormGroup>
      </Grid>
 
@@ -146,6 +148,7 @@ const LeftContent = (props:any) => {
         <Button
           variant="contained"
           onClick={ handlePreSignin}
+          disabled={!values.password || !values.username}
           color="primary">Signin</Button>
           </Box>
     }

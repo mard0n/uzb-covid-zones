@@ -9,7 +9,8 @@ import {
   Grid,
   Box,
   SectionSplitter,
-  SubMain
+  SubMain,
+  Timer
 } from "@mashreq-digital/ui";
 
 interface State {
@@ -48,14 +49,23 @@ const LeftContent = () => {
         lg={8}
         xl={8}
         >        
-        <Box mt={20}>
+        <Box>
           <H2>You’ve been locked out</H2>
+          <Grid 
+        xs={8}
+        sm={8}
+        md={8}
+        lg={8}
+        xl={8}
+        >   
+        <Box mt={2.5}>
           <Caption>
           Too many authentication attemps.
           For your security we have disabled this device for 15 min
           </Caption>
-
-          <Box mt={3}>
+          </Box>
+        </Grid>
+          <Box ml={3} mt={3}>
           <FormControlLabel
           control={
             <Switch
@@ -68,19 +78,19 @@ const LeftContent = () => {
           }
           label="Notify me when ready"
         />
-
         </Box>
         </Box>
         </Grid>
       }
       bottom={
-        <Box display="flex" justifyContent="space-between">
+        <Box display="flex" justifyContent="flex-end">
 
           <Button
             className={signinButton}
             variant="contained"
             size="medium"
             color="primary"
+            // disabled={true}
           >
             Try again
           </Button>
@@ -92,9 +102,9 @@ const LeftContent = () => {
   );
 };
 
-const Locked = () => {
+const Locked = (props:any) => {
   return (
-    <SubMain content={<LeftContent />} image={<Box></Box>} />
+    <SubMain content={<LeftContent {...props}/>} image={<Box mt={20} display="flex" justifyContent="center" alignContent="center" > <Timer {...props} /></Box>} />
   );
 };
 export default Locked;

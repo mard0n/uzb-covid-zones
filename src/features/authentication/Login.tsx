@@ -62,7 +62,7 @@ const LeftContent = (props:any) => {
     if(values.username === "demo" && values.password === "demo")
   {
   console.log("demo signin");
-  history.push("/account/prelogin");
+  history.push("/account/personalinfo");
 
   }
   
@@ -152,6 +152,7 @@ const LeftContent = (props:any) => {
         <Button
           variant="contained"
           color="primary"
+          disabled={!values.password || !values.username}
           onClick={onSignIn}
           >Signin</Button>
           </Box>

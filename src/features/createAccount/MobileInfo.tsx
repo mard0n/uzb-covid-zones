@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
   H2,
   TextField,
@@ -31,18 +31,22 @@ const LeftContent = (props:any) => {
   const { history } = props;
 
   const handleBack = () => {
-    history.push("/account/prelogin");
+    history.push("/login");
   };
 
-  // const [values, setValues] = React.useState<State>({
-  //   number: ""
-  // });
+  const [isEnableProceed, enableProceed] = useState(false);
 
-  // const handleChange = (prop: keyof State) => (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   setValues({ ...values, [prop]: event.target.value });
-  // };
+  const [values, setValues] = React.useState<State>({
+    number: ""
+    });
+
+  const handleChange = (prop: keyof State) => (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    console.log("sdsada");
+    setValues({ ...values, [prop]: event.target.value });
+    enableProceed(true);
+  };
 
   return (
     <SectionSplitter
@@ -54,7 +58,7 @@ const LeftContent = (props:any) => {
         lg={8}
         xl={8}
         >
-        <Box mt={20}>
+        <Box>
           <H2>Let’s start with your mobile number.</H2>
           <Box mt={3}>
           <Caption>
@@ -66,12 +70,10 @@ const LeftContent = (props:any) => {
               <TextField
                 label="Mobile Number"
                 id="mobile-number"
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position="start">+971</InputAdornment>
-                  )
-                }}
+                type="tel"
                 variant="filled"
+                onChange={handleChange('number')}
+
               />
               </Box>
          </Box>
@@ -89,6 +91,7 @@ const LeftContent = (props:any) => {
             size="medium"
             color="primary"
             onClick={props.handleNextStep}
+            disabled={!isEnableProceed}
           >
             Proceed
           </Button>
