@@ -71,19 +71,20 @@ const PersonalInformatin = (props: any) => {
         );
       case 3:
         return (
-          <Locked
-            handleNextStep={handleNextStep}
-            handleBack={handleBack}
-            {...props}
-          />
+          <Terms
+          handleNextStep={handleNextStep}
+          handleBack={handleBack}
+          {...props}
+        />
+          
         );
       case 4:
         return (
-          <Terms
-            handleNextStep={handleNextStep}
-            handleBack={handleBack}
-            {...props}
-          />
+          <Locked
+          handleNextStep={handleNextStep}
+          handleBack={handleBack}
+          {...props}
+        />
         );
 
       default:
@@ -99,8 +100,7 @@ const PersonalInformatin = (props: any) => {
 
   return (
     <div>
-     
-      <Box my={7}>{getStepContent(activeStep)}</Box>
+      <Box>{getStepContent(activeStep)}</Box>
     </div>
   );
 };

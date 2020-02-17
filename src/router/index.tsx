@@ -10,7 +10,6 @@ const NoMatchPage = () => {
 const Routes: FunctionComponent = (): JSX.Element => {
   return (
     <Switch>
-    
       <Route
         path={ROUTER_ACCOUNT_CREATE}
         render={routerProps => <CreateAccount {...routerProps} />}

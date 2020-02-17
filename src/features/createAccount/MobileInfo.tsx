@@ -23,10 +23,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-const LeftContent = () => {
+const LeftContent = (props:any) => {
   const {
     proceedButton,
   } = useStyles();
+
+  const { history } = props;
+
+  const handleBack = () => {
+    history.push("/account/prelogin");
+  };
 
   // const [values, setValues] = React.useState<State>({
   //   number: ""
@@ -79,7 +85,7 @@ const LeftContent = () => {
           borderColor="rgb(173, 184, 191)"
           pt={3}
         >
-          <Button variant="outlined" color="primary" size="medium">
+          <Button variant="outlined" color="primary" onClick={handleBack} size="medium">
             <span color="primary"> Back </span>
           </Button>
           <Button
@@ -87,6 +93,7 @@ const LeftContent = () => {
             variant="contained"
             size="medium"
             color="primary"
+            onClick={props.handleNextStep}
           >
             Proceed
           </Button>
@@ -96,9 +103,9 @@ const LeftContent = () => {
   );
 };
 
-const MobileInfo = () => {
+const MobileInfo = (props:any) => {
     return (
-    <SubMain content={<LeftContent />} image={<Box></Box>} />
+    <SubMain content={<LeftContent {...props}/>} image={<Box></Box>} />
   );
 };
 export default MobileInfo;

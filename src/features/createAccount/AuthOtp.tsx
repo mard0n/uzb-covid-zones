@@ -27,6 +27,11 @@ const LeftContent = (props: any) => {
   const [error, setError] = useState(false);
   const [onCompleteResendTimer, setOnCompleteResendTimer] = useState(false);
   const [enableResend, setEnableResend] = useState(false);
+  const { history } = props;
+
+  const handleBack = () => {
+    history.push("/account/personalinfo");
+  };
 
   const onChange = (val: any) => {
     setOtp(val);
@@ -38,9 +43,6 @@ const LeftContent = (props: any) => {
         setError(isError);
         setEnableResend(isError);
         setOtp("");
-        if (!isError) {
-          props.onFinish();
-        }
       }
     }, 100);
   };
@@ -127,7 +129,7 @@ const LeftContent = (props: any) => {
           borderColor="rgb(173, 184, 191)"
           pt={3}
         >
-          <Button variant="outlined" color="primary" size="medium">
+          <Button variant="outlined" color="primary" onClick={handleBack}  size="medium">
             <span color="primary"> Back </span>
           </Button>
           <Button
@@ -135,6 +137,7 @@ const LeftContent = (props: any) => {
             variant="contained"
             size="medium"
             color="primary"
+            onClick={props.handleNextStep}
           >
             Proceed
           </Button>
@@ -144,8 +147,8 @@ const LeftContent = (props: any) => {
   );
 };
 
-const AuthOtp = () => {
-  return <SubMain content={<LeftContent />} image={<Box></Box>} />;
+const AuthOtp = (props:any) => {
+  return <SubMain content={<LeftContent {...props}/>} image={<Box></Box>} />;
 };
 
 export default AuthOtp;

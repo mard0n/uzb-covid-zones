@@ -129,7 +129,6 @@ const LeftContent = () => {
         <H4> Ensure You are Always Protected </H4>
         <Caption> Check out these security tips to protect yourself from being a victim of online threats. <span color="primary">Read More</span></Caption>
         </Box>
-
       </FormGroup>
 
     </div>
@@ -145,7 +144,6 @@ const LeftContent = () => {
           </Box>
     }
     />
-    
   );
 };
 
