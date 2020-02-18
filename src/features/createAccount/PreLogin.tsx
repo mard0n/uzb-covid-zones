@@ -11,7 +11,10 @@ import {
   Caption,
   Box,
   SectionSplitter,
-  SubMain
+  SubMain,
+  Snackbar,
+  Toast,
+  AlertTitle
 } from "@mashreq-digital/ui";
 import { Eye2, EyeCross } from "@mashreq-digital/webassets";
 
@@ -43,6 +46,7 @@ const LeftContent = (props:any) => {
     showPassword: false,
     showKeyboard: false
   });
+  const [openError, setOpenError] = React.useState(false);
 
   const handleBack = () => {
     history.push("/account/personalinfo");
@@ -51,10 +55,11 @@ const LeftContent = (props:any) => {
   const handlePreSignin = () => {
   if(values.username === "demo" && values.password === "demo"){
     props.handleNextStep();
+   }else{
+    setOpenError(true);
    }
  
   };
-
 
 
   const handleChange = (prop: keyof State) => (
@@ -75,11 +80,29 @@ const LeftContent = (props:any) => {
     event.preventDefault();
   };
 
+  const handleErrorClose = ()=>{
+    setOpenError(false);
+
+  }
 
 
   return (
     <SectionSplitter 
     top={
+
+      <Box>
+         
+      <Snackbar
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      open={openError}
+      onClose={handleErrorClose}
+      autoHideDuration={5000}
+    >
+      <Toast severity="error">
+        <AlertTitle>Ooops!</AlertTitle>
+       <Box> Sorry it seems like you’ve made a mistake</Box>
+      </Toast>
+    </Snackbar>
 
       <Box mt={20}>
       <H2>Let’s Login</H2>
@@ -99,6 +122,7 @@ const LeftContent = (props:any) => {
         <FormControl className={inputBox} >
           <TextField
             id="username"
+            error={openError}
             value={values.username}
             label="Username"
             onChange={handleChange("username")}
@@ -114,6 +138,7 @@ const LeftContent = (props:any) => {
         <FormControl className={inputBox}>
           <TextField
             id="password"
+            error={openError}
             label="Password"
             type={values.showPassword ? "text" : "password"}
             value={values.password}
@@ -137,6 +162,7 @@ const LeftContent = (props:any) => {
       </FormGroup>
      </Grid>
 
+     </Box>
      </Box>
 
       }

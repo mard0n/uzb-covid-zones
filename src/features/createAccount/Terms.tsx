@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import {
   H2,
   Container,
@@ -9,21 +9,18 @@ import {
   SubMain
 } from "@mashreq-digital/ui";
 
-interface State {
-  number: string;
-}
 
 const LeftContent = (props:any) => {
+  const [ scrolled, setScrolled ] = useState(false);
 
-  // const [values, setValues] = React.useState<State>({
-  //   number: ""
-  // });
+  const handleScroll = (e: any) => { 
+    const { scrollTop, scrollHeight, offsetHeight } = e.target;
+    if( scrollTop === (scrollHeight - offsetHeight))
+      {
+        setScrolled(true)
+      }
+  }
 
-  // const handleChange = (prop: keyof State) => (
-  //   event: React.ChangeEvent<HTMLInputElement>
-  // ) => {
-  //   setValues({ ...values, [prop]: event.target.value });
-  // };
 
   return (
     <SectionSplitter
@@ -31,7 +28,8 @@ const LeftContent = (props:any) => {
         <Box mt={20}>
           <H2> Terms &amp; Conditions</H2>
           <Container>
-          <Box my={2} style={{height:'490px',overflowY: 'scroll' }}>
+          <Box my={2} id="termScroll" style={{height:'490px',overflowY: 'scroll' }} onScroll={handleScroll}>
+
           <Caption>
             {[...new Array(12)]
               .map(
@@ -55,6 +53,7 @@ const LeftContent = (props:any) => {
             variant="contained"
             size="medium"
             color="primary"
+            disabled={!scrolled}
             onClick={props.handleNextStep}
           >
           Agree and proceed 

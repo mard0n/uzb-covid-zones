@@ -14,9 +14,14 @@ import {
   Box,
   SectionSplitter,
   SubMain,
-  Grid
+  Grid,
+  Snackbar,
+  Toast,
+  AlertTitle
 } from "@mashreq-digital/ui";
 import { Eye2, EyeCross } from "@mashreq-digital/webassets";
+import { useTranslation } from 'react-i18next';
+
 let landing = require("../../assets/images/landing.png");
 
 interface State {
@@ -39,6 +44,7 @@ const useStyles = makeStyles(theme => ({
 const LeftContent = (props:any) => {
   const { inputBox } = useStyles();
   const { history } = props;
+  const { t } = useTranslation();
 
   const [values, setValues] = React.useState<State>({
     username: "",
@@ -46,6 +52,9 @@ const LeftContent = (props:any) => {
     showPassword: false,
     showKeyboard: false
   });
+
+  const [openError, setOpenError] = React.useState(false);
+
 
   const handleChange = (prop: keyof State) => (
     event: React.ChangeEvent<HTMLInputElement>
@@ -59,6 +68,8 @@ const LeftContent = (props:any) => {
   console.log("demo signin");
   history.push("/account/personalinfo");
 
+  }else{
+    setOpenError(true);
   }
   
   };
@@ -78,6 +89,10 @@ const LeftContent = (props:any) => {
   ) => {
     event.preventDefault();
   };
+  const handleErrorClose = ()=>{
+    setOpenError(false);
+
+  }
 
   return (
     <SectionSplitter 
@@ -88,9 +103,22 @@ const LeftContent = (props:any) => {
       md={10}
       lg={10}
       xl={10}
-      >  
+      > 
+      
+      <Snackbar
+      anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      open={openError}
+      onClose={handleErrorClose}
+      autoHideDuration={5000}
+    >
+      <Toast severity="error">
+        <AlertTitle>{t("Error.ErrorTitle")}</AlertTitle>
+       <Box>{t("Error.LoginErrorHeading")} </Box>
+      </Toast>
+    </Snackbar>
+
       <Box mt={10}>
-      <H1>Welcome to Mashreq Online Banking</H1>
+      <H1>{t("Login.title")}</H1>
       <Grid 
       xs={7}
       sm={7}
@@ -103,10 +131,11 @@ const LeftContent = (props:any) => {
         <FormControl className={inputBox} >
           <TextField
             id="username"
+            error = {openError}
             value={values.username}
-            label="Username"
+            label={t("common.username")}
             onChange={handleChange("username")}
-            aria-describedby="username"
+            aria-describedby={t("common.username")}
             inputProps={{
               "aria-label": "username"
             }}
@@ -116,7 +145,8 @@ const LeftContent = (props:any) => {
         <FormControl className={inputBox}>
           <TextField
             id="password"
-            label="Password"
+            error = {openError}
+            label={t("common.password")}
             type={values.showPassword ? "text" : "password"}
             value={values.password}
             onChange={handleChange("password")}
@@ -143,12 +173,12 @@ const LeftContent = (props:any) => {
               value="showKeyboard"
             />
           }
-          label="Virtual Keyboard"
+          label={t("Login.keyboard")} 
         />
         </Box>
         <Box mt={8} pt={2} borderTop={1} borderColor="rgba(151, 151, 151, 0.2)">
-        <H4> Ensure You are Always Protected </H4>
-        <Caption> Check out these security tips to protect yourself from being a victim of online threats. <span color="primary">Read More</span></Caption>
+        <H4> {t("Login.ensure")} </H4>
+        <Caption> {t("Login.securityTips")}</Caption>
         </Box>
       </FormGroup>
       </Grid>
@@ -158,14 +188,17 @@ const LeftContent = (props:any) => {
     bottom = {
       <Box display="flex" justifyContent="space-between">
         <Button variant="outlined" color="primary">
-          <span color="primary">Forgot your Username or Password </span>
+          <span color="primary">{t("Login.forgot")} </span>
         </Button>
         <Button
           variant="contained"
           color="primary"
           disabled={!values.password || !values.username}
           onClick={onSignIn}
-          >Signin</Button>
+          >
+          {t("common.signin")}
+          
+          </Button>
           </Box>
     }
     borderTop={true}

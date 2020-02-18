@@ -27,7 +27,7 @@ const LeftContent = (props: any) => {
   const [otpCount, setOtpCount] = useState(0);
   const [onCompleteResendTimer, setOnCompleteResendTimer] = useState(false);
   const [enableResend, setEnableResend] = useState(false);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpenError] = React.useState(false);
 
 
   const onChange = (val: any) => {
@@ -46,7 +46,7 @@ const LeftContent = (props: any) => {
         setError(isError);
         setEnableResend(isError);
         setOtp("");
-        setOpen(true);
+        setOpenError(true);
       }
     }, 100);
   };
@@ -60,6 +60,11 @@ const LeftContent = (props: any) => {
     setOnCompleteResendTimer(false);
   };
 
+  const handleErrorClose = ()=>{
+    setOpenError(false);
+
+  }
+  
   const renderButton = (renderButtonProps: any) => {
     const { ...rest } = renderButtonProps;
     return (
@@ -91,7 +96,8 @@ const LeftContent = (props: any) => {
           <Snackbar
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
             open={open}
-            autoHideDuration={100}
+            onClose={handleErrorClose}
+            autoHideDuration={5000}
           >
             <Toast severity="error">
               <AlertTitle>Ooops!</AlertTitle>

@@ -1,16 +1,28 @@
 {
-    "prelaunch": {
-      "language": {
-        "ar": "عربى",
-        "en": "EN",
-        "arabic": "عربى",
-        "english": "English",
-        "choose": "Choose your language",
-        "save": "Save & Continue"
-      },
-      "intro": "Welcome to Mashreq",
-      "login": "Login",
-      "register": "Register"
-      }
+  "common": {
+    "language": {
+      "ar": "عربى",
+      "en": "EN",
+      "arabic": "عربى",
+      "english": "English"
+    },
+    "username": "Username",
+    "password": "Password",
+    "signin": "Signin"
+  },
+  "Error": {
+    "ErrorTitle": "Oops!",
+    "LoginErrorHeading": "Sorry it seems like you’ve made a mistake"
+  },
+  "Login": {
+    "title": "Welcome to Mashreq Online Banking",
+    "ensure": "Ensure You are Always Protected",
+    "securityTips": "Check out these security tips to protect yourself from being a victim of online threats. Read More",
+    "keyboard": "Virtual Keyboard",
+    "forgot": "Forgot your Username or Password"
+  },
+  "Footer": {
+    "copy": "© 2019 Mashreq",
+    "link": "Requirements | Security | Privacy policy | Service Terms"
   }
-  
+}
