@@ -23,7 +23,10 @@ const useStyles = makeStyles(theme => ({
   },
 
 }));
-const LeftContent = () => {
+
+
+
+const LeftContent = (props:any) => {
   const {
     signinButton,
   } = useStyles();
@@ -31,6 +34,12 @@ const LeftContent = () => {
   const [values, setValues] = React.useState<State>({
     notify: false
   });
+  const { history } = props;
+
+  const handleTryAgain = () => {
+    window.location.reload(); 
+    history.push("/account/authentication");
+  };
 
 
   const handleSwitchChange = (name: string) => (
@@ -91,6 +100,7 @@ const LeftContent = () => {
             size="medium"
             color="primary"
             // disabled={true}
+            onClick={handleTryAgain}
           >
             Try again
           </Button>

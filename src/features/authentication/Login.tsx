@@ -32,18 +32,12 @@ const useStyles = makeStyles(theme => ({
     backgroundSize: "cover",
     backgroundPosition: "100%"
  },
-  signinButton: {
-    width: theme.spacing(20.8)
-  },
-  formGroup: {
-    width: theme.spacing(52.5)
-  },
   inputBox: {
     marginTop: theme.spacing(4.3)
   }
 }));
 const LeftContent = (props:any) => {
-  const { formGroup, signinButton, inputBox } = useStyles();
+  const { inputBox } = useStyles();
   const { history } = props;
 
   const [values, setValues] = React.useState<State>({

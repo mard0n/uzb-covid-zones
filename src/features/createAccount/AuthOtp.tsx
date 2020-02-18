@@ -27,12 +27,8 @@ const LeftContent = (props: any) => {
   const [otpCount, setOtpCount] = useState(0);
   const [onCompleteResendTimer, setOnCompleteResendTimer] = useState(false);
   const [enableResend, setEnableResend] = useState(false);
-  const { history } = props;
   const [open, setOpen] = React.useState(false);
 
-  const handleBack = () => {
-    history.push("/account/personalinfo");
-  };
 
   const onChange = (val: any) => {
     setOtp(val);
@@ -75,9 +71,7 @@ const LeftContent = (props: any) => {
     );
   };
 
-  const [values, setValues] = React.useState<State>({
-    number: ""
-  });
+
 
   const renderTime = (remainingTime: any) => {
     return (
@@ -88,11 +82,6 @@ const LeftContent = (props: any) => {
     );
   };
 
-  const handleChange = (prop: keyof State) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
 
   return (
     <SectionSplitter

@@ -10,7 +10,7 @@ import AuthOtp from "./AuthOtp";
 import MobileInfo from "./MobileInfo";
 import PreLogin from "./PreLogin";
 import Terms from "./Terms";
-import Succuss from "./Succuss";
+import Succuss from "./Success";
 
 const PersonalInformatin = (props: any) => {
   const {
