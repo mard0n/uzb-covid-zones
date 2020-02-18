@@ -69,6 +69,7 @@ const LeftContent = (props:any) => {
               <TextField
                 label="Mobile Number"
                 id="mobile-number"
+                autoFocus={true}
                 type="tel"
                 variant="filled"
                 onChange={handleChange('number')}

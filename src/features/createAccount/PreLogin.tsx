@@ -123,6 +123,7 @@ const LeftContent = (props:any) => {
           <TextField
             id="username"
             error={openError}
+            autoFocus={true}
             value={values.username}
             label="Username"
             onChange={handleChange("username")}

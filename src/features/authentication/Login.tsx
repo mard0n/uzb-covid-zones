@@ -131,6 +131,7 @@ const LeftContent = (props:any) => {
         <FormControl className={inputBox} >
           <TextField
             id="username"
+            autoFocus={true}
             error = {openError}
             value={values.username}
             label={t("common.username")}

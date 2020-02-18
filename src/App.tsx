@@ -27,6 +27,7 @@ const App: FunctionComponent<AppProps & { activeStepTitle: string }> = (
     let newlang = event.target.value;
     i18n.changeLanguage(newlang);
   };
+// let url = props.match.url.split()
 
   return (
     <Main
@@ -36,51 +37,53 @@ const App: FunctionComponent<AppProps & { activeStepTitle: string }> = (
             left={
               <Box display="flex" alignItems="center">
               <MashreqLogo width="40px" height="25px" />
-                {props.match.url === "/account/*" ? (
+                {props.match.url === "/login" ?  null :(
                   <Box ml={2.5}>
                     <Caption>{activeStepTitle}</Caption>
                   </Box>
-                ): null  }
+                )  }
               </Box>
             }
             right={
               <Box>
-                {props.match.url === "/account/" ? (
-                  <Caption> Need Help ? </Caption>
-                ): (
+                {props.match.url === "/login" ?  (
                   <Select native onChange={handleLanguageChange}>
                     <option value="er">{t("common.language.english")}</option>
                     <option value="ar">{t("common.language.arabic")}</option>
                   </Select>
+                ):(
+                  <Caption> Need Help ? </Caption>
                 ) }
               </Box>
             }
           />
 
-          {props.match.url === "/account/" ? (
+          {props.match.url === "/login" ?  null: (
             <LinearProgressBar
               activeStep={activeStep}
               variant="determinate"
               totalStep={stepsID.length - 1}
             />
-          ) : null
+          ) 
         }
         </div>
       }
       main={<Routes />}
       footer={
-        <Footer>
-          <Box>
-            <Box style={{float:"left"}}>  
-            <Caption> {t("Footer.copy")} </Caption>
-            </Box>
-            <Box style={{float:"right"}}>
-              <Caption>
-              {t("Footer.link")}
-              </Caption>
-            </Box>
+        <>
+        {props.match.url === "/login" && <Footer>
+        <Box>
+          <Box style={{float:"left"}}>  
+          <Caption> {t("Footer.copy")} </Caption>
           </Box>
-        </Footer>
+          <Box style={{float:"right"}}>
+            <Caption>
+            {t("Footer.link")}
+            </Caption>
+          </Box>
+        </Box>
+      </Footer>}
+      </>
       }
     />
   );
