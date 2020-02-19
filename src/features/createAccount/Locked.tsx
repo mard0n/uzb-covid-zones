@@ -25,16 +25,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
-
 const LeftContent = (props:any) => {
   const {
     signinButton,
   } = useStyles();
 
+
   const [values, setValues] = React.useState<State>({
     notify: false
   });
-  const { history } = props;
+  const { history, tryAgain } = props;
 
   const handleTryAgain = () => {
     window.location.reload(); 
@@ -99,7 +99,7 @@ const LeftContent = (props:any) => {
             variant="contained"
             size="medium"
             color="primary"
-            // disabled={true}
+            disabled={!tryAgain}
             onClick={handleTryAgain}
           >
             Try again
@@ -113,8 +113,17 @@ const LeftContent = (props:any) => {
 };
 
 const Locked = (props:any) => {
+  const [tryAgain, EnableTryAgain] = React.useState(false);
+
+  const handleTimerUpdate =(time:any)=>{
+    if(time === 1){
+      console.log("unlock it is ", time);
+      EnableTryAgain(true);
+    }
+    }
+
   return (
-    <SubMain content={<LeftContent {...props}/>} image={<Box mt={20} display="flex" justifyContent="center" alignContent="center" > <Timer {...props} /></Box>} />
+    <SubMain content={<LeftContent {...props} tryAgain={tryAgain} />} image={<Box mt={20} display="flex" justifyContent="center" alignContent="center" > <Timer {...props} minutes={0.10} handleTimerUpdate={handleTimerUpdate} /></Box>} />
   );
 };
 export default Locked;

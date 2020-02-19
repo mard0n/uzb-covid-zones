@@ -164,6 +164,7 @@ const LeftContent = (props:any) => {
           />
         </FormControl>
             <Box ml={3}>
+
         <FormControlLabel
           className={inputBox}
           control={
@@ -176,6 +177,7 @@ const LeftContent = (props:any) => {
           }
           label={t("Login.keyboard")} 
         />
+        
         </Box>
         <Box mt={8} pt={2} borderTop={1} borderColor="rgba(151, 151, 151, 0.2)">
         <H4> {t("Login.ensure")} </H4>

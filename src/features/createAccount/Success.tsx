@@ -50,7 +50,7 @@ const LeftContent = (props:any) => {
             color="primary"
             onClick = {()=>history.push("/login")}
           >
-            Start again
+            Start Demo again
           </Button>
         </Box>
       }
