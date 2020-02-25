@@ -1,7 +1,5 @@
-import React, {useEffect } from "react";
-import {
-  Box,
-} from "@mashreq-digital/ui";
+import React, { useEffect } from "react";
+import { Box } from "@mashreq-digital/ui";
 import { connect } from "react-redux";
 import { ReduxAction, stepsID } from "../../reducers/createAcountReducer";
 import { CreateAccountActions } from "../../actions/createAccountActions";
@@ -22,6 +20,7 @@ const PersonalInformatin = (props: any) => {
     isFirstStep
   } = props;
 
+  console.log("PersonalInformatin");
 
   useEffect(() => {
     let routePath = match?.params?.stepId,
@@ -47,17 +46,16 @@ const PersonalInformatin = (props: any) => {
       case 0:
         return (
           <MobileInfo
-          handleNextStep={handleNextStep}
-          handleBack={handleBack}
-          {...props}
-        />
-         
+            handleNextStep={handleNextStep}
+            handleBack={handleBack}
+            {...props}
+          />
         );
       case 1:
         return (
           <PreLogin
             handleNextStep={handleNextStep}
-           // handleBack={handleBack}
+            // handleBack={handleBack}
             {...props}
           />
         );
@@ -72,27 +70,26 @@ const PersonalInformatin = (props: any) => {
       case 3:
         return (
           <Terms
-          handleNextStep={handleNextStep}
-          handleBack={handleBack}
-          {...props}
-        />
-          
+            handleNextStep={handleNextStep}
+            handleBack={handleBack}
+            {...props}
+          />
         );
       case 4:
         return (
           <Succuss
-          handleNextStep={handleNextStep}
-          handleBack={handleBack}
-          {...props}
-        />
+            handleNextStep={handleNextStep}
+            handleBack={handleBack}
+            {...props}
+          />
         );
       default:
         return (
           <MobileInfo
-          handleNextStep={handleNextStep}
-          handleBack={handleBack}
-          {...props}
-        />
+            handleNextStep={handleNextStep}
+            handleBack={handleBack}
+            {...props}
+          />
         );
     }
   };
@@ -111,7 +108,7 @@ const mapStateToProps = (state: any) => ({
 });
 
 const mapDispatchToProps = (dispatch: Dispatch<ReduxAction>) => ({
-     setActiveStep: (step: number) =>
+  setActiveStep: (step: number) =>
     dispatch({ type: CreateAccountActions.setActiveStep, payload: step })
 });
 

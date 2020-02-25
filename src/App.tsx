@@ -1,101 +1,38 @@
 import React, { FunctionComponent } from "react";
 import Routes from "./router";
 import { AppProps } from "./types";
-import {
-  Footer,
-  Main,
-  Header,
-  LinearProgressBar,
-  Select,
-  Box,
-  Caption
-} from "@mashreq-digital/ui";
-import i18n from "./i18n";
-import { useTranslation } from 'react-i18next';
-import { connect } from "react-redux";
-import { stepsID } from "./reducers/createAcountReducer";
-import { getMashreqLogo } from "@mashreq-digital/webassets";
-const App: FunctionComponent<AppProps & { activeStepTitle: string }> = (
-  props: any
-): JSX.Element => {
-  const { activeStep, activeStepTitle } = props;
+import { Footer, Main, Box } from "@mashreq-digital/ui";
+import { useTranslation } from "react-i18next";
+import { withRouter } from "react-router-dom";
+import MOLHeader from "./features/header";
+
+const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
   const { t } = useTranslation();
-
-  const MashreqLogo = getMashreqLogo();
-
-  let handleLanguageChange = (event:any) => {
-    let newlang = event.target.value;
-    i18n.changeLanguage(newlang);
-  };
-// let url = props.match.url.split()
-
+  const footerLinks: Array<string> = t("footer.links", { returnObjects: true });
   return (
     <Main
-      header={
-        <div>
-          <Header
-            left={
-              <Box display="flex" alignItems="center">
-              <MashreqLogo width="40px" height="25px" />
-                {props.match.url === "/login" ?  null :(
-                  <Box ml={2.5}>
-                    <Caption>{activeStepTitle}</Caption>
-                  </Box>
-                )  }
-              </Box>
-            }
-            right={
-              <Box>
-                {props.match.url === "/login" ?  (
-                  <Select native onChange={handleLanguageChange}>
-                    <option value="er">{t("common.language.english")}</option>
-                    <option value="ar">{t("common.language.arabic")}</option>
-                  </Select>
-                ):(
-                  <Caption> Need Help ? </Caption>
-                ) }
-              </Box>
-            }
-          />
-
-          {props.match.url === "/login" ?  null: (
-            <LinearProgressBar
-              activeStep={activeStep}
-              variant="determinate"
-              totalStep={stepsID.length - 1}
-            />
-          ) 
-        }
-        </div>
-      }
+      header={<MOLHeader {...props} />}
       main={<Routes />}
       footer={
         <>
-        {props.match.url === "/login" && <Footer>
-        <Box>
-          <Box style={{float:"left"}}>  
-          <Caption> {t("Footer.copy")} </Caption>
-          </Box>
-          <Box style={{float:"right"}}>
-            <Caption>
-            {t("Footer.link")}
-            </Caption>
-          </Box>
-        </Box>
-      </Footer>}
-      </>
+          {props.match.url === "/login" && (
+            <Footer>
+              <Box display="flex" justifyContent="space-between">
+                <Box>&copy; {t("footer.copy")}</Box>
+                <Box>
+                  <ul className="list-style-none inline border">
+                    {footerLinks.map((list: string, i: number) => (
+                      <li key={"footerlist" + i}>{list}</li>
+                    ))}
+                  </ul>
+                </Box>
+              </Box>
+            </Footer>
+          )}
+        </>
       }
     />
   );
 };
 
-const mapStateToProps = (state: any) => ({
-  activeStepTitle: state.createAccount.activeStepTitle,
-  activeStep: state.createAccount.activeStep
-});
-
-App.defaultProps = {
-  activeStepTitle: "default"
-};
-
-export default connect(mapStateToProps)(App);
+export default withRouter(App);

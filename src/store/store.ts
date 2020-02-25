@@ -1,7 +1,7 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import createSagaMiddleware from 'redux-saga';
-import rootSaga from '../sagas/rootSaga';
-import rootReducer from '../reducers/index';
+import { createStore, applyMiddleware, compose } from "redux";
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "../sagas/rootSaga";
+import rootReducer from "../reducers/index";
 
 /* Hot Module Reload */
 
@@ -17,7 +17,7 @@ const reduxDevTools = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const sagaMiddleware = createSagaMiddleware();
 
-const store = createStore(
+const store: any = createStore(
   rootReducer,
   reduxDevTools(applyMiddleware(sagaMiddleware))
 );
@@ -26,8 +26,8 @@ sagaMiddleware.run(rootSaga);
 
 /* Hot Module Reload */
 
-if (process.env.NODE_ENV !== 'production' && module.hot) {
-  module.hot.accept('../reducers', () => store.replaceReducer(rootReducer));
+if (process.env.NODE_ENV !== "production" && module.hot) {
+  module.hot.accept("../reducers", () => store.replaceReducer(rootReducer));
 }
 
 /* Hot Module Reload Ends */

@@ -6,23 +6,85 @@
       "arabic": "عربى",
       "english": "English"
     },
-    "username": "Username",
-    "password": "Password",
-    "signin": "Signin"
+    "label": {
+      "username": "Username",
+      "password": "Password",
+      "mobileNumber": "Mobile Number"
+    },
+    "action": {
+      "back": "Back",
+      "proceed": "Proceed",
+      "signin": "Signin",
+      "tryAgain": "Try Again"
+    },
+    "links": {
+      "forgetUsername": "Forgot your Username?",
+      "forgetPassword": "Forgot your Password?",
+      "needHelp": "Need Help ?"
+    }
   },
-  "Error": {
-    "ErrorTitle": "Oops!",
-    "LoginErrorHeading": "Sorry it seems like you’ve made a mistake"
+  "error": {
+    "title": "Oops!",
+    "desc": "Sorry it seems like you’ve made a mistake"
   },
-  "Login": {
+  "login": {
     "title": "Welcome to Mashreq Online Banking",
     "ensure": "Ensure You are Always Protected",
     "securityTips": "Check out these security tips to protect yourself from being a victim of online threats. Read More",
     "keyboard": "Virtual Keyboard",
     "forgot": "Forgot your Username or Password"
   },
-  "Footer": {
-    "copy": "© 2019 Mashreq",
-    "link": "Requirements | Security | Privacy policy | Service Terms"
+  "account": {
+    "steps": [
+      "Step 1. Personal Information",
+      "Step 2. Pre Login ",
+      "Step 3. Authentication",
+      "Step 4. Terms and Condition",
+      "Success"
+    ],
+    "personalinfo": {
+      "title": "Let’s start with your mobile number",
+      "descStart": "Please enter your mobile number",
+      "descBold": "registered with Mashreq",
+      "descEnd": "We will send you a text message with a 6 digit code for authentication."
+    },
+    "prelogin": {
+      "title": "Let’s Login",
+      "desc": "We’re making the process easier for our customers, let’s start with your current login details.",
+      "descBold": "registered with Mashreq",
+      "descEnd": "We will send you a text message with a 6 digit code for authentication."
+    },
+    "authentication": {
+      "title": "Authentication",
+      "desc": "Please enter the 6 digit code sent to your mobile number",
+      "resendOtp": {
+        "action": "Resend OTP Code",
+        "desc": "Resend possible in",
+        "sec": "sec"
+      },
+      "locked": {
+        "title": "You’ve been locked out",
+        "desc": "Too many authentication attemps. For your security we have disabled this device for 15 min",
+        "nofity": "Notify me when ready"
+      },
+      "errors": {
+        "title": "Ooops!",
+        "desc": "Sorry it seems like you’ve made a mistake in your OTP. You have",
+        "attemptsLeft": "attempts left."
+      }
+    },
+    "termsAndConditions": {
+      "title": "Terms & Conditions",
+      "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "action": "Agree and proceeds"
+    },
+    "success": {
+      "title": "Success",
+      "action": "Start Demo again"
+    }
+  },
+  "footer": {
+    "copy": "2019 Mashreq",
+    "links": ["Requirements", "Security", "Privacy policy", "Service Terms"]
   }
 }

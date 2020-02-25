@@ -3,35 +3,19 @@ import "react-app-polyfill/stable";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import { BrowserRouter as Router, Route } from "react-router-dom";
 import i18n from "./i18n";
 import * as serviceWorker from "./serviceWorker";
 import { I18nextProvider } from "react-i18next";
 
 import store from "./store/store";
-import {
-  ThemeProvider,
-  getMashreqTheme,
-  CssBaseline
-} from "@mashreq-digital/ui";
-import GlobalCss from "./features/globalCss/GlobalCSS";
-import App from "./App";
+import Setup from "./Setup";
 
 ReactDOM.render(
-  <ThemeProvider theme={getMashreqTheme(undefined, undefined, "ltr")}>
-    <div dir="ltr">
-      <GlobalCss />
-      <Provider store={store}>
-      <I18nextProvider i18n={i18n}>
-
-        <Router>
-          <CssBaseline />
-          <Route path="*" render={renderProps => <App {...renderProps} />} />
-        </Router>
-      </I18nextProvider> 
-      </Provider>
-    </div>
-  </ThemeProvider>,
+  <Provider store={store}>
+    <I18nextProvider i18n={i18n}>
+      <Setup />
+    </I18nextProvider>
+  </Provider>,
   document.getElementById("root")
 );
 

@@ -15,6 +15,7 @@ import {
   AlertTitle,
   Snackbar
 } from "@mashreq-digital/ui";
+import { useTranslation } from "react-i18next";
 import Locked from "./Locked";
 
 interface State {
@@ -22,6 +23,7 @@ interface State {
 }
 
 const LeftContent = (props: any) => {
+  const { t } = useTranslation();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(false);
   const [otpCount, setOtpCount] = useState(0);
@@ -29,20 +31,19 @@ const LeftContent = (props: any) => {
   const [enableResend, setEnableResend] = useState(false);
   const [open, setOpenError] = React.useState(false);
 
-
   const onChange = (val: any) => {
     setOtp(val);
-    console.log(val.length);
     const trimValue = val;
     setTimeout(() => {
       if (trimValue && trimValue.length === 6) {
         if (val === "555555") {
-          console.log("submit netw page");
           props.handleNextStep();
         }
         let isError = val && val === "111111";
         isError ? setOtpCount(otpCount + 1) : setOtpCount(otpCount);
-        if(otpCount === 2) { props.onLock(false) };
+        if (otpCount === 2) {
+          props.onLock(false);
+        }
         setError(isError);
         setEnableResend(isError);
         setOtp("");
@@ -60,37 +61,36 @@ const LeftContent = (props: any) => {
     setOnCompleteResendTimer(false);
   };
 
-  const handleErrorClose = ()=>{
+  const handleErrorClose = () => {
     setOpenError(false);
+  };
 
-  }
-  
   const renderButton = (renderButtonProps: any) => {
     const { ...rest } = renderButtonProps;
     return (
       <Box mt={3}>
-        <Button {...rest}  size="small">
-         <Caption color="primary"> Resend OTP Code </Caption>
+        <Button {...rest}>
+          {t("account.authentication.resendOtp.action")}
         </Button>
       </Box>
     );
   };
 
-
-
   const renderTime = (remainingTime: any) => {
     return (
       <Box mt={2}>
         <CircularProgressAnimation color="primary"></CircularProgressAnimation>
-        Resend possible in <Caption color="primary">{remainingTime} sec </Caption>
+        {t("account.authentication.resendOtp.desc")}{" "}
+        <Caption color="primary">
+          {remainingTime} {t("account.authentication.resendOtp.sec")}{" "}
+        </Caption>
       </Box>
     );
   };
 
-
   return (
     <SectionSplitter
-     borderTop={false}
+      borderTop={false}
       top={
         <Box mt={20}>
           <Snackbar
@@ -100,22 +100,27 @@ const LeftContent = (props: any) => {
             autoHideDuration={5000}
           >
             <Toast severity="error">
-              <AlertTitle>Ooops!</AlertTitle>
-             <Box> Sorry it seems like you’ve made a mistake in your OTP. You have <b>{ 3 - otpCount} attempts left.</b> </Box>
+              <AlertTitle>
+                {t("account.authentication.errors.title")}
+              </AlertTitle>
+              <Box>
+                {t("account.authentication.errors.desc")}{" "}
+                <b>
+                  {3 - otpCount}{" "}
+                  {t("account.authentication.errors.attemptsLeft")}
+                </b>{" "}
+              </Box>
             </Toast>
           </Snackbar>
 
-          <Grid xs={6} sm={6} md={6} lg={6} xl={6}>
+          <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
             <Box pt={10}>
-              <H1>Authentication</H1>
+              <H1>{t("account.authentication.title")}</H1>
               <Box pt={3}>
-                <Caption>
-                  Please enter the 6 digit code sent to your mobile number 
-                  <br />
-                </Caption>
+                <Caption>{t("account.authentication.desc")}</Caption>
               </Box>
               <Box pt={3}>
-                <MobileIconText /> 
+                <MobileIconText />
               </Box>
 
               <Box mt={4.5}>
@@ -135,13 +140,13 @@ const LeftContent = (props: any) => {
                     maxTime={5}
                     onTimerComplete={onTimerComplete}
                     style={{}}
-                    className={{}}
+                    className=""
                   />
                 )}
               </Box>
             </Box>
           </Grid>
-          </Box>
+        </Box>
       }
       bottom={<Box></Box>}
     />
@@ -151,7 +156,16 @@ const LeftContent = (props: any) => {
 const AuthOtp = (props: any) => {
   const [locked, setLocked] = useState(true);
 
-  return ( locked ? <SubMain content={<LeftContent {...props} onLock={(lock:any)=>setLocked(lock)}/>} image={<Box></Box>} /> : <Locked {...props}/>);
+  return locked ? (
+    <SubMain
+      content={
+        <LeftContent {...props} onLock={(lock: any) => setLocked(lock)} />
+      }
+      image={<Box></Box>}
+    />
+  ) : (
+    <Locked {...props} />
+  );
 };
 
 export default AuthOtp;
