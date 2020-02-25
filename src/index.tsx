@@ -3,12 +3,12 @@ import "react-app-polyfill/stable";
 import React from "react";
 import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
-import i18n from "./i18n";
+import i18n from "./config/i18n";
 import * as serviceWorker from "./serviceWorker";
 import { I18nextProvider } from "react-i18next";
 
 import store from "./store/store";
-import Setup from "./Setup";
+import Setup from "./config/Setup";
 
 ReactDOM.render(
   <Provider store={store}>

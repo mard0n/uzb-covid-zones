@@ -1,15 +1,15 @@
 import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
-import english from './localization/en.json';
-import arabic from './localization/ar.json';
+import english from "../localization/en.json";
+import arabic from "../localization/ar.json";
 
 const resources = {
   en: {
-    translation: english,
+    translation: english
   },
   ar: {
-    translation: arabic,
-  },
+    translation: arabic
+  }
 };
 
 i18n
@@ -17,11 +17,11 @@ i18n
   .init({
     resources,
     lng: "en",
-    fallbackLng: 'en',
+    fallbackLng: "en",
     // keySeparator: false, // we do not use keys in form messages.welcome
     interpolation: {
       escapeValue: false // react already safes from xss
     }
   });
 
-  export default i18n;
+export default i18n;

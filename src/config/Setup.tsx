@@ -6,9 +6,9 @@ import {
 } from "@mashreq-digital/ui";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import RTL from "./RTL";
-import GlobalCss from "./features/globalCss/GlobalCSS";
+import GlobalCss from "./GlobalCSS";
 import { useSelector } from "react-redux";
-import App from "./App";
+import App from "../App";
 
 const Setup: FunctionComponent = (): JSX.Element => {
   const dir = useSelector((state: any) => state.globalState.direction);
