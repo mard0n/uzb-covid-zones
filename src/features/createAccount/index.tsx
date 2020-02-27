@@ -5,7 +5,7 @@ import { ReduxAction, stepsID } from "../../reducers/createAcountReducer";
 import { CreateAccountActions } from "../../actions/createAccountActions";
 import { Dispatch } from "redux";
 import AuthOtp from "./AuthOtp";
-import MobileInfo from "./MobileInfo";
+import { default as MobileInfo } from "./MobileNumber";
 import PreLogin from "./PreLogin";
 import Terms from "./Terms";
 import Succuss from "./Success";

@@ -29,6 +29,9 @@ const MOLHeader = (props: any) => {
     document.body.setAttribute("dir", dir);
   };
 
+  //update regex for any other path
+  const exludePath = new RegExp("account");
+
   const MashreqLogo = getMashreqLogo();
 
   return (
@@ -37,7 +40,7 @@ const MOLHeader = (props: any) => {
         left={
           <Box display="flex" alignItems="center">
             <MashreqLogo width="40px" height="25px" />
-            {props.match.url === "/login" ? null : (
+            {!exludePath.test(props.match.url) ? null : (
               <Box ml={2.5}>
                 <Caption>{steps[activeStep]}</Caption>
               </Box>
@@ -46,7 +49,7 @@ const MOLHeader = (props: any) => {
         }
         right={
           <Box>
-            {props.match.url === "/login" ? (
+            {!exludePath.test(props.match.url) ? (
               <Select native onChange={handleLanguageChange}>
                 <option value="er">{t("common.language.english")}</option>
                 <option value="ar">{t("common.language.arabic")}</option>
@@ -58,7 +61,7 @@ const MOLHeader = (props: any) => {
         }
       />
 
-      {props.match.url === "/login" ? null : (
+      {!exludePath.test(props.match.url) ? null : (
         <LinearProgressBar
           activeStep={activeStep}
           variant="determinate"

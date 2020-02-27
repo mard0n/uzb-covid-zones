@@ -9,13 +9,15 @@ import MOLHeader from "./features/header";
 const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
   const { t } = useTranslation();
   const footerLinks: Array<string> = t("footer.links", { returnObjects: true });
+  const exludePath = new RegExp("account");
+
   return (
     <Main
       header={<MOLHeader {...props} />}
       main={<Routes />}
       footer={
         <>
-          {props.match.url === "/login" && (
+          {!exludePath.test(props.match.url) && (
             <Footer>
               <Box display="flex" justifyContent="space-between">
                 <Box>&copy; {t("footer.copy")}</Box>

@@ -16,22 +16,11 @@ interface State {
   number: string;
 }
 
-const useStyles = makeStyles(theme => ({
-  proceedButton: {
-    width: theme.spacing(20.8)
-  }
-}));
-
 const LeftContent = (props: any) => {
   const { t } = useTranslation();
-  const { proceedButton } = useStyles();
   console.log(props);
 
   const { history } = props;
-
-  const handleBack = () => {
-    history.push("/login");
-  };
 
   const [isEnableProceed, enableProceed] = useState(false);
 
@@ -78,23 +67,19 @@ const LeftContent = (props: any) => {
       }
       bottom={
         <Box display="flex" justifyContent="space-between">
+          <Caption>
+            {t("account.personalinfo.new") + "  "}
+            <span color="primary">{t("common.action.signup")}</span>
+          </Caption>
+
           <Button
-            variant="outlined"
-            color="primary"
-            onClick={handleBack}
-            size="medium"
-          >
-            <span color="primary"> {t("common.action.back")} </span>
-          </Button>
-          <Button
-            className={proceedButton}
             variant="contained"
             size="medium"
             color="primary"
             onClick={props.handleNextStep}
             disabled={!isEnableProceed}
           >
-            {t("common.action.proceed")}
+            {t("common.action.started")}
           </Button>
         </Box>
       }

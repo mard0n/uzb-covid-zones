@@ -2,8 +2,13 @@ import React, { FunctionComponent } from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "../features/authentication/Login";
 import CreateAccount from "../features/createAccount";
+import MobileNumber from "../features/createAccount/MobileNumber";
 
-import { ROUTE_LOGINPAGE, ROUTER_ACCOUNT_CREATE } from "./config";
+import {
+  ROUTE_LOGINPAGE,
+  ROUTER_ACCOUNT_CREATE,
+  ROUTE_MOBILEINFO
+} from "./config";
 const NoMatchPage = () => {
   return <h3>404 - Not found</h3>;
 };
@@ -15,6 +20,12 @@ const Routes: FunctionComponent = (): JSX.Element => {
         path={ROUTE_LOGINPAGE}
         render={routerProps => <Login {...routerProps} />}
       />
+
+      <Route
+        path={ROUTE_MOBILEINFO}
+        render={routerProps => <MobileNumber {...routerProps} />}
+      />
+
       <Route
         path={ROUTER_ACCOUNT_CREATE}
         render={routerProps => <CreateAccount {...routerProps} />}

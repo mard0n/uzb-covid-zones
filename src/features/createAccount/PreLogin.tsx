@@ -14,7 +14,8 @@ import {
   SubMain,
   Snackbar,
   Toast,
-  AlertTitle
+  AlertTitle,
+  UnderlineText
 } from "@mashreq-digital/ui";
 import { Eye2, EyeCross } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
@@ -100,11 +101,14 @@ const LeftContent = (props: any) => {
           </Snackbar>
 
           <Box mt={20}>
-            <H2>{t("account.prelogin.title")}</H2>
-            <Box mt={2}>
-              <Caption>{t("account.prelogin.desc")}</Caption>
-            </Box>
+            <UnderlineText color="primary">
+              <H2>{t("account.prelogin.title")}</H2>
+            </UnderlineText>
+
             <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+              <Box mt={2}>
+                <Caption>{t("account.prelogin.desc")}</Caption>
+              </Box>
               <FormGroup className={formGroup}>
                 <FormControl className={inputBox}>
                   <TextField
@@ -164,8 +168,13 @@ const LeftContent = (props: any) => {
       }
       bottom={
         <Box display="flex" justifyContent="space-between">
-          <Button variant="outlined" color="primary" onClick={handleBack}>
-            <span color="primary">{t("common.action.back")}</span>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={handleBack}
+            size="medium"
+          >
+            <span color="primary"> {t("common.action.back")} </span>
           </Button>
           <Button
             variant="contained"

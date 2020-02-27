@@ -15,6 +15,8 @@
       "back": "Back",
       "proceed": "Proceed",
       "signin": "Signin",
+      "signup": "Sing Up",
+      "started": "Get Started",
       "tryAgain": "Try Again"
     },
     "links": {
@@ -44,12 +46,14 @@
     ],
     "personalinfo": {
       "title": "Let’s start with your mobile number",
+      "new": "New to Mashreq Online Banking?",
       "descStart": "Please enter your mobile number",
       "descBold": "registered with Mashreq",
       "descEnd": "We will send you a text message with a 6 digit code for authentication."
     },
     "prelogin": {
-      "title": "Let’s Login",
+      "title": "Login with your credentials",
+
       "desc": "We’re making the process easier for our customers, let’s start with your current login details.",
       "descBold": "registered with Mashreq",
       "descEnd": "We will send you a text message with a 6 digit code for authentication."
@@ -82,6 +86,9 @@
       "title": "Success",
       "action": "Start Demo again"
     }
+  },
+  "mobileinfo": {
+    "tipstitle": "Please enter your mobile number registered with Mashreq. We will send you a text message with a 6 digit code for authentication."
   },
   "footer": {
     "copy": "2019 Mashreq",
