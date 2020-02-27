@@ -53,7 +53,7 @@
     },
     "prelogin": {
       "title": "Login with your credentials",
-
+      "title2": "Let’s login",
       "desc": "We’re making the process easier for our customers, let’s start with your current login details.",
       "descBold": "registered with Mashreq",
       "descEnd": "We will send you a text message with a 6 digit code for authentication."

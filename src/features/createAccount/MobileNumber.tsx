@@ -19,6 +19,7 @@ let landing = require("../../assets/images/landing.png");
 
 interface State {
   number: string;
+  showKeyboard: Boolean;
 }
 
 const useStyles = makeStyles(theme => ({
@@ -29,13 +30,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 const LeftContent = (props: any) => {
-  const { history } = props;
   const { t } = useTranslation();
 
   // const [isEnableProceed, enableProceed] = React.useState<State>(false);
 
   const [values, setValues] = React.useState<State>({
-    number: ""
+    number: "",
+    showKeyboard: false
   });
 
   const handleChange = (prop: keyof State) => (
@@ -70,7 +71,7 @@ const LeftContent = (props: any) => {
                   }}
                 />
               </Box>
-
+              <Box ml={3}></Box>
               <Box
                 mt={8}
                 pt={2}

@@ -10,6 +10,7 @@ import {
   SectionSplitter,
   MobileIconText,
   SubMain,
+  InfoCard,
   ResendOTP,
   Toast,
   AlertTitle,
@@ -17,6 +18,7 @@ import {
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
 import Locked from "./Locked";
+import { Rocket } from "@mashreq-digital/webassets";
 
 interface State {
   number: string;
@@ -92,7 +94,7 @@ const LeftContent = (props: any) => {
     <SectionSplitter
       borderTop={false}
       top={
-        <Box mt={20}>
+        <Box>
           <Snackbar
             anchorOrigin={{ vertical: "top", horizontal: "center" }}
             open={open}
@@ -161,7 +163,15 @@ const AuthOtp = (props: any) => {
       content={
         <LeftContent {...props} onLock={(lock: any) => setLocked(lock)} />
       }
-      image={<Box></Box>}
+      image={
+        <Box mt={18}>
+          <InfoCard
+            icon={Rocket}
+            title="We are upgrading"
+            content="As a part of Masheq 2.0, we are creating a better experience for our customers"
+          />
+        </Box>
+      }
     />
   ) : (
     <Locked {...props} />

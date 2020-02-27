@@ -8,7 +8,7 @@ import AuthOtp from "./AuthOtp";
 import { default as MobileInfo } from "./MobileNumber";
 import PreLogin from "./PreLogin";
 import Terms from "./Terms";
-import Succuss from "./Success";
+import PasswordScreen from "./PasswordScreen";
 
 const PersonalInformatin = (props: any) => {
   const {
@@ -77,7 +77,7 @@ const PersonalInformatin = (props: any) => {
         );
       case 4:
         return (
-          <Succuss
+          <PasswordScreen
             handleNextStep={handleNextStep}
             handleBack={handleBack}
             {...props}
