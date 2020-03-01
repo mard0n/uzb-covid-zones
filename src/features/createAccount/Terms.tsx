@@ -6,13 +6,20 @@ import {
   Caption,
   Box,
   SectionSplitter,
-  SubMain
+  SubMain,
+  SvgIcon
 } from "@mashreq-digital/ui";
+import { ChevronLeft } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
 
 const LeftContent = (props: any) => {
   const { t } = useTranslation();
+  const { history } = props;
   const [scrolled, setScrolled] = useState(false);
+
+  const handleBack = () => {
+    history.push("/account/personalinfo");
+  };
 
   const handleScroll = (e: any) => {
     const { scrollTop, scrollHeight, offsetHeight } = e.target;
@@ -43,7 +50,12 @@ const LeftContent = (props: any) => {
         </Box>
       }
       bottom={
-        <Box display="flex" justifyContent="flex-end">
+        <Box display="flex" justifyContent="space-between">
+          <Button color="primary" onClick={handleBack} size="medium">
+            <SvgIcon color="primary" component={ChevronLeft} />
+            <span color="primary">{t("common.action.back")} </span>
+          </Button>
+
           <Button
             variant="contained"
             size="medium"

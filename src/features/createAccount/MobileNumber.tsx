@@ -10,10 +10,13 @@ import {
   SectionSplitter,
   SubMain,
   Grid,
-  UnderlineText
+  UnderlineText,
+  SvgIcon,
+  Avatar
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
+import { Shield } from "@mashreq-digital/webassets";
 
 let landing = require("../../assets/images/landing.png");
 
@@ -31,6 +34,7 @@ const useStyles = makeStyles(theme => ({
 }));
 const LeftContent = (props: any) => {
   const { t } = useTranslation();
+  const { history } = props;
 
   // const [isEnableProceed, enableProceed] = React.useState<State>(false);
 
@@ -45,6 +49,15 @@ const LeftContent = (props: any) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
+  let handelSubmit = () => {
+    if (values.number === "111111111") {
+      console.log("demo for migrated user enter username and password");
+      history.push("/account/personalinfo");
+    } else {
+      console.log("demo for migrated user enter username and password");
+      history.push("/account/personalinfo");
+    }
+  };
   return (
     <SectionSplitter
       top={
@@ -78,6 +91,11 @@ const LeftContent = (props: any) => {
                 borderTop={1}
                 borderColor="rgba(151, 151, 151, 0.2)"
               >
+                <Avatar>
+                  {" "}
+                  <SvgIcon component={Shield} />
+                </Avatar>
+
                 <H4> {t("login.ensure")} </H4>
                 <Caption> {t("login.securityTips")}</Caption>
               </Box>
@@ -94,7 +112,12 @@ const LeftContent = (props: any) => {
             </Link>
           </Caption>
 
-          <Button size="medium" variant="contained" color="primary">
+          <Button
+            size="medium"
+            onClick={handelSubmit}
+            variant="contained"
+            color="primary"
+          >
             {t("common.action.started")}
           </Button>
         </Box>

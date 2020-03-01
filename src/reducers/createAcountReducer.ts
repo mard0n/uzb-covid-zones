@@ -5,13 +5,7 @@ export interface ReduxAction extends Action {
   payload: any;
 }
 
-export const stepsID = [
-  "personalinfo",
-  "prelogin",
-  "authentication",
-  "terms",
-  "success"
-];
+export const stepsID = ["prelogin", "authentication", "terms", "success"];
 
 const initialState = {
   activeStep: 0,

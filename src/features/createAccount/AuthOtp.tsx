@@ -14,11 +14,12 @@ import {
   ResendOTP,
   Toast,
   AlertTitle,
-  Snackbar
+  Snackbar,
+  SvgIcon
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
 import Locked from "./Locked";
-import { Rocket } from "@mashreq-digital/webassets";
+import { Smartphone, ChevronLeft } from "@mashreq-digital/webassets";
 
 interface State {
   number: string;
@@ -32,6 +33,11 @@ const LeftContent = (props: any) => {
   const [onCompleteResendTimer, setOnCompleteResendTimer] = useState(false);
   const [enableResend, setEnableResend] = useState(false);
   const [open, setOpenError] = React.useState(false);
+  const { history } = props;
+
+  const handleBack = () => {
+    history.push("/account/personalinfo");
+  };
 
   const onChange = (val: any) => {
     setOtp(val);
@@ -82,9 +88,9 @@ const LeftContent = (props: any) => {
     return (
       <Box mt={2}>
         <CircularProgressAnimation color="primary"></CircularProgressAnimation>
-        {t("account.authentication.resendOtp.desc")}{" "}
+        {t("account.authentication.resendOtp.desc")}
         <Caption color="primary">
-          {remainingTime} {t("account.authentication.resendOtp.sec")}{" "}
+          {remainingTime} {t("account.authentication.resendOtp.sec")}
         </Caption>
       </Box>
     );
@@ -92,7 +98,6 @@ const LeftContent = (props: any) => {
 
   return (
     <SectionSplitter
-      borderTop={false}
       top={
         <Box>
           <Snackbar
@@ -106,11 +111,11 @@ const LeftContent = (props: any) => {
                 {t("account.authentication.errors.title")}
               </AlertTitle>
               <Box>
-                {t("account.authentication.errors.desc")}{" "}
+                {t("account.authentication.errors.desc")}
                 <b>
-                  {3 - otpCount}{" "}
+                  {3 - otpCount}
                   {t("account.authentication.errors.attemptsLeft")}
-                </b>{" "}
+                </b>
               </Box>
             </Toast>
           </Snackbar>
@@ -121,10 +126,16 @@ const LeftContent = (props: any) => {
               <Box pt={3}>
                 <Caption>{t("account.authentication.desc")}</Caption>
               </Box>
-              <Box pt={3}>
+
+              <Box pt={6}>
                 <MobileIconText />
               </Box>
 
+              <Box pt={6}>
+                <Caption>
+                  <b>{t("account.authentication.info")}</b>
+                </Caption>
+              </Box>
               <Box mt={4.5}>
                 <OTP
                   inputClassName={error ? "error" : ""}
@@ -145,18 +156,32 @@ const LeftContent = (props: any) => {
                     className=""
                   />
                 )}
+                <Box mt={3}>
+                  {" "}
+                  <Caption>{t("account.authentication.nootp")}</Caption>{" "}
+                  <Button color="primary">Try Again </Button>{" "}
+                </Box>
               </Box>
             </Box>
           </Grid>
         </Box>
       }
-      bottom={<Box></Box>}
+      bottom={
+        <Box display="flex" justifyContent="space-between">
+          <Button color="primary" onClick={handleBack} size="medium">
+            <SvgIcon color="primary" component={ChevronLeft} />
+            <span color="primary">{t("common.action.back")} </span>
+          </Button>
+        </Box>
+      }
+      borderTop={true}
     />
   );
 };
 
 const AuthOtp = (props: any) => {
   const [locked, setLocked] = useState(true);
+  const { t } = useTranslation();
 
   return locked ? (
     <SubMain
@@ -166,9 +191,9 @@ const AuthOtp = (props: any) => {
       image={
         <Box mt={18}>
           <InfoCard
-            icon={Rocket}
-            title="We are upgrading"
-            content="As a part of Masheq 2.0, we are creating a better experience for our customers"
+            icon={Smartphone}
+            title={t("account.authentication.cardTitle")}
+            content={t("account.authentication.cardDesc")}
           />
         </Box>
       }

@@ -5,10 +5,11 @@ import { ReduxAction, stepsID } from "../../reducers/createAcountReducer";
 import { CreateAccountActions } from "../../actions/createAccountActions";
 import { Dispatch } from "redux";
 import AuthOtp from "./AuthOtp";
-import { default as MobileInfo } from "./MobileNumber";
+// import { default as MobileInfo } from "./MobileNumber";
 import PreLogin from "./PreLogin";
 import Terms from "./Terms";
-import PasswordScreen from "./PasswordScreen";
+// import PasswordScreen from "./PasswordScreen";
+import Success from "./Success";
 
 const PersonalInformatin = (props: any) => {
   const {
@@ -45,21 +46,13 @@ const PersonalInformatin = (props: any) => {
     switch (step) {
       case 0:
         return (
-          <MobileInfo
-            handleNextStep={handleNextStep}
-            handleBack={handleBack}
-            {...props}
-          />
-        );
-      case 1:
-        return (
           <PreLogin
             handleNextStep={handleNextStep}
             // handleBack={handleBack}
             {...props}
           />
         );
-      case 2:
+      case 1:
         return (
           <AuthOtp
             handleNextStep={handleNextStep}
@@ -67,7 +60,7 @@ const PersonalInformatin = (props: any) => {
             {...props}
           />
         );
-      case 3:
+      case 2:
         return (
           <Terms
             handleNextStep={handleNextStep}
@@ -75,9 +68,9 @@ const PersonalInformatin = (props: any) => {
             {...props}
           />
         );
-      case 4:
+      case 3:
         return (
-          <PasswordScreen
+          <Success
             handleNextStep={handleNextStep}
             handleBack={handleBack}
             {...props}
@@ -85,9 +78,9 @@ const PersonalInformatin = (props: any) => {
         );
       default:
         return (
-          <MobileInfo
+          <PreLogin
             handleNextStep={handleNextStep}
-            handleBack={handleBack}
+            // handleBack={handleBack}
             {...props}
           />
         );

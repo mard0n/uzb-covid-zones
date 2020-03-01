@@ -18,9 +18,16 @@ import {
   FormControlLabel,
   Switch,
   AlertTitle,
-  UnderlineText
+  UnderlineText,
+  SvgIcon,
+  Keyboard
 } from "@mashreq-digital/ui";
-import { Eye2, EyeCross, Rocket } from "@mashreq-digital/webassets";
+import {
+  Eye2,
+  EyeCross,
+  Rocket,
+  ChevronLeft
+} from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
 
 interface State {
@@ -45,6 +52,7 @@ const LeftContent = (props: any) => {
   const { t } = useTranslation();
   const { history } = props;
   const { formGroup, inputBox } = useStyles();
+  const [passwordFocus, setPasswordFocus] = React.useState(false);
 
   const [values, setValues] = React.useState<State>({
     password: "",
@@ -119,6 +127,7 @@ const LeftContent = (props: any) => {
                 <FormControl className={inputBox}>
                   <TextField
                     id="password"
+                    onFocus={() => setPasswordFocus(true)}
                     error={openError}
                     label={t("common.label.password")}
                     type={values.showPassword ? "text" : "password"}
@@ -160,20 +169,23 @@ const LeftContent = (props: any) => {
                   />
                 </Box>
               </FormGroup>
+
+              <Box m={1} textAlign="center">
+                {passwordFocus && values.showKeyboard && (
+                  <Keyboard handleOnChange={handleErrorClose} />
+                )}
+              </Box>
             </Grid>
           </Box>
         </Box>
       }
       bottom={
         <Box display="flex" justifyContent="space-between">
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={handleBack}
-            size="medium"
-          >
-            <span color="primary"> {t("common.action.back")} </span>
+          <Button color="primary" onClick={handleBack} size="medium">
+            <SvgIcon color="primary" component={ChevronLeft} />
+            <span color="primary">{t("common.action.back")} </span>
           </Button>
+
           <Button
             variant="contained"
             onClick={handlePreSignin}
@@ -184,7 +196,7 @@ const LeftContent = (props: any) => {
           </Button>
         </Box>
       }
-      borderTop={false}
+      borderTop={true}
     />
   );
 };

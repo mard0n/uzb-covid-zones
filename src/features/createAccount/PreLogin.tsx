@@ -15,12 +15,19 @@ import {
   SubMain,
   Snackbar,
   Toast,
+  Keyboard,
   FormControlLabel,
   Switch,
   AlertTitle,
-  UnderlineText
+  UnderlineText,
+  SvgIcon
 } from "@mashreq-digital/ui";
-import { Eye2, EyeCross, Rocket } from "@mashreq-digital/webassets";
+import {
+  Eye2,
+  EyeCross,
+  Rocket,
+  ChevronLeft
+} from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
 
 interface State {
@@ -44,7 +51,6 @@ const useStyles = makeStyles(theme => ({
 
 const LeftContent = (props: any) => {
   const { t } = useTranslation();
-  const { history } = props;
   const { formGroup, inputBox } = useStyles();
 
   const [values, setValues] = React.useState<State>({
@@ -54,6 +60,9 @@ const LeftContent = (props: any) => {
     showKeyboard: false
   });
   const [openError, setOpenError] = React.useState(false);
+  const [textFocus, setFocus] = React.useState(false);
+  // const [inputData, setInput] = React.useState("");
+  const { history } = props;
 
   const handleBack = () => {
     history.push("/account/personalinfo");
@@ -94,7 +103,7 @@ const LeftContent = (props: any) => {
 
   return (
     <SectionSplitter
-      borderTop={false}
+      borderTop={true}
       top={
         <Box>
           <Snackbar
@@ -142,6 +151,7 @@ const LeftContent = (props: any) => {
                 <FormControl className={inputBox}>
                   <TextField
                     id="password"
+                    onFocus={() => setFocus(true)}
                     error={openError}
                     label={t("common.label.password")}
                     type={values.showPassword ? "text" : "password"}
@@ -164,6 +174,13 @@ const LeftContent = (props: any) => {
                     }}
                   />
                 </FormControl>
+
+                <Box m={1} textAlign="center">
+                  {textFocus && values.showKeyboard && (
+                    <Keyboard handleOnChange={handleErrorClose} />
+                  )}
+                </Box>
+
                 <Box mt={2}>
                   <Caption color="primary">
                     {t("common.links.forgetPassword")}
@@ -189,13 +206,9 @@ const LeftContent = (props: any) => {
       }
       bottom={
         <Box display="flex" justifyContent="space-between">
-          <Button
-            variant="outlined"
-            color="primary"
-            onClick={handleBack}
-            size="medium"
-          >
-            <span color="primary"> {t("common.action.back")} </span>
+          <Button color="primary" onClick={handleBack} size="medium">
+            <SvgIcon color="primary" component={ChevronLeft} />
+            <span color="primary">{t("common.action.back")} </span>
           </Button>
           <Button
             variant="contained"

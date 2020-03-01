@@ -3,7 +3,7 @@ import { Switch, Route } from "react-router-dom";
 import Login from "../features/authentication/Login";
 import CreateAccount from "../features/createAccount";
 import MobileNumber from "../features/createAccount/MobileNumber";
-
+import PasswordScreen from "../features/createAccount/PasswordScreen";
 import {
   ROUTE_LOGINPAGE,
   ROUTER_ACCOUNT_CREATE,
@@ -19,6 +19,11 @@ const Routes: FunctionComponent = (): JSX.Element => {
         exact
         path={ROUTE_LOGINPAGE}
         render={routerProps => <Login {...routerProps} />}
+      />
+
+      <Route
+        path={"/pass"}
+        render={routerProps => <PasswordScreen {...routerProps} />}
       />
 
       <Route

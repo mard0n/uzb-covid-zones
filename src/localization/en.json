@@ -38,10 +38,9 @@
   },
   "account": {
     "steps": [
-      "Step 1. Personal Information",
-      "Step 2. Pre Login ",
-      "Step 3. Authentication",
-      "Step 4. Terms and Condition",
+      "Step 1. Username and password ",
+      "Step 2. OTP verification",
+      "Step 3. Terms and Condition",
       "Success"
     ],
     "personalinfo": {
@@ -60,7 +59,11 @@
     },
     "authentication": {
       "title": "Authentication",
+      "info": "Please enter the security code sent to your mobile number",
+      "cardTitle": "Don’t have this mobile number anymore?",
+      "cardDesc": "Please visit our branch for assistance",
       "desc": "Please enter the 6 digit code sent to your mobile number",
+      "nootp": "Didn’t receive it?",
       "resendOtp": {
         "action": "Resend OTP Code",
         "desc": "Resend possible in",
