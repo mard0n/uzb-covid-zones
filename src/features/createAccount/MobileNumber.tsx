@@ -68,7 +68,11 @@ const LeftContent = (props: any) => {
             </UnderlineText>
             <Box mt={8}></Box>
             <Grid item xs={9} sm={9} md={9} lg={9} xl={9}>
-              <Caption> {t("mobileinfo.tipstitle")}</Caption>
+              <Caption>
+                {t("mobileinfo.tipstitle")}
+                <b> {t("mobileinfo.boldpart")}</b>
+                {t("mobileinfo.message6")}
+              </Caption>
 
               <Box mt={4.5}>
                 <TextField
@@ -88,16 +92,19 @@ const LeftContent = (props: any) => {
               <Box
                 mt={8}
                 pt={2}
+                display="flex"
                 borderTop={1}
                 borderColor="rgba(151, 151, 151, 0.2)"
               >
                 <Avatar>
-                  {" "}
                   <SvgIcon component={Shield} />
                 </Avatar>
 
-                <H4> {t("login.ensure")} </H4>
-                <Caption> {t("login.securityTips")}</Caption>
+                <Box ml={3}>
+                  <H4> {t("login.ensure")} </H4>
+                  <Caption> {t("login.securityTips")}</Caption>
+                  <Button color="primary">{t("common.action.rm")}</Button>
+                </Box>
               </Box>
             </Grid>
           </Box>
@@ -107,9 +114,9 @@ const LeftContent = (props: any) => {
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Caption>
             {t("account.personalinfo.new") + "  "}
-            <Link to={`#`} color="primary">
-              {t("common.action.signup")}
-            </Link>
+            <Button color="primary" to="#" component={Link}>
+              <u> {t("common.action.signup")} </u>
+            </Button>
           </Caption>
 
           <Button

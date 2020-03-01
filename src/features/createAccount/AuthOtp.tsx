@@ -147,7 +147,7 @@ const LeftContent = (props: any) => {
                 />
                 {enableResend && (
                   <ResendOTP
-                    renderButton={renderButton}
+                    renderButton={() => {}}
                     renderTime={renderTime}
                     onResendClick={onResendClick}
                     maxTime={5}
@@ -157,7 +157,6 @@ const LeftContent = (props: any) => {
                   />
                 )}
                 <Box mt={3}>
-                  {" "}
                   <Caption>{t("account.authentication.nootp")}</Caption>{" "}
                   <Button color="primary">Try Again </Button>{" "}
                 </Box>

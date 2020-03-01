@@ -16,6 +16,7 @@
       "proceed": "Proceed",
       "signin": "Signin",
       "signup": "Sing Up",
+      "rm": "Read More",
       "started": "Get Started",
       "tryAgain": "Try Again"
     },
@@ -32,7 +33,7 @@
   "login": {
     "title": "Welcome to Mashreq Online Banking",
     "ensure": "Ensure You are Always Protected",
-    "securityTips": "Check out these security tips to protect yourself from being a victim of online threats. Read More",
+    "securityTips": "Check out these security tips to protect yourself from being a victim of online threats.",
     "keyboard": "Virtual Keyboard",
     "forgot": "Forgot your Username or Password"
   },
@@ -91,7 +92,9 @@
     }
   },
   "mobileinfo": {
-    "tipstitle": "Please enter your mobile number registered with Mashreq. We will send you a text message with a 6 digit code for authentication."
+    "tipstitle": "Please enter your mobile number",
+    "boldpart": "registered with Mashreq. ",
+    "message6": " We will send you a text message with a 6 digit code for authentication."
   },
   "footer": {
     "copy": "2019 Mashreq",

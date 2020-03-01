@@ -31,7 +31,7 @@ const LeftContent = (props: any) => {
   return (
     <SectionSplitter
       top={
-        <Box mt={20}>
+        <Box mt={10}>
           <H2> {t("account.termsAndConditions.title")}</H2>
           <Container>
             <Box
