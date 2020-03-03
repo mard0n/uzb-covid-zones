@@ -41,9 +41,6 @@ const useStyles = makeStyles(theme => ({
   signinButton: {
     width: theme.spacing(20.8)
   },
-  formGroup: {
-    width: theme.spacing(52.5)
-  },
   inputBox: {
     marginTop: theme.spacing(4.3)
   }
@@ -51,7 +48,7 @@ const useStyles = makeStyles(theme => ({
 
 const LeftContent = (props: any) => {
   const { t } = useTranslation();
-  const { formGroup, inputBox } = useStyles();
+  const { inputBox } = useStyles();
 
   const [values, setValues] = React.useState<State>({
     username: "",
@@ -65,7 +62,7 @@ const LeftContent = (props: any) => {
   const { history } = props;
 
   const handleBack = () => {
-    history.push("/account/personalinfo");
+    history.push("/mobileinfo");
   };
 
   const handlePreSignin = () => {
@@ -79,6 +76,14 @@ const LeftContent = (props: any) => {
   const handleChange = (prop: keyof State) => (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
+    // let  passwordRegex = /^[a-zA-Z0-9]+$/ ;
+    // let  alphanumeric = /^[a-zA-Z0-9]+$/;
+
+    // switch(prop){
+    //   case "password":
+
+    //   case "username":
+    // }
     setValues({ ...values, [prop]: event.target.value });
   };
   const handleSwitchChange = (name: string) => (
@@ -123,83 +128,85 @@ const LeftContent = (props: any) => {
               <H2>{t("account.prelogin.title")}</H2>
             </UnderlineText>
 
-            <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
+            <Grid item xs={7} sm={7} md={7} lg={7} xl={7}>
               <Box mt={2}>
                 <Caption>{t("account.prelogin.desc")}</Caption>
               </Box>
-              <FormGroup className={formGroup}>
-                <FormControl className={inputBox}>
-                  <TextField
-                    id="username"
-                    error={openError}
-                    autoFocus={true}
-                    value={values.username}
-                    label={t("common.label.username")}
-                    onChange={handleChange("username")}
-                    aria-describedby={t("common.label.username")}
-                    inputProps={{
-                      "aria-label": t("common.label.username"),
-                      maxLength: 80
-                    }}
-                  />
-                </FormControl>
-                <Box mt={2}>
-                  <Caption color="primary">
-                    {t("common.links.forgetUsername")}
-                  </Caption>
-                </Box>
-                <FormControl className={inputBox}>
-                  <TextField
-                    id="password"
-                    onFocus={() => setFocus(true)}
-                    error={openError}
-                    label={t("common.label.password")}
-                    type={values.showPassword ? "text" : "password"}
-                    value={values.password}
-                    onChange={handleChange("password")}
-                    InputProps={{
-                      endAdornment: (
-                        <IconButton
-                          aria-label={t("common.label.password")}
-                          onClick={handleClickShowPassword}
-                          onMouseDown={handleMouseDownPassword}
-                        >
-                          {values.showPassword ? <Eye2 /> : <EyeCross />}
-                        </IconButton>
-                      )
-                    }}
-                    inputProps={{
-                      "aria-label": t("common.label.password"),
-                      maxLength: 80
-                    }}
-                  />
-                </FormControl>
+              <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
+                <FormGroup>
+                  <FormControl className={inputBox}>
+                    <TextField
+                      id="username"
+                      error={openError}
+                      autoFocus={true}
+                      value={values.username}
+                      label={t("common.label.username")}
+                      onChange={handleChange("username")}
+                      aria-describedby={t("common.label.username")}
+                      inputProps={{
+                        "aria-label": t("common.label.username"),
+                        maxLength: 80
+                      }}
+                    />
+                  </FormControl>
+                  <Box mt={2}>
+                    <Caption color="primary">
+                      {t("common.links.forgetUsername")}
+                    </Caption>
+                  </Box>
+                  <FormControl className={inputBox}>
+                    <TextField
+                      id="password"
+                      onFocus={() => setFocus(true)}
+                      error={openError}
+                      label={t("common.label.password")}
+                      type={values.showPassword ? "text" : "password"}
+                      value={values.password}
+                      onChange={handleChange("password")}
+                      InputProps={{
+                        endAdornment: (
+                          <IconButton
+                            aria-label={t("common.label.password")}
+                            onClick={handleClickShowPassword}
+                            onMouseDown={handleMouseDownPassword}
+                          >
+                            {values.showPassword ? <Eye2 /> : <EyeCross />}
+                          </IconButton>
+                        )
+                      }}
+                      inputProps={{
+                        "aria-label": t("common.label.password"),
+                        maxLength: 80
+                      }}
+                    />
+                  </FormControl>
 
-                <Box m={1} textAlign="center">
-                  {textFocus && values.showKeyboard && (
-                    <Keyboard handleOnChange={handleErrorClose} />
-                  )}
-                </Box>
+                  <Box m={1} textAlign="center">
+                    {textFocus && values.showKeyboard && (
+                      <Keyboard handleOnChange={handleErrorClose} />
+                    )}
+                  </Box>
 
-                <Box mt={2}>
-                  <Caption color="primary">
-                    {t("common.links.forgetPassword")}
-                  </Caption>
-                </Box>
-                <Box ml={2} mt={3}>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={values.showKeyboard}
-                        variant="ios"
-                        onChange={handleSwitchChange("showKeyboard")}
-                        value="showKeyboard"
-                      />
-                    }
-                    label={t("login.keyboard")}
-                  />
-                </Box>
-              </FormGroup>
+                  <Box mt={2}>
+                    <Caption color="primary">
+                      {t("common.links.forgetPassword")}
+                    </Caption>
+                  </Box>
+                  <Box ml={2} mt={3}>
+                    <FormControlLabel
+                      control={
+                        <Switch
+                          checked={values.showKeyboard}
+                          variant="ios"
+                          onChange={handleSwitchChange("showKeyboard")}
+                          value="showKeyboard"
+                        />
+                      }
+                      label={t("login.keyboard")}
+                    />
+                  </Box>
+                </FormGroup>
+              </Grid>
             </Grid>
           </Box>
         </Box>

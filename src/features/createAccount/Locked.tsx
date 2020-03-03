@@ -34,7 +34,7 @@ const LeftContent = (props: any) => {
   const { history, tryAgain } = props;
 
   const handleTryAgain = () => {
-    window.location.reload();
+    // window.location.reload();
     history.push("/account/authentication");
   };
 
@@ -111,9 +111,10 @@ const Locked = (props: any) => {
           justifyContent="center"
           alignContent="center"
         >
-          {" "}
           <Timer
             {...props}
+            initialMsg="Locked"
+            finishMsg="Unlocked!"
             minutes={0.1}
             handleTimerUpdate={handleTimerUpdate}
           />

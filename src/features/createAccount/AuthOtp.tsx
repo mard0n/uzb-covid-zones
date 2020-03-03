@@ -73,16 +73,16 @@ const LeftContent = (props: any) => {
     setOpenError(false);
   };
 
-  const renderButton = (renderButtonProps: any) => {
-    const { ...rest } = renderButtonProps;
-    return (
-      <Box mt={3}>
-        <Button {...rest}>
-          {t("account.authentication.resendOtp.action")}
-        </Button>
-      </Box>
-    );
-  };
+  // const renderButton = (renderButtonProps: any) => {
+  //   const { ...rest } = renderButtonProps;
+  //   return (
+  //     <Box mt={3}>
+  //       <Button {...rest}>
+  //         {t("account.authentication.resendOtp.action")}
+  //       </Button>
+  //     </Box>
+  //   );
+  // };
 
   const renderTime = (remainingTime: any) => {
     return (
@@ -111,9 +111,11 @@ const LeftContent = (props: any) => {
                 {t("account.authentication.errors.title")}
               </AlertTitle>
               <Box>
+                {" "}
                 {t("account.authentication.errors.desc")}
                 <b>
-                  {3 - otpCount}
+                  {" "}
+                  {3 - otpCount + " "}
                   {t("account.authentication.errors.attemptsLeft")}
                 </b>
               </Box>

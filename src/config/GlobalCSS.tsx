@@ -35,11 +35,11 @@ const GlobalCss = withStyles(({ palette, spacing }) => ({
       listStyleType: "none"
     },
     body: {
-      backgroundColor: "#ffffff",
-      "@media (min-width: 1440px)": {
-        maxWidth: "1440px",
-        margin: "0 auto"
-      }
+      backgroundColor: "#ffffff"
+      // "@media (min-width: 1440px)": {
+      //   maxWidth: "1440px",
+      //   margin: "0 auto"
+      // }
     }
   }
 }))(() => null);

@@ -39,7 +39,7 @@ const LeftContent = (props: any) => {
             variant="contained"
             size="medium"
             color="primary"
-            onClick={() => history.push("/login")}
+            onClick={() => history.push("/mobileinfo")}
           >
             {t("account.success.action")}
           </Button>
