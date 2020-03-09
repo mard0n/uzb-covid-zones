@@ -1,12 +1,13 @@
 import React, { FunctionComponent, useEffect } from "react";
 import Routes from "./router";
 import { AppProps } from "./types";
-import { Footer, Main, Box } from "@mashreq-digital/ui";
-import { useTranslation } from "react-i18next";
+import { Footer, Main, Box, Grid } from "@mashreq-digital/ui";
 import { withRouter } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import MOLHeader from "./features/header";
 import { API } from "./mocks/index";
 import * as Endpoints from "./network/Endpoints";
+import SidebarNav from "./features/sidebar";
 
 const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
   const { t } = useTranslation();
@@ -27,7 +28,16 @@ const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
   return (
     <Main
       header={<MOLHeader {...props} />}
-      main={<Routes />}
+      main={
+        <Grid container>
+          <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
+            <SidebarNav />
+          </Grid>
+          <Grid item xs={7} sm={7} md={7} lg={7} xl={7}>
+            <Routes />
+          </Grid>
+        </Grid>
+      }
       footer={
         <>
           {!exludePath.test(props.match.url) && (

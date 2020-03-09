@@ -24,12 +24,12 @@ export const pages = [
     subMenu: [
       {
         title: "Bill Payment Beneficiaries",
-        href: "/billpayment",
+        href: "/beneficiaries/billpayment",
         icon: <ChartUpward />
       },
       {
         title: "Money Transfer Beneficiaries",
-        href: "/moneytransfer",
+        href: "/beneficiaries/moneytransfer",
         icon: <ChartUpward />
       }
     ]
