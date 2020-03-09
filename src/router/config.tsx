@@ -1,3 +1,5 @@
-export const ROUTE_LOGINPAGE = `/login`;
-export const ROUTER_ACCOUNT_CREATE = `/account/:stepId`;
-export const ROUTE_MOBILEINFO = `/mobileinfo`;
+export const LOGINPAGE = `/login`;
+export const PASSCODE = `/passcode`;
+export const MOBILEINFO = `/mobileinfo`;
+export const CREATE_ACCOUNT = `/account/:stepId`;
+export const OTHER_ROUTES = `*`;

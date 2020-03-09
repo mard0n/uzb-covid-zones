@@ -4,38 +4,46 @@ import Login from "../features/authentication/Login";
 import CreateAccount from "../features/createAccount";
 import MobileNumber from "../features/createAccount/MobileNumber";
 import PasswordScreen from "../features/createAccount/PasswordScreen";
-import {
-  ROUTE_LOGINPAGE,
-  ROUTER_ACCOUNT_CREATE,
-  ROUTE_MOBILEINFO
-} from "./config";
+import * as RoutePath from "./config";
 const NoMatchPage = () => {
   return <h3>404 - Not found</h3>;
 };
+
+const routes = [
+  {
+    path: RoutePath.LOGINPAGE,
+    component: Login
+  },
+  {
+    path: RoutePath.PASSCODE,
+    component: PasswordScreen
+  },
+  {
+    path: RoutePath.MOBILEINFO,
+    component: MobileNumber
+  },
+  {
+    path: RoutePath.CREATE_ACCOUNT,
+    component: CreateAccount
+  },
+  {
+    path: RoutePath.OTHER_ROUTES,
+    component: NoMatchPage
+  }
+];
+
+export const RouteConfig = (route: any) => {
+  return (
+    <Route path={route.path} render={props => <route.component {...props} />} />
+  );
+};
+
 const Routes: FunctionComponent = (): JSX.Element => {
   return (
     <Switch>
-      <Route
-        exact
-        path={ROUTE_LOGINPAGE}
-        render={routerProps => <Login {...routerProps} />}
-      />
-
-      <Route
-        path={"/pass"}
-        render={routerProps => <PasswordScreen {...routerProps} />}
-      />
-
-      <Route
-        path={ROUTE_MOBILEINFO}
-        render={routerProps => <MobileNumber {...routerProps} />}
-      />
-
-      <Route
-        path={ROUTER_ACCOUNT_CREATE}
-        render={routerProps => <CreateAccount {...routerProps} />}
-      />
-      <Route path="*" component={NoMatchPage} />
+      {routes.map((route, i) => {
+        return <RouteConfig key={i} {...route} />;
+      })}
     </Switch>
   );
 };

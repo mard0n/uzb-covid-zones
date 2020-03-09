@@ -172,7 +172,7 @@ const LeftContent = (props: any) => {
 
               <Box m={1} textAlign="center">
                 {passwordFocus && values.showKeyboard && (
-                  <Keyboard handleOnChange={handleErrorClose} />
+                  <Keyboard handleOnChange={() => handleErrorClose()} />
                 )}
               </Box>
             </Grid>
