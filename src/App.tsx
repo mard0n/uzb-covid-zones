@@ -33,7 +33,7 @@ const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
           <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
             <SidebarNav />
           </Grid>
-          <Grid item xs={7} sm={7} md={7} lg={7} xl={7}>
+          <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
             <Routes />
           </Grid>
         </Grid>

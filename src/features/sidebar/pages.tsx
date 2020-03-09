@@ -1,16 +1,18 @@
 import React from "react";
 import {
-  Apps3,
-  ChartUpward,
-  ChartSquare,
-  Intersect
+  User,
+  Group,
+  Lock,
+  QuestionCircle,
+  FileText,
+  ChartUpward
 } from "@mashreq-digital/webassets";
 
 export const pages = [
   {
     title: "Personal Details",
     href: "/personl",
-    icon: <Apps3 />
+    icon: <User />
   },
   {
     title: "Preferences",
@@ -20,33 +22,31 @@ export const pages = [
   {
     title: "Beneficiaries",
     href: "/beneficiaries",
-    icon: <Intersect />,
+    icon: <Group />,
     subMenu: [
       {
         title: "Bill Payment Beneficiaries",
-        href: "/beneficiaries/billpayment",
-        icon: <ChartUpward />
+        href: "/beneficiaries/billpayment"
       },
       {
         title: "Money Transfer Beneficiaries",
-        href: "/beneficiaries/moneytransfer",
-        icon: <ChartUpward />
+        href: "/beneficiaries/moneytransfer"
       }
     ]
   },
   {
     title: "Security & Settings",
     href: "/settings",
-    icon: <ChartSquare />
+    icon: <Lock />
   },
   {
     title: "Help & Support",
     href: "/help",
-    icon: <ChartSquare />
+    icon: <QuestionCircle />
   },
   {
     title: "Terms & Conditions",
     href: "/terms",
-    icon: <ChartSquare />
+    icon: <FileText />
   }
 ];

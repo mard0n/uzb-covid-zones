@@ -6,9 +6,7 @@ import {
   ListItem,
   Button,
   Collapse,
-  makeStyles,
-  ListItemText,
-  ListItemIcon
+  makeStyles
 } from "@mashreq-digital/ui";
 
 const useStyles = makeStyles((theme: any) => ({
