@@ -67,7 +67,7 @@ const LeftContent = (props: any) => {
 
   const handlePreSignin = () => {
     if (values.password === "demo") {
-      props.handleNextStep();
+      history.push("/account/authentication");
     } else {
       setOpenError(true);
     }

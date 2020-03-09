@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   H2,
   TextField,
@@ -29,6 +29,7 @@ import {
   ChevronLeft
 } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
+import { compose } from "redux";
 
 interface State {
   username: string;
@@ -37,18 +38,92 @@ interface State {
   showKeyboard: boolean;
 }
 
-const useStyles = makeStyles(theme => ({
-  signinButton: {
-    width: theme.spacing(20.8)
+interface StyleProps {
+  checked: any;
+  topPos: any;
+  leftPos: any;
+}
+
+const useStyles = (props: any) => ({
+  root: {
+    outline: props.checked ? "2px solid black" : 0,
+    "& :focus": {
+      caretColor: props.checked ? "transparent" : "auto"
+    }
   },
-  inputBox: {
-    marginTop: theme.spacing(4.3)
+  keyboardStyle: {
+    top: `${props.topPos}px`,
+    left: `${props.leftPos}px`,
+    position: "fixed"
   }
-}));
+});
+
+function useComponentVisible(initialIsVisible: Boolean) {
+  const [isComponentVisible, setIsComponentVisible] = useState(
+    initialIsVisible
+  );
+  const [topPos, setTop] = useState(-1000);
+  const [leftPos, setLeft] = useState(-1000);
+  const keyboard = useRef(null);
+
+  const handleClickOutside = (e: any) => {
+    const { className, type } = e.target;
+
+    if (type === "text" || type === "password") {
+      const { bottom, left } = e.target.getBoundingClientRect();
+
+      setTop(e.target.offsetTop + bottom + 1);
+      setLeft(left);
+    }
+    if (!className.includes("hg-button")) {
+      setIsComponentVisible(prev =>
+        ["text", "password"].indexOf(type) < 0 ? false : true
+      ); // check if clicked outside, must not show the keyboard, so set the  `isComponentVisible=false `
+    }
+    console.log("classNameclassName", isComponentVisible);
+  };
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, true);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, true);
+    };
+  });
+
+  return {
+    topPos,
+    setTop,
+    setLeft,
+    leftPos,
+    keyboard,
+    isComponentVisible,
+    setIsComponentVisible
+  };
+}
+
+/*  
+Let Component 
+*/
 
 const LeftContent = (props: any) => {
   const { t } = useTranslation();
-  const { inputBox } = useStyles();
+  const {
+    topPos,
+    setTop,
+    setLeft,
+    leftPos,
+    keyboard,
+    isComponentVisible,
+    setIsComponentVisible
+  } = useComponentVisible(false);
+  console.log("____type_in1", isComponentVisible);
+
+  const [checked, setKeyboardActive] = useState(false);
+  const { inputBox, root, keyboardStyle }: any = useStyles({
+    checked,
+    topPos,
+    leftPos
+  });
 
   const [values, setValues] = React.useState<State>({
     username: "",
@@ -58,8 +133,37 @@ const LeftContent = (props: any) => {
   });
   const [openError, setOpenError] = React.useState(false);
   const [textFocus, setFocus] = React.useState(false);
-  // const [inputData, setInput] = React.useState("");
   const { history } = props;
+  const [activeText, setCurrentState] = useState();
+
+  // const resetKeyboard = ()=>{
+
+  //   // if (!className.includes("hg-button")) {
+
+  //   console.log("Blurrrrrrr ");
+  //   setTop(-1000)
+  //   setLeft(-1000)
+  //   }
+  // }
+
+  const onChangeInput = (prop: keyof State) => (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    console.log("onchange ", event);
+
+    setCurrentState(prop);
+    setValues({ ...values, [prop]: event.target.value });
+  };
+
+  const handleOnFocus = (input: any) => {
+    setCurrentState(input);
+    console.log("root ", root);
+    console.log("keyboardStyle ", keyboardStyle);
+  };
+
+  const changeAt = (event: any) => {
+    setValues({ ...values, [activeText]: event });
+  };
 
   const handleBack = () => {
     history.push("/mobileinfo");
@@ -73,23 +177,10 @@ const LeftContent = (props: any) => {
     }
   };
 
-  const handleChange = (prop: keyof State) => (
+  const handleSwitchChange = () => (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    // let  passwordRegex = /^[a-zA-Z0-9]+$/ ;
-    // let  alphanumeric = /^[a-zA-Z0-9]+$/;
-
-    // switch(prop){
-    //   case "password":
-
-    //   case "username":
-    // }
-    setValues({ ...values, [prop]: event.target.value });
-  };
-  const handleSwitchChange = (name: string) => (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setValues({ ...values, [name]: event.target.checked });
+    setKeyboardActive(event.target.checked);
   };
 
   const handleClickShowPassword = () => {
@@ -105,7 +196,7 @@ const LeftContent = (props: any) => {
   const handleErrorClose = () => {
     setOpenError(false);
   };
-
+  console.log("____risComponentVisible_", isComponentVisible);
   return (
     <SectionSplitter
       borderTop={true}
@@ -137,12 +228,24 @@ const LeftContent = (props: any) => {
                   <FormControl className={inputBox}>
                     <TextField
                       id="username"
+                      autoComplete="off"
                       error={openError}
                       autoFocus={true}
                       value={values.username}
                       label={t("common.label.username")}
-                      onChange={handleChange("username")}
                       aria-describedby={t("common.label.username")}
+                      onChange={(e: any) => {
+                        if (checked) {
+                          return;
+                        } else {
+                          console.log("thoko concole itko ", checked);
+                          onChangeInput("username");
+                        }
+                      }}
+                      onFocus={() => {
+                        handleOnFocus("username");
+                        setIsComponentVisible(true);
+                      }}
                       inputProps={{
                         "aria-label": t("common.label.username"),
                         maxLength: 80
@@ -156,13 +259,23 @@ const LeftContent = (props: any) => {
                   </Box>
                   <FormControl className={inputBox}>
                     <TextField
+                      autoComplete="off"
                       id="password"
-                      onFocus={() => setFocus(true)}
                       error={openError}
                       label={t("common.label.password")}
                       type={values.showPassword ? "text" : "password"}
                       value={values.password}
-                      onChange={handleChange("password")}
+                      onChange={(e: any) => {
+                        if (checked) {
+                          return;
+                        } else {
+                          onChangeInput("password");
+                        }
+                      }}
+                      onFocus={() => {
+                        handleOnFocus("password");
+                        setIsComponentVisible(true);
+                      }}
                       InputProps={{
                         endAdornment: (
                           <IconButton
@@ -181,24 +294,19 @@ const LeftContent = (props: any) => {
                     />
                   </FormControl>
 
-                  <Box m={1} textAlign="center">
-                    {textFocus && values.showKeyboard && (
-                      <Keyboard handleOnChange={handleErrorClose} />
-                    )}
-                  </Box>
-
                   <Box mt={2}>
                     <Caption color="primary">
                       {t("common.links.forgetPassword")}
                     </Caption>
                   </Box>
                   <Box ml={2} mt={3}>
+                    {console.log("inside switch ", checked)}
                     <FormControlLabel
                       control={
                         <Switch
-                          checked={values.showKeyboard}
+                          checked={checked}
                           variant="ios"
-                          onChange={handleSwitchChange("showKeyboard")}
+                          onChange={handleSwitchChange()}
                           value="showKeyboard"
                         />
                       }
@@ -209,6 +317,13 @@ const LeftContent = (props: any) => {
               </Grid>
             </Grid>
           </Box>
+          {console.log("____isComponentVisible", isComponentVisible, checked)}
+
+          <div style={keyboardStyle}>
+            {isComponentVisible && checked && (
+              <Keyboard keyboard={keyboard} onChange={changeAt} />
+            )}
+          </div>
         </Box>
       }
       bottom={
@@ -217,6 +332,7 @@ const LeftContent = (props: any) => {
             <SvgIcon color="primary" component={ChevronLeft} />
             <span color="primary">{t("common.action.back")} </span>
           </Button>
+
           <Button
             variant="contained"
             onClick={handlePreSignin}
