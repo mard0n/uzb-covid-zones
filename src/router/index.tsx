@@ -4,6 +4,7 @@ import Login from "../features/authentication/Login";
 import CreateAccount from "../features/createAccount";
 import MobileNumber from "../features/createAccount/MobileNumber";
 import PasswordScreen from "../features/createAccount/PasswordScreen";
+import Test from "../pages/test";
 import * as RoutePath from "./config";
 import BillPayment from "../features/beneficiaries/BillPayment";
 
@@ -17,7 +18,7 @@ const routes = [
     component: Login
   },
   {
-    path: RoutePath.BENIFICIARY_BILL_PAYMENT,
+    path: RoutePath.BENIFICIARY,
     component: BillPayment
   },
   {
@@ -31,6 +32,10 @@ const routes = [
   {
     path: RoutePath.CREATE_ACCOUNT,
     component: CreateAccount
+  },
+  {
+    path: RoutePath.TEST,
+    component: Test
   },
   {
     path: RoutePath.OTHER_ROUTES,

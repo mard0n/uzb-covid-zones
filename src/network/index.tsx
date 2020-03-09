@@ -1,5 +1,4 @@
 import { createInstance } from "@mashreq-digital/network";
+import * as Config from './constants';
 
-export const BASE_URL = "http://dummy.restapiexample.com/api/v1/";
-
-export const API = createInstance({ BASE_URL, TIMEOUT: 2000 });
+export const API = createInstance({ BASE_URL: Config.BASE_URL,  TIMEOUT: 2000, headers: Config.HEADERS});

@@ -17,9 +17,9 @@ const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
       Posts - get employees list
       Test - example of how mock api works
     */
-    API.get(Endpoints.POSTS).then((val: any) => {
-      console.log(val, "API Response =======");
-    });
+    // API.get(Endpoints.POSTS).then((val: any) => {
+    //   console.log(val, "API Response =======");
+    // });
   }, []);
 
   const footerLinks: Array<string> = t("footer.links", { returnObjects: true });
