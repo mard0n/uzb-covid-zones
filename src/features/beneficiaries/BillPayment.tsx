@@ -1,5 +1,5 @@
 import React from "react";
-import { List } from "@mashreq-digital/ui";
+import { List, H4, Box } from "@mashreq-digital/ui";
 import CustomListItem from "../../components/listItem";
 import { TELECOM_SERVICE_TYPE_CODE } from "../../util/constants";
 import getBeneficiariesAvatar from "../../util/getBeneficiariesAvatar";
@@ -10,7 +10,7 @@ let data = {
       id: 111,
       accountNumber: "2751233956",
       nickname: "test Masood",
-      category: "Telicom",
+      category: "Telecom",
       serviceType: "DU",
       serviceTypeCode: "DU",
       status: "ACTIVE",
@@ -49,28 +49,66 @@ let data = {
       serviceTypeCode: "DEWA",
       status: "DRAFT",
       createdDate: "2020-03-08T09:11:06.823Z"
+    },
+    {
+      id: 1212,
+      accountNumber: "2021775712",
+      nickname: "HONDA",
+      category: "RTA",
+      serviceType: "SALIK",
+      serviceTypeCode: "SALIK",
+      status: "DRAFT",
+      createdDate: "2020-03-08T09:11:06.823Z"
     }
   ]
 };
 
+const listEachBenificiary = (eachBeneficiaries: any) => {
+  return (
+    <CustomListItem
+      color="primary"
+      avatarImage={getBeneficiariesAvatar(eachBeneficiaries.serviceType)}
+      avatarName={eachBeneficiaries.serviceType}
+      nickname={eachBeneficiaries.nickname}
+      accountNumber={
+        eachBeneficiaries.serviceType + " | " + eachBeneficiaries.accountNumber
+      }
+    />
+  );
+};
+
 const BillPayment = (props: any) => {
+  // const {data} = props;
+
   return (
     <List>
-      {data.beneficiaries.map((eachBeneficiaries: any) => {
-        return (
-          <CustomListItem
-            color="primary"
-            avatarImage={getBeneficiariesAvatar(eachBeneficiaries.serviceType)}
-            avatarName={eachBeneficiaries.serviceType}
-            nickname={eachBeneficiaries.nickname}
-            accountNumber={
-              eachBeneficiaries.serviceType +
-              " | " +
-              eachBeneficiaries.accountNumber
-            }
-          />
-        );
-      })}
+      <Box mb={3}>
+        <H4> Telecom </H4>
+      </Box>
+      {data.beneficiaries
+        .filter(benifForFilter => benifForFilter.category == "Telecom")
+        .map((eachBeneficiaries: any) =>
+          listEachBenificiary(eachBeneficiaries)
+        )}
+      <Box mb={3} mt={5}>
+        <H4> Utility Beneficiaries </H4>
+      </Box>
+
+      {data.beneficiaries
+        .filter(benifForFilter => benifForFilter.category == "Utility Services")
+        .map((eachBeneficiaries: any) =>
+          listEachBenificiary(eachBeneficiaries)
+        )}
+
+      <Box mb={3} mt={5}>
+        <H4> RTA </H4>
+      </Box>
+
+      {data.beneficiaries
+        .filter(benifForFilter => benifForFilter.category == "RTA")
+        .map((eachBeneficiaries: any) =>
+          listEachBenificiary(eachBeneficiaries)
+        )}
     </List>
   );
 };
