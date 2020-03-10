@@ -7,6 +7,7 @@ import PasswordScreen from "../features/createAccount/PasswordScreen";
 import Test from "../pages/test";
 import * as RoutePath from "./config";
 import BillPayment from "../features/beneficiaries/BillPayment";
+import DetailedView from "../features/beneficiaries/DetailedView";
 
 const NoMatchPage = () => {
   return <h3>404 - Not found</h3>;
@@ -16,6 +17,10 @@ const routes = [
   {
     path: RoutePath.LOGINPAGE,
     component: Login
+  },
+  {
+    path: RoutePath.BENIFICIARY_DETAILED,
+    component: DetailedView
   },
   {
     path: RoutePath.BENIFICIARY,

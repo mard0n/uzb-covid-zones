@@ -1,8 +1,8 @@
-export const TELECOM_SERVICE_TYPE_CODE = [
-  "etisalat-prepaid",
-  "etislat-postpaid",
-  "du-pospaid-mobile",
-  "du-prepaid-mobile",
-  "etislat-elif",
-  "etislat-landline"
-];
+export const TELECOM_SERVICE_TYPE_CODE: any = {
+  "etisalat-prepaid": "Prepaid",
+  "etislat-postpaid": "Postpaid",
+  "du-pospaid-mobile": "Postpaid",
+  "du-prepaid-mobile": "Prepaid",
+  "etislat-elif": "Elif",
+  "etislat-landline": "Landline"
+};

@@ -28,14 +28,15 @@ interface BeneficiaryListProps {
 
 const BeneficiaryList = (props: BeneficiaryListProps) => {
   const { list } = props;
+  console.log("BeneficiaryList -> list", list);
   const { firstIconText } = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
 
   const onClickServiceType = (dItem: any) => {
-    dispatch(updateBeneficiaryStatus('add'));
-    history.push(BENIFICIARY)
-  }
+    dispatch(updateBeneficiaryStatus("add"));
+    history.push(BENIFICIARY);
+  };
 
   return (
     <>
@@ -61,11 +62,11 @@ const BeneficiaryList = (props: BeneficiaryListProps) => {
                           md={4}
                           className={firstIconText}
                         >
-                          <div onClick={()=>onClickServiceType(dItem)}>
-                          <IconText
-                            icon={Gift}
-                            primaryText={<Caption>{name}</Caption>}
-                          />
+                          <div onClick={() => onClickServiceType(dItem)}>
+                            <IconText
+                              icon={Gift}
+                              primaryText={<Caption>{name}</Caption>}
+                            />
                           </div>
                         </Grid>
                       );
