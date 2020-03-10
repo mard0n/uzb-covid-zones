@@ -8,7 +8,7 @@ import Test from "../pages/test";
 import * as RoutePath from "./config";
 import BillPayment from "../features/beneficiaries/BillPayment";
 import DetailedView from "../features/beneficiaries/DetailedView";
-
+import AddBillPayment from "../features/beneficiaries/AddBillPayment";
 const NoMatchPage = () => {
   return <h3>404 - Not found</h3>;
 };
@@ -21,6 +21,10 @@ const routes = [
   {
     path: RoutePath.BENIFICIARY_DETAILED,
     component: DetailedView
+  },
+  {
+    path: RoutePath.BENIFICIARY_ADD,
+    component: AddBillPayment
   },
   {
     path: RoutePath.BENIFICIARY,

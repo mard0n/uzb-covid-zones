@@ -238,7 +238,6 @@ const LeftContent = (props: any) => {
                         if (checked) {
                           return;
                         } else {
-                          console.log("thoko concole itko ", checked);
                           onChangeInput("username");
                         }
                       }}

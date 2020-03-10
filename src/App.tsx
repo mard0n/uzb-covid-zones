@@ -22,22 +22,22 @@ const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
     // });
   }, []);
 
+  //   <Grid container>
+  //   <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
+  //     <SidebarNav />
+  //   </Grid>
+  //   <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
+  //     <Routes />
+  //   </Grid>
+  // </Grid>
+
   const footerLinks: Array<string> = t("footer.links", { returnObjects: true });
   const exludePath = new RegExp("account");
 
   return (
     <Main
       header={<MOLHeader {...props} />}
-      main={
-        <Grid container>
-          <Grid item xs={3} sm={3} md={3} lg={3} xl={3}>
-            <SidebarNav />
-          </Grid>
-          <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
-            <Routes />
-          </Grid>
-        </Grid>
-      }
+      main={<Routes />}
       footer={
         <>
           {!exludePath.test(props.match.url) && (
