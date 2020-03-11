@@ -2,6 +2,7 @@ import {takeLatest, call, put} from 'redux-saga/effects';
 import * as Endpoints from '../network/Endpoints';
 import * as Actions from '../actions/beneficiaryActions';
 import {API} from '../network/index';
+// import {API} from '../mocks';
 
 export function* watchBeneficiarySaga() {
   console.log('watchBeneficiarySaga ');

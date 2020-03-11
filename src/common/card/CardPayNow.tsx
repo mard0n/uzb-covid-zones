@@ -5,14 +5,12 @@ import {
   Avatar,
   Card,
   Button,
-  Box,
   CardContent,
   makeStyles,
   createStyles,
-  CardMedia
 } from "@mashreq-digital/ui";
 
-const du = require("../../assets/images/beneficiaries/Du.png");
+// const du = require("../../assets/images/beneficiaries/Du.png");
 
 const useStyles = makeStyles((theme: any) =>
   createStyles({
@@ -32,7 +30,7 @@ const useStyles = makeStyles((theme: any) =>
 );
 
 const CardPayNow = (props: any) => {
-  const { heading, subheading, callback, image } = props;
+  const { heading, subheading, callback, buttonLable, image } = props;
 
   const classes = useStyles();
   return (
@@ -43,12 +41,12 @@ const CardPayNow = (props: any) => {
         <Caption>{subheading}</Caption>
       </CardContent>
       <Button
-        onClick={callback}
+        onClick={(e: any)=>callback(e)}
         variant="contained"
         color="primary"
         className={classes.button}
       >
-        Pay Now
+        {buttonLable}
       </Button>
     </Card>
   );
@@ -56,6 +54,3 @@ const CardPayNow = (props: any) => {
 
 export default CardPayNow;
 
-// <Box component={Button} bgcolor="#ff5e00" className={classes.button}>
-// Pay Now
-// </Box>

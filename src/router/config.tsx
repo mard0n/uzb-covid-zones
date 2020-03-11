@@ -2,9 +2,13 @@ export const LOGINPAGE = `/login`;
 export const TEST = `/test`;
 export const PASSCODE = `/passcode`;
 export const MOBILEINFO = `/mobileinfo`;
-export const BENIFICIARY = "/beneficiaries/";
-export const BENIFICIARY_DETAILED = "/beneficiaries/detailed";
-export const BENIFICIARY_ADD = "/beneficiaries/add";
+
+/* Beneficiary */
+export const BENEFICIARY = "/beneficiaries/";
+export const BENIFICIARY_BILL_PAYMENT = "/beneficiaries/billpayment";
+export const BENIFICIARY_BILL_PAYMENT_LANDING = "/beneficiaries/billpayment/landing";
+export const BENIFICIARY_BILL_PAYMENT_DETAILED = "/beneficiaries/billpayment/detailed";
+export const BENIFICIARY_BILL_PAYMENT_ADD_EDIT = "/beneficiaries/billpayment/add";
 
 export const CREATE_ACCOUNT = `/account/:stepId`;
 export const OTHER_ROUTES = `*`;

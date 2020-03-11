@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { forwardRef, Fragment } from "react";
 import { NavLink as RouterLink } from "react-router-dom";
 import PropTypes from "prop-types";
 import {
@@ -46,8 +46,8 @@ const SidebarNav = (props: any) => {
 
   return (
     <List {...rest} className={classes.root}>
-      {pages.map((page: any) => (
-        <>
+      {pages.map((page: any, i: number) => (
+        <Fragment key={i}>
           <ListItem className={classes.item} disableGutters key={page.title}>
             <Button
               activeClassName={classes.active}
@@ -60,8 +60,8 @@ const SidebarNav = (props: any) => {
           </ListItem>
           {page.subMenu ? (
             <Collapse in={true} timeout="auto" unmountOnExit>
-              {page.subMenu.map((subPage: any) => (
-                <List component="div" disablePadding>
+              {page.subMenu.map((subPage: any, j: number) => (
+                <List component="div" disablePadding key={subPage.title+j}>
                   <ListItem>
                     <Button
                       activeClassName={classes.active}
@@ -78,7 +78,7 @@ const SidebarNav = (props: any) => {
           ) : (
             ""
           )}
-        </>
+        </Fragment>
       ))}
     </List>
   );

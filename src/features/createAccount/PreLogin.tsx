@@ -7,7 +7,6 @@ import {
   Button,
   Grid,
   FormGroup,
-  makeStyles,
   Caption,
   InfoCard,
   Box,
@@ -29,7 +28,6 @@ import {
   ChevronLeft
 } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
-import { compose } from "redux";
 
 interface State {
   username: string;
@@ -109,8 +107,6 @@ const LeftContent = (props: any) => {
   const { t } = useTranslation();
   const {
     topPos,
-    setTop,
-    setLeft,
     leftPos,
     keyboard,
     isComponentVisible,
@@ -132,7 +128,7 @@ const LeftContent = (props: any) => {
     showKeyboard: false
   });
   const [openError, setOpenError] = React.useState(false);
-  const [textFocus, setFocus] = React.useState(false);
+  // const [textFocus, setFocus] = React.useState(false);
   const { history } = props;
   const [activeText, setCurrentState] = useState();
 

@@ -1,6 +1,9 @@
 const { createProxyMiddleware } = require("http-proxy-middleware");
-
-const API_URL = "https://digital-dev.mashreq.com/";
+/*
+  dev: https://digital-dev.mashreq.com/
+  uat: https://digital-uat.mashreq.com/
+*/
+const API_URL = "https://digital-uat.mashreq.com/";
 
 module.exports = function(app) {
   app.use(

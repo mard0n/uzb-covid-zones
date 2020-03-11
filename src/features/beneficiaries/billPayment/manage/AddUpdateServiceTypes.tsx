@@ -3,11 +3,10 @@ import {
   Button,
   IconButton
 } from "@mashreq-digital/ui";
-import InputWrapper from "../common/inputWrapper";
-import { FormFields } from "../features/beneficiaries/billPayment/manage/formData";
+import InputWrapper from "../../../../common/inputWrapper";
+import { FormFields } from "../../../../features/beneficiaries/billPayment/manage/formData";
 
-
-export default function Test() {
+const AddUpdateServiceTypes = () => {
   const [type , setType] = useState(FormFields["sewa"]["data"]);
   const [fields, setFields] = useState({});
   const [formData, setFormData] = useState({});
@@ -58,3 +57,5 @@ export default function Test() {
     </form>
   );
 }
+
+export default AddUpdateServiceTypes

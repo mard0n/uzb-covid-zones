@@ -1,13 +1,13 @@
 import React, { FunctionComponent, useEffect } from "react";
 import Routes from "./router";
 import { AppProps } from "./types";
-import { Footer, Main, Box, Grid } from "@mashreq-digital/ui";
+import { Footer, Main, Box } from "@mashreq-digital/ui";
 import { withRouter } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import MOLHeader from "./features/header";
-import { API } from "./mocks/index";
-import * as Endpoints from "./network/Endpoints";
-import SidebarNav from "./features/sidebar";
+// import { API } from "./mocks/index";
+// import * as Endpoints from "./network/Endpoints";
+// import SidebarNav from "./features/sidebar";
 
 const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
   const { t } = useTranslation();

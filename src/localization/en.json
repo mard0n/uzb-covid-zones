@@ -9,10 +9,13 @@
     "label": {
       "username": "Username",
       "password": "Password",
-      "mobileNumber": "Mobile Number"
+      "mobileNumber": "Mobile Number",
+      "nickName": "Nick Name",
+      "accountNumber": "Account Number"
     },
     "action": {
       "back": "Back",
+      "payNow": "payNow",
       "proceed": "Proceed",
       "signin": "Signin",
       "signup": "Sign Up",
@@ -90,6 +93,26 @@
       "title": "Success",
       "action": "Start Demo again"
     }
+  },
+  "beneficiary" : {
+    "landing" : {
+      "searchPlaceholder" : "Search for billers",
+      "addButtonLabel" : "Add New Beneficiary"
+    },
+    "manage" :{
+      "details" : {
+        "title" : "Beneficiary details",
+        "billDetected" : {
+          "title" : "Bill Detected",
+          "desc" : " We have detected an outstanding bill payment for this account number"
+        }
+      },
+      "errors" : {
+        "onlyNumbers" : "Allow only numbers",
+        "numberWithMinandMox" : "min 23 and max23"
+      }
+    }
+   
   },
   "mobileinfo": {
     "tipstitle": "Please enter your mobile number",

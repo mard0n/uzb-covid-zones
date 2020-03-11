@@ -12,7 +12,6 @@ import {
   makeStyles,
   FormControl
 } from "@mashreq-digital/ui";
-import { BubbleQuestion } from "@mashreq-digital/webassets";
 
 const useStyles = makeStyles((theme: any) => ({
   formGroup: {
@@ -35,30 +34,37 @@ const AddBillPayment = (props: any) => {
       height="calc(100vh - 146px)"
       borderTop
       top={
-        <Box>
-          <UnderlineText color="primary">
-            <H2>Let’s get started with your beneficiary details</H2>
-          </UnderlineText>
+        <Grid container>
+          <Grid item xs={8}>
+            <Box>
+              <UnderlineText color="primary">
+                <H2>Let’s get started with your beneficiary details</H2>
+              </UnderlineText>
 
-          <Box mt={6} mb={6}>
-            <Caption> Please enter your details </Caption>
-          </Box>
+              <Box mt={6} mb={6}>
+                <Caption> Please enter your details </Caption>
+              </Box>
 
-          <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
-            <FormGroup className={formGroup}>
-              <FormControl className={inputBox}>
-                <TextField id="username" autoComplete="off" />
-              </FormControl>
+              <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
+                <FormGroup className={formGroup}>
+                  <FormControl className={inputBox}>
+                    <TextField id="username" autoComplete="off" />
+                  </FormControl>
 
-              <FormControl className={inputBox}>
-                <TextField id="username" autoComplete="off" />
-              </FormControl>
-              <FormControl className={inputBox}>
-                <TextField id="username" autoComplete="off" />
-              </FormControl>
-            </FormGroup>
+                  <FormControl className={inputBox}>
+                    <TextField id="username" autoComplete="off" />
+                  </FormControl>
+                  <FormControl className={inputBox}>
+                    <TextField id="username" autoComplete="off" />
+                  </FormControl>
+                </FormGroup>
+              </Grid>
+            </Box>
           </Grid>
-        </Box>
+          <Grid item xs={3}>
+            Right Content
+          </Grid>
+        </Grid>
       }
       bottom={
         <Box display="flex" justifyContent="space-between">

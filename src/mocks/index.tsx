@@ -1,7 +1,7 @@
 import MockAdapter from "axios-mock-adapter";
 import { API } from "../network";
 import * as Endpoints from "../network/Endpoints";
-import { mockTest } from "./mockData/mockTest";
+import { mockServiceTypes } from "./mockData/beneficiary/mockServiceTypes";
 
 const startMocking = (isMockingRequired: boolean = false) => {
   console.log("asdfasjdfjasdjffd");
@@ -18,8 +18,8 @@ const startMocking = (isMockingRequired: boolean = false) => {
     mock
       //   .onPost(Endpoints.BANK_DETAILS_ACCUITY_SEARCH_ENDPOINT)
       //   .reply(200, mockIBanAccountDetails)
-      .onGet(Endpoints.TEST)
-      .reply(200, mockTest)
+      .onGet(Endpoints.BENEFICIARY_SERVICE_TYPES_ENDPOINT)
+      .reply(200, mockServiceTypes)
       //   .onGet(Endpoints.WIDGETS_SUMMARY_OWE_ENDPOINT)
       //   .reply(200, mockIOwe)
       //   .onGet(accountDetailsUrl)

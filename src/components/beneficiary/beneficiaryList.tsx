@@ -8,10 +8,10 @@ import {
   Theme,
   Caption
 } from "@mashreq-digital/ui";
+import { useDispatch } from "react-redux";
 import { Gift } from "@mashreq-digital/webassets";
 import { useHistory } from "react-router-dom";
-import { BENIFICIARY } from "../../router/config";
-import { useDispatch } from "react-redux";
+import { BENIFICIARY_BILL_PAYMENT_ADD_EDIT } from "../../router/config";
 import { updateBeneficiaryStatus } from "../../actions/beneficiaryActions";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -28,14 +28,13 @@ interface BeneficiaryListProps {
 
 const BeneficiaryList = (props: BeneficiaryListProps) => {
   const { list } = props;
-  console.log("BeneficiaryList -> list", list);
   const { firstIconText } = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
 
   const onClickServiceType = (dItem: any) => {
     dispatch(updateBeneficiaryStatus("add"));
-    history.push(BENIFICIARY);
+    history.push(BENIFICIARY_BILL_PAYMENT_ADD_EDIT);
   };
 
   return (
