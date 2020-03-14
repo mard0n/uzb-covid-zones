@@ -40,7 +40,6 @@ const InputWrapper = (props: any) => {
     }
 
     //schema
-    // console.log(validation)
     // if(schema && schema.length > 0) {
     //   isValid = validateScheme(value, schema);
     // }

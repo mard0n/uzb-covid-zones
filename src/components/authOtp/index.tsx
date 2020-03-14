@@ -14,12 +14,12 @@ import {
   ResendOTP,
   Toast,
   AlertTitle,
-  Snackbar,
-  SvgIcon
+  Snackbar
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
 import Locked from "./Locked";
-import { Smartphone, ChevronLeft } from "@mashreq-digital/webassets";
+import { Smartphone } from "@mashreq-digital/webassets";
+import BackButton from "../../common/backButton";
 
 interface State {
   number: string;
@@ -33,11 +33,6 @@ const LeftContent = (props: any) => {
   const [onCompleteResendTimer, setOnCompleteResendTimer] = useState(false);
   const [enableResend, setEnableResend] = useState(false);
   const [open, setOpenError] = React.useState(false);
-  const { history } = props;
-
-  const handleBack = () => {
-    history.push("/account/personalinfo");
-  };
 
   const onChange = (val: any) => {
     setOtp(val);
@@ -45,7 +40,9 @@ const LeftContent = (props: any) => {
     setTimeout(() => {
       if (trimValue && trimValue.length === 6) {
         if (val === "555555") {
-          props.handleNextStep();
+          if(props && props.onSuccess && typeof props.onSuccess === "function") {
+            props.onSuccess();
+          }
         }
         let isError = val && val === "111111";
         isError ? setOtpCount(otpCount + 1) : setOtpCount(otpCount);
@@ -111,10 +108,10 @@ const LeftContent = (props: any) => {
                 {t("account.authentication.errors.title")}
               </AlertTitle>
               <Box>
-                {" "}
+                
                 {t("account.authentication.errors.desc")}
                 <b>
-                  {" "}
+                  
                   {3 - otpCount + " "}
                   {t("account.authentication.errors.attemptsLeft")}
                 </b>
@@ -159,8 +156,8 @@ const LeftContent = (props: any) => {
                   />
                 )}
                 <Box mt={3}>
-                  <Caption>{t("account.authentication.nootp")}</Caption>{" "}
-                  <Button color="primary">Try Again </Button>{" "}
+                  <Caption>{t("account.authentication.nootp")}</Caption>
+                  <Button color="primary" onClick={()=>{setEnableResend(true); onResendClick();}}>Try Again </Button>
                 </Box>
               </Box>
             </Box>
@@ -169,10 +166,7 @@ const LeftContent = (props: any) => {
       }
       bottom={
         <Box display="flex" justifyContent="space-between">
-          <Button color="primary" onClick={handleBack} size="medium">
-            <SvgIcon color="primary" component={ChevronLeft} />
-            <span color="primary">{t("common.action.back")} </span>
-          </Button>
+          <BackButton />
         </Box>
       }
       borderTop={true}
@@ -200,7 +194,7 @@ const AuthOtp = (props: any) => {
       }
     />
   ) : (
-    <Locked {...props} />
+    <Locked {...props} handleTryAgain={()=>setLocked(true)}/>
   );
 };
 

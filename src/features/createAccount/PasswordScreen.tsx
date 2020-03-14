@@ -19,16 +19,15 @@ import {
   Switch,
   AlertTitle,
   UnderlineText,
-  SvgIcon,
   Keyboard
 } from "@mashreq-digital/ui";
 import {
   Eye2,
   EyeCross,
-  Rocket,
-  ChevronLeft
+  Rocket
 } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
+import BackButton from "../../common/backButton";
 
 interface State {
   password: string;
@@ -60,10 +59,6 @@ const LeftContent = (props: any) => {
     showKeyboard: false
   });
   const [openError, setOpenError] = React.useState(false);
-
-  const handleBack = () => {
-    history.push("/account/personalinfo");
-  };
 
   const handlePreSignin = () => {
     if (values.password === "demo") {
@@ -181,10 +176,7 @@ const LeftContent = (props: any) => {
       }
       bottom={
         <Box display="flex" justifyContent="space-between">
-          <Button color="primary" onClick={handleBack} size="medium">
-            <SvgIcon color="primary" component={ChevronLeft} />
-            <span color="primary">{t("common.action.back")} </span>
-          </Button>
+          <BackButton />
 
           <Button
             variant="contained"

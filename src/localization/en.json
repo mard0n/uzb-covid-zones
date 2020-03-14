@@ -15,11 +15,12 @@
     },
     "action": {
       "back": "Back",
-      "payNow": "payNow",
+      "payNow": "Pay Now",
       "proceed": "Proceed",
       "signin": "Signin",
       "signup": "Sign Up",
       "rm": "Read More",
+      "resume" : "Resume",
       "started": "Get Started",
       "tryAgain": "Try Again"
     },
@@ -97,11 +98,29 @@
   "beneficiary" : {
     "landing" : {
       "searchPlaceholder" : "Search for billers",
-      "addButtonLabel" : "Add New Beneficiary"
+      "addButtonLabel" : "Add New Beneficiary",
+      "notFound" : {
+        "title" : "You don't have any beneficiaries",
+        "desc" : "Start by adding new beneficiary"
+      }
     },
     "manage" :{
+      "prompts" : {
+        "delete" : {
+          "title" : "Delete Beneficiary",
+          "desc" : "Are you sure want to delete --username-- beneficiary?",
+          "buttonLabel" : "Delete"
+        }
+      },
       "details" : {
         "title" : "Beneficiary details",
+        "type" : "Beneficiary Type",
+        "status" : "Status",
+        "creationDate": "Beneficiary Creation Date",
+        "notFound" : {
+          "title" : "Benecifiary not found",
+          "desc" : "Go back to beneficiary by click the back button"
+        },
         "billDetected" : {
           "title" : "Bill Detected",
           "desc" : " We have detected an outstanding bill payment for this account number"

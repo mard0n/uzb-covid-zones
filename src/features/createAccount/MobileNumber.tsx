@@ -49,12 +49,6 @@ const LeftContent = (props: any) => {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     let reg = /^$|^(\s*|\d+)$/;
-    console.log("event.target.value ", event.target.value);
-    console.log(
-      "event.target.value.match(reg) ",
-      event.target.value.match(reg)
-    );
-
     if (event.target.value.match(reg) != null) {
       setValues({ ...values, [prop]: event.target.value });
     }
@@ -62,10 +56,8 @@ const LeftContent = (props: any) => {
 
   let handelSubmit = () => {
     if (values.number === "111111111") {
-      console.log("demo for migrated user enter username and password");
       history.push("/account/personalinfo");
     } else {
-      console.log("demo for migrated user enter username and password");
       history.push("/account/personalinfo");
     }
   };

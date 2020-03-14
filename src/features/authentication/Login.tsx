@@ -63,7 +63,6 @@ const LeftContent = (props: any) => {
 
   const onSignIn = () => {
     if (values.username === "demo" && values.password === "demo") {
-      console.log("demo signin");
       history.push("/account/personalinfo");
     } else {
       setOpenError(true);
@@ -76,7 +75,6 @@ const LeftContent = (props: any) => {
     setValues({ ...values, [name]: event.target.checked });
   };
   const handleClickShowPassword = () => {
-    console.log({ ...values, showPassword: !values.showPassword });
     setValues({ ...values, showPassword: !values.showPassword });
   };
 

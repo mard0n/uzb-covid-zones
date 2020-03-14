@@ -10,6 +10,7 @@ const useStyles = makeStyles((theme: Theme)=>({
     bottom: 0,
     height: "100%",
     width: "100%",
+    // transform: "translate(-50%, -50%)",
     backgroundColor: "rgba(0,0,0,0.4)"
   },
   textStyle: {

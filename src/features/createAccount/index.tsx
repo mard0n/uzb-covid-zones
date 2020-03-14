@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Box } from "@mashreq-digital/ui";
 import { connect } from "react-redux";
-import { ReduxAction, stepsID } from "../../reducers/createAcountReducer";
-import { CreateAccountActions } from "../../actions/createAccountActions";
+import { ReduxAction, stepsID } from "../../redux/reducers/createAcountReducer";
+import { CreateAccountActions } from "../../redux/actions/createAccountActions";
 import { Dispatch } from "redux";
-import AuthOtp from "./AuthOtp";
+import AuthOtp from "../../components/authOtp";
 // import { default as MobileInfo } from "./MobileNumber";
 import PreLogin from "./PreLogin";
 import Terms from "./Terms";
@@ -21,7 +21,6 @@ const PersonalInformatin = (props: any) => {
     isFirstStep
   } = props;
 
-  console.log("PersonalInformatin");
 
   useEffect(() => {
     let routePath = match?.params?.stepId,
@@ -30,8 +29,6 @@ const PersonalInformatin = (props: any) => {
   }, [match, setActiveStep]);
 
   const handleNextStep = () => {
-    console.log({ activeStep, isLastStep, isFirstStep });
-
     // active step is the last step
     if (isLastStep) return;
     history.push(`/account/${stepsID[activeStep + 1]}`);
@@ -55,7 +52,7 @@ const PersonalInformatin = (props: any) => {
       case 1:
         return (
           <AuthOtp
-            handleNextStep={handleNextStep}
+            onSuccess={handleNextStep}
             handleBack={handleBack}
             {...props}
           />

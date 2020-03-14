@@ -9,9 +9,9 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getMashreqLogo } from "@mashreq-digital/webassets";
-import { stepsID } from "../../reducers/createAcountReducer";
+import { stepsID } from "../../redux/reducers/createAcountReducer";
 import i18n from "../../config/i18n";
-import { changeLocalization } from "../../actions/globalSetupAction";
+import { changeLocalization } from "../../redux/actions/globalSetupAction";
 
 const MOLHeader = (props: any) => {
   const { t } = useTranslation();

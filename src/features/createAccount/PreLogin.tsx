@@ -18,16 +18,15 @@ import {
   FormControlLabel,
   Switch,
   AlertTitle,
-  UnderlineText,
-  SvgIcon
+  UnderlineText
 } from "@mashreq-digital/ui";
 import {
   Eye2,
   EyeCross,
-  Rocket,
-  ChevronLeft
+  Rocket
 } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
+import BackButton from "../../common/backButton";
 
 interface State {
   username: string;
@@ -78,7 +77,6 @@ function useComponentVisible(initialIsVisible: Boolean) {
         ["text", "password"].indexOf(type) < 0 ? false : true
       ); // check if clicked outside, must not show the keyboard, so set the  `isComponentVisible=false `
     }
-    console.log("classNameclassName", isComponentVisible);
   };
 
   useEffect(() => {
@@ -112,7 +110,6 @@ const LeftContent = (props: any) => {
     isComponentVisible,
     setIsComponentVisible
   } = useComponentVisible(false);
-  console.log("____type_in1", isComponentVisible);
 
   const [checked, setKeyboardActive] = useState(false);
   const { inputBox, root, keyboardStyle }: any = useStyles({
@@ -129,14 +126,12 @@ const LeftContent = (props: any) => {
   });
   const [openError, setOpenError] = React.useState(false);
   // const [textFocus, setFocus] = React.useState(false);
-  const { history } = props;
   const [activeText, setCurrentState] = useState();
 
   // const resetKeyboard = ()=>{
 
   //   // if (!className.includes("hg-button")) {
 
-  //   console.log("Blurrrrrrr ");
   //   setTop(-1000)
   //   setLeft(-1000)
   //   }
@@ -145,24 +140,16 @@ const LeftContent = (props: any) => {
   const onChangeInput = (prop: keyof State) => (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    console.log("onchange ", event);
-
     setCurrentState(prop);
     setValues({ ...values, [prop]: event.target.value });
   };
 
   const handleOnFocus = (input: any) => {
     setCurrentState(input);
-    console.log("root ", root);
-    console.log("keyboardStyle ", keyboardStyle);
   };
 
   const changeAt = (event: any) => {
     setValues({ ...values, [activeText]: event });
-  };
-
-  const handleBack = () => {
-    history.push("/mobileinfo");
   };
 
   const handlePreSignin = () => {
@@ -192,7 +179,7 @@ const LeftContent = (props: any) => {
   const handleErrorClose = () => {
     setOpenError(false);
   };
-  console.log("____risComponentVisible_", isComponentVisible);
+
   return (
     <SectionSplitter
       borderTop={true}
@@ -230,17 +217,20 @@ const LeftContent = (props: any) => {
                       value={values.username}
                       label={t("common.label.username")}
                       aria-describedby={t("common.label.username")}
-                      onChange={(e: any) => {
-                        if (checked) {
-                          return;
-                        } else {
-                          onChangeInput("username");
-                        }
-                      }}
-                      onFocus={() => {
-                        handleOnFocus("username");
-                        setIsComponentVisible(true);
-                      }}
+                      onChange={onChangeInput("username")
+                        // (e: any) => {
+                        // onChangeInput("username");
+                        // if (checked) {
+                        //   return;
+                        // } else {
+                        //   onChangeInput("username");
+                        // }
+                      // }
+                    }
+                      // onFocus={() => {
+                      //   handleOnFocus("username");
+                      //   setIsComponentVisible(true);
+                      // }}
                       inputProps={{
                         "aria-label": t("common.label.username"),
                         maxLength: 80
@@ -260,17 +250,20 @@ const LeftContent = (props: any) => {
                       label={t("common.label.password")}
                       type={values.showPassword ? "text" : "password"}
                       value={values.password}
-                      onChange={(e: any) => {
-                        if (checked) {
-                          return;
-                        } else {
-                          onChangeInput("password");
-                        }
-                      }}
-                      onFocus={() => {
-                        handleOnFocus("password");
-                        setIsComponentVisible(true);
-                      }}
+                      onChange={
+                        onChangeInput("password")
+                      //   (e: any) => {
+                      //   if (checked) {
+                      //     return;
+                      //   } else {
+                      //     onChangeInput("password");
+                      //   }
+                      // }
+                    }
+                      // onFocus={() => {
+                      //   handleOnFocus("password");
+                      //   setIsComponentVisible(true);
+                      // }}
                       InputProps={{
                         endAdornment: (
                           <IconButton
@@ -295,7 +288,6 @@ const LeftContent = (props: any) => {
                     </Caption>
                   </Box>
                   <Box ml={2} mt={3}>
-                    {console.log("inside switch ", checked)}
                     <FormControlLabel
                       control={
                         <Switch
@@ -312,7 +304,6 @@ const LeftContent = (props: any) => {
               </Grid>
             </Grid>
           </Box>
-          {console.log("____isComponentVisible", isComponentVisible, checked)}
 
           <div style={keyboardStyle}>
             {isComponentVisible && checked && (
@@ -323,10 +314,7 @@ const LeftContent = (props: any) => {
       }
       bottom={
         <Box display="flex" justifyContent="space-between">
-          <Button color="primary" onClick={handleBack} size="medium">
-            <SvgIcon color="primary" component={ChevronLeft} />
-            <span color="primary">{t("common.action.back")} </span>
-          </Button>
+          <BackButton />
 
           <Button
             variant="contained"

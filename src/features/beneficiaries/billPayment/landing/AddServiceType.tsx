@@ -6,8 +6,8 @@ import {
   Caption
 } from "@mashreq-digital/ui";
 import { useDispatch, useSelector } from "react-redux";
-import BeneficiaryList from "../../../../components/beneficiary/beneficiaryList";
-import * as Actions from "../../../../actions/beneficiaryActions";
+import BeneficiaryList from "../../../../components/beneficiary/billPayment/BeneficiaryList";
+import * as Actions from "../../../../redux/actions/beneficiary/billPayment/addBillPaymentActions";
 import Loader from "../../../../common/loader";
 
 export default function AddServiceType(props: any) {
@@ -19,7 +19,7 @@ export default function AddServiceType(props: any) {
   },[openModal]);
 
   const serviceTypes = useSelector(
-    (state: any) => state?.beneficiary?.serviceTypes
+    (state: any) => state?.beneficiary?.billPayment?.serviceTypes
   );
   const dispatch = useDispatch();
 

@@ -80,7 +80,7 @@ const LeftContent = (props: any) => {
             size="medium"
             color="primary"
             disabled={!tryAgain}
-            onClick={handleTryAgain}
+            onClick={()=>props.handleTryAgain()}
           >
             {t("common.action.tryAgain")}
           </Button>
@@ -96,7 +96,6 @@ const Locked = (props: any) => {
 
   const handleTimerUpdate = (time: any) => {
     if (time === 1) {
-      console.log("unlock it is ", time);
       EnableTryAgain(true);
     }
   };

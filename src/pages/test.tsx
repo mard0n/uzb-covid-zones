@@ -17,7 +17,6 @@ export default function Test() {
     const formFields: any= FormFields["sewa"]["fields"];
     //add info to accountNumber
     for (const field in formFields) {
-      // console.log(field)
       if (field === "accountNumber") {
         formFields[field]["config"]["InputProps"] = {
           endAdornment: (
@@ -36,7 +35,6 @@ export default function Test() {
 
 
   const handleClickShowPassword = () => {
-    console.log("info clicked");
   };
 
   useEffect(() => {
@@ -44,7 +42,6 @@ export default function Test() {
   }, []);
 
   const onBlurFields = (resData: any) => {
-    console.log("onBlurFields -> resData", resData)
     setFormData(resData);
     setDisabled(!resData.valid)
   };

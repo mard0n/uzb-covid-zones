@@ -6,10 +6,7 @@ import MobileNumber from "../features/createAccount/MobileNumber";
 import PasswordScreen from "../features/createAccount/PasswordScreen";
 import Test from "../pages/test";
 import * as RoutePath from "./config";
-// import BillPayment from "../features/beneficiaries/billPayment";
 import Beneficiaries from "../features/beneficiaries";
-// import DetailedView from "../features/beneficiaries/DetailedView";
-// import AddBillPayment from "../features/beneficiaries/AddBillPayment";
 const NoMatchPage = () => {
   return <h3>404 - Not found</h3>;
 };

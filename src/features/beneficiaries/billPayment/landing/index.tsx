@@ -24,7 +24,9 @@ const BillPaymentLanding = (props: any) => {
 
   return (
     <Box>
+      {openModal && 
       <AddServiceType openModal={openModal} handleClose={handleClose}/>
+    }
       <Box mb={5}>
         <Grid container justify="space-between" alignItems="center">
           <Grid item xl={8} lg={8} md={8} sm={8} xs={8}>

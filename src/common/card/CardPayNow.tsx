@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import {
   H4,
   Caption,
@@ -29,13 +29,21 @@ const useStyles = makeStyles((theme: any) =>
   })
 );
 
-const CardPayNow = (props: any) => {
+type CardPayNowProps = {
+  heading?: ReactNode | string | undefined;
+  subheading? : ReactNode | string | undefined;
+  callback? : any;
+  buttonLable : string; 
+  image? : string;
+}
+
+const CardPayNow = (props: CardPayNowProps) => {
   const { heading, subheading, callback, buttonLable, image } = props;
 
   const classes = useStyles();
   return (
     <Card className={classes.card}>
-      <Avatar src={image} />
+      {image && <Avatar src={image} />}
       <CardContent>
         <H4> {heading} </H4>
         <Caption>{subheading}</Caption>

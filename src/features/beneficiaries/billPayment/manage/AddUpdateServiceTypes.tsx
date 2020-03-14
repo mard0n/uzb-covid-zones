@@ -16,7 +16,6 @@ const AddUpdateServiceTypes = () => {
     const formFields: any= FormFields["sewa"]["fields"];
     //add info to accountNumber
     for (const field in formFields) {
-      // console.log(field)
       if (field === "accountNumber") {
         formFields[field]["config"]["InputProps"] = {
           endAdornment: (
@@ -35,7 +34,6 @@ const AddUpdateServiceTypes = () => {
 
 
   const handleClickShowPassword = () => {
-    console.log("info clicked");
   };
 
   useEffect(() => {
@@ -43,7 +41,6 @@ const AddUpdateServiceTypes = () => {
   }, []);
 
   const onBlurFields = (resData: any) => {
-    console.log("onBlurFields -> resData", resData)
     setFormData(resData);
     setDisabled(!resData.valid)
   };

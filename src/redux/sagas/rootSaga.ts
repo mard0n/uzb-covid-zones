@@ -1,5 +1,5 @@
 import { all } from 'redux-saga/effects';
-import { watchBeneficiarySaga } from './beneficiarySaga';
+import { default as watchBeneficiarySaga } from './beneficiary';
 
 function* rootSaga() {
   yield all([

@@ -10,23 +10,23 @@ const THAVTE = require("../assets/images/beneficiaries/Thavte.png");
 
 const getBeneficiariesAvatar = (serviceType: any) => {
   switch (serviceType) {
-    case "AADC":
+    case "aadc":
       return AADC;
-    case "ADDC":
+    case "addc":
       return ADDC;
-    case "DEWA":
+    case "dewa":
       return DEWA;
-    case "DU":
+    case "du":
       return DU;
-    case "ETISALAT":
+    case "etisalat":
       return ETISALAT;
-    case "FEWA":
+    case "fewa":
       return FEWA;
-    case "SALIK":
+    case "salik":
       return SALIK;
-    case "SEWA":
+    case "sewa":
       return SEWA;
-    case "THVTE":
+    case "thvte":
       return THAVTE;
     default:
       return "";
