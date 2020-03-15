@@ -105,6 +105,17 @@ const CustomListItem = (props: CustomListItemProps) => {
         </Grid>
         <Grid item xl={3} lg={3} md={3} sm={3} xs={3}></Grid>
         <ListItemSecondaryAction className={secondaryAction}>
+          {onResumeLabel &&
+            onResumeCallback &&
+            typeof onResumeCallback === "function" && (
+              <Button
+                variant="text"
+                color="primary"
+                onClick={e => onResumeCallback(e)}
+              >
+                {onResumeLabel}
+              </Button>
+            )}
           {!(onResumeCallback && typeof onResumeCallback === "function") && (
             <>
               {onEditCallback && typeof onEditCallback === "function" && (
@@ -116,25 +127,16 @@ const CustomListItem = (props: CustomListItemProps) => {
                   <SvgIcon component={Edit2} {...svgIconProps} />
                 </IconButton>
               )}
-              {onDeleteCallback && typeof onDeleteCallback === "function" && (
-                <IconButton
-                  edge="end"
-                  aria-label="Delete"
-                  onClick={e => onDeleteCallback(e)}
-                >
-                  <SvgIcon component={Trash} {...svgIconProps} />
-                </IconButton>
-              )}
             </>
           )}
-          {onResumeLabel && onResumeCallback && typeof onResumeCallback === "function" && (
-            <Button
-              variant="text"
-              color="primary"
-              onClick={e => onResumeCallback(e)}
+          {onDeleteCallback && typeof onDeleteCallback === "function" && (
+            <IconButton
+              edge="end"
+              aria-label="Delete"
+              onClick={e => onDeleteCallback(e)}
             >
-              {onResumeLabel}
-            </Button>
+              <SvgIcon component={Trash} {...svgIconProps} />
+            </IconButton>
           )}
         </ListItemSecondaryAction>
       </ListItem>

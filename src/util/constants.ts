@@ -3,6 +3,6 @@ export const TELECOM_SERVICE_TYPE_CODE: any = {
   "etisalat-postpaid": "Postpaid",
   "du-pospaid-mobile": "Postpaid",
   "du-prepaid-mobile": "Prepaid",
-  "etislat-elif": "Elif",
-  "etislat-landline": "Landline"
+  "etisalat-elife": "Elif",
+  "etisalat-landline": "Landline"
 };
