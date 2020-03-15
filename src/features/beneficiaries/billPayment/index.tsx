@@ -2,11 +2,11 @@ import React, { useEffect } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
 import { RouteConfig } from '../../../router';
 import DetailedView from './manage/DetailedView';
-import AddBillPayment from './manage/AddBillPayment';
 import BillPaymentLanding from './landing';
 import * as Actions from "../../../redux/actions/beneficiary/billPayment/landingActions";
 import * as RoutePath from '../../../router/config';
 import { useDispatch } from 'react-redux';
+// import AddUpdateBillPayment from './manage/addUpdate/AddUpdateBillPayment';
 
 const routes: any = [
   {
@@ -17,10 +17,10 @@ const routes: any = [
     path: RoutePath.BENIFICIARY_BILL_PAYMENT_DETAILED,
     component: DetailedView
   },
-  {
-    path: RoutePath.BENIFICIARY_BILL_PAYMENT_ADD_EDIT,
-    component: AddBillPayment
-  }
+  // {
+  //   path: RoutePath.BENIFICIARY_BILL_PAYMENT_ADD_EDIT,
+  //   component: AddUpdateBillPayment
+  // }
 ];
 
 

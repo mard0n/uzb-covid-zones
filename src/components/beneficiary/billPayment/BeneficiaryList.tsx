@@ -10,8 +10,8 @@ import {
 } from "@mashreq-digital/ui";
 import { useDispatch } from "react-redux";
 // import { Gift } from "@mashreq-digital/webassets";
-import { useHistory } from "react-router-dom";
-import { BENIFICIARY_BILL_PAYMENT_ADD_EDIT } from "../../../router/config";
+// import { useHistory } from "react-router-dom";
+// import { BENIFICIARY_BILL_PAYMENT_ADD_EDIT } from "../../../router/config";
 import { updateBeneficiaryStatus } from "../../../redux/actions/beneficiary/billPayment/addBillPaymentActions";
 // import getBeneficiariesAvatar from "../../util/getBeneficiariesAvatar";
 import ImageWithText from "../../../common/imageWithText";
@@ -32,11 +32,11 @@ const BeneficiaryList = (props: BeneficiaryListProps) => {
   const { list } = props;
   const { firstIconText } = useStyles();
   const dispatch = useDispatch();
-  const history = useHistory();
+  // const history = useHistory();
 
   const onClickServiceType = (dItem: any) => {
     dispatch(updateBeneficiaryStatus("add"));
-    history.push(BENIFICIARY_BILL_PAYMENT_ADD_EDIT);
+    // history.push(BENIFICIARY_BILL_PAYMENT_ADD_EDIT);
   };
 
   return (

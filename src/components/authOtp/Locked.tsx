@@ -31,12 +31,12 @@ const LeftContent = (props: any) => {
   const [values, setValues] = React.useState<State>({
     notify: false
   });
-  const { history, tryAgain } = props;
+  const { tryAgain } = props;
 
-  const handleTryAgain = () => {
-    // window.location.reload();
-    history.push("/account/authentication");
-  };
+  // const handleTryAgain = () => {
+  //   // window.location.reload();
+  //   history.push("/account/authentication");
+  // };
 
   const handleSwitchChange = (name: string) => (
     event: React.ChangeEvent<HTMLInputElement>
@@ -50,7 +50,7 @@ const LeftContent = (props: any) => {
         <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
           <Box mt={20}>
             <H2>{t("account.authentication.locked.title")}</H2>
-            <Grid xs={8} sm={8} md={8} lg={8} xl={8}>
+            <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
               <Box mt={2.5}>
                 <Caption>{t("account.authentication.locked.desc")}</Caption>
               </Box>

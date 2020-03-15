@@ -1,9 +1,9 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 import { RouteConfig } from '../../router';
-import DetailedView from './billPayment/manage/DetailedView';
+// import DetailedView from './billPayment/manage/DetailedView';
 import BillPayment from './billPayment/';
-import AddBillPayment from './billPayment/manage/AddBillPayment';
+// import AddUpdateBillPayment from './billPayment/manage/addUpdate/AddUpdateBillPayment';
 import * as RoutePath from '../../router/config';
 import { Main, Box, Drawer, makeStyles, createStyles } from '@mashreq-digital/ui';
 import SideDrawer from '../sidebar';
@@ -13,14 +13,14 @@ const routes: any = [
     path: RoutePath.BENIFICIARY_BILL_PAYMENT,
     component: BillPayment
   },
-  {
-    path: RoutePath.BENIFICIARY_BILL_PAYMENT_DETAILED,
-    component: DetailedView
-  },
-  {
-    path: RoutePath.BENIFICIARY_BILL_PAYMENT_ADD_EDIT,
-    component: AddBillPayment
-  }
+  // {
+  //   path: RoutePath.BENIFICIARY_BILL_PAYMENT_DETAILED,
+  //   component: DetailedView
+  // },
+  // {
+  //   path: RoutePath.BENIFICIARY_BILL_PAYMENT_ADD_EDIT,
+  //   component: AddUpdateBillPayment
+  // }
 ];
 
 const drawerWidth = 300;

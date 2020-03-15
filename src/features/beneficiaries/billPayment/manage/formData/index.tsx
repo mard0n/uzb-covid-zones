@@ -1,5 +1,7 @@
 import sewa from "./sewaFields";
+import dewa from "./dewaFields";
 
 export const FormFields = {
-  sewa: sewa
+  sewa,
+  dewa
 };

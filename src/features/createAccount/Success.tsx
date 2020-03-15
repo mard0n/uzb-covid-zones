@@ -20,7 +20,7 @@ const LeftContent = (props: any) => {
         <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
           <Box mt={20}>
             <H2>{t("account.success.title")}</H2>
-            <Grid xs={8} sm={8} md={8} lg={8} xl={8}>
+            <Grid item xs={8} sm={8} md={8} lg={8} xl={8}>
               <Box mt={2.5}>
                 <img
                   alt="success page"

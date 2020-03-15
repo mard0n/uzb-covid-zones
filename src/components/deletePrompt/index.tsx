@@ -1,0 +1,28 @@
+import React from 'react'
+import { useTranslation } from 'react-i18next';
+import { TrashWarning } from "@mashreq-digital/webassets";
+import PromptTemplate from '../../common/promptTemplate';
+
+const DeletePrompt = (props: any) => {
+  const { openModal, title, desc, buttonLabel, buttonProps, onCloseModal } = props;
+  return (
+    <PromptTemplate
+            icon={TrashWarning}
+            title={title}
+            desc={desc}
+            modalProps={{
+              open: openModal,
+              children: <></>,
+              onClose: () => {
+                if(onCloseModal && typeof onCloseModal === "function") {
+                  onCloseModal();
+                }
+              }
+            }}
+            buttonLabel={buttonLabel}
+            buttonProps={{variant: "contained",...buttonProps}}
+          />
+  )
+}
+
+export default DeletePrompt;

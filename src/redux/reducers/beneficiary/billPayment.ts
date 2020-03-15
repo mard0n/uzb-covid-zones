@@ -1,12 +1,13 @@
 import * as AddBillActions from '../../actions/beneficiary/billPayment/addBillPaymentActions';
 import * as LandingActions from '../../actions/beneficiary/billPayment/landingActions';
+import * as DeleteActions from '../../actions/beneficiary/billPayment/deleteBillPaymentActions';
 
 export const initialState: any = {
   loading: false,
   serviceTypes: [],
   myBills: [],
   status: '', //=> 'add' / 'edit' / 'resume' / 'detail'
-  // errorCode : ''
+  errorCode : ''
 };
 
 /**
@@ -57,6 +58,24 @@ export default function(state = initialState, action: any) {
           ...state,
           status: action.payload,
         };
+      /* Delete - Delete Beneficiarye */
+      case DeleteActions.DELETE_BILL_PAYMENT_BENEFICIARIES_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+    case DeleteActions.DELETE_BILL_PAYMENT_BENEFICIARIES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        response: action.payload,
+      };
+    case DeleteActions.DELETE_BILL_PAYMENT_BENEFICIARIES_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        errorCode: action.payload,
+      };
     default:
       return state;
   }

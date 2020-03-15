@@ -1,8 +1,23 @@
 import { RegEx } from "../.../../../../../../util/RegEx";
 
 const sewa = {
-  data: "sewa",
+  type: "sewa",
+  apicode: 'utility_services_sewa',
   fields: {
+    accountNumber: {
+      config: {
+        // minLength: "",
+        maxLength: "",
+        value: "",
+        helperText: "common.label.accountNumber",
+        label: "common.label.accountNumber"
+      },
+      validation: {
+        onChangeRegex: RegEx.NUMERIC_ONLY
+      },
+      valid: false,
+      touched: false
+    },
     nickName: {
       config: {
         type: "text",
@@ -27,20 +42,6 @@ const sewa = {
             errorCode: 'beneficiary.manage.errors.numberWithMinandMox',
           },
         ]
-      },
-      valid: false,
-      touched: false
-    },
-    accountNumber: {
-      config: {
-        // minLength: "",
-        maxLength: "",
-        value: "",
-        helperText: "common.label.accountNumber",
-        label: "common.label.accountNumber"
-      },
-      validation: {
-        onChangeRegex: RegEx.NUMERIC_ONLY
       },
       valid: false,
       touched: false

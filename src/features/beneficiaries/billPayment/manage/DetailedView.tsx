@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Box, SectionSplitter, SvgIcon } from "@mashreq-digital/ui";
+import { Box, SectionSplitter } from "@mashreq-digital/ui";
 import { TrashWarning } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
-
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { trimLowerCaseStr, replaceStr } from "../../../../util/helper";
 import { BILL_PAYMENT_DETECTION_ENDPOINT } from "../../../../network/Endpoints";
 import { API } from "../../../../network";
@@ -14,16 +13,18 @@ import DetailedViewLayout from "../../../../components/beneficiary/billPayment/D
 import PromptTemplate from "../../../../common/promptTemplate";
 import NoBeneficiaryFound from "../../../../components/beneficiary/billPayment/NoBeneficiaryFound";
 import BackButton from "../../../../common/backButton";
+import * as Actions from "../../../../redux/actions/beneficiary/billPayment/deleteBillPaymentActions";
 
 const DetailedView = () => {
   const { t } = useTranslation();
   let { id: beneficiaryId, service: sLabel } = useParams();
   const history = useHistory();
+  const dispatch = useDispatch();
   /* Below code helps to get data from existing my bills react store */
   const billPaymentState = useSelector(
     (state: any) => state?.beneficiary?.billPayment
   );
-  const { myBills } = billPaymentState;
+  const { myBills, loading } = billPaymentState;
   const [loader, setLoader] = useState<boolean>(true);
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [bill, setBill] = useState<any>({});
@@ -82,7 +83,7 @@ const DetailedView = () => {
 
   const onEditCallback = (e: any) => {
     e.preventDefault();
-    history.push(RoutePath.BENIFICIARY_BILL_PAYMENT_ADD_EDIT);
+    // history.push(RoutePath.BENIFICIARY_BILL_PAYMENT_ADD_EDIT);
   };
 
   const onDeleteCallback = () => {
@@ -90,8 +91,11 @@ const DetailedView = () => {
   };
 
   const onConfirmedDelete = () => {
+    dispatch(Actions.deleteBeneficiaryRequest(bill.id));
     setDeleteModal(false);
-    history.push(RoutePath.BENIFICIARY_BILL_PAYMENT_LANDING);
+    if(!loading) {
+      history.push(RoutePath.BENIFICIARY_BILL_PAYMENT_LANDING);
+    }
   };
 
   if (!loader) {
