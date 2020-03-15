@@ -12,6 +12,7 @@ import AddServiceType from "../landing/AddServiceType";
 
 const BillPaymentLanding = (props: any) => {
   const [openModal, setOpenModal] = useState(false);
+  const [addServiceType, setAddServiceType] = useState('');
   const { t } = useTranslation();
 
   const handleOpen = () => {
@@ -22,10 +23,19 @@ const BillPaymentLanding = (props: any) => {
     setOpenModal(false);
   };
 
+  const onClickService = (name: any) => {
+    setAddServiceType(name.toLowerCase());
+    setOpenModal(false);
+  };
+
+  const onCloseDialog = () => {
+    setAddServiceType('');
+  };
+
   return (
     <Box>
       {openModal && 
-      <AddServiceType openModal={openModal} handleClose={handleClose}/>
+      <AddServiceType openModal={openModal} onClickService={(dItem: any)=>onClickService(dItem)} handleClose={handleClose}/>
     }
       <Box mb={5}>
         <Grid container justify="space-between" alignItems="center">
@@ -42,7 +52,7 @@ const BillPaymentLanding = (props: any) => {
         </Grid>
       </Box>
       <Box>
-        <ListServiceTypes />
+        <ListServiceTypes addServiceType={addServiceType} onCloseDialog={onCloseDialog}/>
       </Box>
     </Box>
   );

@@ -1,24 +1,46 @@
+import i18n from "../../../../../config/i18n";
 import { RegEx } from "../.../../../../../../util/RegEx";
+import { replaceStr } from "../../../../../util/helper";
 
 const sewa = {
   type: "sewa",
-  apicode: 'utility_services_sewa',
   fields: {
     accountNumber: {
       config: {
-        // minLength: "",
-        maxLength: "",
+        inputProps: {
+          minLength: 8,
+          maxLength: 12
+        },
+        required: true,
         value: "",
         helperText: "common.label.accountNumber",
         label: "common.label.accountNumber"
       },
       validation: {
-        onChangeRegex: RegEx.NUMERIC_ONLY
+        onChangeRegex: RegEx.NUMERIC_ONLY,
+        schema: [
+          {
+            regEx: replaceStr(
+              replaceStr(RegEx.NUMERIC_LIMIT, "min", 8),
+              "max",
+              12
+            ),
+            errorCode: replaceStr(
+              replaceStr(
+                i18n.t("beneficiary.manage.errors.minMaxLength"),
+                "--min--",
+                8
+              ),
+              "--max--",
+              12
+            )
+          }
+        ]
       },
       valid: false,
       touched: false
     },
-    nickName: {
+    nickname: {
       config: {
         type: "text",
         inputProps: {
@@ -27,20 +49,44 @@ const sewa = {
           required: true
         },
         value: "",
-        helperText: "common.label.nickName",
+        helperText: "beneficiary.manage.addEdit.helperText.nickName",
         label: "common.label.nickName"
       },
       validation: {
         // onChangeRegex: RegEx.ALPHA_NUMERIC_ONLY,
         schema: [
           {
-            regEx: RegEx.NUMERIC_ONLY,
-            errorCode: 'beneficiary.manage.errors.onlyNumbers',
+            regEx: replaceStr(
+              RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
+              "splChars",
+              "@_#&-"
+            ),
+            errorCode: "beneficiary.manage.errors.nickName"
           },
           {
-            regEx: `^[0-9]{${2},${10}}$`,
-            errorCode: 'beneficiary.manage.errors.numberWithMinandMox',
-          },
+            regEx: replaceStr(
+              replaceStr(
+                replaceStr(
+                  RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
+                  "splChars",
+                  "@_#&-"
+                ),
+                "min",
+                2
+              ),
+              "max",
+              10
+            ),
+            errorCode: replaceStr(
+              replaceStr(
+                i18n.t("beneficiary.manage.errors.minMaxLength"),
+                "--min--",
+                2
+              ),
+              "--max--",
+              10
+            )
+          }
         ]
       },
       valid: false,

@@ -62,7 +62,7 @@ const DetailViewLayout = (props: any) => {
   const type = telCode? telCode : serviceType;
 
   let BENIFICIARY_DETAILS = [
-    { title: t("beneficiary.manage.details.title"), value: serviceType },
+    { title: t("beneficiary.manage.details.type"), value: serviceType },
     {
       title: type + " " + t("common.label.accountNumber"),
       value: accountNumber

@@ -15,13 +15,20 @@ import { useTranslation } from "react-i18next";
 // import PromptTemplate from "../../../../common/promptTemplate";
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/deleteBillPaymentActions";
 import DeletePrompt from "../../../../components/deletePrompt";
+import AddUpdateDialog from "../manage/addUpdate";
 
-const ListServiceTypes = () => {
+type ListServiceTypesProps = {
+  addServiceType: boolean;
+};
+
+const ListServiceTypes = (props: any) => {
+  const { addServiceType, onCloseDialog } = props;
   // const history = useHistory();
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const [beneficiaryItem, setBeneficiaryItem] = useState<any>({});
   const [deleteModal, setDeleteModal] = useState(false);
+  const [addEditModal, setAddEditModal] = useState(false);
 
   const billPaymentState = useSelector(
     (state: any) => state?.beneficiary?.billPayment
@@ -32,9 +39,26 @@ const ListServiceTypes = () => {
   //   dispatch(Actions.fetchBillPaymentBeneficiariesRequest());
   // }, []);
 
+  useEffect(() => {
+    if (addServiceType) {
+      setAddEditModal(true);
+    }
+  }, [addServiceType]);
+
   const onConfirmedDelete = () => {
     dispatch(Actions.deleteBeneficiaryRequest(beneficiaryItem.id));
     setDeleteModal(false);
+  };
+
+  const closeDialogModal = () => {
+    setAddEditModal(false);
+    if(onCloseDialog && typeof onCloseDialog === "function") {
+      onCloseDialog();
+    }
+  }
+
+  const onSuccessCallback = () => {
+    closeDialogModal();
   };
 
   const listEachBenificiary = (item: any, sectionLabel: string, t: any) => {
@@ -54,22 +78,26 @@ const ListServiceTypes = () => {
       `${trimLowerCaseStr(sectionLabel)}/${id}`
     );
     let listItemProps: any = {};
-  
+
     // const onClickList = () => {
     //   history.push(BENIFICIARY_BILL_PAYMENT_DETAILED);
     // }
-  
+
     if (status && status === "DRAFT") {
       listItemProps["onResumeLabel"] = t("common.action.resume");
       listItemProps["onResumeCallback"] = () => {};
     }
-  
+
     return (
       <Link to={toLink}>
         <CustomListItem
           {...listItemProps}
           // editCallback={(e: any)=>{e.preventDefault(); history.push(BENIFICIARY_BILL_PAYMENT_ADD_EDIT)}}
-          deleteCallback={(e: any)=>{e.preventDefault(); setBeneficiaryItem(item); setDeleteModal(true);}}
+          deleteCallback={(e: any) => {
+            e.preventDefault();
+            setBeneficiaryItem(item);
+            setDeleteModal(true);
+          }}
           color="primary"
           avatarImage={getBeneficiariesAvatar(
             (serviceTypeCodeTel
@@ -81,7 +109,9 @@ const ListServiceTypes = () => {
           nickname={nickname}
           accountNumber={
             category === "Telecom"
-              ? TELECOM_SERVICE_TYPE_CODE[serviceTypeCode] + " | " + accountNumber
+              ? TELECOM_SERVICE_TYPE_CODE[serviceTypeCode] +
+                " | " +
+                accountNumber
               : serviceType + " | " + accountNumber
           }
         />
@@ -91,8 +121,8 @@ const ListServiceTypes = () => {
 
   if (!loading) {
     if (myBills && myBills.length > 0) {
-      let deleteDesc = '';
-      if(beneficiaryItem && beneficiaryItem.id && deleteModal) {
+      let deleteDesc = "";
+      if (beneficiaryItem && beneficiaryItem.id && deleteModal) {
         deleteDesc = replaceStr(
           t("beneficiary.manage.prompts.delete.desc"),
           "--username--",
@@ -101,16 +131,28 @@ const ListServiceTypes = () => {
       }
       return (
         <>
-        {deleteModal && 
-          <DeletePrompt title={t("beneficiary.manage.prompts.delete.title")}
-      buttonLabel={t("beneficiary.manage.prompts.delete.buttonLabel")}
-            desc={deleteDesc} openModal={deleteModal} onCloseModal={()=>setDeleteModal(false)}
-            buttonProps={{
-              onClick: () => {
-                onConfirmedDelete();
-              }
-            }}/>
-          }
+          <AddUpdateDialog
+            isAdd={true}
+            billType={addServiceType}
+            fullScreen
+            open={addEditModal}
+            onCloseCallback={()=>closeDialogModal()}
+            finalCallback={() => onSuccessCallback()}
+          />
+          {deleteModal && (
+            <DeletePrompt
+              title={t("beneficiary.manage.prompts.delete.title")}
+              buttonLabel={t("beneficiary.manage.prompts.delete.buttonLabel")}
+              desc={deleteDesc}
+              openModal={deleteModal}
+              onCloseModal={() => setDeleteModal(false)}
+              buttonProps={{
+                onClick: () => {
+                  onConfirmedDelete();
+                }
+              }}
+            />
+          )}
           {myBills.map((bill: any, i: number) => {
             const { sectionLabel, data } = bill;
             return (

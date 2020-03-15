@@ -67,7 +67,7 @@ const dewa = {
               "max",
               10
             ),
-            errorCode: "beneficiary.manage.errors.numberWithMinandMox"
+            errorCode: "beneficiary.manage.errors.minMaxLength"
           }
         ]
       },

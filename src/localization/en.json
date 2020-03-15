@@ -22,7 +22,8 @@
       "rm": "Read More",
       "resume" : "Resume",
       "started": "Get Started",
-      "tryAgain": "Try Again"
+      "tryAgain": "Try Again",
+      "done" : "Done"
     },
     "links": {
       "forgetUsername": "Forgot your Username?",
@@ -108,8 +109,30 @@
       "prompts" : {
         "delete" : {
           "title" : "Delete Beneficiary",
-          "desc" : "Are you sure want to delete --username-- beneficiary?",
+          "desc" : "Are you sure you want to delete --username-- beneficiary?",
           "buttonLabel" : "Delete"
+        }
+      },
+      "info" : {
+        "title": "Your --type-- Account Number",
+        "desc": "will be in this section of your bill"
+      },
+      "addEdit" : {
+        "title" : "Let’s get started with your beneficiary details",
+        "desc" : "Please enter your details",
+        "helperText" : {
+          "accountNumber" : "Account number helperText",
+          "nickName" : "Find your beneficiaries quicker by naming them. --br-- For e.g. Praveen DEWA Home"
+        },
+        "success" : {
+          "title" : "New --type-- beneficiary created",
+          "desc" : "You will now receive notifications whenever we detect a due bill against this number",
+          "buttonLanbel" : "Done"
+        },
+        "failure" : {
+          "title" : "Failure",
+          "desc" : "Failure Desc",
+          "buttonLanbel" : "Try Again"
         }
       },
       "details" : {
@@ -128,7 +151,8 @@
       },
       "errors" : {
         "onlyNumbers" : "Allow only numbers",
-        "numberWithMinandMox" : "min 23 and max23"
+        "minMaxLength" : "Only between --min-- - --max-- are valid.",
+        "nickName" : "Allow only these special characters @_#&-"
       }
     }
    

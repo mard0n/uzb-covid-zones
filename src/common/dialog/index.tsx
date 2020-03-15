@@ -10,9 +10,7 @@ const MDialog = (props: MDialogProps) => {
   // });
 
   return (
-    <Dialog {...props}>
-      Children
-    </Dialog>
+    <Dialog {...props} />
   )
 }
 

@@ -8,7 +8,7 @@ import {
 import { useTranslation } from "react-i18next";
 
 const InputWrapper = (props: any) => {
-  const { initialState, onChangeFields, onBlur } = props;
+  const { initialState, onChangeFields, onBlur, type } = props;
   const [data, setData] = useState(initialState);
   const [valid, setValid] = useState(false);
 
@@ -133,7 +133,7 @@ const InputWrapper = (props: any) => {
           customProps["helperText"] = t(`${errorText}`);
         }
         if (label) {
-          customProps["label"] = t(`${label}`);
+          customProps["label"] = (type ? type : '') + ' ' + t(`${label}`);
         }
 
         const restProps = { ...rest, ...customProps };
@@ -148,11 +148,13 @@ const InputWrapper = (props: any) => {
               }}
               onBlur={(e: any) => onBlurHandler(e, id)}
             />
-            {helperText && (
-              <FormHelperText id="component-helper-text">
+            {helperText && t(`${helperText}`).indexOf('--br--') > -1 ?
+              (
+                t(`${helperText}`).split('--br--').map(line => <FormHelperText id="component-helper-text">{line}</FormHelperText>)
+              ):
+              ( <FormHelperText id="component-helper-text">
                 {t(`${helperText}`)}
-              </FormHelperText>
-            )}
+              </FormHelperText>) }
           </FormControl>
         );
       })}

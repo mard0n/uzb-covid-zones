@@ -26,16 +26,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 interface BeneficiaryListProps {
   list: Array<any>;
+  onClickServiceTypeCallback: any
 }
 
 const BeneficiaryList = (props: BeneficiaryListProps) => {
-  const { list } = props;
+  const { list, onClickServiceTypeCallback } = props;
   const { firstIconText } = useStyles();
   const dispatch = useDispatch();
   // const history = useHistory();
 
-  const onClickServiceType = (dItem: any) => {
-    dispatch(updateBeneficiaryStatus("add"));
+  const onClickServiceType = (name: string, dItem: any) => {
+    // dispatch(updateBeneficiaryStatus("add"));
+    if(onClickServiceTypeCallback && typeof onClickServiceTypeCallback === "function"){
+    onClickServiceTypeCallback(name);
+  }
     // history.push(BENIFICIARY_BILL_PAYMENT_ADD_EDIT);
   };
 
@@ -63,7 +67,7 @@ const BeneficiaryList = (props: BeneficiaryListProps) => {
                           md={4}
                           className={firstIconText}
                         >
-                          <ImageWithText name={name} data={dItem} onClick={() => onClickServiceType(dItem)}/>
+                          <ImageWithText name={name} data={dItem} onClick={() => onClickServiceType(name, dItem)}/>
                         </Grid>
                       );
                     }

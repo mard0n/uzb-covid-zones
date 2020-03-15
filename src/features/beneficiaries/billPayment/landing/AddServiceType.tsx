@@ -11,7 +11,7 @@ import * as Actions from "../../../../redux/actions/beneficiary/billPayment/addB
 import Loader from "../../../../common/loader";
 
 export default function AddServiceType(props: any) {
-  const { openModal, handleClose } = props;
+  const { openModal, handleClose, onClickService } = props;
   const [open, setOpen] = useState(false);
 
   useEffect(()=>{
@@ -25,7 +25,7 @@ export default function AddServiceType(props: any) {
 
   useEffect(() => {
     dispatch(Actions.fetchBeneficiaryServiceType());
-  }, []);
+  }, [dispatch]);
 
 
   if (serviceTypes && serviceTypes.length > 0) {
@@ -49,7 +49,7 @@ export default function AddServiceType(props: any) {
               dignissimos quod accusantium. Rerum perferendis ea beatae illo
               placeat vero, nesciunt animi incidunt.
             </Caption>
-            <BeneficiaryList list={serviceTypes} />
+            <BeneficiaryList onClickServiceTypeCallback={(name: any)=>onClickService(name)} list={serviceTypes} />
             </>
         </Modals>
             

@@ -26,6 +26,7 @@ interface State {
 }
 
 const LeftContent = (props: any) => {
+  const { onSuccess, onLock, enableBack = true } = props;
   const { t } = useTranslation();
   const [otp, setOtp] = useState("");
   const [error, setError] = useState(false);
@@ -40,14 +41,14 @@ const LeftContent = (props: any) => {
     setTimeout(() => {
       if (trimValue && trimValue.length === 6) {
         if (val === "555555") {
-          if(props && props.onSuccess && typeof props.onSuccess === "function") {
-            props.onSuccess();
+          if (onSuccess && typeof onSuccess === "function") {
+            onSuccess();
           }
         }
         let isError = val && val === "111111";
         isError ? setOtpCount(otpCount + 1) : setOtpCount(otpCount);
         if (otpCount === 2) {
-          props.onLock(false);
+          onLock(false);
         }
         setError(isError);
         setEnableResend(isError);
@@ -95,6 +96,7 @@ const LeftContent = (props: any) => {
 
   return (
     <SectionSplitter
+    borderTop={enableBack}
       top={
         <Box>
           <Snackbar
@@ -108,10 +110,8 @@ const LeftContent = (props: any) => {
                 {t("account.authentication.errors.title")}
               </AlertTitle>
               <Box>
-                
                 {t("account.authentication.errors.desc")}
                 <b>
-                  
                   {3 - otpCount + " "}
                   {t("account.authentication.errors.attemptsLeft")}
                 </b>
@@ -157,7 +157,15 @@ const LeftContent = (props: any) => {
                 )}
                 <Box mt={3}>
                   <Caption>{t("account.authentication.nootp")}</Caption>
-                  <Button color="primary" onClick={()=>{setEnableResend(true); onResendClick();}}>Try Again </Button>
+                  <Button
+                    color="primary"
+                    onClick={() => {
+                      setEnableResend(true);
+                      onResendClick();
+                    }}
+                  >
+                    Try Again{" "}
+                  </Button>
                 </Box>
               </Box>
             </Box>
@@ -165,23 +173,28 @@ const LeftContent = (props: any) => {
         </Box>
       }
       bottom={
-        <Box display="flex" justifyContent="space-between">
-          <BackButton />
-        </Box>
+        <>
+          {enableBack && (
+            <Box display="flex" justifyContent="space-between">
+              <BackButton />
+            </Box>
+          )}
+        </>
       }
-      borderTop={true}
     />
   );
 };
 
 const AuthOtp = (props: any) => {
+  const { enableCard = true, ...rest } = props;
   const [locked, setLocked] = useState(true);
   const { t } = useTranslation();
 
   return locked ? (
     <SubMain
+    disableRightGrid = {!enableCard}
       content={
-        <LeftContent {...props} onLock={(lock: any) => setLocked(lock)} />
+        <LeftContent {...rest} onLock={(lock: any) => setLocked(lock)} />
       }
       image={
         <Box mt={18}>
@@ -194,7 +207,7 @@ const AuthOtp = (props: any) => {
       }
     />
   ) : (
-    <Locked {...props} handleTryAgain={()=>setLocked(true)}/>
+    <Locked {...rest} handleTryAgain={() => setLocked(true)} />
   );
 };
 
