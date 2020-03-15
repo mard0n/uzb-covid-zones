@@ -16,6 +16,9 @@ import { useTranslation } from "react-i18next";
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/deleteBillPaymentActions";
 import DeletePrompt from "../../../../components/deletePrompt";
 import AddUpdateDialog from "../manage/addUpdate";
+import EditPrompt from '../../../../components/editPrompt/index';
+
+
 
 type ListServiceTypesProps = {
   addServiceType: boolean;
@@ -29,6 +32,7 @@ const ListServiceTypes = (props: any) => {
   const [beneficiaryItem, setBeneficiaryItem] = useState<any>({});
   const [deleteModal, setDeleteModal] = useState(false);
   const [addEditModal, setAddEditModal] = useState(false);
+  const [editModal, setEditModal] = useState(false);
 
   const billPaymentState = useSelector(
     (state: any) => state?.beneficiary?.billPayment
@@ -48,6 +52,14 @@ const ListServiceTypes = (props: any) => {
   const onConfirmedDelete = () => {
     dispatch(Actions.deleteBeneficiaryRequest(beneficiaryItem.id));
     setDeleteModal(false);
+  };
+
+  
+
+
+  const onSubmitEdit = () => {
+    // dispatch(Actions.deleteBeneficiaryRequest(beneficiaryItem.id));
+    setEditModal(false);
   };
 
   const closeDialogModal = () => {
@@ -92,7 +104,10 @@ const ListServiceTypes = (props: any) => {
       <Link to={toLink}>
         <CustomListItem
           {...listItemProps}
-          // editCallback={(e: any)=>{e.preventDefault(); history.push(BENIFICIARY_BILL_PAYMENT_ADD_EDIT)}}
+          editCallback={(e: any)=>{e.preventDefault();
+            console.log("listEachBenificiary -> editCallback");
+            setEditModal(true);
+          }}
           deleteCallback={(e: any) => {
             e.preventDefault();
             setBeneficiaryItem(item);
@@ -143,7 +158,7 @@ const ListServiceTypes = (props: any) => {
             <DeletePrompt
               title={t("beneficiary.manage.prompts.delete.title")}
               buttonLabel={t("beneficiary.manage.prompts.delete.buttonLabel")}
-              desc={deleteDesc}
+              desc={""}
               openModal={deleteModal}
               onCloseModal={() => setDeleteModal(false)}
               buttonProps={{
@@ -153,6 +168,23 @@ const ListServiceTypes = (props: any) => {
               }}
             />
           )}
+
+          {editModal && (
+            <EditPrompt
+              title={t("beneficiary.manage.prompts.edit.title")}
+              buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel")}
+              desc={deleteDesc}
+              openModal={editModal}
+              onCloseModal={() => setEditModal(false)}
+              buttonProps={{
+                onClick: () => {
+                  onSubmitEdit();
+                }
+              }}
+            />
+          )}
+
+          
           {myBills.map((bill: any, i: number) => {
             const { sectionLabel, data } = bill;
             return (
