@@ -10,6 +10,7 @@ import { useTranslation } from "react-i18next";
 import SearchBeneficiary from "../landing/Search";
 import ListServiceTypes from "../landing/ListServiceTypes";
 import AddServiceType from "../landing/AddServiceType";
+import FilledCheckBox from "../../../../common/filledCheckbox";
 
 
 const BillPaymentLanding = (props: any) => {
