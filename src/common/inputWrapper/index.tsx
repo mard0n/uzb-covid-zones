@@ -97,6 +97,10 @@ const InputWrapper = (props: any) => {
     }
   };
 
+
+
+  
+
   const onBlurHandler = (e: any, id: string) => {
     let resData: any = {};
     for (const key in data) {

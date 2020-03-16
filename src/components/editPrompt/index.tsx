@@ -19,13 +19,21 @@ const EditPrompt = (props: EdidPromptProps) => {
   const [fields, setFields] = useState({});
   const [formData, setFormData] = useState({});
   const getType: keyof typeof editFormFields = beneficiaryItemForEdit.serviceType.toLowerCase();
+  const [disabledEditButton, setDisabledEditButton] = useState(true);
 
   console.log("EditPrompt -> formData", formData)
 
   const onBlurFields = (resData: any) => {
-    setFormData(resData);
+    let cloneData = {...resData}
+    setFormData(cloneData);
+    setDisabledEditButton(cloneData.valid);
   };
 
+  const onChangeOfEditFiled = (formChanges:any)=>{
+  let cloneData = {...formChanges}
+  setDisabledEditButton(!cloneData.nickName.valid);
+  }
+  
 
  useEffect(() => {
     const initFieldProps = () => {
@@ -46,7 +54,10 @@ const EditPrompt = (props: EdidPromptProps) => {
             title={title}
             desc={desc}
             content={
-              <InputWrapper initialState={fields} onBlur={onBlurFields}/>
+  
+              <>
+              <InputWrapper initialState={fields} onBlur={onBlurFields}  onChangeFields={onChangeOfEditFiled} /> 
+              </>
             }
             modalProps={{
               open: openModal,
@@ -60,6 +71,7 @@ const EditPrompt = (props: EdidPromptProps) => {
             buttonLabel={buttonLabel}
             buttonProps={{
               variant: "contained",
+              disabled: disabledEditButton,
               onClick: () => {
                 onSubmitEdit(formData);
               }
