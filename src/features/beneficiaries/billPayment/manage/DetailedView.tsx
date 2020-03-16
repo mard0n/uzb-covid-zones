@@ -141,15 +141,15 @@ const DetailedView = () => {
                 />
               }
 
-         {editModal && <EditPrompt
-            title={t("beneficiary.manage.prompts.edit.title")}
-            buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel")}
-            desc={""}
-            beneficiaryItemForEdit = {bill}
-            openModal={editModal}
-            onCloseModal={() => setEditModal(false)}
-            onSubmitEdit = {onSubmitEdit}
-          />}
+         {editModal &&  <EditPrompt
+          title={t("beneficiary.manage.prompts.edit.title")}
+          buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel")}
+          desc={""}
+          beneficiaryItemForEdit={bill}
+          openModal={editModal}
+          onCloseModal={() => setEditModal(false)}
+          onSubmitEdit={onSubmitEdit}
+        />}
        
           <SectionSplitter
             height="calc(100vh - 146px)"

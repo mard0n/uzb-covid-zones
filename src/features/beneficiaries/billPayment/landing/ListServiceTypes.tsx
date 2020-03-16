@@ -60,6 +60,7 @@ const ListServiceTypes = (props: any) => {
   };
 
   const onSubmitEdit = (formData: any) => {
+    console.log("onSubmitEdit -> formData", formData)
     let editData = {
       id: beneficiaryItemForEdit.id.toString(),
       nickname: formData.nickName,

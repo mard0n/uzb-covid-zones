@@ -16,6 +16,7 @@ type EdidPromptProps = {
 
 const EditPrompt = (props: EdidPromptProps) => {
   const { openModal, title, desc, buttonLabel, beneficiaryItemForEdit, onSubmitEdit, onCloseModal } = props;
+  console.log("EditPrompt -> beneficiaryItemForEdit", beneficiaryItemForEdit)
   const [fields, setFields] = useState({});
   const [formData, setFormData] = useState({});
   const getType: keyof typeof editFormFields = beneficiaryItemForEdit.serviceType.toLowerCase();
@@ -26,7 +27,6 @@ const EditPrompt = (props: EdidPromptProps) => {
   const onBlurFields = (resData: any) => {
     let cloneData = {...resData}
     setFormData(cloneData);
-    setDisabledEditButton(cloneData.valid);
   };
 
   const onChangeOfEditFiled = (formChanges:any)=>{
