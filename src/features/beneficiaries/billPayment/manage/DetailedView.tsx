@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Box, SectionSplitter } from "@mashreq-digital/ui";
-import { TrashWarning } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
 import { useHistory, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -10,12 +9,12 @@ import { API } from "../../../../network";
 import Loader from "../../../../common/loader";
 import * as RoutePath from "../../../../router/config";
 import DetailedViewLayout from "../../../../components/beneficiary/billPayment/DetailedViewLayout";
-import PromptTemplate from "../../../../common/promptTemplate";
 import NoBeneficiaryFound from "../../../../components/beneficiary/billPayment/NoBeneficiaryFound";
 import BackButton from "../../../../common/backButton";
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/deleteBillPaymentActions";
 import { addUpdateBeneficiaryRequest } from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import EditPrompt from "../../../../components/editPrompt/index";
+import DeletePrompt from "../../../../components/deletePrompt";
 
 const DetailedView = () => {
   const { t } = useTranslation();
@@ -127,26 +126,20 @@ const DetailedView = () => {
       );
       return (
         <>
-          <PromptTemplate
-            icon={TrashWarning}
-            title={t("beneficiary.manage.prompts.delete.title")}
-            desc={deleteDesc}
-            modalProps={{
-              open: deleteModal,
-              children: <></>,
-              onClose: () => {
-                setDeleteModal(false);
+          {deleteModal && 
+            <DeletePrompt
+                  title={t("beneficiary.manage.prompts.delete.title")}
+                  buttonLabel={t("beneficiary.manage.prompts.delete.buttonLabel")}
+                  desc={deleteDesc}
+                  openModal={deleteModal}
+                  onCloseModal={() => setDeleteModal(false)}
+                  buttonProps={{
+                    onClick: () => {
+                      onConfirmedDelete();
+                    }
+                  }}
+                />
               }
-            }}
-            buttonLabel={t("beneficiary.manage.prompts.delete.buttonLabel")}
-            buttonProps={{
-              variant: "contained",
-              disabled: false,
-              onClick: () => {
-                onConfirmedDelete();
-              }
-            }}
-          />
 
          {editModal && <EditPrompt
             title={t("beneficiary.manage.prompts.edit.title")}
@@ -157,7 +150,7 @@ const DetailedView = () => {
             onCloseModal={() => setEditModal(false)}
             onSubmitEdit = {onSubmitEdit}
           />}
-          
+       
           <SectionSplitter
             height="calc(100vh - 146px)"
             top={

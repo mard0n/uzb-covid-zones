@@ -3,7 +3,7 @@ export const replaceStr = (
   matchString: any,
   replacebleString: any
 ) => {
-  if (originalStr && matchString && replacebleString) {
+  if (originalStr && typeof matchString  !== "undefined" && typeof replacebleString !== "undefined") {
     return originalStr.replace(matchString, replacebleString);
   }
   return originalStr;

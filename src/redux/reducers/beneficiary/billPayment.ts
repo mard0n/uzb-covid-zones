@@ -7,7 +7,7 @@ export const initialState: any = {
   loading: false,
   serviceTypes: [],
   myBills: [],
-  status: '', //=> 'add' / 'edit' / 'resume' / 'detail'
+  addNew: {},
   errorCode : ''
 };
 
@@ -79,29 +79,52 @@ export default function(state = initialState, action: any) {
       };
 
      /* CRUD */
-    case ManageActions.ADD_UPDATE_BILL_PAY_BENEFICIARY_REQUEST:
-      return {
-        ...state,
-        loading: true,
-        // response: action.payload,
-      };
-    case ManageActions.ADD_UPDATE_BILL_PAY_BENEFICIARY_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        // response: action.payload,
-      };
-    case ManageActions.ADD_UPDATE_BILL_PAY_BENEFICIARY_FAILURE:
-      return {
-        ...state,
-        loading: false,
-        errorCode: action.payload,
-      };
-    case ManageActions.CLEAR_BILL_PAY_BENEFICIARY_ERRORCODE:
-      return {
-        ...state,
-        errorCode: '',
-      };
+      case ManageActions.ADD_UPDATE_BILL_PAY_BENEFICIARY_REQUEST:
+        return {
+          ...state,
+          loading: true,
+          // response: action.payload,
+        };
+      case ManageActions.ADD_UPDATE_BILL_PAY_BENEFICIARY_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          addNew: action.payload,
+        };
+      case ManageActions.ADD_UPDATE_BILL_PAY_BENEFICIARY_FAILURE:
+        return {
+          ...state,
+          loading: false,
+          errorCode: action.payload,
+        };
+      case ManageActions.CLEAR_BILL_PAY_BENEFICIARY_ERRORCODE:
+        return {
+          ...state,
+          errorCode: '',
+        };
+      case ManageActions.CLEAR_BILL_PAY_BENEFICIARY_ADD_NEW:
+        return {
+          ...state,
+          addNew: {},
+        };
+      /* Active */
+      case ManageActions.ACTIVATE_BENEFICIARY_REQUEST:
+        return {
+          ...state,
+          loading: true,
+        };
+      case ManageActions.ACTIVATE_BENEFICIARY_SUCCESS:
+        return {
+          ...state,
+          loading: false,
+          // response: action.payload,
+        };
+      case ManageActions.ACTIVATE_BENEFICIARY_FAILURE:
+        return {
+          ...state,
+          loading: false,
+          // response: action.payload,
+        };
     default:
       return state;
   }

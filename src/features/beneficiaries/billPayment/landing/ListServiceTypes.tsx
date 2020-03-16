@@ -14,6 +14,8 @@ import { replaceStr, trimLowerCaseStr } from "../../../../util/helper";
 import { useTranslation } from "react-i18next";
 // import PromptTemplate from "../../../../common/promptTemplate";
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/deleteBillPaymentActions";
+import * as ManageActions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
+import * as LandingActions from "../../../../redux/actions/beneficiary/billPayment/landingActions";
 import DeletePrompt from "../../../../components/deletePrompt";
 import AddUpdateDialog from "../manage/addUpdate";
 import EditPrompt from "../../../../components/editPrompt/index";
@@ -32,6 +34,7 @@ const ListServiceTypes = (props: any) => {
   const [beneficiaryItemForEdit, setBeneficiaryItemForEdit] = useState<any>({});
 
   const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteNickName, setDeleteNickName] = useState("");
   const [addEditModal, setAddEditModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
 
@@ -51,31 +54,26 @@ const ListServiceTypes = (props: any) => {
   }, [addServiceType]);
 
   const onConfirmedDelete = () => {
-    console.log("beneficiaryItem ", beneficiaryItem);
+    setDeleteNickName("");
     dispatch(Actions.deleteBeneficiaryRequest(beneficiaryItem.id));
     setDeleteModal(false);
   };
 
-
-
-  const onSubmitEdit = (formData:any) => {
-    console.log("onSubmitEdit --> beneficiaryItem",beneficiaryItemForEdit);
+  const onSubmitEdit = (formData: any) => {
     let editData = {
       id: beneficiaryItemForEdit.id.toString(),
       nickname: formData.nickName,
       serviceTypeCode: beneficiaryItemForEdit.serviceTypeCode,
       accountNumber: beneficiaryItemForEdit.accountNumber
     };
-    console.log("onSubmitEdit -> editData", editData)
-    dispatch(addUpdateBeneficiaryRequest({ updateMode: true, "data":editData }));
+    dispatch(addUpdateBeneficiaryRequest({ updateMode: true, data: editData }));
     setEditModal(false);
   };
 
-
-
-
   const closeDialogModal = () => {
     setAddEditModal(false);
+    dispatch(ManageActions.clearBeneficiaryAddNew());
+    dispatch(LandingActions.fetchBillPaymentBeneficiariesRequest());
     if (onCloseDialog && typeof onCloseDialog === "function") {
       onCloseDialog();
     }
@@ -107,7 +105,7 @@ const ListServiceTypes = (props: any) => {
     //   history.push(BENIFICIARY_BILL_PAYMENT_DETAILED);
     // }
 
-
+    // console.log("listEachBenificiary -> status", nickname, status)
     if (status && status === "DRAFT") {
       listItemProps["onResumeLabel"] = t("common.action.resume");
       listItemProps["onResumeCallback"] = () => {};
@@ -120,12 +118,12 @@ const ListServiceTypes = (props: any) => {
           editCallback={(e: any) => {
             e.preventDefault();
             setBeneficiaryItemForEdit(item);
-            console.log("listEachBenificiary -> editCallback");
             setEditModal(true);
           }}
           deleteCallback={(e: any) => {
             e.preventDefault();
             setBeneficiaryItem(item);
+            setDeleteNickName(item.nickname);
             setDeleteModal(true);
           }}
           color="primary"
@@ -149,90 +147,95 @@ const ListServiceTypes = (props: any) => {
     );
   };
 
-  // if (!loading) {
-  if (myBills && myBills.length > 0) {
-    let deleteDesc = "";
-    if (beneficiaryItem && beneficiaryItem.id && deleteModal) {
-      deleteDesc = replaceStr(
-        t("beneficiary.manage.prompts.delete.desc"),
-        "--username--",
-        beneficiaryItem.nickname
-      );
-    }
-    return (
-      <>
-        {addEditModal && (
-          <AddUpdateDialog
-            isAdd={true}
-            billType={addServiceType}
-            fullScreen
-            open={addEditModal}
-            onCloseCallback={() => closeDialogModal()}
-            finalCallback={() => onSuccessCallback()}
-          />
-        )}
-        {deleteModal && (
-          <DeletePrompt
-            title={t("beneficiary.manage.prompts.delete.title")}
-            buttonLabel={t("beneficiary.manage.prompts.delete.buttonLabel")}
-            desc={""}
-            openModal={deleteModal}
-            onCloseModal={() => setDeleteModal(false)}
-            buttonProps={{
-              onClick: () => {
-                onConfirmedDelete();
-              }
-            }}
-          />
-        )}
-
-        {editModal && (
-          <EditPrompt
-            title={t("beneficiary.manage.prompts.edit.title")}
-            buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel")}
-            desc={deleteDesc}
-            beneficiaryItemForEdit = {beneficiaryItemForEdit}
-            openModal={editModal}
-            onCloseModal={() => setEditModal(false)}
-            onSubmitEdit = {onSubmitEdit}
-          />
-        )}
-
-        {myBills.map((bill: any, i: number) => {
-          const { sectionLabel, data } = bill;
-          return (
-            <List key={i}>
-              <Box mb={3}>
-                <H4> {sectionLabel} </H4>
-              </Box>
-              {data &&
-                data.length > 0 &&
-                data.map((item: any, j: number) => {
-                  return (
-                    <Fragment key={j + "service-type"}>
-                      {listEachBenificiary(item, sectionLabel, t)}
-                    </Fragment>
-                  );
-                })}
-            </List>
-          );
-        })}
-      </>
-    );
-  } else {
-    return (
-      <NoBeneficiaryFound
-        icon={GroupPlus}
-        title="beneficiary.landing.notFound.title"
-        desc="beneficiary.landing.notFound.desc"
-      />
+  let deleteDesc = "";
+  if (beneficiaryItem && beneficiaryItem.id && deleteModal) {
+    deleteDesc = replaceStr(
+      t("beneficiary.manage.prompts.delete.desc"),
+      "--username--",
+      beneficiaryItem.nickname
     );
   }
+
+  // if (!loading) {
+  return (
+    <>
+      {addEditModal && (
+        <AddUpdateDialog
+          isAdd={true}
+          billType={addServiceType}
+          fullScreen
+          open={addEditModal}
+          onCloseCallback={() => closeDialogModal()}
+          finalCallback={() => onSuccessCallback()}
+        />
+      )}
+      {myBills && myBills.length > 0 ? (
+        <>
+          {deleteModal && deleteNickName && (
+            <DeletePrompt
+              title={t("beneficiary.manage.prompts.delete.title")}
+              buttonLabel={t("beneficiary.manage.prompts.delete.buttonLabel")}
+              desc={replaceStr(
+                t("beneficiary.manage.prompts.delete.desc"),
+                "--username--",
+                deleteNickName
+              )}
+              openModal={deleteModal}
+              onCloseModal={() => {
+                setDeleteModal(false);
+                setDeleteNickName("");
+              }}
+              buttonProps={{
+                onClick: () => {
+                  onConfirmedDelete();
+                }
+              }}
+            />
+          )}
+
+          {editModal && (
+            <EditPrompt
+              title={t("beneficiary.manage.prompts.edit.title")}
+              buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel")}
+              desc={deleteDesc}
+              beneficiaryItemForEdit={beneficiaryItemForEdit}
+              openModal={editModal}
+              onCloseModal={() => setEditModal(false)}
+              onSubmitEdit={onSubmitEdit}
+            />
+          )}
+
+          {myBills.map((bill: any, i: number) => {
+            const { sectionLabel, data } = bill;
+            return (
+              <List key={i}>
+                <Box mb={3}>
+                  <H4> {sectionLabel} </H4>
+                </Box>
+                {data &&
+                  data.length > 0 &&
+                  data.map((item: any, j: number) => {
+                    return (
+                      <Fragment key={j + "service-type"}>
+                        {listEachBenificiary(item, sectionLabel, t)}
+                      </Fragment>
+                    );
+                  })}
+              </List>
+            );
+          })}
+        </>
+      ) : (
+        <NoBeneficiaryFound
+          icon={GroupPlus}
+          title="beneficiary.landing.notFound.title"
+          desc="beneficiary.landing.notFound.desc"
+        />
+      )}
+    </>
+  );
   // }
   // return <Loader enable={false} />;
 };
 
 export default ListServiceTypes;
-
-
-

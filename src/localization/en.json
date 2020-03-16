@@ -157,6 +157,7 @@
       "errors" : {
         "onlyNumbers" : "Allow only numbers",
         "minMaxLength" : "Only between --min-- - --max-- are valid.",
+        "maxLength" : "Length should be --max--",
         "nickName" : "Allow only these special characters @_#&-"
       }
     }

@@ -2,38 +2,34 @@ import i18n from "../../../../../config/i18n";
 import { RegEx } from "../../../../../util/RegEx";
 import { replaceStr } from "../../../../../util/helper";
 
-const dewa = {
-  type: "dewa",
-  serviceType : "BillType",
+const du = {
+  type: "du",
+  options: ["Prepaid", "Postpaid", "Landline"],
   fields: {
     accountNumber: {
       config: {
         inputProps: {
-          minLength: 8,
-          maxLength: 12
+          minLength: 0,
+          maxLength: 10
         },
         required: true,
         value: "",
-        helperText: "common.label.accountNumber",
-        label: "common.label.accountNumber"
+        helperText: "common.label.mobileNumber",
+        label: "DU " + i18n.t("common.label.mobileNumber")
       },
       validation: {
         onChangeRegex: RegEx.NUMERIC_ONLY,
         schema: [
           {
             regEx: replaceStr(
-              replaceStr(RegEx.NUMERIC_LIMIT, "min", 8),
+              replaceStr(RegEx.NUMERIC_LIMIT, "min,", ""),
               "max",
-              12
+              10
             ),
             errorCode: replaceStr(
-              replaceStr(
-                i18n.t("beneficiary.manage.errors.minMaxLength"),
-                "--min--",
-                8
-              ),
+              i18n.t("beneficiary.manage.errors.maxLength"),
               "--max--",
-              12
+              10
             )
           }
         ]
@@ -96,4 +92,4 @@ const dewa = {
   }
 };
 
-export default dewa;
+export default du;

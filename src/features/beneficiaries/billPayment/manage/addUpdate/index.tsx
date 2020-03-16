@@ -14,6 +14,9 @@ import AddUpdateBillPayment from "./AddUpdateBillPayment";
 import AuthOtp from "../../../../../components/authOtp";
 import Success from "./Success";
 import ImageWithText from "../../../../../common/imageWithText";
+import { useDispatch } from "react-redux";
+import * as Actions from "../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
+import * as LandingActions from "../../../../../redux/actions/beneficiary/billPayment/landingActions";
 
 const useStyles = makeStyles((theme: Theme) => ({
   leftStyle: {
@@ -25,18 +28,30 @@ const useStyles = makeStyles((theme: Theme) => ({
 const AddUpdateDialog = (props: any) => {
   const { leftStyle } = useStyles();
   const { children, billType, isAdd, finalCallback, onCloseCallback, ...rest } = props;
+  const dispatch = useDispatch();
   const [step, setStep] = useState("");
+  const [draftData, setDraftData] = useState<any>({});
+  // const addNew = useSelector(
+  //   (state: any) => state?.beneficiary?.billPayment?.addNew
+  // );
 
-  const onSubmitCallback = () => {
-    setStep("otp");
+  const onSubmitCallback = (data: any) => {
+    if(data && data.id) {
+      setDraftData(data);
+      setStep("otp");
+    }
   };
 
   const onSuccessOTP = () => {
-    setStep("confirmation");
+    if(draftData && draftData.id) {
+      dispatch(Actions.activateBeneficiaryRequest({beneficiaryId : draftData.id}));
+      setStep("confirmation");
+    }
   };
 
   const successFailureCallback = () => {
     if(finalCallback && typeof finalCallback === "function") {
+    dispatch(Actions.clearBeneficiaryAddNew());
     finalCallback();
   }
   };
@@ -52,10 +67,10 @@ const AddUpdateDialog = (props: any) => {
           />
         );
       case "confirmation":
-        return <Success type={billType} onButtonCallback={()=> successFailureCallback()}/>;
+        return <Success type={billType} data={draftData} onButtonCallback={()=> successFailureCallback()}/>;
       default:
         return (
-          <AddUpdateBillPayment type={billType} onSubmitCallback={() => onSubmitCallback()} />
+          <AddUpdateBillPayment type={billType} onSubmitCallback={(data: any) => onSubmitCallback(data)} />
         );
     }
   };
@@ -73,7 +88,7 @@ const AddUpdateDialog = (props: any) => {
               />
             </IconButton>
           </Box>
-          Left Content
+          {/* Left Content */}
         </Grid>
         <Grid item xs={9}>
           <Box pl={20} py={20.6} pr={10}>

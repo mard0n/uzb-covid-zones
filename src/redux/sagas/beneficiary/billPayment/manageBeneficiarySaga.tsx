@@ -14,6 +14,10 @@ export function* watchManageSaga() {
     Actions.ADD_UPDATE_BILL_PAY_BENEFICIARY_REQUEST,
     workerAddUpdateSaga,
   );
+  yield takeLatest(
+    Actions.ACTIVATE_BENEFICIARY_REQUEST,
+    workerActivateBeneficiary,
+  );
 }
 
 /**
@@ -35,6 +39,27 @@ export function addUpdateBillPayBeneficiary(action: any) {
   return API(config);
 }
 
+/**
+ * @func startBeneficiaryActivation
+ * @param void
+ * @description Activate call
+ */
+export function startBeneficiaryActivation(action: any) {
+  const {beneficiaryId = ''} = action.payload;
+
+  const url = Endpoints.ACTIVATE_BENEFICIARY_BY_ID_ENDPOINT.replace(
+    'beneficiaryId',
+    beneficiaryId,
+  );
+
+  const config = {
+    method: 'POST',
+    url,
+  };
+
+  return API(config);
+}
+
 
 /**
  * @func Worker workerAddUpdateSaga
@@ -46,8 +71,7 @@ export function* workerAddUpdateSaga(action: any) {
   try {
     const response = yield call(addUpdateBillPayBeneficiary, action);
     if (response && response.data) {
-      console.log("mas function*workerServiceTypesSaga -> response", response)
-      yield put(Actions.addUpdateBeneficiarySuccess(response.data));
+      yield put(Actions.addUpdateBeneficiarySuccess(response.data.data));
       if(response.data.errorCode) {
         console.log("mas function*workerAddUpdateSaga -> response.data.errorCode", response.data.message);
         yield put(
@@ -62,5 +86,20 @@ export function* workerAddUpdateSaga(action: any) {
 
   } catch (error) {
     yield put(Actions.addUpdateBeneficiaryFailure(error));
+  }
+}
+
+/**
+ * @func Worker workerActivateBeneficiary
+ * @param action
+ * @descrption worker for acivate beneficiary
+ */
+export function* workerActivateBeneficiary(action: any) {
+  try {
+    const response = yield call(startBeneficiaryActivation, action);
+    // console.log('workerActivateBeneficiary ', response);
+    yield put(Actions.activateBeneficiarySuccess(response.data.data));
+  } catch (error) {
+    yield put(Actions.activateBeneficiaryFailure(error));
   }
 }

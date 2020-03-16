@@ -120,7 +120,7 @@ const InputWrapper = (props: any) => {
   return (
     <FormGroup>
       {inputArray.map(element => {
-      console.log("InputWrapper -> element", element)
+      // console.log("InputWrapper -> element", element)
         const {
           id,
           inputInfo: {

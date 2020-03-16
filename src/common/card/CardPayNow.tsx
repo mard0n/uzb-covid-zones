@@ -33,7 +33,7 @@ type CardPayNowProps = {
   heading?: ReactNode | string | undefined;
   subheading? : ReactNode | string | undefined;
   callback? : any;
-  buttonLable : string; 
+  buttonLable? : string; 
   image? : string;
 }
 
@@ -48,6 +48,7 @@ const CardPayNow = (props: CardPayNowProps) => {
         <H4> {heading} </H4>
         <Caption>{subheading}</Caption>
       </CardContent>
+      {buttonLable && 
       <Button
         onClick={(e: any)=>callback(e)}
         variant="contained"
@@ -56,6 +57,7 @@ const CardPayNow = (props: CardPayNowProps) => {
       >
         {buttonLable}
       </Button>
+      }
     </Card>
   );
 };
