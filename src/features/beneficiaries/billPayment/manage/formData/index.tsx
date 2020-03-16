@@ -5,6 +5,7 @@ import aadc from "./aadcFields";
 import addc from "./addcFields";
 import etisalat from "./etisalatFields";
 import du from "./duFields";
+import noqodi from "./noqodiFields";
 
 export const FormFields = {
   sewa,
@@ -13,5 +14,6 @@ export const FormFields = {
   aadc,
   addc,
   etisalat,
-  du
+  du,
+  noqodi
 };

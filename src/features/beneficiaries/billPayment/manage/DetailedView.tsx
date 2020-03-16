@@ -33,28 +33,28 @@ const DetailedView = () => {
   const [editModal, setEditModal] = useState(false);
 
   useEffect(() => {
+    const detailAPI = () => {
+      let url = BILL_PAYMENT_DETECTION_ENDPOINT.replace(
+        "beneficiaryId",
+        beneficiaryId ? beneficiaryId : ""
+      );
+      API.get(url).then((val: any) => {
+        setLoader(false);
+        if (val && val.data && val.data.data) {
+          let data = val.data.data,
+            getServiceCode = data.serviceTypeCodeTel
+              ? data.serviceTypeCodeTel
+              : data.serviceTypeCode;
+          setBillServiceType(getServiceCode);
+          setBill(data);       
+        }
+      });
+    };
+    
     if (beneficiaryId) {
       detailAPI();
     }
-  }, [beneficiaryId, detailAPI]);
-
-  const detailAPI = () => {
-    let url = BILL_PAYMENT_DETECTION_ENDPOINT.replace(
-      "beneficiaryId",
-      beneficiaryId ? beneficiaryId : ""
-    );
-    API.get(url).then((val: any) => {
-      setLoader(false);
-      if (val && val.data && val.data.data) {
-        let data = val.data.data,
-          getServiceCode = data.serviceTypeCodeTel
-            ? data.serviceTypeCodeTel
-            : data.serviceTypeCode;
-        setBillServiceType(getServiceCode);
-        setBill(data);       
-      }
-    });
-  };
+  }, [beneficiaryId]);
 
 
   /* Below code helps to get data from existing my bills react store */

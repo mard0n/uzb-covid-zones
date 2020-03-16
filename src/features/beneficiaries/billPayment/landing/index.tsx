@@ -4,7 +4,9 @@ import {
   Button,
   Grid,
   Snackbar,
-  Toast
+  Toast,
+  UnderlineText,
+  H2
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
 import SearchBeneficiary from "../landing/Search";
@@ -17,6 +19,7 @@ const BillPaymentLanding = (props: any) => {
   const [openModal, setOpenModal] = useState(false);
   const [addServiceType, setAddServiceType] = useState('');
   const { t } = useTranslation();
+  const tabs: Array<string> = t("beneficiary.landing.tabs", { returnObjects: true });
 
   const handleOpen = () => {
     setOpenModal(true);
@@ -44,7 +47,17 @@ const BillPaymentLanding = (props: any) => {
           handleClose={handleClose}
         />
       )}
+      <Box>
+            <UnderlineText color="primary">
+                <H2>{t("beneficiary.landing.title")}</H2>
+              </UnderlineText>
+            </Box>
       <Box mb={5}>
+      {tabs && tabs.length > 0 && 
+            <Box my={5}>
+              <FilledCheckBox options={tabs} init="Bill Payments"/>
+            </Box>
+            }
         <Grid container justify="space-between" alignItems="center">
           <Grid item xl={8} lg={8} md={8} sm={8} xs={8}>
             <SearchBeneficiary />

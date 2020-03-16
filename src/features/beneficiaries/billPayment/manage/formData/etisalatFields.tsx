@@ -34,6 +34,82 @@ const etisalat = {
           }
         ]
       },
+      prepaid: {
+        validation: {
+          onChangeRegex: RegEx.NUMERIC_ONLY,
+          schema: [
+            {
+              regEx: replaceStr(
+                replaceStr(RegEx.NUMERIC_LIMIT, "min,", ""),
+                "max",
+                10
+              ),
+              errorCode: replaceStr(
+                i18n.t("beneficiary.manage.errors.maxLength"),
+                "--max--",
+                10
+              )
+            }
+          ]
+        },
+      },
+      postpaid: {
+        validation: {
+          onChangeRegex: RegEx.NUMERIC_ONLY,
+          schema: [
+            {
+              regEx: replaceStr(
+                replaceStr(RegEx.NUMERIC_LIMIT, "min,", ""),
+                "max",
+                10
+              ),
+              errorCode: replaceStr(
+                i18n.t("beneficiary.manage.errors.maxLength"),
+                "--max--",
+                10
+              )
+            }
+          ]
+        },
+      },
+      landline: {
+        validation: {
+          onChangeRegex: RegEx.NUMERIC_ONLY,
+          schema: [
+            {
+              regEx: replaceStr(
+                replaceStr(RegEx.NUMERIC_LIMIT, "min,", ""),
+                "max",
+                10
+              ),
+              errorCode: replaceStr(
+                i18n.t("beneficiary.manage.errors.maxLength"),
+                "--max--",
+                10
+              )
+            }
+          ]
+        },
+      },
+      elife: {
+        validation: {
+          onChangeRegex: RegEx.NUMERIC_ONLY,
+          schema: [
+            {
+              regEx: replaceStr(
+                replaceStr(RegEx.NUMERIC_LIMIT, "min,", ""),
+                "max",
+                10
+              ),
+              errorCode: replaceStr(
+                i18n.t("beneficiary.manage.errors.maxLength"),
+                "--max--",
+                10
+              )
+            }
+          ]
+        },
+      },
       valid: false,
       touched: false
     },

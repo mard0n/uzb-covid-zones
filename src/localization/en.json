@@ -98,6 +98,8 @@
   },
   "beneficiary" : {
     "landing" : {
+      "title" : "Beneficiaries",
+      "tabs": ["Bill Payments", "Money Transfer"],
       "searchPlaceholder" : "Search for billers",
       "addButtonLabel" : "Add New Beneficiary",
       "notFound" : {
