@@ -104,6 +104,23 @@ const DetailedView = () => {
     };
     console.log("onSubmitEdit -> editData", editData)
     dispatch(addUpdateBeneficiaryRequest({ updateMode: true, "data":editData }));
+    setTimeout(()=>{
+      let url = BILL_PAYMENT_DETECTION_ENDPOINT.replace(
+        "beneficiaryId",
+        beneficiaryId ? beneficiaryId : ""
+      );
+      API.get(url).then((val: any) => {
+        setLoader(false);
+        if (val && val.data && val.data.data) {
+          let data = val.data.data,
+            getServiceCode = data.serviceTypeCodeTel
+              ? data.serviceTypeCodeTel
+              : data.serviceTypeCode;
+          setBillServiceType(getServiceCode);
+          setBill(data);       
+        }
+      })    },1000);
+
     setEditModal(false);
   };
 

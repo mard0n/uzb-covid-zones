@@ -38,6 +38,7 @@ const ListServiceTypes = (props: any) => {
   const [addEditModal, setAddEditModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
 
+
   const billPaymentState = useSelector(
     (state: any) => state?.beneficiary?.billPayment
   );
@@ -54,6 +55,8 @@ const ListServiceTypes = (props: any) => {
     }
   }, [addServiceType]);
 
+
+
   const onConfirmedDelete = () => {
     setDeleteNickName("");
     dispatch(Actions.deleteBeneficiaryRequest(beneficiaryItem.id));
@@ -69,10 +72,17 @@ const ListServiceTypes = (props: any) => {
       accountNumber: beneficiaryItemForEdit.accountNumber
     };
     dispatch(addUpdateBeneficiaryRequest({ updateMode: true, data: editData }));
-    if(errorCode){
-    console.log("onSubmitEdit -> errorCode", errorCode)
+    // if(errorCode || errorCode !== "" || errorCode !== undefined || errorCode !== null){
+    // console.log("onSubmitEdit -> errorCode", errorCode)
+    // setEditModal(false);
+    // }
+    setTimeout(()=>{
+      dispatch(LandingActions.fetchBillPaymentBeneficiariesRequest());
+    },1000);
+
+    
+
     setEditModal(false);
-    }
   };
 
   const closeDialogModal = () => {

@@ -2,11 +2,44 @@ import { RegEx } from "../../../util/RegEx";
 import { replaceStr } from "../../../util/helper";
 import i18n from '../../../config/i18n';
 
-
 const salik = {
-  type: "dewa",
-  apicode: "utility_services_dewa",
+  type: "salik",
   fields: {
+    pincode: {
+      config: {
+        type: 'password',
+        inputProps: {
+          maxLength: 4
+        },
+        required: true,
+        value: "",
+        helperText: "common.label.pincode",
+        label: "SALIK" + i18n.t("common.label.pincode")
+      },
+      validation: {
+        onChangeRegex: RegEx.NUMERIC_ONLY,
+        schema: [
+          {
+            regEx: replaceStr(
+              replaceStr(RegEx.NUMERIC_LIMIT, "min,", ''),
+              "max",
+              4
+            ),
+            errorCode: replaceStr(
+              replaceStr(
+                i18n.t("beneficiary.manage.errors.maxLength"),
+                "--min--",
+                ''
+              ),
+              "--max--",
+              4
+            )
+          }
+        ]
+      },
+      valid: false,
+      touched: false
+    },
     nickName: {
       config: {
         type: "text",
@@ -20,7 +53,7 @@ const salik = {
         label: "common.label.nickName"
       },
       validation: {
-       onChangeRegex: RegEx.ALPHA_NUMERIC_ONLY,
+        // onChangeRegex: RegEx.ALPHA_NUMERIC_ONLY,
         schema: [
           {
             regEx: replaceStr(
@@ -28,18 +61,18 @@ const salik = {
               "splChars",
               "@_#&-"
             ),
-            errorCode: "beneficiary.manage.errors.onlyNumbers"
+            errorCode: "beneficiary.manage.errors.nickName"
           },
           {
             regEx: replaceStr(
               replaceStr(
                 replaceStr(
-                  RegEx.ALPHA_NUMERIC_SPL_CHARS_LIMIT,
+                  RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
                   "splChars",
                   "@_#&-"
                 ),
                 "min",
-                9
+                2
               ),
               "max",
               10
@@ -63,3 +96,4 @@ const salik = {
 };
 
 export default salik;
+
