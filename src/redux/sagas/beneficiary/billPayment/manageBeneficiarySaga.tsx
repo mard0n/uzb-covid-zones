@@ -46,8 +46,10 @@ export function* workerAddUpdateSaga(action: any) {
   try {
     const response = yield call(addUpdateBillPayBeneficiary, action);
     if (response && response.data) {
+      console.log("mas function*workerServiceTypesSaga -> response", response)
       yield put(Actions.addUpdateBeneficiarySuccess(response.data));
       if(response.data.errorCode) {
+        console.log("mas function*workerAddUpdateSaga -> response.data.errorCode", response.data.message);
         yield put(
           Actions.addUpdateBeneficiaryFailure(response.data.errorCode),
         );
@@ -57,6 +59,7 @@ export function* workerAddUpdateSaga(action: any) {
         Actions.addUpdateBeneficiaryFailure('Invalid data'),
       );
     }
+
   } catch (error) {
     yield put(Actions.addUpdateBeneficiaryFailure(error));
   }

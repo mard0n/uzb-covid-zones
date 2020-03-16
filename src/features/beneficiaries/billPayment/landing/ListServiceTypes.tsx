@@ -107,6 +107,7 @@ const ListServiceTypes = (props: any) => {
     //   history.push(BENIFICIARY_BILL_PAYMENT_DETAILED);
     // }
 
+
     if (status && status === "DRAFT") {
       listItemProps["onResumeLabel"] = t("common.action.resume");
       listItemProps["onResumeCallback"] = () => {};
@@ -232,3 +233,6 @@ const ListServiceTypes = (props: any) => {
 };
 
 export default ListServiceTypes;
+
+
+

@@ -30,6 +30,8 @@ export const addUpdateBeneficiaryFailure = (payload: any) => ({
   type: ADD_UPDATE_BILL_PAY_BENEFICIARY_FAILURE,
   payload,
 });
+
+
 export const clearBeneficiaryErrorCode = () => ({
   type: ADD_UPDATE_BILL_PAY_BENEFICIARY_FAILURE
 });

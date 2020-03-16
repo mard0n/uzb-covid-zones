@@ -49,6 +49,7 @@ const DetailViewLayout = (props: any) => {
   /* We are handling this data in landingSaga. 
   For detail view we are getting data through api call because of billdueAmount.
   If we are going to reuse the landing data then remove the below const telCode */
+
   let telCode = serviceTypeCode;
   if(serviceTypeCode.indexOf("etisalat") > -1) {
     telCode = 'etisalat';
@@ -59,6 +60,10 @@ const DetailViewLayout = (props: any) => {
   /*change the below telcode to serviceTypeCodeTEL 
     const type = serviceTypeCodeTel || telCode? telCode : serviceType;
   */
+
+ let sampleDate = new Date(createdDate);
+ let month = sampleDate.getMonth()+1;
+ let date = sampleDate.getDate() +'.' + (month< 10 ? ("0" + month) : month) + '.'+sampleDate.getFullYear();
   const type = telCode? telCode : serviceType;
 
   let BENIFICIARY_DETAILS = [
@@ -74,7 +79,7 @@ const DetailViewLayout = (props: any) => {
     },
     {
       title: t("beneficiary.manage.details.creationDate"),
-      value: createdDate ? createdDate : "-"
+      value: createdDate ? date : "-"
     }
   ];
 

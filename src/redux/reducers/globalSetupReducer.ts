@@ -5,7 +5,7 @@ export interface ReduxAction extends Action {
 }
 
 const initialState = {
-    direction: "ltr",
+    direction: "ltr"
 };
 
 export const globalSetupReducer = (state = initialState, action: ReduxAction) => {

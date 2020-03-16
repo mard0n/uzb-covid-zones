@@ -11,6 +11,15 @@ export function* watchAddBillPaymentListSaga() {
   );
 }
 
+// export function* watchFetchBeneficiaryServiceTypeFailure() {
+//   yield takeLatest(
+//     Actions.FETCH_BENEFICIARY_SERVICE_TYPES_FAILURE,
+//     workerServiceTypesFailure,
+//   );
+// }
+
+
+
 export function fetchServiceTypesSaga(action: any) {
   const url = Endpoints.BENEFICIARY_SERVICE_TYPES_ENDPOINT;
   // const config = {
@@ -55,6 +64,15 @@ export function* workerServiceTypesSaga(action: any) {
       );
     }
   } catch (error) {
+    console.log("mas error ", error);
     yield put(Actions.fetchBeneficiaryServiceTypeFailure(error));
   }
 }
+
+
+
+
+// export function* workerServiceTypesFailure(action: any) {
+
+
+// }

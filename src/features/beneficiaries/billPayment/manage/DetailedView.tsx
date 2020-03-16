@@ -14,6 +14,8 @@ import PromptTemplate from "../../../../common/promptTemplate";
 import NoBeneficiaryFound from "../../../../components/beneficiary/billPayment/NoBeneficiaryFound";
 import BackButton from "../../../../common/backButton";
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/deleteBillPaymentActions";
+import { addUpdateBeneficiaryRequest } from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
+import EditPrompt from "../../../../components/editPrompt/index";
 
 const DetailedView = () => {
   const { t } = useTranslation();
@@ -29,12 +31,13 @@ const DetailedView = () => {
   const [deleteModal, setDeleteModal] = useState<boolean>(false);
   const [bill, setBill] = useState<any>({});
   const [billServiceType, setBillServiceType] = useState("");
+  const [editModal, setEditModal] = useState(false);
 
   useEffect(() => {
     if (beneficiaryId) {
       detailAPI();
     }
-  }, [beneficiaryId]);
+  }, [beneficiaryId, detailAPI]);
 
   const detailAPI = () => {
     let url = BILL_PAYMENT_DETECTION_ENDPOINT.replace(
@@ -49,10 +52,12 @@ const DetailedView = () => {
             ? data.serviceTypeCodeTel
             : data.serviceTypeCode;
         setBillServiceType(getServiceCode);
-        setBill(data);
+        setBill(data);       
       }
     });
   };
+
+
   /* Below code helps to get data from existing my bills react store */
   useEffect(() => {
     let currentBill: any = {},
@@ -82,13 +87,28 @@ const DetailedView = () => {
   }, [beneficiaryId, sLabel, myBills]);
 
   const onEditCallback = (e: any) => {
-    e.preventDefault();
-    // history.push(RoutePath.BENIFICIARY_BILL_PAYMENT_ADD_EDIT);
+      e.preventDefault();
+      setEditModal(true);
   };
 
   const onDeleteCallback = () => {
     setDeleteModal(true);
   };
+
+
+  const onSubmitEdit = (formData:any) => {
+    let editData = {
+      id: bill.id.toString(),
+      nickname: formData.nickName,
+      serviceTypeCode: bill.serviceTypeCode,
+      accountNumber: bill.accountNumber
+    };
+    console.log("onSubmitEdit -> editData", editData)
+    dispatch(addUpdateBeneficiaryRequest({ updateMode: true, "data":editData }));
+    setEditModal(false);
+  };
+
+
 
   const onConfirmedDelete = () => {
     dispatch(Actions.deleteBeneficiaryRequest(bill.id));
@@ -127,6 +147,17 @@ const DetailedView = () => {
               }
             }}
           />
+
+         {editModal && <EditPrompt
+            title={t("beneficiary.manage.prompts.edit.title")}
+            buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel")}
+            desc={deleteDesc}
+            beneficiaryItemForEdit = {bill}
+            openModal={editModal}
+            onCloseModal={() => setEditModal(false)}
+            onSubmitEdit = {onSubmitEdit}
+          />}
+          
           <SectionSplitter
             height="calc(100vh - 146px)"
             top={
