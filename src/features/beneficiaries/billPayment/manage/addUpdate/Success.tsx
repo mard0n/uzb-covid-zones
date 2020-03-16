@@ -37,14 +37,14 @@ const Success = (props: SuccessProps) => {
   const successString = success ? "success" : "failure";
   let title = t(`beneficiary.manage.addEdit.${successString}.title`);
 
-  useEffect(()=>{
-    if(data && data.id) {
+  useEffect(() => {
+    if (data && data.id) {
       setSuccess(true);
     }
-  },[data]);
-  
-  if(success) {
-    title = replaceStr(title, '--type--', type.toUpperCase());
+  }, [data]);
+
+  if (success) {
+    title = replaceStr(title, "--type--", type.toUpperCase());
   }
 
   return (
@@ -62,42 +62,54 @@ const Success = (props: SuccessProps) => {
               {t(`beneficiary.manage.addEdit.${successString}.desc`)}
             </Caption>
           </Box>
-          
-          {data && data.id && 
-          <>
-          <Box mt={6} mb={6}>
-            <CardPayNow heading={data.nickname} subheading={data.serviceTypeCode+ " " + t("common.label.nickName")} image={getBeneficiariesAvatar(data.serviceTypeCode.toLowerCase())}/>
-          </Box>
-          {data.dueAmount && data.dueAmount > 0 ? (
-          <Box mt={6} mb={6}>
-            <Box mt={5} mb={5}>
-              <H3 gutterBottom>
-                {t("beneficiary.manage.details.billDetected.title")}
-              </H3>
-              <Caption>
-                {t("beneficiary.manage.details.billDetected.desc")}
-              </Caption>
-            </Box>
 
-            <CardPayNow
-              buttonLable={t("common.action.payNow")}
-              // heading="Rent Dubai"
-              // image={getBeneficiariesAvatar("DU")}
-              subheading={
-                <Box display="flex">
-                  <Box mr={1}>
-                    <Caption color="textSecondary" className={capitalize}>
-                      AED
+          {data && data.id && (
+            <>
+              <Box mt={6} mb={6}>
+                <CardPayNow
+                  heading={data.nickname}
+                  subheading={
+                    data.serviceTypeCode +
+                    " " +
+                    (type && type.toLowerCase()! === ("du" || "etisalat"))
+                      ? t("common.label.nickName")
+                      : ""
+                  }
+                  image={getBeneficiariesAvatar(
+                    data.serviceTypeCode.toLowerCase()
+                  )}
+                />
+              </Box>
+              {data.dueAmount && data.dueAmount > 0 ? (
+                <Box mt={6} mb={6}>
+                  <Box mt={5} mb={5}>
+                    <H3 gutterBottom>
+                      {t("beneficiary.manage.details.billDetected.title")}
+                    </H3>
+                    <Caption>
+                      {t("beneficiary.manage.details.billDetected.desc")}
                     </Caption>
                   </Box>
-                  <H5>{data.dueAmount}</H5>
+
+                  <CardPayNow
+                    buttonLable={t("common.action.payNow")}
+                    // heading="Rent Dubai"
+                    // image={getBeneficiariesAvatar("DU")}
+                    subheading={
+                      <Box display="flex">
+                        <Box mr={1}>
+                          <Caption color="textSecondary" className={capitalize}>
+                            AED
+                          </Caption>
+                        </Box>
+                        <H5>{data.dueAmount}</H5>
+                      </Box>
+                    }
+                  />
                 </Box>
-              }
-            />
-          </Box>
-        ): null}
-        </>
-        }
+              ) : null}
+            </>
+          )}
         </>
       }
       bottom={
@@ -119,6 +131,6 @@ const Success = (props: SuccessProps) => {
 
 Success.defaultProps = {
   success: true
-}
+};
 
 export default Success;

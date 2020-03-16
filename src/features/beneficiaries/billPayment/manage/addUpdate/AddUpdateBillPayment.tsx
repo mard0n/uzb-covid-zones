@@ -27,6 +27,9 @@ type AddUpdateBillPaymentProps = {
   onSubmitCallback: any;
 };
 
+const utilities = ["addc", "addc", "dewa", "sewa", "fewa"];
+const duTypes = ['du-prepaid-mobile', 'du-postpaid-mobile', 'du-postpaid-landline'];
+  
 const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
   const { type, onSubmitCallback } = props;
   const { t } = useTranslation();
@@ -44,8 +47,7 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
   const [disabled, setDisabled] = useState(true);
   const [isUtility, setIsUtility] = useState(false);
   const [infoPopup, setInfoPopup] = useState(false);
-  const utilities = ["addc", "addc", "dewa", "sewa", "fewa"];
-  const duTypes = ['du-prepaid-mobile', 'du-postpaid-mobile', 'du-postpaid-landline'];
+  
   const infoTitle = replaceStr(
     t("beneficiary.manage.info.title"),
     "--type--",
@@ -87,12 +89,12 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
       }
     };
     setFields(initFieldProps());
-  }, [getType, type, utilities]);
+  }, [getType, type]);
 
   useEffect(() => {
     let checkUtility = utilities.indexOf(type.toLowerCase()) > -1;
     setIsUtility(checkUtility);
-  }, [type, utilities]);
+  }, [type]);
 
   useEffect(()=>{
     if (onSubmitCallback && typeof onSubmitCallback === "function" && addNew) {
@@ -101,6 +103,8 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
   },[addNew, onSubmitCallback])
 
   const onBlurFields = (resData: any) => {
+  console.log("onBlurFields -> resData", resData)
+    
     setFormData(resData);
     setDisabled(!resData.valid);
   };
