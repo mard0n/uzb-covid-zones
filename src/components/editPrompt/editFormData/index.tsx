@@ -1,6 +1,7 @@
-import dewa from "./otherFields";
-
+import other from "./otherFields";
+import salik from "./salikFields";
 
 export const editFormFields = {
-     dewa
+     other,
+     salik
 };

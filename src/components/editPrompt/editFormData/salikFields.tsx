@@ -3,7 +3,7 @@ import { replaceStr } from "../../../util/helper";
 import i18n from '../../../config/i18n';
 
 
-const other = {
+const salik = {
   type: "dewa",
   apicode: "utility_services_dewa",
   fields: {
@@ -62,4 +62,4 @@ const other = {
   }
 };
 
-export default other;
+export default salik;

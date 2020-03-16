@@ -30,8 +30,8 @@ const useStyles = makeStyles((theme: Theme) => ({
 interface PrompTemplateProps {
   title: string;
   desc?: string;
-  buttonLabel: string;
-  buttonProps: ButtonProps;
+  buttonLabel?: string;
+  buttonProps?: ButtonProps;
   modalProps: transitionModalProps;
   content?: ReactElement | undefined;
   icon?: any;
