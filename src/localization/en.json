@@ -9,6 +9,7 @@
     "label": {
       "username": "Username",
       "password": "Password",
+      "pincode": "Pincode",
       "mobileNumber": "Mobile Number",
       "nickName": "Nick Name",
       "accountNumber": "Account Number"
@@ -127,6 +128,15 @@
       "addEdit" : {
         "title" : "Let’s get started with your beneficiary details",
         "desc" : "Please enter your details",
+        "salik" : {
+          "savePin" : "Save my Salik PIN for future transactions",
+          "info": {
+          "title" : "Why should i save my PIN?",
+          "item1" : "We securely save an encryted version of your PIN",
+          "item2" : "You are never asked for your Salik PIN again",
+          "item3" : "Salik account top-ups will be just 2 clicks away!"
+        }
+        },
         "helperText" : {
           "accountNumber" : "Account number helperText",
           "nickName" : "Find your beneficiaries quicker by naming them. --br-- For e.g. Masood DEWA Home"

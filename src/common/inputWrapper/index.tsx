@@ -110,6 +110,7 @@ const InputWrapper = (props: any) => {
     resData["valid"] = valid;
     if (onBlur && typeof onBlur === "function") {
       onBlur(resData);
+      // console.log("onBlurHandler -> resData, asdfjasdjhfhsakjdfhkhaskdfhkhdsakjfhkadfs", resData)
     }
   };
 
