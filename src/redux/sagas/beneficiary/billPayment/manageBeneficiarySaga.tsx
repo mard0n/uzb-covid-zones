@@ -71,9 +71,9 @@ export function* workerAddUpdateSaga(action: any) {
   try {
     const response = yield call(addUpdateBillPayBeneficiary, action);
     if (response && response.data) {
+      console.log("mas function*workerAddUpdateSaga -> response.data.errorCode", response.data);
       yield put(Actions.addUpdateBeneficiarySuccess(response.data.data));
       if(response.data.errorCode) {
-        console.log("mas function*workerAddUpdateSaga -> response.data.errorCode", response.data.message);
         yield put(
           Actions.addUpdateBeneficiaryFailure(response.data.errorCode),
         );

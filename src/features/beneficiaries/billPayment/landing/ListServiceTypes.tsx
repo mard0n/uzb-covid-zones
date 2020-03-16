@@ -41,7 +41,8 @@ const ListServiceTypes = (props: any) => {
   const billPaymentState = useSelector(
     (state: any) => state?.beneficiary?.billPayment
   );
-  const { loading, myBills } = billPaymentState;
+
+  const { loading, myBills ,errorCode} = billPaymentState;
 
   // useEffect(() => {
   //   dispatch(Actions.fetchBillPaymentBeneficiariesRequest());
@@ -68,7 +69,10 @@ const ListServiceTypes = (props: any) => {
       accountNumber: beneficiaryItemForEdit.accountNumber
     };
     dispatch(addUpdateBeneficiaryRequest({ updateMode: true, data: editData }));
+    if(errorCode){
+    console.log("onSubmitEdit -> errorCode", errorCode)
     setEditModal(false);
+    }
   };
 
   const closeDialogModal = () => {
@@ -239,4 +243,4 @@ const ListServiceTypes = (props: any) => {
   // return <Loader enable={false} />;
 };
 
-export default ListServiceTypes;
+export default   ListServiceTypes;

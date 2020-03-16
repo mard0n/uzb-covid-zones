@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Box,
   Button,
@@ -10,19 +10,49 @@ import {
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
 import SearchBeneficiary from "../landing/Search";
+import { useSelector,useDispatch } from "react-redux";
+
 import ListServiceTypes from "../landing/ListServiceTypes";
 import AddServiceType from "../landing/AddServiceType";
 import FilledCheckBox from "../../../../common/filledCheckbox";
+import * as Actions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 
 
 const BillPaymentLanding = (props: any) => {
+
+
+  let dispatch = useDispatch();
+
+  const billPaymentState = useSelector(
+    (state: any) => state?.beneficiary?.billPayment
+  );
+  
+  const {errorCode} = billPaymentState;
+
+
   const [openModal, setOpenModal] = useState(false);
   const [addServiceType, setAddServiceType] = useState('');
   const { t } = useTranslation();
   const tabs: Array<string> = t("beneficiary.landing.tabs", { returnObjects: true });
 
+  const [openErrorToast, setOpenErrorToast] = useState(true);
+  console.log("BillPaymentLanding -> errorCode", errorCode)
+
+
+  // useEffect(() => {
+  //   if(!errorCode){
+  //     console.log("BillPaymentLanding -> errorCode", errorCode)
+  //     setOpenErrorToast(true);
+  //   }
+  // });
+
   const handleOpen = () => {
     setOpenModal(true);
+  }
+
+  const onCloseErrorSnackBar =(reason:any)=>{
+    dispatch(Actions.addUpdateBeneficiaryFailure(""));
+    setOpenErrorToast(false)
   }
 
   const handleClose = () => {
@@ -82,23 +112,23 @@ const BillPaymentLanding = (props: any) => {
         />
       </Box>
 
-      {
-        <Snackbar
+   
+       {errorCode && <Snackbar
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
-          open={true}
-          autoHideDuration={1000}
-          onClose={() => {}}
+          open={openErrorToast}
+          autoHideDuration={5000}
+          onClose={onCloseErrorSnackBar}
         >
           <Toast
             severity={"error"}
-            onClose={() => {}}
-            isNotification={true}
+            onClose={onCloseErrorSnackBar}
+            isNotification={openErrorToast}
             icon={false}
           >
-            {"asdasdsd"}
+            {errorCode}
           </Toast>
-        </Snackbar>
-      }
+        </Snackbar>}
+  
     </Box>
   );
 };

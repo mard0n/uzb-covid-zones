@@ -16,6 +16,8 @@ const getBeneficiariesAvatar = (serviceType: any) => {
   switch (serviceType) {
     case "aadc":
       return AADC;
+    case "addc":
+      return ADDC;     
     case "noqodi":
       return Noqodi;
     case "Ahsen":

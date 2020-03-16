@@ -8,7 +8,9 @@ export const initialState: any = {
   serviceTypes: [],
   myBills: [],
   addNew: {},
-  errorCode : ''
+  errorCode : '',
+  errorMessage : ''
+
 };
 
 /**
