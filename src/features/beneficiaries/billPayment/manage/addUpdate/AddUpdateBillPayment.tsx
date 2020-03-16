@@ -71,13 +71,6 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
     capitalizeFirstLetter(type)
   );
 
-  const handleClickShowPassword = (val: any) => {
-    let cloneFields = {...val};
-    cloneFields['pincode']['config']['type'] = hideSalikPin ?  'password' : 'text';
-    setHideSalikPin(!hideSalikPin);
-    setFields(cloneFields);
-  }
-
   const onChangeSavePin = () => {
     setSavePin(!savePin)
   }
@@ -120,6 +113,13 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
   }, [getType, type]);
 
   useEffect(()=>{
+    const handleClickShowPassword = (val: any) => {
+      let cloneFields = {...val};
+      cloneFields['pincode']['config']['type'] = hideSalikPin ?  'password' : 'text';
+      setHideSalikPin(!hideSalikPin);
+      setFields(cloneFields);
+    }
+
     const formFields: any = FormFields[getType]["fields"];
     for (const field in formFields) {
       if (type==="salik" && field === "pincode") {
@@ -134,7 +134,7 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
           )
         };
       }
-    }},[type, fields, hideSalikPin, getType, handleClickShowPassword]);
+    }},[type, fields, hideSalikPin, getType]);
 
   useEffect(() => {
     let checkUtility = utilities.indexOf(type.toLowerCase()) > -1;
