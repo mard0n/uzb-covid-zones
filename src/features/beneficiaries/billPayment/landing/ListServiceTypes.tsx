@@ -50,6 +50,7 @@ const ListServiceTypes = (props: any) => {
   }, [addServiceType]);
 
   const onConfirmedDelete = () => {
+    console.log("beneficiaryItem ",beneficiaryItem);
     dispatch(Actions.deleteBeneficiaryRequest(beneficiaryItem.id));
     setDeleteModal(false);
   };

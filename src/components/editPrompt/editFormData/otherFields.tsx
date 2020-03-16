@@ -16,7 +16,7 @@ const dewa = {
           required: true
         },
         value: "",
-        helperText: "common.label.nickName",
+        helperText: "beneficiary.manage.addEdit.helperText.nickName",
         label: "common.label.nickName"
       },
       validation: {
