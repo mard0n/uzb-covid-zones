@@ -1,6 +1,7 @@
 import * as AddBillActions from '../../actions/beneficiary/billPayment/addBillPaymentActions';
 import * as LandingActions from '../../actions/beneficiary/billPayment/landingActions';
 import * as DeleteActions from '../../actions/beneficiary/billPayment/deleteBillPaymentActions';
+import * as ManageActions from '../../actions/beneficiary/billPayment/manageBeneficiaryActions';
 
 export const initialState: any = {
   loading: false,
@@ -75,6 +76,31 @@ export default function(state = initialState, action: any) {
         ...state,
         loading: false,
         errorCode: action.payload,
+      };
+
+     /* CRUD */
+    case ManageActions.ADD_UPDATE_BILL_PAY_BENEFICIARY_REQUEST:
+      return {
+        ...state,
+        loading: true,
+        // response: action.payload,
+      };
+    case ManageActions.ADD_UPDATE_BILL_PAY_BENEFICIARY_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        // response: action.payload,
+      };
+    case ManageActions.ADD_UPDATE_BILL_PAY_BENEFICIARY_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        errorCode: action.payload,
+      };
+    case ManageActions.CLEAR_BILL_PAY_BENEFICIARY_ERRORCODE:
+      return {
+        ...state,
+        errorCode: '',
       };
     default:
       return state;

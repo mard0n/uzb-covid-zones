@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, SvgIcon, makeStyles, Theme } from '../../../../mashreq-web-packages/node_modules/@material-ui/core';
+import { Box, SvgIcon, makeStyles, Theme } from '@mashreq-digital/ui';
 import { Check, Cross } from '@mashreq-digital/webassets';
 
 type SucessFailureIconProps = {

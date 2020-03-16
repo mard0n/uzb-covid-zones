@@ -25,7 +25,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 const AddUpdateDialog = (props: any) => {
   const { leftStyle } = useStyles();
   const { children, billType, isAdd, finalCallback, onCloseCallback, ...rest } = props;
-  console.log("AddUpdateDialog -> billType", billType)
   const [step, setStep] = useState("");
 
   const onSubmitCallback = () => {

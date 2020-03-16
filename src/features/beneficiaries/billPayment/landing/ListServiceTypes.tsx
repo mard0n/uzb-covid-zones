@@ -119,7 +119,7 @@ const ListServiceTypes = (props: any) => {
     );
   };
 
-  if (!loading) {
+  // if (!loading) {
     if (myBills && myBills.length > 0) {
       let deleteDesc = "";
       if (beneficiaryItem && beneficiaryItem.id && deleteModal) {
@@ -131,6 +131,7 @@ const ListServiceTypes = (props: any) => {
       }
       return (
         <>
+        {addEditModal && 
           <AddUpdateDialog
             isAdd={true}
             billType={addServiceType}
@@ -139,6 +140,7 @@ const ListServiceTypes = (props: any) => {
             onCloseCallback={()=>closeDialogModal()}
             finalCallback={() => onSuccessCallback()}
           />
+        }
           {deleteModal && (
             <DeletePrompt
               title={t("beneficiary.manage.prompts.delete.title")}
@@ -183,8 +185,8 @@ const ListServiceTypes = (props: any) => {
         />
       );
     }
-  }
-  return <Loader enable={true} />;
+  // }
+  // return <Loader enable={false} />;
 };
 
 export default ListServiceTypes;
