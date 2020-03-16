@@ -197,7 +197,7 @@ const ListServiceTypes = (props: any) => {
             <EditPrompt
               title={t("beneficiary.manage.prompts.edit.title")}
               buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel")}
-              desc={deleteDesc}
+              desc={""}
               beneficiaryItemForEdit={beneficiaryItemForEdit}
               openModal={editModal}
               onCloseModal={() => setEditModal(false)}

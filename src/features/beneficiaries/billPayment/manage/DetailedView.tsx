@@ -144,7 +144,7 @@ const DetailedView = () => {
          {editModal && <EditPrompt
             title={t("beneficiary.manage.prompts.edit.title")}
             buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel")}
-            desc={deleteDesc}
+            desc={""}
             beneficiaryItemForEdit = {bill}
             openModal={editModal}
             onCloseModal={() => setEditModal(false)}
