@@ -111,6 +111,11 @@
           "title" : "Delete Beneficiary",
           "desc" : "Are you sure you want to delete --username-- beneficiary?",
           "buttonLabel" : "Delete"
+        },
+        "edit" : {
+          "title" : "Edit",
+          "desc" : "Find you beneficiaries quicker by naming them. For eg. Praveen DEWA Home.",
+          "buttonLabel" : "Submit"
         }
       },
       "info" : {
