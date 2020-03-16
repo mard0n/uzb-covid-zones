@@ -15,6 +15,7 @@ import * as Actions from "../../../../redux/actions/beneficiary/billPayment/dele
 import { addUpdateBeneficiaryRequest } from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import EditPrompt from "../../../../components/editPrompt/index";
 import DeletePrompt from "../../../../components/deletePrompt";
+import * as ManageActions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 
 const DetailedView = () => {
   const { t } = useTranslation();
@@ -117,7 +118,9 @@ const DetailedView = () => {
               ? data.serviceTypeCodeTel
               : data.serviceTypeCode;
           setBillServiceType(getServiceCode);
-          setBill(data);       
+          setBill(data);    
+          
+          dispatch(ManageActions.clearBeneficiaryAddNew());
         }
       })    },1000);
 
@@ -164,7 +167,8 @@ const DetailedView = () => {
           desc={""}
           beneficiaryItemForEdit={bill}
           openModal={editModal}
-          onCloseModal={() => setEditModal(false)}
+          onCloseModal={() =>{          dispatch(ManageActions.clearBeneficiaryAddNew());
+            setEditModal(false)}}
           onSubmitEdit={onSubmitEdit}
         />}
        

@@ -38,12 +38,11 @@ const ListServiceTypes = (props: any) => {
   const [addEditModal, setAddEditModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
 
-
   const billPaymentState = useSelector(
     (state: any) => state?.beneficiary?.billPayment
   );
 
-  const { loading, myBills ,errorCode} = billPaymentState;
+  const { loading, myBills, errorCode } = billPaymentState;
 
   // useEffect(() => {
   //   dispatch(Actions.fetchBillPaymentBeneficiariesRequest());
@@ -55,8 +54,6 @@ const ListServiceTypes = (props: any) => {
     }
   }, [addServiceType]);
 
-
-
   const onConfirmedDelete = () => {
     setDeleteNickName("");
     dispatch(Actions.deleteBeneficiaryRequest(beneficiaryItem.id));
@@ -64,7 +61,7 @@ const ListServiceTypes = (props: any) => {
   };
 
   const onSubmitEdit = (formData: any) => {
-    console.log("onSubmitEdit -> formData", formData)
+    console.log("onSubmitEdit -> formData", formData);
     let editData = {
       id: beneficiaryItemForEdit.id.toString(),
       nickname: formData.nickName,
@@ -76,11 +73,10 @@ const ListServiceTypes = (props: any) => {
     // console.log("onSubmitEdit -> errorCode", errorCode)
     // setEditModal(false);
     // }
-    setTimeout(()=>{
+    setTimeout(() => {
+      dispatch(ManageActions.clearBeneficiaryAddNew());
       dispatch(LandingActions.fetchBillPaymentBeneficiariesRequest());
-    },1000);
-
-    
+    }, 1000);
 
     setEditModal(false);
   };
@@ -215,7 +211,10 @@ const ListServiceTypes = (props: any) => {
               desc={""}
               beneficiaryItemForEdit={beneficiaryItemForEdit}
               openModal={editModal}
-              onCloseModal={() => setEditModal(false)}
+              onCloseModal={() => {
+                dispatch(ManageActions.clearBeneficiaryAddNew());
+                setEditModal(false);
+              }}
               onSubmitEdit={onSubmitEdit}
             />
           )}
@@ -253,4 +252,4 @@ const ListServiceTypes = (props: any) => {
   // return <Loader enable={false} />;
 };
 
-export default   ListServiceTypes;
+export default ListServiceTypes;

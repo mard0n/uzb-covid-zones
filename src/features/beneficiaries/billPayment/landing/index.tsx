@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Button,
@@ -10,34 +10,31 @@ import {
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
 import SearchBeneficiary from "../landing/Search";
-import { useSelector,useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import ListServiceTypes from "../landing/ListServiceTypes";
 import AddServiceType from "../landing/AddServiceType";
 import FilledCheckBox from "../../../../common/filledCheckbox";
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 
-
 const BillPaymentLanding = (props: any) => {
-
-
   let dispatch = useDispatch();
 
   const billPaymentState = useSelector(
     (state: any) => state?.beneficiary?.billPayment
   );
-  
-  const {errorCode} = billPaymentState;
 
+  const { errorCode } = billPaymentState;
 
   const [openModal, setOpenModal] = useState(false);
-  const [addServiceType, setAddServiceType] = useState('');
+  const [addServiceType, setAddServiceType] = useState("");
   const { t } = useTranslation();
-  const tabs: Array<string> = t("beneficiary.landing.tabs", { returnObjects: true });
+  const tabs: Array<string> = t("beneficiary.landing.tabs", {
+    returnObjects: true
+  });
 
   const [openErrorToast, setOpenErrorToast] = useState(true);
-  console.log("BillPaymentLanding -> errorCode", errorCode)
-
+  console.log("BillPaymentLanding -> errorCode", errorCode);
 
   // useEffect(() => {
   //   if(!errorCode){
@@ -48,12 +45,12 @@ const BillPaymentLanding = (props: any) => {
 
   const handleOpen = () => {
     setOpenModal(true);
-  }
+  };
 
-  const onCloseErrorSnackBar =(reason:any)=>{
+  const onCloseErrorSnackBar = (reason: any) => {
     dispatch(Actions.addUpdateBeneficiaryFailure(""));
-    setOpenErrorToast(false)
-  }
+    setOpenErrorToast(false);
+  };
 
   const handleClose = () => {
     setOpenModal(false);
@@ -65,7 +62,7 @@ const BillPaymentLanding = (props: any) => {
   };
 
   const onCloseDialog = () => {
-    setAddServiceType('');
+    setAddServiceType("");
   };
 
   return (
@@ -78,16 +75,16 @@ const BillPaymentLanding = (props: any) => {
         />
       )}
       <Box>
-            <UnderlineText color="primary">
-                <H2>{t("beneficiary.landing.title")}</H2>
-              </UnderlineText>
-            </Box>
+        <UnderlineText color="primary">
+          <H2>{t("beneficiary.landing.title")}</H2>
+        </UnderlineText>
+      </Box>
       <Box mb={5}>
-      {tabs && tabs.length > 0 && 
-            <Box my={5}>
-              <FilledCheckBox options={tabs} init="Bill Payments"/>
-            </Box>
-            }
+        {tabs && tabs.length > 0 && (
+          <Box my={5}>
+            <FilledCheckBox options={tabs} init="Bill Payments" />
+          </Box>
+        )}
         <Grid container justify="space-between" alignItems="center">
           <Grid item xl={8} lg={8} md={8} sm={8} xs={8}>
             <SearchBeneficiary />
@@ -112,8 +109,8 @@ const BillPaymentLanding = (props: any) => {
         />
       </Box>
 
-   
-       {errorCode && <Snackbar
+      {errorCode && (
+        <Snackbar
           anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
           open={openErrorToast}
           autoHideDuration={5000}
@@ -125,10 +122,10 @@ const BillPaymentLanding = (props: any) => {
             isNotification={openErrorToast}
             icon={false}
           >
-            {errorCode}
+            {"Error messages : " + errorCode}
           </Toast>
-        </Snackbar>}
-  
+        </Snackbar>
+      )}
     </Box>
   );
 };
