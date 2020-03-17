@@ -143,7 +143,8 @@ const DetailViewLayout = (props: any) => {
             })}
           </Grid>
         </Box>
-        {dueAmount && dueAmount > 0 ? (
+
+        {dueAmount && dueAmount < 0 ? (
           <>
             <Box mt={5} mb={5}>
               <H3 gutterBottom>
@@ -151,6 +152,19 @@ const DetailViewLayout = (props: any) => {
               </H3>
               <Caption>
                 {t("beneficiary.manage.details.billDetected.desc")}
+              </Caption>
+            </Box>
+            </>
+        ):null}
+
+        {dueAmount && dueAmount > 0 ? (
+          <>
+            <Box mt={5} mb={5}>
+              <H3 gutterBottom>
+                {t("beneficiary.manage.details.billDetected.title")}
+              </H3>
+              <Caption>
+                We have detucted that you are in  {dueAmount} 
               </Caption>
             </Box>
 

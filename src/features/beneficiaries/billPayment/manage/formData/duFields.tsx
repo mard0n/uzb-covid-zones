@@ -37,7 +37,7 @@ const du = {
       valid: false,
       touched: false
     },
-    nickName: {
+    nickname: {
       config: {
         type: "text",
         inputProps: {
