@@ -63,10 +63,10 @@ const EditPrompt = (props: EdidPromptProps) => {
 
   const onChangeOfEditFiled = (formChanges:any)=>{
   let cloneData = {...formChanges}
-  console.log("onChangeOfEditFiled -> cloneData", cloneData)
-  if(getType !== "salik"){
+  // console.log("onChangeOfEditFiled -> cloneData", cloneData)
+  // if(getType !== "salik"){
   setDisabledEditButton(!cloneData.nickName.valid);
-  }
+  // }
 }
   
 

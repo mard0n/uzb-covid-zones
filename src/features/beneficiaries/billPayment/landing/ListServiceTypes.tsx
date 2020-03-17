@@ -62,12 +62,17 @@ const ListServiceTypes = (props: any) => {
 
   const onSubmitEdit = (formData: any) => {
     console.log("onSubmitEdit -> formData", formData);
-    let editData = {
+    let editData:any = {
       id: beneficiaryItemForEdit.id.toString(),
       nickname: formData.nickName,
       serviceTypeCode: beneficiaryItemForEdit.serviceTypeCode,
       accountNumber: beneficiaryItemForEdit.accountNumber
     };
+    if(beneficiaryItemForEdit.serviceTypeCode === "Salik"){
+     editData["salikPinCode"]="NDIxOQ==";
+     editData["savePinCode"]=false;
+    }
+
     dispatch(editBeneficiaryRequest({ data: editData }));
     // if(errorCode || errorCode !== "" || errorCode !== undefined || errorCode !== null){
     // console.log("onSubmitEdit -> errorCode", errorCode)

@@ -97,13 +97,19 @@ const DetailedView = () => {
 
 
   const onSubmitEdit = (formData:any) => {
-    let editData = {
+    let editData:any = {
       id: bill.id.toString(),
       nickname: formData.nickName,
       serviceTypeCode: bill.serviceTypeCode,
       accountNumber: bill.accountNumber
     };
-    console.log("onSubmitEdit -> editData", editData)
+
+    if(bill.serviceTypeCode === "Salik"){
+      editData["salikPinCode"]="NDIxOQ==";
+      editData["savePinCode"]=false;
+     }
+
+    // console.log("onSubmitEdit -> editData", editData)
     dispatch(editBeneficiaryRequest({"data":editData }));
     setTimeout(()=>{
       let url = BILL_PAYMENT_DETECTION_ENDPOINT.replace(
@@ -119,9 +125,7 @@ const DetailedView = () => {
               : data.serviceTypeCode;
           setBillServiceType(getServiceCode);
           setBill(data);    
-          
-          // dispatch(ManageActions.clearBeneficiaryAddNew());
-        }
+            }
       })    },1000);
 
     setEditModal(false);

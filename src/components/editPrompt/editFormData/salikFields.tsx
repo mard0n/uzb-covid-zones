@@ -11,7 +11,7 @@ const salik = {
         inputProps: {
           maxLength: 4
         },
-        required: true,
+        required: false,
         value: "",
         helperText: "common.label.pincode",
         label: "SALIK" + i18n.t("common.label.pincode")
