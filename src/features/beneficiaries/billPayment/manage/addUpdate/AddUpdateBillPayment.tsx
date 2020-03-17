@@ -35,6 +35,8 @@ import FilledCheckBox from "../../../../../common/filledCheckbox";
 type AddUpdateBillPaymentProps = {
   type: string | any;
   onSubmitCallback: any;
+  isAdd: boolean;
+  edit? : any;
 };
 
 const utilities = ["addc", "addc", "dewa", "sewa", "fewa"];
@@ -45,7 +47,7 @@ const duTypes = [
 ];
 
 const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
-  const { type, onSubmitCallback } = props;
+  const { type, isAdd, edit, onSubmitCallback } = props;
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const getType: keyof typeof FormFields = type;
@@ -54,16 +56,17 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
   );
   const formSchema: any = FormFields[getType];
   const telecomOptions =
-    formSchema["options"] && formSchema["options"] ? formSchema["options"] : [];
+    formSchema && formSchema["options"] && formSchema["options"].length > 0 ? formSchema["options"] : [];
   const [billType, setBillType] = useState(formSchema["type"]);
   const [fields, setFields] = useState<any>({});
   const [formData, setFormData] = useState({});
-  const [telecomValue, setTelecomValue] = useState("Prepaid");
+  const [telecomValue, setTelecomValue] = useState("prepaid");
   const [disabled, setDisabled] = useState(true);
   const [isUtility, setIsUtility] = useState(false);
   const [infoPopup, setInfoPopup] = useState(false);
   const [hideSalikPin, setHideSalikPin] = useState(false);
   const [savePin, setSavePin] = useState(true);
+  const formFields: any = (getType === "etisalat") || (getType === "du") ? formSchema[telecomValue]["fields"] : formSchema["fields"];
 
   const infoTitle = replaceStr(
     t("beneficiary.manage.info.title"),
@@ -81,12 +84,11 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
 
   useEffect(() => {
     const initFieldProps = () => {
-      const formFields: any = FormFields[getType]["fields"];
       let checkUtility = utilities.indexOf(type.toLowerCase()) > -1;
       if (checkUtility) {
         setBillType(type.toUpperCase());
         for (const field in formFields) {
-          formFields[field]["config"]["value"] = "";
+          formFields[field]["config"]["value"] = '';
           if (field === "accountNumber") {
             formFields[field]["config"]["InputProps"] = {
               endAdornment: (
@@ -103,14 +105,18 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
         return formFields;
       } else {
         setBillType(capitalizeFirstLetter(type));
-        for (const field in formFields) {
-          formFields[field]["config"]["value"] = "";
+        if(isAdd){
+          for (const field in formFields) {
+            formFields[field]["config"]["value"] = "";
+            formFields[field]["config"]["error"] = '';
+            formFields[field]["config"]["errorText"] = '';
+          }
         }
         return formFields;
       }
     };
     setFields(initFieldProps());
-  }, [getType, type]);
+  }, [formFields, isAdd, type]);
 
   useEffect(()=>{
     const handleClickShowPassword = (val: any) => {
@@ -120,7 +126,6 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
       setFields(cloneFields);
     }
 
-    const formFields: any = FormFields[getType]["fields"];
     for (const field in formFields) {
       if (type==="salik" && field === "pincode") {
         formFields[field]["config"]["InputProps"] = {
@@ -134,7 +139,17 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
           )
         };
       }
-    }},[type, fields, hideSalikPin, getType]);
+    }},[type, fields, hideSalikPin, formFields]);
+
+  //edit useeffect
+  useEffect(()=>{
+    if(!isAdd && edit && edit.id) {
+      for (const field in formFields) {
+      formFields[field]["config"]["value"] = updateEditValue(field);
+      formFields['accountNumber']["config"]["disabled"] = true 
+      }
+    }
+  },[isAdd, edit, formFields, updateEditValue])
 
   useEffect(() => {
     let checkUtility = utilities.indexOf(type.toLowerCase()) > -1;
@@ -147,15 +162,29 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
     }
   }, [addNew, onSubmitCallback]);
 
-  const onBlurFields = (resData: any) => {
-    console.log("onBlurFields -> resData", resData, fields);
+  const updateEditValue = (fieldName: string) => {
+    if(!isAdd && edit && edit.id) {
+       return edit[fieldName] ? edit[fieldName] : '';
+    }
+  }
 
+  const onBlurFields = (resData: any) => {
     setFormData(resData);
     setDisabled(!resData.valid);
   };
 
   const onClickFilledOptions = (selItem: any) => {
+    let cloneFields = {...formSchema[selItem]["fields"]};
     setTelecomValue(selItem);
+    //console.log("onClickFilledOptions -> cloneFields", cloneFields)
+    if(isAdd) {
+      for(let field in cloneFields) {
+        cloneFields[field]["config"]["value"] = '';
+        cloneFields[field]["config"]["error"] = '';
+        cloneFields[field]["config"]["errorText"] = '';
+      }
+      setFields(cloneFields); 
+    }
   };
 
   const onClickSubmit = () => {
@@ -173,7 +202,6 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
     }
     //salik
     if(type === 'salik') {
-      console.log(fields, "salik fields")
       delete data["pincode"];
       data["salikPinCode"] = btoa(fields["pincode"]['config']['value']);
       data["savePinCode"] = savePin;

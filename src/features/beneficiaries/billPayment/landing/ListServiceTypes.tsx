@@ -10,7 +10,7 @@ import { BENIFICIARY_BILL_PAYMENT_DETAILED } from "../../../../router/config";
 // import * as Actions from "../../../../redux/actions/beneficiary/billPayment/landingActions";
 // import Loader from "../../../../common/loader";
 import NoBeneficiaryFound from "../../../../components/beneficiary/billPayment/NoBeneficiaryFound";
-import { replaceStr, trimLowerCaseStr } from "../../../../util/helper";
+import { replaceStr, trimLowerCaseStr, getServiceTypes } from "../../../../util/helper";
 import { useTranslation } from "react-i18next";
 // import PromptTemplate from "../../../../common/promptTemplate";
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/deleteBillPaymentActions";
@@ -37,6 +37,9 @@ const ListServiceTypes = (props: any) => {
   const [deleteNickName, setDeleteNickName] = useState("");
   const [addEditModal, setAddEditModal] = useState(false);
   const [editModal, setEditModal] = useState(false);
+  const [isAddDialog, setIsAddDialog] = useState(false);
+  const [resumeData, setResumeData] = useState({});
+  const [billType, setBillType] = useState('');
 
   const billPaymentState = useSelector(
     (state: any) => state?.beneficiary?.billPayment
@@ -51,6 +54,8 @@ const ListServiceTypes = (props: any) => {
   useEffect(() => {
     if (addServiceType) {
       setAddEditModal(true);
+      setIsAddDialog(true);
+      setBillType(addServiceType);
     }
   }, [addServiceType]);
 
@@ -87,11 +92,16 @@ const ListServiceTypes = (props: any) => {
     //   dispatch(ManageActions.clearBeneficiaryAddNew());
     // }, 3000);
 
+    if(errorCode){
+    // console.log("onSubmitEdit -> errorCode", errorCode)
     setEditModal(false);
+    }
   };
 
   const closeDialogModal = () => {
     setAddEditModal(false);
+    setResumeData({});
+    setBillType('');
     dispatch(ManageActions.clearBeneficiaryAddNew());
     dispatch(LandingActions.fetchBillPaymentBeneficiariesRequest());
     if (onCloseDialog && typeof onCloseDialog === "function") {
@@ -101,6 +111,13 @@ const ListServiceTypes = (props: any) => {
 
   const onSuccessCallback = () => {
     closeDialogModal();
+  };
+
+  const onResumeCallback = (data: any) => {
+    setIsAddDialog(false);
+    setAddEditModal(true);
+    setResumeData(data);
+    setBillType(getServiceTypes(data.serviceTypeCode).toLowerCase());
   };
 
   const listEachBenificiary = (item: any, sectionLabel: string, t: any) => {
@@ -128,7 +145,7 @@ const ListServiceTypes = (props: any) => {
     // console.log("listEachBenificiary -> status", nickname, status)
     if (status && status === "DRAFT") {
       listItemProps["onResumeLabel"] = t("common.action.resume");
-      listItemProps["onResumeCallback"] = () => {};
+      listItemProps["onResumeCallback"] = (e: any) => {e.preventDefault(); onResumeCallback(item)};
     }
 
     return (
@@ -181,8 +198,9 @@ const ListServiceTypes = (props: any) => {
     <>
       {addEditModal && (
         <AddUpdateDialog
-          isAdd={true}
-          billType={addServiceType}
+          isAdd={isAddDialog}
+          billType={billType}
+          resumeData={resumeData}
           fullScreen
           open={addEditModal}
           onCloseCallback={() => closeDialogModal()}
