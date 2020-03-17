@@ -35,14 +35,15 @@ type CardPayNowProps = {
   callback? : any;
   buttonLable? : string; 
   image? : string;
+  style? : any;
 }
 
 const CardPayNow = (props: CardPayNowProps) => {
-  const { heading, subheading, callback, buttonLable, image } = props;
+  const { heading, subheading, callback, style={}, buttonLable, image } = props;
 
   const classes = useStyles();
   return (
-    <Card className={classes.card}>
+    <Card className={classes.card} style={style}>
       {image && <Avatar src={image} />}
       <CardContent>
         <H4> {heading} </H4>

@@ -21,6 +21,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     "& .MuiListItem-root": {
       paddingLeft: 0
     }
+  },
+  cursor: {
+    cursor: "pointer"
   }
 }));
 
@@ -31,8 +34,8 @@ interface BeneficiaryListProps {
 
 const BeneficiaryList = (props: BeneficiaryListProps) => {
   const { list, onClickServiceTypeCallback } = props;
-  const { firstIconText } = useStyles();
-  const dispatch = useDispatch();
+  const { firstIconText, cursor } = useStyles();
+  // const dispatch = useDispatch();
   // const history = useHistory();
 
   const onClickServiceType = (name: string, dItem: any) => {
@@ -67,7 +70,7 @@ const BeneficiaryList = (props: BeneficiaryListProps) => {
                           md={4}
                           className={firstIconText}
                         >
-                          <ImageWithText name={name} data={dItem} onClick={() => onClickServiceType(name, dItem)}/>
+                          <ImageWithText className={cursor} name={name} data={dItem} onClick={() => onClickServiceType(name, dItem)}/>
                         </Grid>
                       );
                     }

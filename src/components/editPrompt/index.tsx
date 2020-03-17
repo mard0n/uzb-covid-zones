@@ -2,7 +2,7 @@ import React ,{useState,useEffect}from 'react'
 import PromptTemplate from '../../common/promptTemplate';
 import InputWrapper from '../../common/inputWrapper/index';
 import {editFormFields} from "./editFormData";
-import { IconButton } from '../../../../../mashreq-web-packages/node_modules/@material-ui/core';
+import { IconButton } from '@mashreq-digital/ui';
 import { Eye } from '@mashreq-digital/webassets';
 import { Eye2 } from '@mashreq-digital/webassets';
 import { CheckboxWithLabel } from '@mashreq-digital/ui';

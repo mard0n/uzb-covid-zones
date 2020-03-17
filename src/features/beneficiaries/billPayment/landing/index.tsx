@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Button,
@@ -34,7 +34,7 @@ const BillPaymentLanding = (props: any) => {
   });
 
   const [openErrorToast, setOpenErrorToast] = useState(true);
-  console.log("BillPaymentLanding -> errorCode", errorCode);
+  // console.log("BillPaymentLanding -> errorCode", errorCode);
 
   // useEffect(() => {
   //   if(!errorCode){

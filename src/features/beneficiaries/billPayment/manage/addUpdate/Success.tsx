@@ -26,11 +26,14 @@ type SuccessProps = {
 const useStyles = makeStyles(() => ({
   capitalize: {
     textTransform: "capitalize"
+  },
+  cardPay : {
+    justifyContent: "center"
   }
 }));
 
 const Success = (props: SuccessProps) => {
-  const { capitalize } = useStyles();
+  const { capitalize, cardPay } = useStyles();
   const { type, data, onButtonCallback } = props;
   const [success, setSuccess] = useState(false);
   const { t } = useTranslation();
@@ -67,13 +70,14 @@ const Success = (props: SuccessProps) => {
             <>
               <Box mt={6} mb={6}>
                 <CardPayNow
+                style={{justifyContent: "space-evenly"}}
                   heading={data.nickname}
                   subheading={
                     data.serviceTypeCode +
                     " " +
                     (type && type.toLowerCase()! === ("du" || "etisalat"))
                       ? t("common.label.nickName")
-                      : ""
+                      : "" + " | " + data.accountNumber
                   }
                   image={getBeneficiariesAvatar(
                     data.serviceTypeCode.toLowerCase()

@@ -34,7 +34,7 @@ const GlobalCss = withStyles(({ palette, spacing }) => ({
     "ul.list-style-none": {
       listStyleType: "none"
     },
-    "a, a:-webkit-any-link" : {
+    "a, a > *" : {
       textDecoration: "none"
     },
     body: {

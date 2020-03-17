@@ -49,7 +49,7 @@ const salik = {
         required: true,
         value: "",
         helperText: "common.label.pincode",
-        label: "SALIK" + i18n.t("common.label.pincode")
+        label: "SALIK " + i18n.t("common.label.pincode")
       },
       validation: {
         onChangeRegex: RegEx.NUMERIC_ONLY,
