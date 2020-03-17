@@ -88,6 +88,7 @@ export default function(state = initialState, action: any) {
           // response: action.payload,
         };
       case ManageActions.ADD_UPDATE_BILL_PAY_BENEFICIARY_SUCCESS:
+        //console.log(action, "update action")
         return {
           ...state,
           loading: false,
@@ -109,6 +110,27 @@ export default function(state = initialState, action: any) {
           ...state,
           addNew: {},
         };
+         /* Edit */
+      case ManageActions.EDIT_BILL_PAY_BENEFICIARY_REQUEST:
+        return {
+          ...state,
+          loading: true,
+          // response: action.payload,
+        };
+      case ManageActions.EDIT_BILL_PAY_BENEFICIARY_SUCCESS:
+        //console.log(action, "update action")
+        return {
+          ...state,
+          loading: false,
+          // addNew: action.payload.updateMode ? {} : action.payload.res
+        };
+      case ManageActions.EDIT_BILL_PAY_BENEFICIARY_FAILURE:
+        return {
+          ...state,
+          loading: false,
+          errorCode: action.payload,
+        };
+
       /* Active */
       case ManageActions.ACTIVATE_BENEFICIARY_REQUEST:
         return {

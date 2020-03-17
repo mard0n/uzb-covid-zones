@@ -15,6 +15,10 @@ export function* watchManageSaga() {
     workerAddUpdateSaga,
   );
   yield takeLatest(
+    Actions.EDIT_BILL_PAY_BENEFICIARY_REQUEST,
+    workerEditSaga,
+  );
+  yield takeLatest(
     Actions.ACTIVATE_BENEFICIARY_REQUEST,
     workerActivateBeneficiary,
   );
@@ -35,7 +39,24 @@ export function addUpdateBillPayBeneficiary(action: any) {
     data,
     url,
   };
-  // console.log('calling with data', data);
+  return API(config);
+}
+
+/**
+ * @func editBillPayBeneficiary
+ * @param void
+ * @description Add new/update
+ */
+export function editBillPayBeneficiary(action: any) {
+  const {data = {}} = action.payload;
+
+  const url = Endpoints.BILL_PAYMENT_ADD_EDIT_BENEFICIARY_ENDPOINT;
+
+  const config = {
+    method: 'PATCH',
+    data,
+    url,
+  };
   return API(config);
 }
 
@@ -62,16 +83,40 @@ export function startBeneficiaryActivation(action: any) {
 
 
 /**
+ * @func Worker workerEditSaga
+ * @param action
+ * @descrption worker for Edit Bill pay beneficiary
+ */
+export function* workerEditSaga(action: any) {
+  try {
+    const response = yield call(editBillPayBeneficiary, action);
+    if (response && response.data) {
+      yield put(Actions.editBeneficiarySuccess(response.data.data));
+      if(response.data.errorCode) {
+        yield put(
+          Actions.editBeneficiaryFailure(response.data.errorCode),
+        );
+      }
+    } else {
+      yield put(
+        Actions.editBeneficiaryFailure('Invalid data'),
+      );
+    }
+
+  } catch (error) {
+    yield put(Actions.editBeneficiaryFailure(error));
+  }
+}
+
+/**
  * @func Worker workerAddUpdateSaga
  * @param action
  * @descrption worker for Addupdate Bill pay beneficiary
  */
 export function* workerAddUpdateSaga(action: any) {
-  // console.log("function*workerAddUpdateSaga -> action =======", action)
   try {
     const response = yield call(addUpdateBillPayBeneficiary, action);
     if (response && response.data) {
-      console.log("mas function*workerAddUpdateSaga -> response.data.errorCode", response.data);
       yield put(Actions.addUpdateBeneficiarySuccess(response.data.data));
       if(response.data.errorCode) {
         yield put(
@@ -97,7 +142,6 @@ export function* workerAddUpdateSaga(action: any) {
 export function* workerActivateBeneficiary(action: any) {
   try {
     const response = yield call(startBeneficiaryActivation, action);
-    // console.log('workerActivateBeneficiary ', response);
     yield put(Actions.activateBeneficiarySuccess(response.data.data));
   } catch (error) {
     yield put(Actions.activateBeneficiaryFailure(error));

@@ -19,7 +19,7 @@ import * as LandingActions from "../../../../redux/actions/beneficiary/billPayme
 import DeletePrompt from "../../../../components/deletePrompt";
 import AddUpdateDialog from "../manage/addUpdate";
 import EditPrompt from "../../../../components/editPrompt/index";
-import { addUpdateBeneficiaryRequest } from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
+import { editBeneficiaryRequest } from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 
 type ListServiceTypesProps = {
   addServiceType: boolean;
@@ -68,15 +68,19 @@ const ListServiceTypes = (props: any) => {
       serviceTypeCode: beneficiaryItemForEdit.serviceTypeCode,
       accountNumber: beneficiaryItemForEdit.accountNumber
     };
-    dispatch(addUpdateBeneficiaryRequest({ updateMode: true, data: editData }));
+    dispatch(editBeneficiaryRequest({ data: editData }));
     // if(errorCode || errorCode !== "" || errorCode !== undefined || errorCode !== null){
     // console.log("onSubmitEdit -> errorCode", errorCode)
     // setEditModal(false);
     // }
+
     setTimeout(() => {
-      dispatch(ManageActions.clearBeneficiaryAddNew());
-      dispatch(LandingActions.fetchBillPaymentBeneficiariesRequest());
+      dispatch(LandingActions.fetchBillPaymentBeneficiariesRequest())
     }, 1000);
+
+    // setTimeout(() => {
+    //   dispatch(ManageActions.clearBeneficiaryAddNew());
+    // }, 3000);
 
     setEditModal(false);
   };
@@ -212,7 +216,7 @@ const ListServiceTypes = (props: any) => {
               beneficiaryItemForEdit={beneficiaryItemForEdit}
               openModal={editModal}
               onCloseModal={() => {
-                dispatch(ManageActions.clearBeneficiaryAddNew());
+                // dispatch(ManageActions.clearBeneficiaryAddNew());
                 setEditModal(false);
               }}
               onSubmitEdit={onSubmitEdit}

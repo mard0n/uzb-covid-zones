@@ -12,7 +12,7 @@ import DetailedViewLayout from "../../../../components/beneficiary/billPayment/D
 import NoBeneficiaryFound from "../../../../components/beneficiary/billPayment/NoBeneficiaryFound";
 import BackButton from "../../../../common/backButton";
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/deleteBillPaymentActions";
-import { addUpdateBeneficiaryRequest } from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
+import { editBeneficiaryRequest } from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import EditPrompt from "../../../../components/editPrompt/index";
 import DeletePrompt from "../../../../components/deletePrompt";
 import * as ManageActions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
@@ -104,7 +104,7 @@ const DetailedView = () => {
       accountNumber: bill.accountNumber
     };
     console.log("onSubmitEdit -> editData", editData)
-    dispatch(addUpdateBeneficiaryRequest({ updateMode: true, "data":editData }));
+    dispatch(editBeneficiaryRequest({"data":editData }));
     setTimeout(()=>{
       let url = BILL_PAYMENT_DETECTION_ENDPOINT.replace(
         "beneficiaryId",
@@ -120,7 +120,7 @@ const DetailedView = () => {
           setBillServiceType(getServiceCode);
           setBill(data);    
           
-          dispatch(ManageActions.clearBeneficiaryAddNew());
+          // dispatch(ManageActions.clearBeneficiaryAddNew());
         }
       })    },1000);
 
@@ -167,7 +167,7 @@ const DetailedView = () => {
           desc={""}
           beneficiaryItemForEdit={bill}
           openModal={editModal}
-          onCloseModal={() =>{          dispatch(ManageActions.clearBeneficiaryAddNew());
+          onCloseModal={() =>{          //dispatch(ManageActions.clearBeneficiaryAddNew());
             setEditModal(false)}}
           onSubmitEdit={onSubmitEdit}
         />}
