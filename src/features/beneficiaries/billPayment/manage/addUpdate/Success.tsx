@@ -65,7 +65,6 @@ const Success = (props: SuccessProps) => {
               {t(`beneficiary.manage.addEdit.${successString}.desc`)}
             </Caption>
           </Box>
-
           {data && data.id && (
             <>
               <Box mt={6} mb={6}>
@@ -75,12 +74,12 @@ const Success = (props: SuccessProps) => {
                   subheading={
                     data.serviceTypeCode +
                     " " +
-                    (type && type.toLowerCase()! === ("du" || "etisalat"))
+                    ((type && type.toLowerCase()! === ("du" || "etisalat"))
                       ? t("common.label.nickName")
-                      : "" + " | " + data.accountNumber
+                      : "") + " | " + data.accountNumber
                   }
                   image={getBeneficiariesAvatar(
-                    data.serviceTypeCode.toLowerCase()
+                    type.toLowerCase()
                   )}
                 />
               </Box>
