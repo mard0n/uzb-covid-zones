@@ -6,7 +6,10 @@ const useStyles = makeStyles(() => ({
    height: "48px",
    width: "150px",
    borderRadius: "2px",
-   cursor: "pointer"
+   cursor: "pointer",
+   "& .MuiTypography-caption" : {
+     textTransform: "capitalize"
+   }
   },
   colorStyle : {
     color: '#fff'

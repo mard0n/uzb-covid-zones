@@ -17,6 +17,7 @@ import ImageWithText from "../../../../../common/imageWithText";
 import { useDispatch } from "react-redux";
 import * as Actions from "../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import * as LandingActions from "../../../../../redux/actions/beneficiary/billPayment/landingActions";
+//import FilledStaticStepper from "../../../../../common/filledStaticStepper";
 
 const useStyles = makeStyles((theme: Theme) => ({
   leftStyle: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const AddUpdateDialog = (props: any) => {
   const { leftStyle } = useStyles();
-  const { children, billType, isAdd, finalCallback, onCloseCallback, ...rest } = props;
+  const { children, billType, isAdd, resumeData, finalCallback, onCloseCallback, ...rest } = props;
   const dispatch = useDispatch();
   const [step, setStep] = useState("");
   const [draftData, setDraftData] = useState<any>({});
@@ -70,7 +71,7 @@ const AddUpdateDialog = (props: any) => {
         return <Success type={billType} data={draftData} onButtonCallback={()=> successFailureCallback()}/>;
       default:
         return (
-          <AddUpdateBillPayment type={billType} onSubmitCallback={(data: any) => onSubmitCallback(data)} />
+          <AddUpdateBillPayment type={billType} isAdd={isAdd} edit={resumeData} onSubmitCallback={(data: any) => onSubmitCallback(data)} />
         );
     }
   };
@@ -89,6 +90,7 @@ const AddUpdateDialog = (props: any) => {
             </IconButton>
           </Box>
           {/* Left Content */}
+          {/* <FilledStaticStepper options={["123123","123123123","123123123123"]} init="123123"/> */}
         </Grid>
         <Grid item xs={9}>
           <Box pl={20} py={20.6} pr={10}>
