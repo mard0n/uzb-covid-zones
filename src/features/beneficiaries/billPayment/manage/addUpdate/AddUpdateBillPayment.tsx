@@ -144,12 +144,17 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
   //edit useeffect
   useEffect(()=>{
     if(!isAdd && edit && edit.id) {
+      const updateEditValue = (fieldName: string) => {
+        if(!isAdd && edit && edit.id) {
+           return edit[fieldName] ? edit[fieldName] : '';
+        }
+      }
       for (const field in formFields) {
       formFields[field]["config"]["value"] = updateEditValue(field);
       formFields['accountNumber']["config"]["disabled"] = true 
       }
     }
-  },[isAdd, edit, formFields, updateEditValue])
+  },[isAdd, edit, formFields]);
 
   useEffect(() => {
     let checkUtility = utilities.indexOf(type.toLowerCase()) > -1;
@@ -161,12 +166,6 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
       onSubmitCallback(addNew);
     }
   }, [addNew, onSubmitCallback]);
-
-  const updateEditValue = (fieldName: string) => {
-    if(!isAdd && edit && edit.id) {
-       return edit[fieldName] ? edit[fieldName] : '';
-    }
-  }
 
   const onBlurFields = (resData: any) => {
     setFormData(resData);
