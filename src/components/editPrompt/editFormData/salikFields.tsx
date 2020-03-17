@@ -53,7 +53,7 @@ const salik = {
         label: "common.label.nickName"
       },
       validation: {
-        // onChangeRegex: RegEx.ALPHA_NUMERIC_ONLY,
+      //  onChangeRegex: RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
         schema: [
           {
             regEx: replaceStr(
@@ -67,7 +67,7 @@ const salik = {
             regEx: replaceStr(
               replaceStr(
                 replaceStr(
-                  RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
+                  RegEx.ALPHA_NUMERIC_SPL_CHARS_LIMIT,
                   "splChars",
                   "@_#&-"
                 ),

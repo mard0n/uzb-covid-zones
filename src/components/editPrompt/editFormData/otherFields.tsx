@@ -20,7 +20,7 @@ const other = {
         label: "common.label.nickName"
       },
       validation: {
-       onChangeRegex: RegEx.ALPHA_NUMERIC_ONLY,
+      //  onChangeRegex: RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
         schema: [
           {
             regEx: replaceStr(
@@ -28,7 +28,7 @@ const other = {
               "splChars",
               "@_#&-"
             ),
-            errorCode: "beneficiary.manage.errors.onlyNumbers"
+            errorCode: "beneficiary.manage.errors.nickName"
           },
           {
             regEx: replaceStr(

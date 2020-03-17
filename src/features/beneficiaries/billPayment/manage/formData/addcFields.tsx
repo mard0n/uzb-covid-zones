@@ -40,7 +40,7 @@ const addc = {
       valid: false,
       touched: false
     },
-    nickname: {
+    nickName: {
       config: {
         type: "text",
         inputProps: {
@@ -53,7 +53,7 @@ const addc = {
         label: "common.label.nickName"
       },
       validation: {
-        // onChangeRegex: RegEx.ALPHA_NUMERIC_ONLY,
+      //  onChangeRegex: RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
         schema: [
           {
             regEx: replaceStr(
@@ -67,7 +67,7 @@ const addc = {
             regEx: replaceStr(
               replaceStr(
                 replaceStr(
-                  RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
+                  RegEx.ALPHA_NUMERIC_SPL_CHARS_LIMIT,
                   "splChars",
                   "@_#&-"
                 ),

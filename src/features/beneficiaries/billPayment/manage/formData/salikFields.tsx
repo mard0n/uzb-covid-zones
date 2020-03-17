@@ -75,7 +75,7 @@ const salik = {
       valid: false,
       touched: false
     },
-    nickname: {
+    nickName: {
       config: {
         type: "text",
         inputProps: {
@@ -88,7 +88,7 @@ const salik = {
         label: "common.label.nickName"
       },
       validation: {
-        // onChangeRegex: RegEx.ALPHA_NUMERIC_ONLY,
+      //  onChangeRegex: RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
         schema: [
           {
             regEx: replaceStr(
@@ -102,7 +102,7 @@ const salik = {
             regEx: replaceStr(
               replaceStr(
                 replaceStr(
-                  RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
+                  RegEx.ALPHA_NUMERIC_SPL_CHARS_LIMIT,
                   "splChars",
                   "@_#&-"
                 ),

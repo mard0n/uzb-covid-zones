@@ -50,7 +50,7 @@ const CardPayNow = (props: CardPayNowProps) => {
       </CardContent>
       {buttonLable && 
       <Button
-        onClick={(e: any)=>callback(e)}
+        // onClick={(e: any)=>callback(e)}
         variant="contained"
         color="primary"
         className={classes.button}

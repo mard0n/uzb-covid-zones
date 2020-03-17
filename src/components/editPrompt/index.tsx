@@ -5,6 +5,8 @@ import {editFormFields} from "./editFormData";
 import { IconButton } from '../../../../../mashreq-web-packages/node_modules/@material-ui/core';
 import { Eye } from '@mashreq-digital/webassets';
 import { Eye2 } from '@mashreq-digital/webassets';
+import { CheckboxWithLabel } from '@mashreq-digital/ui';
+import { useTranslation } from 'react-i18next';
 
 type EdidPromptProps = {
   openModal: any;
@@ -19,7 +21,8 @@ type EdidPromptProps = {
 
 const EditPrompt = (props: EdidPromptProps) => {
   const { openModal, title, desc, buttonLabel, beneficiaryItemForEdit, onSubmitEdit, onCloseModal } = props;
-  console.log("EditPrompt -> beneficiaryItemForEdit", beneficiaryItemForEdit)
+  // console.log("EditPrompt -> beneficiaryItemForEdit", beneficiaryItemForEdit)
+  const { t } = useTranslation();
   const [fields, setFields] = useState({});
   const [formData, setFormData] = useState({});
   const getType: keyof typeof editFormFields = beneficiaryItemForEdit.serviceType.toLowerCase();
@@ -27,12 +30,16 @@ const EditPrompt = (props: EdidPromptProps) => {
   const [hideSalikPin, setHideSalikPin] = useState(false);
   const [savePin, setSavePin] = useState(true);
 
-  console.log("EditPrompt -> formData", formData)
+  // console.log("EditPrompt -> formData", formData)
 
   const onBlurFields = (resData: any) => {
     let cloneData = {...resData}
     setFormData(cloneData);
   };
+
+  const onChangeSavePin = () => {
+    setSavePin(!savePin)
+  }
 
 
   useEffect(()=>{
@@ -95,6 +102,9 @@ const EditPrompt = (props: EdidPromptProps) => {
   
               <>
               <InputWrapper initialState={fields} onBlur={onBlurFields}  onChangeFields={onChangeOfEditFiled} /> 
+              {getType && getType === "salik" &&
+              <CheckboxWithLabel checked={savePin} onChange={()=>onChangeSavePin()} color="default" label={t('beneficiary.manage.addEdit.salik.savePin')} />
+    }
               </>
             }
             modalProps={{

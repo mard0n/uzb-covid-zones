@@ -1,8 +1,11 @@
 import {takeLatest, call, put} from 'redux-saga/effects';
 import * as Endpoints from '../../../../network/Endpoints';
 import * as Actions from '../../../actions/beneficiary/billPayment/manageBeneficiaryActions';
+import * as LandingActions from "../../../actions/beneficiary/billPayment/landingActions";
+
 import {API} from '../../../../network/index';
 // import {API} from '../../../../mocks';
+
 
 /**
  * @func watchBillPaySaga
@@ -92,6 +95,9 @@ export function* workerEditSaga(action: any) {
     const response = yield call(editBillPayBeneficiary, action);
     if (response && response.data) {
       yield put(Actions.editBeneficiarySuccess(response.data.data));
+      yield put(LandingActions.fetchBillPaymentBeneficiariesRequest());
+
+      // dispatch()
       if(response.data.errorCode) {
         yield put(
           Actions.editBeneficiaryFailure(response.data.errorCode),

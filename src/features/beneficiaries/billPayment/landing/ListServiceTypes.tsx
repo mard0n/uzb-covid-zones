@@ -79,9 +79,9 @@ const ListServiceTypes = (props: any) => {
     // setEditModal(false);
     // }
 
-    setTimeout(() => {
-      dispatch(LandingActions.fetchBillPaymentBeneficiariesRequest())
-    }, 1000);
+    // setTimeout(() => {
+    //   dispatch(LandingActions.fetchBillPaymentBeneficiariesRequest())
+    // }, 1000);
 
     // setTimeout(() => {
     //   dispatch(ManageActions.clearBeneficiaryAddNew());
