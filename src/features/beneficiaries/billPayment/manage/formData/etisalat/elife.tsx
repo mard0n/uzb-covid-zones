@@ -8,7 +8,7 @@ const elife = {
       config: {
         inputProps: {
           minLength: 0,
-          maxLength: 8
+          maxLength: 9
         },
         required: true,
         value: "",
@@ -22,12 +22,12 @@ const elife = {
             regEx: replaceStr(
               replaceStr(RegEx.NUMERIC_LIMIT, "min,", ""),
               "max",
-              8
+              9
             ),
             errorCode: replaceStr(
               i18n.t("beneficiary.manage.errors.maxLength"),
               "--max--",
-              8
+              9
             )
           }
         ]
@@ -43,7 +43,7 @@ const elife = {
         },
         value: "",
         helperText: "beneficiary.manage.addEdit.helperText.nickName",
-        label: "Elife " + i18n.t("common.label.nickName")
+        label: i18n.t("common.label.nickName")
       },
       validation: {
         //  onChangeRegex: RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
