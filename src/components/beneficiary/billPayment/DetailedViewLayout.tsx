@@ -146,27 +146,30 @@ const DetailViewLayout = (props: any) => {
 
         {dueAmount && dueAmount < 0 ? (
           <>
-            <Box mt={5} mb={5}>
-              <H3 gutterBottom>
-                {t("beneficiary.manage.details.billDetected.title")}
-              </H3>
-              <Caption>
-                {t("beneficiary.manage.details.billDetected.desc")}
-              </Caption>
+            <Box mt={5} mb={5} >
+            <H3 gutterBottom>
+              {t("beneficiary.manage.details.billDetected.title")}
+            </H3>
+            <Box mt={5} >
+            <Caption>
+              We have detucted that you are in credit of AED <b> { Math.abs(dueAmount)} </b> for this account number.
+            </Caption>
             </Box>
+          </Box>
             </>
         ):null}
 
         {dueAmount && dueAmount > 0 ? (
           <>
-            <Box mt={5} mb={5}>
-              <H3 gutterBottom>
-                {t("beneficiary.manage.details.billDetected.title")}
-              </H3>
-              <Caption>
-                We have detucted that you are in  {dueAmount} 
-              </Caption>
-            </Box>
+          <Box mt={5} mb={5}>
+          <H3 gutterBottom>
+            {t("beneficiary.manage.details.billDetected.title")}
+          </H3>
+          <Caption>
+            {t("beneficiary.manage.details.billDetected.desc")}
+          </Caption>
+        </Box>
+
 
             <CardPayNow
               buttonLable={t("common.action.payNow")}
