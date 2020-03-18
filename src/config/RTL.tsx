@@ -4,7 +4,7 @@ import rtl from "jss-rtl";
 import { StylesProvider, jssPreset } from "@mashreq-digital/ui";
 
 // Configure JSS
-const jss = create({ plugins: [...jssPreset().plugins, rtl()] });
+const jss: any = create({ plugins: [...jssPreset().plugins, rtl()] } as any);
 
 const RTL = (props: any) => {
   return <StylesProvider jss={jss}>{props.children}</StylesProvider>;
