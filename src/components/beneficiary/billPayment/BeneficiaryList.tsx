@@ -8,11 +8,11 @@ import {
   Theme,
   // Caption
 } from "@mashreq-digital/ui";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 // import { Gift } from "@mashreq-digital/webassets";
 // import { useHistory } from "react-router-dom";
 // import { BENIFICIARY_BILL_PAYMENT_ADD_EDIT } from "../../../router/config";
-import { updateBeneficiaryStatus } from "../../../redux/actions/beneficiary/billPayment/addBillPaymentActions";
+// import { updateBeneficiaryStatus } from "../../../redux/actions/beneficiary/billPayment/addBillPaymentActions";
 // import getBeneficiariesAvatar from "../../util/getBeneficiariesAvatar";
 import ImageWithText from "../../../common/imageWithText";
 

@@ -8,9 +8,9 @@ import { FormFields } from "../features/beneficiaries/billPayment/manage/formDat
 
 
 export default function Test() {
-  const [type , setType] = useState(FormFields["sewa"]["data"]);
+  // const [type , setType] = useState(FormFields["sewa"]["data"]);
   const [fields, setFields] = useState({});
-  const [formData, setFormData] = useState({});
+  // const [formData, setFormData] = useState({});
   const [disabled, setDisabled] = useState(true);
 
   const initFieldProps = () => {
@@ -39,10 +39,10 @@ export default function Test() {
 
   useEffect(() => {
     setFields(initFieldProps());
-  }, []);
+  }, [initFieldProps]);
 
   const onBlurFields = (resData: any) => {
-    setFormData(resData);
+    // setFormData(resData);
     setDisabled(!resData.valid)
   };
 

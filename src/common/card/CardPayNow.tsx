@@ -39,7 +39,7 @@ type CardPayNowProps = {
 }
 
 const CardPayNow = (props: CardPayNowProps) => {
-  const { heading, subheading, callback, style={}, buttonLable, image } = props;
+  const { heading, subheading, style={}, buttonLable, image } = props;
 
   const classes = useStyles();
   return (

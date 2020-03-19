@@ -38,7 +38,6 @@ const DetailViewLayout = (props: any) => {
   const { onEditCallback, onDeleteCallback, bill} = props;
   const {
     serviceType,
-    serviceTypeCodeTel,
     serviceTypeCode,
     accountNumber,
     nickname,

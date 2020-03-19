@@ -1,7 +1,7 @@
 import React, { useEffect, Fragment, useState } from "react";
 import { List, H4, Box } from "@mashreq-digital/ui";
 import { GroupPlus } from "@mashreq-digital/webassets";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CustomListItem from "../../../../common/listItem";
 import { TELECOM_SERVICE_TYPE_CODE } from "../../../../util/constants";
@@ -45,7 +45,7 @@ const ListServiceTypes = (props: any) => {
     (state: any) => state?.beneficiary?.billPayment
   );
 
-  const { loading, myBills, errorCode } = billPaymentState;
+  const {  myBills, errorCode } = billPaymentState;
 
   // useEffect(() => {
   //   dispatch(Actions.fetchBillPaymentBeneficiariesRequest());
@@ -184,7 +184,7 @@ const ListServiceTypes = (props: any) => {
     );
   };
 
-  let deleteDesc = "";
+  let deleteDesc;
   if (beneficiaryItem && beneficiaryItem.id && deleteModal) {
     deleteDesc = replaceStr(
       t("beneficiary.manage.prompts.delete.desc"),

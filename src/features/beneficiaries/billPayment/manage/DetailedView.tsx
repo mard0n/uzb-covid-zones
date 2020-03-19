@@ -15,7 +15,6 @@ import * as Actions from "../../../../redux/actions/beneficiary/billPayment/dele
 import { editBeneficiaryRequest } from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import EditPrompt from "../../../../components/editPrompt/index";
 import DeletePrompt from "../../../../components/deletePrompt";
-import * as ManageActions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 
 const DetailedView = () => {
   const { t } = useTranslation();

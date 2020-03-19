@@ -33,7 +33,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Success = (props: SuccessProps) => {
-  const { capitalize, cardPay } = useStyles();
+  const { capitalize } = useStyles();
   const { type, data, onButtonCallback } = props;
   const [success, setSuccess] = useState(false);
   const { t } = useTranslation();
