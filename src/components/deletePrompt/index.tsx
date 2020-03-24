@@ -1,5 +1,4 @@
 import React from 'react'
-import { useTranslation } from 'react-i18next';
 import { TrashWarning } from "@mashreq-digital/webassets";
 import PromptTemplate from '../../common/promptTemplate';
 

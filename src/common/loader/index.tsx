@@ -1,5 +1,5 @@
-import React,  {useState, useEffect} from 'react';
-import { Box, Portal, CircularProgress, H3, makeStyles, Theme, Backdrop } from "@mashreq-digital/ui";
+import React from 'react';
+import { Box, CircularProgress, H3, makeStyles, Theme, Backdrop } from "@mashreq-digital/ui";
 
 const useStyles = makeStyles((theme: Theme)=>({
   // root: {

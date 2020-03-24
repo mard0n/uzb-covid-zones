@@ -16,7 +16,7 @@ import Success from "./Success";
 import ImageWithText from "../../../../../common/imageWithText";
 import { useDispatch } from "react-redux";
 import * as Actions from "../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
-import * as LandingActions from "../../../../../redux/actions/beneficiary/billPayment/landingActions";
+// import * as LandingActions from "../../../../../redux/actions/beneficiary/billPayment/landingActions";
 //import FilledStaticStepper from "../../../../../common/filledStaticStepper";
 
 const useStyles = makeStyles((theme: Theme) => ({

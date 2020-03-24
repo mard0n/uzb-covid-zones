@@ -28,7 +28,7 @@ const Beneficiaries = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Actions.fetchBillPaymentBeneficiariesRequest());
-  }, []);
+  }, [dispatch]);
   return (
     <Switch>
     {routes.map((route: any, i: number) => {

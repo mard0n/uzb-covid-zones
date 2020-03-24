@@ -107,12 +107,11 @@ const LeftContent = (props: any) => {
     topPos,
     leftPos,
     keyboard,
-    isComponentVisible,
-    setIsComponentVisible
-  } = useComponentVisible(false);
+    isComponentVisible
+    } = useComponentVisible(false);
 
   const [checked, setKeyboardActive] = useState(false);
-  const { inputBox, root, keyboardStyle }: any = useStyles({
+  const { inputBox, keyboardStyle }: any = useStyles({
     checked,
     topPos,
     leftPos
@@ -144,9 +143,9 @@ const LeftContent = (props: any) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleOnFocus = (input: any) => {
-    setCurrentState(input);
-  };
+  // const handleOnFocus = (input: any) => {
+  //   setCurrentState(input);
+  // };
 
   const changeAt = (event: any) => {
     setValues({ ...values, [activeText]: event });
