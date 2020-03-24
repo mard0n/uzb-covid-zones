@@ -139,7 +139,7 @@ const LeftContent = (props: any) => {
   const onChangeInput = (prop: keyof State) => (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    setCurrentState(prop);
+    setCurrentState(prop as any);
     setValues({ ...values, [prop]: event.target.value });
   };
 
@@ -148,7 +148,7 @@ const LeftContent = (props: any) => {
   // };
 
   const changeAt = (event: any) => {
-    setValues({ ...values, [activeText]: event });
+    setValues({ ...values, [activeText as any]: event });
   };
 
   const handlePreSignin = () => {

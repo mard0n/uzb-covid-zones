@@ -4,7 +4,7 @@ import {
   IconButton
 } from "@mashreq-digital/ui";
 import InputWrapper from "../common/inputWrapper";
-import { FormFields } from "../features/beneficiaries/billPayment/manage/formData";
+import { FormFields } from "../features/postLogin/beneficiaries/billPayment/manage/formData";
 
 
 export default function Test() {
@@ -13,33 +13,33 @@ export default function Test() {
   // const [formData, setFormData] = useState({});
   const [disabled, setDisabled] = useState(true);
 
-  const initFieldProps = () => {
-    const formFields: any= FormFields["sewa"]["fields"];
-    //add info to accountNumber
-    for (const field in formFields) {
-      if (field === "accountNumber") {
-        formFields[field]["config"]["InputProps"] = {
-          endAdornment: (
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={handleClickShowPassword}
-            >
-              info
-            </IconButton>
-          )
-        };
-      }
-    }
-    return formFields;
-  };
 
 
   const handleClickShowPassword = () => {
   };
 
   useEffect(() => {
+    const initFieldProps = () => {
+      const formFields: any= FormFields["sewa"]["fields"];
+      //add info to accountNumber
+      for (const field in formFields) {
+        if (field === "accountNumber") {
+          formFields[field]["config"]["InputProps"] = {
+            endAdornment: (
+              <IconButton
+                aria-label="toggle password visibility"
+                onClick={handleClickShowPassword}
+              >
+                info
+              </IconButton>
+            )
+          };
+        }
+      }
+      return formFields;
+    };
     setFields(initFieldProps());
-  }, [initFieldProps]);
+  }, []);
 
   const onBlurFields = (resData: any) => {
     // setFormData(resData);

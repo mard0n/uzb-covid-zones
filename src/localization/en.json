@@ -19,6 +19,7 @@
       "payNow": "Pay Now",
       "proceed": "Proceed",
       "signin": "Signin",
+      "submit": "Submit",
       "signup": "Sign Up",
       "rm": "Read More",
       "resume" : "Resume",
@@ -106,6 +107,10 @@
       "notFound" : {
         "title" : "You don't have any beneficiaries",
         "desc" : "Start by adding new beneficiary"
+      },
+      "addBeneficiary" : {
+        "title" : "Add a bill payment beneficiary",
+        "desc" : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe officia assumenda animi similique earum quos esse expedita dignissimos quod accusantium. Rerum perferendis ea beatae illo placeat vero, nesciunt animi incidunt."
       }
     },
     "manage" :{
@@ -174,6 +179,11 @@
       }
     }
    
+  },
+  "billPayments": {
+    "landing" : {
+    "title": "Select Your Bill Payments"
+  }
   },
   "mobileinfo": {
     "tipstitle": "Please enter your mobile number",

@@ -6,7 +6,7 @@ import MobileNumber from "../features/createAccount/MobileNumber";
 import PasswordScreen from "../features/createAccount/PasswordScreen";
 import Test from "../pages/test";
 import * as RoutePath from "./config";
-import Beneficiaries from "../features/beneficiaries";
+import PostLogin from "../features/postLogin/";
 const NoMatchPage = () => {
   return <h3>404 - Not found</h3>;
 };
@@ -17,8 +17,8 @@ const routes = [
     component: Login
   },
   {
-    path: RoutePath.BENEFICIARY,
-    component: Beneficiaries
+    path: RoutePath.ROOT,
+    component: PostLogin
   },
   {
     path: RoutePath.PASSCODE,

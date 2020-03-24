@@ -1,5 +1,6 @@
 export const BASE_URL = '/api';
-export const CIF = '011111111';
+export const CIF = '010424124';
+// 010424124 => shabhaz
 // 967156204 =>  hasneeth
 // 010424127 => postman
 // 012344355 => local
