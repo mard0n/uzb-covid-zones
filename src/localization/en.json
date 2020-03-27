@@ -17,6 +17,7 @@
     "action": {
       "back": "Back",
       "payNow": "Pay Now",
+      "receipt":"Payment Receipt",
       "proceed": "Proceed",
       "signin": "Signin",
       "submit": "Submit",
@@ -32,6 +33,9 @@
       "forgetPassword": "Forgot your Password?",
       "needHelp": "Need Help ?"
     }
+  },
+  "review":{
+    "title":"Review your payment"
   },
   "error": {
     "title": "Oops!",
@@ -183,6 +187,17 @@
   "billPayments": {
     "landing" : {
     "title": "Select Your Bill Payments"
+  },
+  "confirmation":{
+    "success":"Transaction is successfully completed",
+    "fail":"Transaction could not be processed",
+    "customerCare":"Mashreq customer care",
+    "payment":"Frequent Payment?",
+    "saveIt":"Save it as beneficiary",
+    "debited":"Debited",
+    "support":"24/7 support",
+    "contactus":"You can contact us",
+    "failSubHeading":"lorelum sample text lorelum sample text yet to be added bla bla bla"
   }
   },
   "mobileinfo": {

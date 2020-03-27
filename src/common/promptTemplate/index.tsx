@@ -6,16 +6,16 @@ import {
   Button,
   Caption,
   Box,
-  colors,
   makeStyles,
   Theme,
-  ButtonProps
+  ButtonProps,
+  orange
 } from "@mashreq-digital/ui";
 import { transitionModalProps } from "@mashreq-digital/ui/dist/types/components";
 
 const useStyles = makeStyles((theme: Theme) => ({
   svgIconStyle: {
-    backgroundColor: colors?.orange[500],
+    backgroundColor: orange[500],
     borderRadius: "50%",
     "& > svg" : {
       height: "20px",

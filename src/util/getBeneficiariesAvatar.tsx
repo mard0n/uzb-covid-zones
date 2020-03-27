@@ -20,11 +20,11 @@ const getBeneficiariesAvatar = (serviceType: any) => {
       return ADDC;     
     case "noqodi":
       return Noqodi;
-    case "Ahsen":
+    case "ahsen":
       return Ahsen;
-    case "dubai_cares":
+    case "dubai care":
       return Dubai_Cares;
-    case "within-mashreq":
+    case "fund transfer":
       return Fund_Transfer;
     case "dewa":
       return DEWA;

@@ -17,6 +17,7 @@ import { Edit2, Trash } from "@mashreq-digital/webassets";
 import CardPayNow from "../../../common/card/CardPayNow";
 import ImageWithText from "../../../common/imageWithText";
 import { capitalizeFirstLetter } from "../../../util/helper";
+import DueAmount from "./DueAmount";
 
 // import getBeneficiariesAvatar from "../../../../util/getBeneficiariesAvatar";
 
@@ -157,36 +158,7 @@ const DetailViewLayout = (props: any) => {
           </Box>
             </>
         ):null}
-
-        {dueAmount && dueAmount > 0 ? (
-          <>
-          <Box mt={5} mb={5}>
-          <H3 gutterBottom>
-            {t("beneficiary.manage.details.billDetected.title")}
-          </H3>
-          <Caption>
-            {t("beneficiary.manage.details.billDetected.desc")}
-          </Caption>
-        </Box>
-
-
-            <CardPayNow
-              buttonLable={t("common.action.payNow")}
-              // heading="Rent Dubai"
-              // image={getBeneficiariesAvatar("DU")}
-              subheading={
-                <Box display="flex">
-                  <Box mr={1}>
-                    <Caption color="textSecondary" className={capitalize}>
-                      AED
-                    </Caption>
-                  </Box>
-                  <H5>{dueAmount}</H5>
-                </Box>
-              }
-            />
-          </>
-        ): null}
+          <DueAmount dueAmount={dueAmount}/>
       </Box>
     </Box>
   );

@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import AuthOtp from "../../../../components/authOtp";
-// import Success from "./Success";
 import StepperDialog from "../../../../components/stepperDialog";
 import { useDispatch } from "react-redux";
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
-// import * as LandingActions from "../../../../redux/actions/beneficiary/billPayment/landingActions";
+import Review from "./Review";
+import Confirmation from "../../../../common/confirmation";
+import { useTranslation } from 'react-i18next';
+import {H2} from "@mashreq-digital/ui";
+
 
 const ManageBillPayments = (props: any) => {
   const {
@@ -20,6 +23,7 @@ const ManageBillPayments = (props: any) => {
   const [step, setStep] = useState("");
   const [stepInit, setStepInit] = useState("Start Your Payment");
   const [draftData, setDraftData] = useState<any>({});
+const {t} = useTranslation();
 
   const onSubmitCallback = (data: any) => {
     if (data && data.id) {
@@ -65,22 +69,65 @@ const ManageBillPayments = (props: any) => {
           // />
           <></>
         );
+
+      case "Review":
+        return (  
+         <Review
+          data={{
+            dueAmount: 150,
+            accountNumber: "12312312",
+            serviceTypeCode: "Etisalat Prepaid",
+            nickname: "masas",
+            id: "111"
+          }}
+          type="etisalat"
+        />)
       default:
         return (
-          // <AddUpdateBillPayment
-          //   type={billType}
-          //   isAdd={isAdd}
-          //   edit={resumeData}
-          //   onSubmitCallback={(data: any) => onSubmitCallback(data)}
+          <Review
+            data={{
+              dueAmount: 150,
+              accountNumber: "12312312",
+              serviceTypeCode: "Etisalat Prepaid",
+              nickname: "masas",
+              id: "111"
+            }}
+            type="etisalat"
+          />
+
+          //For success
+          // <Confirmation
+          // success={true}
+          // type="etisalat"
+          // title={t(`billPayments.confirmation.success`)}
+          // data={{
+          //   dueAmount: 150,
+          //   accountNumber: "12312312",
+          //   serviceTypeCode: "Etisalat Prepaid",
+          //   nickname: "masas",
+          //   id: "111"
+          // }}
           // />
-          <></>
+
+//For Failure 
+          // <Confirmation
+          // type="etisalat"
+          // title={t(`billPayments.confirmation.fail`)}
+          // subTitle= {t(`billPayments.confirmation.failSubHeading`)}
+          // />
+
         );
     }
   };
   return (
     <StepperDialog
       {...rest}
-      stepperOptions={["Start Your Payment", "Review", "Authorization", "Confirmation"]}
+      stepperOptions={[
+        "Start Your Payment",
+        "Review",
+        "Authorization",
+        "Confirmation"
+      ]}
       stepperInit={stepInit}
       step={step}
       type={billType}

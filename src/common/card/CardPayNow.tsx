@@ -6,9 +6,12 @@ import {
   Card,
   Button,
   CardContent,
+  SvgIcon,
   makeStyles,
   createStyles,
 } from "@mashreq-digital/ui";
+
+import {ChevronRight} from "@mashreq-digital/webassets";
 
 // const du = require("../../assets/images/beneficiaries/Du.png");
 
@@ -34,12 +37,13 @@ type CardPayNowProps = {
   subheading? : ReactNode | string | undefined;
   callback? : any;
   buttonLable? : string; 
+  arrow?:boolean;
   image? : string;
   style? : any;
 }
 
 const CardPayNow = (props: CardPayNowProps) => {
-  const { heading, subheading, style={}, buttonLable, image } = props;
+  const { heading,arrow, subheading, style={}, buttonLable, image } = props;
 
   const classes = useStyles();
   return (
@@ -59,6 +63,7 @@ const CardPayNow = (props: CardPayNowProps) => {
         {buttonLable}
       </Button>
       }
+     {arrow && <SvgIcon component={ChevronRight}/> }
     </Card>
   );
 };

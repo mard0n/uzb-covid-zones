@@ -9,7 +9,7 @@ import {
   Collapse,
   makeStyles,
   H5,
-  colors
+  blueGrey
 } from "@mashreq-digital/ui";
 
 const useStyles = makeStyles((theme: any) => ({
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: any) => ({
     "& > svg" : {
       width: 24,
       height: 24,
-      fill: colors.blueGrey[400]
+      fill: blueGrey[400]
     }
   },
   active: {

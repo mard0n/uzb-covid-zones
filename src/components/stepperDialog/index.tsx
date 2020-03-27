@@ -1,12 +1,13 @@
 import React, { useEffect, useState, ReactChild } from 'react';
 import {
   Grid,
-  colors,
   Box,
   IconButton,
   SvgIcon,
   makeStyles,
-  Theme
+  Theme,
+  grey,
+  blueGrey
 } from "@mashreq-digital/ui";
 import { Cross } from "@mashreq-digital/webassets";
 import MDialog from "../../common/dialog";
@@ -16,7 +17,7 @@ import ImageWithText from '../../common/imageWithText';
 
 const useStyles = makeStyles((theme: Theme) => ({
   leftStyle: {
-    backgroundColor: colors?.grey?.[300],
+    backgroundColor:grey?.[300],
     maxWidth: "360px",
     padding: theme?.spacing(7)
   }
@@ -49,7 +50,7 @@ const StepperDialog = (props: StepperDialogProps) => {
               <SvgIcon
                 // className={cursor}
                 component={Cross}
-                htmlColor={colors?.blueGrey?.[500]}
+                htmlColor={blueGrey?.[500]}
                 fontSize="small"
               />
             </IconButton>
