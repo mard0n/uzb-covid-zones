@@ -9,13 +9,10 @@ const DeletePrompt = (props: any) => {
             icon={TrashWarning}
             title={title}
             desc={desc}
-            modalProps={{
-              open: openModal,
-              children: <></>,
-              onClose: () => {
-                if(onCloseModal && typeof onCloseModal === "function") {
-                  onCloseModal();
-                }
+            openModal={openModal}
+            onCloseModal={() => {
+              if(onCloseModal && typeof onCloseModal === "function") {
+                onCloseModal();
               }
             }}
             buttonLabel={buttonLabel}

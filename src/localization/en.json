@@ -12,12 +12,14 @@
       "pincode": "Pincode",
       "mobileNumber": "Mobile Number",
       "nickName": "Nick Name",
-      "accountNumber": "Account Number"
+      "accountNumber": "Account Number",
+      "payCustomAmount" : "Pay Custom Amount"
     },
     "action": {
       "back": "Back",
       "payNow": "Pay Now",
       "receipt":"Payment Receipt",
+      "payCustomAmount" : "Pay Custom Amount",
       "proceed": "Proceed",
       "signin": "Signin",
       "submit": "Submit",
@@ -26,7 +28,8 @@
       "resume" : "Resume",
       "started": "Get Started",
       "tryAgain": "Try Again",
-      "done" : "Done"
+      "done" : "Done",
+      "reviewPayment" : "Review your payment"
     },
     "links": {
       "forgetUsername": "Forgot your Username?",
@@ -186,19 +189,33 @@
   },
   "billPayments": {
     "landing" : {
-    "title": "Select Your Bill Payments"
-  },
-  "confirmation":{
-    "success":"Transaction is successfully completed",
-    "fail":"Transaction could not be processed",
-    "customerCare":"Mashreq customer care",
-    "payment":"Frequent Payment?",
-    "saveIt":"Save it as beneficiary",
-    "debited":"Debited",
-    "support":"24/7 support",
-    "contactus":"You can contact us",
-    "failSubHeading":"lorelum sample text lorelum sample text yet to be added bla bla bla"
-  }
+      "title": "Select Your Bill Payments"
+    },
+    "steps" : {
+      "startPayment" : {
+        "title" : "Start your payment",
+        "prepaidBalance" : "Current Etisalat Postpaid balance",
+        "prepaidDesc" : "Make sure this amount is greater then AED 50.00, but doesn't exceed AED 1,000.00",
+        "beneficiaryList" : {
+          "title" : "Your Beneficiaries",
+          "desc" : "Click on your beneficiaries to start payments"
+        }
+      },
+      "confirmation":{
+        "success":"Transaction is successfully completed",
+        "fail":"Transaction could not be processed",
+        "customerCare":"Mashreq customer care",
+        "payment":"Frequent Payment?",
+        "saveIt":"Save it as beneficiary",
+        "debited":"Debited",
+        "support":"24/7 support",
+        "contactus":"You can contact us",
+        "failSubHeading":"lorelum sample text lorelum sample text yet to be added bla bla bla"
+      },
+      "payCustomAmount": {
+        "title": "Pay Custom Amount"
+      }
+    }
   },
   "mobileinfo": {
     "tipstitle": "Please enter your mobile number",

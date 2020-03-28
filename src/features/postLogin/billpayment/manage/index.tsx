@@ -8,6 +8,8 @@ import Confirmation from "../../../../common/confirmation";
 import { useTranslation } from 'react-i18next';
 import {H2} from "@mashreq-digital/ui";
 
+import StartPayments from "./startYourPayments";
+// import * as LandingActions from "../../../../redux/actions/beneficiary/billPayment/landingActions";
 
 const ManageBillPayments = (props: any) => {
   const {
@@ -20,7 +22,9 @@ const ManageBillPayments = (props: any) => {
     ...rest
   } = props;
   const dispatch = useDispatch();
-  const [step, setStep] = useState("");
+  const leftSideOptions = ["Start Your Payment", "Review", "Authorization", "Confirmation"];
+  const [options, setOptions] = useState(leftSideOptions);
+  const [step, setStep] = useState("asdfsadf");
   const [stepInit, setStepInit] = useState("Start Your Payment");
   const [draftData, setDraftData] = useState<any>({});
 const {t} = useTranslation();
@@ -49,6 +53,16 @@ const {t} = useTranslation();
       finalCallback();
     }
   };
+
+  const onHandleBeneficiary = () => {
+    let updateOptions = [...options];
+    updateOptions.splice(2, 1);
+    setOptions(updateOptions);
+  }
+
+  const onHandleBack = () => {
+    setOptions(leftSideOptions);
+  }
 
   const switchComponent = () => {
     switch (step) {
@@ -84,22 +98,23 @@ const {t} = useTranslation();
         />)
       default:
         return (
-          <Review
-            data={{
-              dueAmount: 150,
-              accountNumber: "12312312",
-              serviceTypeCode: "Etisalat Prepaid",
-              nickname: "masas",
-              id: "111"
-            }}
-            type="etisalat"
-          />
+          // <Review
+          //   data={{
+          //     dueAmount: 150,
+          //     accountNumber: "12312312",
+          //     serviceTypeCode: "Etisalat Prepaid",
+          //     nickname: "masas",
+          //     id: "111"
+          //   }}
+          //   type="etisalat"
+          // />
+          <StartPayments type={billType} onHandleBeneficiary={()=>onHandleBeneficiary()} onHandleBack={()=>onHandleBack()}/>
 
           //For success
           // <Confirmation
           // success={true}
           // type="etisalat"
-          // title={t(`billPayments.confirmation.success`)}
+          // title={t(`billPayments.steps.confirmation.success`)}
           // data={{
           //   dueAmount: 150,
           //   accountNumber: "12312312",
@@ -112,22 +127,18 @@ const {t} = useTranslation();
 //For Failure 
           // <Confirmation
           // type="etisalat"
-          // title={t(`billPayments.confirmation.fail`)}
-          // subTitle= {t(`billPayments.confirmation.failSubHeading`)}
+          // title={t(`billPayments.steps.confirmation.fail`)}
+          // subTitle= {t(`billPayments.steps.confirmation.failSubHeading`)}
           // />
 
         );
     }
   };
+
   return (
     <StepperDialog
       {...rest}
-      stepperOptions={[
-        "Start Your Payment",
-        "Review",
-        "Authorization",
-        "Confirmation"
-      ]}
+      stepperOptions={options}
       stepperInit={stepInit}
       step={step}
       type={billType}

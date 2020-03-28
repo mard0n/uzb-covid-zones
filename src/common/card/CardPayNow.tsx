@@ -50,7 +50,7 @@ const CardPayNow = (props: CardPayNowProps) => {
     <Card className={classes.card} style={style}>
       {image && <Avatar src={image} />}
       <CardContent>
-        <H4> {heading} </H4>
+        <H4 gutterBottom> {heading} </H4>
         <Caption>{subheading}</Caption>
       </CardContent>
       {buttonLable && 

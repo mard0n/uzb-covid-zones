@@ -173,7 +173,7 @@ const DetailedView = () => {
           openModal={editModal}
           onCloseModal={() =>{          //dispatch(ManageActions.clearBeneficiaryAddNew());
             setEditModal(false)}}
-          onSubmitEdit={onSubmitEdit}
+          onSubmitEdit={(val: any)=>onSubmitEdit(val)}
         />}
        
           <SectionSplitter

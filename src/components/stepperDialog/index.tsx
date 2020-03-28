@@ -6,8 +6,7 @@ import {
   SvgIcon,
   makeStyles,
   Theme,
-  grey,
-  blueGrey
+  colors
 } from "@mashreq-digital/ui";
 import { Cross } from "@mashreq-digital/webassets";
 import MDialog from "../../common/dialog";
@@ -17,7 +16,7 @@ import ImageWithText from '../../common/imageWithText';
 
 const useStyles = makeStyles((theme: Theme) => ({
   leftStyle: {
-    backgroundColor:grey?.[300],
+    backgroundColor:colors?.grey?.[300],
     maxWidth: "360px",
     padding: theme?.spacing(7)
   }
@@ -35,12 +34,13 @@ interface StepperDialogProps extends transitionModalProps {
 const StepperDialog = (props: StepperDialogProps) => {
   const { leftStyle } = useStyles();
   const [stepInit, setStepInit] = useState('');
+  // const [options, setOptions] = useState('');
   const { content, step, type, stepperOptions, stepperInit, onCloseCallback, ...rest } = props;
 
   useEffect(()=>{
     setStepInit(stepperInit)
   },[stepperInit]);
-  console.log(stepperOptions, stepInit)
+
   return (
     <MDialog fullScreen {...rest}>
       <Grid container style={{ height: "100%" }}>
@@ -50,7 +50,7 @@ const StepperDialog = (props: StepperDialogProps) => {
               <SvgIcon
                 // className={cursor}
                 component={Cross}
-                htmlColor={blueGrey?.[500]}
+                htmlColor={colors.blueGrey?.[500]}
                 fontSize="small"
               />
             </IconButton>
@@ -61,18 +61,14 @@ const StepperDialog = (props: StepperDialogProps) => {
           
         </Grid>
         <Grid item xs={9}>
-          <>
-        {step && step !== "confirmation" && type && (
+          <Box pl={30} py={20.6} pr={10}>
+            {step && step !== "confirmation" && type && (
               <Box mb={6}>
                 <ImageWithText name={type} />
               </Box>
             )}
-          {content && 
-          <Box pl={30} py={20.6} pr={10}>
             {content}
           </Box>
-          }
-          </>
         </Grid>
       </Grid>
     </MDialog>

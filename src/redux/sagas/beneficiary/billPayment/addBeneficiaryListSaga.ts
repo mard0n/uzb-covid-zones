@@ -64,7 +64,6 @@ export function* workerServiceTypesSaga(action: any) {
       );
     }
   } catch (error) {
-    console.log("mas error ", error);
     yield put(Actions.fetchBeneficiaryServiceTypeFailure(error));
   }
 }

@@ -75,7 +75,7 @@ const Confirmation = (props: ConfirmationProps) => {
               <Box mt={6} mb={6} display="flex" alignItems="center">
                 <CardPayNow
                   style={{ justifyContent: "space-evenly" }}
-                  heading={t(`billPayments.confirmation.debited`)}
+                  heading={t(`billPayments.steps.confirmation.debited`)}
                   subheading={Math.abs(data.dueAmount)}
                 />
                 <Box ml={3} mr={3}>
@@ -100,22 +100,22 @@ const Confirmation = (props: ConfirmationProps) => {
                 <CardPayNow
                   style={{ justifyContent: "space-evenly" }}
                   arrow={true}
-                  heading={t(`billPayments.confirmation.payment`)}
-                  subheading={t(`billPayments.confirmation.saveIt`)}
+                  heading={t(`billPayments.steps.confirmation.payment`)}
+                  subheading={t(`billPayments.steps.confirmation.saveIt`)}
                 />
               </Box>
             </>
           ) : 
           <>
           <Box mt={10} display="flex" alignItems="center">
-          <H4>{t(`billPayments.confirmation.contactus`)} </H4>
+          <H4>{t(`billPayments.steps.confirmation.contactus`)} </H4>
           </Box>
           <Box mt={5} mb={5} display="flex" alignItems="center">
           <CardPayNow
             style={{ justifyContent: "space-evenly" }}
             arrow={true}
-            heading={t(`billPayments.confirmation.customerCare`)}
-            subheading={t(`billPayments.confirmation.support`)}
+            heading={t(`billPayments.steps.confirmation.customerCare`)}
+            subheading={t(`billPayments.steps.confirmation.support`)}
           />
           </Box>
         </>

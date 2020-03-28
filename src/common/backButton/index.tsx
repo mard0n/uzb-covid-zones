@@ -6,14 +6,17 @@ import { useHistory } from "react-router-dom";
 
 type BackButtonProps = {
   onClickBack: any;
+  disableRoute?: boolean 
 };
 
 const BackButton = (props: BackButtonProps) => {
-  const { onClickBack } = props;
+  const { onClickBack, disableRoute } = props;
   const history = useHistory();
   const { t } = useTranslation();
   const onClick = () => {
-    history.goBack();
+    if(!disableRoute) {
+      history.goBack();
+    }
     if(onClickBack && typeof onClickBack === "function") {
       onClickBack();
     }

@@ -213,15 +213,11 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
     <form>
       {isUtility && (
         <PromptTemplate
+        minWidth={false}
+          openModal={infoPopup}
+          onCloseModal={setInfoPopup(false)}
           title={infoTitle}
           desc={infoTitle + " " + t("beneficiary.manage.info.desc")}
-          modalProps={{
-            open: infoPopup,
-            children: <></>,
-            onClose: () => {
-              setInfoPopup(false);
-            }
-          }}
           content={
             <Box mb={2}>
               <img

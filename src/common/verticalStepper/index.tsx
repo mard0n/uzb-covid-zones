@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Caption, makeStyles, Theme, grey} from '@mashreq-digital/ui';
+import { Box, Caption, makeStyles, Theme, colors} from '@mashreq-digital/ui';
 
 type VerticalStepperProps = {
   options : Array<string>;
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     padding: `0px ${theme?.spacing(5)}px`,
     margin: `${theme?.spacing(3)}px 0px`,
     "& .MuiTypography-caption" : {
-      color: grey[500]
+      color: colors?.grey[500]
     },  
     "&::after": {
       content: `''`,
@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       borderRadius: '50%',
       left: 9,
       top: "50%",
-      backgroundColor: grey[500],
+      backgroundColor: colors?.grey[500],
       transform:"translate(0, -50%)"
     },
     "&:not(:first-child)::before": {
@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
       content: `''`,
       position: "absolute",
       transform: "translate(0, -50%)",
-      backgroundColor: grey[500],
+      backgroundColor: colors?.grey[500],
       bottom: "100%",
       left: "16px"
     }

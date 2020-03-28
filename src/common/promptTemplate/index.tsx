@@ -9,15 +9,23 @@ import {
   makeStyles,
   Theme,
   ButtonProps,
-  orange
+  colors
 } from "@mashreq-digital/ui";
 import { transitionModalProps } from "@mashreq-digital/ui/dist/types/components";
 
 const useStyles = makeStyles((theme: Theme) => ({
+  root: (props: any) => ({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    "& .MuiPaper-root": {
+      width: props && props.minWidth ? "312px" : "60%"
+    }
+  }),
   svgIconStyle: {
-    backgroundColor: orange[500],
+    backgroundColor: colors?.orange[500],
     borderRadius: "50%",
-    "& > svg" : {
+    "& > svg": {
       height: "20px",
       width: "20px"
     }
@@ -32,45 +40,75 @@ interface PrompTemplateProps {
   desc?: string;
   buttonLabel?: string;
   buttonProps?: ButtonProps;
+  openModal: boolean;
+  minWidth?: boolean;
+  onCloseModal?: any;
   modalProps: transitionModalProps;
   content?: ReactElement | undefined;
   icon?: any;
 }
 
 const PromptTemplate = (props: PrompTemplateProps) => {
-  const { svgIconStyle, headingStyle } = useStyles();
-  const { title, icon, desc, content, buttonLabel, buttonProps, modalProps } = props;
+  const { root, svgIconStyle, headingStyle } = useStyles(props);
+  const {
+    title,
+    icon,
+    desc,
+    content,
+    buttonLabel,
+    buttonProps,
+    openModal,
+    onCloseModal,
+    modalProps
+  } = props;
+
+  const onClose = () => {
+    if (onCloseModal && typeof onCloseModal === "function") {
+      onCloseModal();
+    }
+  };
+
   return (
-    <Modals {...modalProps}>
+    <Modals
+      className={root}
+      open={openModal}
+      onClose={() => onClose()}
+      {...modalProps}
+    >
       <>
-      {icon && (
-        <Box mb={2} display="inline-block" pt={2} pb={1.3} px={2.3} className={svgIconStyle}>
-          <SvgIcon
-            htmlColor="#ffffff"
-            component={icon}
-          />
+        {icon && (
+          <Box
+            mb={2}
+            display="inline-block"
+            pt={2}
+            pb={1.3}
+            px={2.3}
+            className={svgIconStyle}
+          >
+            <SvgIcon htmlColor="#ffffff" component={icon} />
+          </Box>
+        )}
+        <Box mt={2} mb={3.5}>
+          <H4 className={headingStyle} gutterBottom>
+            {title}
+          </H4>
+          {desc && <Caption>{desc}</Caption>}
         </Box>
-      )} 
-      <Box mt={2} mb={3.5}>
-      <H4 className={headingStyle} gutterBottom>{title}</H4>
-      {desc && <Caption>{desc}</Caption>}
-      </Box>
-      {content &&
-        <Box>{content}</Box>
-      }
-      {buttonLabel && 
-      <Button color="primary" {...buttonProps} fullWidth>
-        {buttonLabel}
-      </Button>
-      }
+        {content && <Box>{content}</Box>}
+        {buttonLabel && (
+          <Button color="primary" {...buttonProps} fullWidth>
+            {buttonLabel}
+          </Button>
+        )}
       </>
     </Modals>
   );
 };
 
 PromptTemplate.defaultProps = {
-  buttonProps:{},
-  modalProps:{open:false, children:<></>}
-}
+  buttonProps: {},
+  minWidth: true,
+  modalProps: { children: <></> }
+};
 
 export default PromptTemplate;

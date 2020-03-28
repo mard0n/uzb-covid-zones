@@ -66,7 +66,6 @@ const ListServiceTypes = (props: any) => {
   };
 
   const onSubmitEdit = (formData: any) => {
-    console.log("onSubmitEdit -> formData", formData);
     let editData:any = {
       id: beneficiaryItemForEdit.id.toString(),
       nickname: formData.nickName,
@@ -92,10 +91,10 @@ const ListServiceTypes = (props: any) => {
     //   dispatch(ManageActions.clearBeneficiaryAddNew());
     // }, 3000);
 
-    if(errorCode){
+    // if(errorCode){
     // console.log("onSubmitEdit -> errorCode", errorCode)
     setEditModal(false);
-    }
+    // }
   };
 
   const closeDialogModal = () => {
@@ -193,6 +192,8 @@ const ListServiceTypes = (props: any) => {
     );
   }
 
+  console.log(editModal, "editModal ========>>>>>>")
+
   // if (!loading) {
   return (
     <>
@@ -241,7 +242,7 @@ const ListServiceTypes = (props: any) => {
                 // dispatch(ManageActions.clearBeneficiaryAddNew());
                 setEditModal(false);
               }}
-              onSubmitEdit={onSubmitEdit}
+              onSubmitEdit={(val: any)=>onSubmitEdit(val)}
             />
           )}
 
