@@ -39,6 +39,9 @@ const AmountWithInput = (props: AmountWithInputProps) => {
   const onClickCallback = (data: any) => {
     setDefaultAmount(data);
     setAmount(data);
+    if(onChangeField && typeof onChangeField === "function") {
+      onChangeField(data);
+    }
   }
 
   const onChange = (e: any) => {

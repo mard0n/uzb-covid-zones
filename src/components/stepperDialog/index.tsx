@@ -76,7 +76,8 @@ const StepperDialog = (props: StepperDialogProps) => {
 }
 
 StepperDialog.defaultProps = {
-  stepperOptions: []
+  stepperOptions: [],
+  open: false
 }
 
 export default StepperDialog;

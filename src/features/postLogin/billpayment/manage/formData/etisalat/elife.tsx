@@ -8,12 +8,20 @@ const elife = {
       config: {
         inputProps: {
           minLength: 0,
-          maxLength: 9
+          maxLength: 8
         },
         required: true,
         value: "",
-        helperText: "common.label.mobileNumber",
-        label: "Elife " + i18n.t("common.label.mobileNumber")
+        helperText: replaceStr(
+          i18n.t("common.hintText.mobileNumber"),
+          "--No--",
+          "8"
+        ),
+        label: replaceStr(
+          i18n.t("common.label.enterMobileNo"),
+          "--type--",
+          "etisalat elife"
+        )
       },
       validation: {
         onChangeRegex: RegEx.NUMERIC_ONLY,
@@ -22,68 +30,16 @@ const elife = {
             regEx: replaceStr(
               replaceStr(RegEx.NUMERIC_LIMIT, "min,", ""),
               "max",
-              9
+              8
             ),
             errorCode: replaceStr(
               i18n.t("beneficiary.manage.errors.maxLength"),
               "--max--",
-              9
+              8
             )
           }
         ]
       }
-    },
-    nickname: {
-      config: {
-        type: "text",
-        inputProps: {
-          minLength: 2,
-          maxLength: 10,
-          required: true
-        },
-        value: "",
-        helperText: "beneficiary.manage.addEdit.helperText.nickName",
-        label: i18n.t("common.label.nickName")
-      },
-      validation: {
-        //  onChangeRegex: RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
-        schema: [
-          {
-            regEx: replaceStr(
-              RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
-              "splChars",
-              "@_#&-"
-            ),
-            errorCode: "beneficiary.manage.errors.nickName"
-          },
-          {
-            regEx: replaceStr(
-              replaceStr(
-                replaceStr(
-                  RegEx.ALPHA_NUMERIC_SPL_CHARS_LIMIT,
-                  "splChars",
-                  "@_#&-"
-                ),
-                "min",
-                2
-              ),
-              "max",
-              10
-            ),
-            errorCode: replaceStr(
-              replaceStr(
-                i18n.t("beneficiary.manage.errors.minMaxLength"),
-                "--min--",
-                2
-              ),
-              "--max--",
-              10
-            )
-          }
-        ]
-      },
-      valid: false,
-      touched: false
     }
   }
 };

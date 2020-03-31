@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Box } from '@mashreq-digital/ui';
 import BillPaymentLanding from './Landing';
 import ManageBillPayments from './manage';
-import StartPayments from './manage/startYourPayments';
-import RechargeAmount from './manage/startYourPayments/RechargeAmount';
 
 const BillPayments = () => {
   const [addServiceType, setAddServiceType] = useState("");

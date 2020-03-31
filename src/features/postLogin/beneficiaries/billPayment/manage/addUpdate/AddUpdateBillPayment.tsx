@@ -108,7 +108,7 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
         if(isAdd){
           for (const field in formFields) {
             formFields[field]["config"]["value"] = "";
-            formFields[field]["config"]["error"] = '';
+            formFields[field]["config"]["error"] = false;
             formFields[field]["config"]["errorText"] = '';
           }
         }
@@ -179,7 +179,7 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
     if(isAdd) {
       for(let field in cloneFields) {
         cloneFields[field]["config"]["value"] = '';
-        cloneFields[field]["config"]["error"] = '';
+        cloneFields[field]["config"]["error"] = false;
         cloneFields[field]["config"]["errorText"] = '';
       }
       setFields(cloneFields); 

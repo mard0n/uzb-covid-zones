@@ -13,7 +13,11 @@
       "mobileNumber": "Mobile Number",
       "nickName": "Nick Name",
       "accountNumber": "Account Number",
-      "payCustomAmount" : "Pay Custom Amount"
+      "payCustomAmount" : "Pay Custom Amount",
+      "enterMobileNo": "Enter your --type-- mobile number"
+    },
+    "hintText": {
+      "mobileNumber" : "Enter your --No-- digit mobile number"
     },
     "action": {
       "back": "Back",
@@ -35,6 +39,10 @@
       "forgetUsername": "Forgot your Username?",
       "forgetPassword": "Forgot your Password?",
       "needHelp": "Need Help ?"
+    },
+    "dbErrors": {
+      "NO_ESB_ENQUIRY_DETAILS" : "Please enter a valid number",
+      "BN-3001" : "Invalid number"
     }
   },
   "review":{
@@ -181,6 +189,7 @@
       "errors" : {
         "onlyNumbers" : "Allow only numbers",
         "minMaxLength" : "Only between --min-- - --max-- are valid.",
+        "matchNumber" : "Entered number should be greater than --greater-- and lesser than --lesser--",
         "maxLength" : "Length should be --max--",
         "nickName" : "Allow only these special characters @_#&-"
       }
@@ -194,7 +203,7 @@
     "steps" : {
       "startPayment" : {
         "title" : "Start your payment",
-        "prepaidBalance" : "Current Etisalat Postpaid balance",
+        "prepaidBalance" : "Current --type-- --serviceType-- balance",
         "prepaidDesc" : "Make sure this amount is greater then AED 50.00, but doesn't exceed AED 1,000.00",
         "beneficiaryList" : {
           "title" : "Your Beneficiaries",

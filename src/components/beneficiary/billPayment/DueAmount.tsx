@@ -16,7 +16,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const DueAmount = (props: any) => {
+type DueAmountProps = {
+  dueAmount?: number;
+}
+
+const DueAmount = (props: DueAmountProps) => {
   const { dueAmount } = props;
   const { capitalize} = useStyles();
   const { t } = useTranslation();

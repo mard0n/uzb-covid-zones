@@ -17,14 +17,16 @@ import {ChevronRight} from "@mashreq-digital/webassets";
 
 const useStyles = makeStyles((theme: any) =>
   createStyles({
-    card: {
+    card: (props: any) => ({
       display: "flex",
-      paddingLeft: "3px",
+      paddingRight: theme.spacing(0.5),
       width: "327px",
       borderRadius: "8px",
       alignItems: "center",
-      justifyContent: "space-between"
-    },
+      justifyContent: "flex-start",
+      padding: `0 ${theme.spacing(4)}px`,
+      cursor: props && props.link ? "pointer" : "default"
+    }),
     button: {
       width: 118,
       height: 85
@@ -39,13 +41,14 @@ type CardPayNowProps = {
   buttonLable? : string; 
   arrow?:boolean;
   image? : string;
+  link?: boolean;
   style? : any;
 }
 
 const CardPayNow = (props: CardPayNowProps) => {
-  const { heading,arrow, subheading, style={}, buttonLable, image } = props;
+  const { heading,arrow, subheading, style={}, buttonLable, image, link } = props;
 
-  const classes = useStyles();
+  const classes = useStyles(props);
   return (
     <Card className={classes.card} style={style}>
       {image && <Avatar src={image} />}

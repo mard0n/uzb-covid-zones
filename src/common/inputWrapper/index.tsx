@@ -91,7 +91,6 @@ const InputWrapper = (props: any) => {
       isValid = formCopy[id].valid && isValid;
     }
     setValid(isValid);
-
     if (onChangeFields && typeof onChangeFields === "function") {
       onChangeFields(formCopy);
     }

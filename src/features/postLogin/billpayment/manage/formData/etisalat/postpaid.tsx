@@ -12,8 +12,16 @@ const postpaid = {
         },
         required: true,
         value: "",
-        helperText: "common.label.mobileNumber",
-        label: "PostPaid " + i18n.t("common.label.mobileNumber")
+        helperText: replaceStr(
+          i18n.t("common.hintText.mobileNumber"),
+          "--No--",
+          "10"
+        ),
+        label: replaceStr(
+          i18n.t("common.label.enterMobileNo"),
+          "--type--",
+          "etisalat postpaid"
+        )
       },
       validation: {
         onChangeRegex: RegEx.NUMERIC_ONLY,
@@ -32,59 +40,6 @@ const postpaid = {
           }
         ]
       }
-    },
-
-    nickname: {
-      config: {
-        type: "text",
-        inputProps: {
-          minLength: 2,
-          maxLength: 10,
-          required: true
-        },
-        value: "",
-        helperText: "beneficiary.manage.addEdit.helperText.nickName",
-        label: "PostPaid " + i18n.t("common.label.nickName")
-      },
-      validation: {
-        //  onChangeRegex: RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
-        schema: [
-          {
-            regEx: replaceStr(
-              RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
-              "splChars",
-              "@_#&-"
-            ),
-            errorCode: "beneficiary.manage.errors.nickName"
-          },
-          {
-            regEx: replaceStr(
-              replaceStr(
-                replaceStr(
-                  RegEx.ALPHA_NUMERIC_SPL_CHARS_LIMIT,
-                  "splChars",
-                  "@_#&-"
-                ),
-                "min",
-                2
-              ),
-              "max",
-              10
-            ),
-            errorCode: replaceStr(
-              replaceStr(
-                i18n.t("beneficiary.manage.errors.minMaxLength"),
-                "--min--",
-                2
-              ),
-              "--max--",
-              10
-            )
-          }
-        ]
-      },
-      valid: false,
-      touched: false
     }
   }
 };

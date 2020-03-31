@@ -5,16 +5,19 @@ import FilledCheckBox from "../../../../../common/filledCheckbox";
 import InputWrapper from "../../../../../common/inputWrapper";
 import GetBeneficiaryList from "./GetBeneficiaryList";
 import { FormFields } from "../formData";
-import { capitalizeFirstLetter } from "../../../../../util/helper";
+import { getTelecomServiceType } from "../../../../../util/getTelecomServiceType";
+import { BILL_PAYMENT_ENQUIRY } from "../../../../../network/Endpoints";
+import { API } from "../../../../../network";
 
 type PaymentNumberProps = {
   type : any,
-  onSubmit?: any,
+  onProceed?: any,
   onClickBeneficiary?: any
+  onChangeTab?: any
 }
 
 const PaymentNumber = (props: PaymentNumberProps) => {
-  const { type, onSubmit, onClickBeneficiary } = props;
+  const { type, onProceed, onClickBeneficiary, onChangeTab } = props;
   const getType: keyof typeof FormFields = type;
   const formSchema: any = FormFields[getType];
   const telecomOptions =
@@ -34,10 +37,10 @@ const PaymentNumber = (props: PaymentNumberProps) => {
 
   useEffect(() => {
     const initFieldProps = () => {
-      setBillType(capitalizeFirstLetter(type));
+      setBillType(type);
       for (const field in formFields) {
         formFields[field]["config"]["value"] = "";
-        formFields[field]["config"]["error"] = "";
+        formFields[field]["config"]["error"] = false;
         formFields[field]["config"]["errorText"] = "";
       }
       return formFields;
@@ -51,10 +54,13 @@ const PaymentNumber = (props: PaymentNumberProps) => {
     //console.log("onClickFilledOptions -> cloneFields", cloneFields)
     for (let field in cloneFields) {
       cloneFields[field]["config"]["value"] = "";
-      cloneFields[field]["config"]["error"] = "";
+      cloneFields[field]["config"]["error"] = false;
       cloneFields[field]["config"]["errorText"] = "";
     }
     setFields(cloneFields);
+    if(onChangeTab && typeof onChangeTab === "function") {
+      onChangeTab(selItem);
+    }
   };
 
   const onBlurFields = (resData: any) => {
@@ -62,14 +68,40 @@ const PaymentNumber = (props: PaymentNumberProps) => {
     setDisabled(!resData.valid);
   };
 
-  const onClickSubmit = () => {
+  const onClickProceed = () => {
     let data: any = { ...formData },
-      serviceType = billType;
+      url = BILL_PAYMENT_ENQUIRY;
+    data["serviceTypeCode"] = getTelecomServiceType(billType.toLowerCase(), telecomValue);
     delete data["valid"];
-    if(onSubmit && typeof onSubmit === "function") {
-      onSubmit(telecomValue);
+    const config = {
+      method: 'POST',
+      data,
+      url,
+    };
+
+    if(data["serviceTypeCode"]) {
+      API(config).then((val: any) => { 
+      if(val && val.data && (val.data.errorCode || val.data.errorId)) {
+        setError(val.data.errorCode || val.data.errorId)
+      } else if(val.data && val.data.data) {
+        if(onProceed && typeof onProceed === "function") {
+          let res = {...data, ...val.data.data};
+          onProceed(res);
+        }
+      }
+    });
     }
   };
+
+  const setError = (code: string) => {
+    let cloneFields = { ...fields };
+    //console.log("onClickFilledOptions -> cloneFields", cloneFields)
+    for (let field in cloneFields) {
+      cloneFields[field]["config"]["error"] = true;
+      cloneFields[field]["config"]["errorText"] = t(`common.dbErrors.${code}`);
+    }
+    setFields(cloneFields);
+  }
 
   return (
     <>
@@ -100,13 +132,13 @@ const PaymentNumber = (props: PaymentNumberProps) => {
           variant="contained"
           color="primary"
           disabled={disabled}
-          onClick={() => onClickSubmit()}
+          onClick={() => onClickProceed()}
           size="medium"
         >
           {t("common.action.proceed")}
         </Button>
       </Box>
-      <GetBeneficiaryList type={type} onClickBeneficiary={()=> onClickBeneficiary(telecomValue)}/>
+      <GetBeneficiaryList type={type} telecomActiveTab={telecomValue} onClickBeneficiary={onClickBeneficiary}/>
     </>
   );
 };

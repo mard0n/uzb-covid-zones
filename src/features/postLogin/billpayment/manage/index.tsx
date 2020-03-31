@@ -15,8 +15,6 @@ const ManageBillPayments = (props: any) => {
   const {
     children,
     billType,
-    isAdd,
-    resumeData,
     finalCallback,
     onCloseCallback,
     ...rest
@@ -24,7 +22,8 @@ const ManageBillPayments = (props: any) => {
   const dispatch = useDispatch();
   const leftSideOptions = ["Start Your Payment", "Review", "Authorization", "Confirmation"];
   const [options, setOptions] = useState(leftSideOptions);
-  const [step, setStep] = useState("asdfsadf");
+  const [step, setStep] = useState("");
+  const [startPayentData, setStartPaymentData] = useState({});
   const [stepInit, setStepInit] = useState("Start Your Payment");
   const [draftData, setDraftData] = useState<any>({});
 const {t} = useTranslation();
@@ -64,6 +63,21 @@ const {t} = useTranslation();
     setOptions(leftSideOptions);
   }
 
+  /* Stary your payment submit */
+  const onSubmitPayment = (data: any) => {
+    setStartPaymentData(data);
+    // console.log(data, "data =======>>>>>>>>")
+    setStep("review");
+    setStepInit("Review");
+    // if(data && data.id) {
+      
+    // } else {
+    //   setStep("otp");
+    //   setStepInit("Authorization");
+    // }
+    setStartPaymentData(data);
+  }
+
   const switchComponent = () => {
     switch (step) {
       case "otp":
@@ -84,17 +98,11 @@ const {t} = useTranslation();
           <></>
         );
 
-      case "Review":
+      case "review":
         return (  
          <Review
-          data={{
-            dueAmount: 150,
-            accountNumber: "12312312",
-            serviceTypeCode: "Etisalat Prepaid",
-            nickname: "masas",
-            id: "111"
-          }}
-          type="etisalat"
+          data={startPayentData}
+          type={billType}
         />)
       default:
         return (
@@ -108,7 +116,7 @@ const {t} = useTranslation();
           //   }}
           //   type="etisalat"
           // />
-          <StartPayments type={billType} onHandleBeneficiary={()=>onHandleBeneficiary()} onHandleBack={()=>onHandleBack()}/>
+          <StartPayments type={billType} onHandleBeneficiary={()=>onHandleBeneficiary()} onSubmitPayment={onSubmitPayment} onHandleBack={()=>onHandleBack()}/>
 
           //For success
           // <Confirmation

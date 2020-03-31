@@ -3,6 +3,7 @@
  */
 export const TEST = "/test";
 
+/* MANAGE BENEFICIARY */
 /* Beneficiary */
 // const Beneficiary_bill_payment
 export const BENEFICIARY_SERVICE_TYPES_ENDPOINT = '/beneficiary-core-service/v1/beneficiary/service-type';
@@ -11,3 +12,6 @@ export const BILL_PAYMENT_DETECTION_ENDPOINT = `/beneficiary-core-service/v1/ben
 export const DELETE_BENEFICIARY_BY_ID_ENDPOINT = `/beneficiary-core-service/v1/beneficiary/${'beneficiaryId'}`;
 export const BILL_PAYMENT_ADD_EDIT_BENEFICIARY_ENDPOINT = `/beneficiary-core-service/v1/beneficiary`;
 export const ACTIVATE_BENEFICIARY_BY_ID_ENDPOINT = `/beneficiary-core-service/v1/beneficiary/${'beneficiaryId'}/activate`;
+
+/* BILLPAYMENTS */
+export const BILL_PAYMENT_ENQUIRY = `beneficiary-core-service/v1/beneficiary/service-type/enquiry`;
