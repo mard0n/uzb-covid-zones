@@ -50,6 +50,7 @@
   },
   "error": {
     "title": "Oops!",
+    "somethingWrong" : "Something went wrong",
     "desc": "Sorry it seems like you’ve made a mistake"
   },
   "login": {
@@ -198,7 +199,9 @@
   },
   "billPayments": {
     "landing" : {
-      "title": "Select Your Bill Payments"
+      "title": "Recharges & Bill Payments",
+      "searchTitle" : "Search for a Service Provider, Type or Beneficiary",
+      "searchPlaceholder" : "Search for a Service Provider or Bill payment type"
     },
     "steps" : {
       "startPayment" : {

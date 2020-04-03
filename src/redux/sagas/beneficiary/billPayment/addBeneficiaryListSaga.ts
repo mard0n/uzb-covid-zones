@@ -1,8 +1,8 @@
 import {takeLatest, call, put} from 'redux-saga/effects';
 import * as Endpoints from '../../../../network/Endpoints';
 import * as Actions from '../../../actions/beneficiary/billPayment/addBillPaymentActions';
-import {API} from '../../../../network/index';
-// import {API} from '../../../../mocks';
+// import {API} from '../../../../network/index';
+import {API} from '../../../../mocks';
 
 export function* watchAddBillPaymentListSaga() {
   yield takeLatest(

@@ -9,13 +9,13 @@ import {
   H2
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
-import SearchBeneficiary from "./Search";
 import { useSelector, useDispatch } from "react-redux";
 
 import ListServiceTypes from "./ListServiceTypes";
 import AddServiceType from "./AddServiceType";
 import FilledCheckBox from "../../../../../common/filledCheckbox";
 import * as Actions from "../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
+import InputSearch from "../../../../../common/inputSearch";
 
 const BillPaymentLanding = (props: any) => {
   let dispatch = useDispatch();
@@ -87,7 +87,7 @@ const BillPaymentLanding = (props: any) => {
         )}
         <Grid container justify="space-between" alignItems="center">
           <Grid item xl={8} lg={8} md={8} sm={8} xs={8}>
-            <SearchBeneficiary />
+            <InputSearch placeholder={t("beneficiary.landing.searchPlaceholder")} />
           </Grid>
           <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
             <Box display="flex" justifyContent="flex-end">

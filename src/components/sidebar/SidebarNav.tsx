@@ -39,6 +39,17 @@ const useStyles = makeStyles((theme: any) => ({
   },
   active: {
     color: theme.palette.primary.main,
+    width: "100%",
+    justifyContent: "flex-start",
+    position: "relative",
+    "&::after" : {
+      content: `''`,
+      position: "absolute",
+      height: "60%",
+      width: "3px",
+      backgroundColor: "#313131",
+      right: "0px"
+    },
     "& svg" : {
       fill: "#313131"
     },

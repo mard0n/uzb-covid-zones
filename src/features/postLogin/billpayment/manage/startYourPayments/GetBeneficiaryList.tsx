@@ -48,11 +48,11 @@ const GetBeneficiaryList = (props: GetBeneficiaryListProps) => {
         <Caption gutterBottom>
           {t("billPayments.steps.startPayment.beneficiaryList.desc")}
         </Caption>
-        <Box mt={4} display="flex">
+        <Box mt={4} display="flex" flexWrap="wrap">
           {content.map((item: any) => {
             const { id, nickname, accountNumber, serviceType } = item;
             return (
-              <Box mr={5} key={id} onClick={e => onClickBeneficiary(item)}>
+              <Box mr={5} mb={3} key={id} onClick={e => onClickBeneficiary(item)}>
                 {type && (
                   <CardPayNow
                     link

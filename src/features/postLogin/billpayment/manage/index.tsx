@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import AuthOtp from "../../../../components/authOtp";
-import StepperDialog from "../../../../components/stepperDialog";
+import StepperDialogModal from "../../../../components/stepperDialog/stepperDialogModal";
 import { useDispatch } from "react-redux";
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import Review from "./Review";
@@ -144,7 +144,7 @@ const {t} = useTranslation();
   };
 
   return (
-    <StepperDialog
+    <StepperDialogModal
       {...rest}
       stepperOptions={options}
       stepperInit={stepInit}

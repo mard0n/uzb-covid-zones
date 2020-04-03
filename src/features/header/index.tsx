@@ -4,7 +4,8 @@ import {
   LinearProgressBar,
   Select,
   Box,
-  Caption
+  Caption,
+  makeStyles
 } from "@mashreq-digital/ui";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
@@ -13,7 +14,19 @@ import { stepsID } from "../../redux/reducers/createAcountReducer";
 import i18n from "../../config/i18n";
 import { changeLocalization } from "../../redux/actions/globalSetupAction";
 
+const useStyles = makeStyles(() => ({
+  sidebarHeader: {
+    borderBottom: "1px solid #ccc",
+    "& > .Header": {
+      borderBottom: "1px solid #ccc",
+    }
+  }
+ 
+}));
+
+
 const MOLHeader = (props: any) => {
+  const { sidebarHeader } = useStyles();
   const { t } = useTranslation();
   const steps = t("account.steps", { returnObjects: true });
   const { activeStep } = useSelector((state: any) => ({
@@ -35,11 +48,13 @@ const MOLHeader = (props: any) => {
   const MashreqLogo = getMashreqLogo();
 
   return (
-    <div>
+    <Box className={props.hasSidebar ? sidebarHeader : ""}> 
       <Header
         left={
           <Box display="flex" alignItems="center">
+            {!props.hasSidebar &&
             <MashreqLogo width="40px" height="25px" />
+          }
             {!exludePath.test(props.match.url) ? null : (
               <Box ml={2.5}>
                 <Caption>{steps[activeStep]}</Caption>
@@ -68,7 +83,7 @@ const MOLHeader = (props: any) => {
           totalStep={stepsID.length - 1}
         />
       )}
-    </div>
+    </Box>
   );
 };
 

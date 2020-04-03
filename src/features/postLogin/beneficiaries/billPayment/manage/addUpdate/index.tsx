@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AddUpdateBillPayment from "./AddUpdateBillPayment";
 import AuthOtp from "../../../../../../components/authOtp";
 import Success from "./Success";
-import StepperDialog from "../../../../../../components/stepperDialog";
+import StepperDialogModal from "../../../../../../components/stepperDialog/stepperDialogModal";
 import { useDispatch } from "react-redux";
 import * as Actions from "../../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import * as LandingActions from "../../../../../../redux/actions/beneficiary/billPayment/landingActions";
@@ -80,7 +80,7 @@ const AddUpdateDialog = (props: any) => {
     }
   };
   return (
-    <StepperDialog
+    <StepperDialogModal
       {...rest}
       stepperOptions={["Beneficiary Details", "Authorization", "Confirmation"]}
       stepperInit={stepInit}
