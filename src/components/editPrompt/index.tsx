@@ -13,7 +13,7 @@ type EdidPromptProps = {
   title: any;
   desc: any;
   buttonLabel: any;
-  beneficiaryItemForEdit: any;
+  beneficiaryItemForEdit?: any;
   onSubmitEdit: any;
   onCloseModal: any;
 };
@@ -28,16 +28,14 @@ const EditPrompt = (props: EdidPromptProps) => {
     onSubmitEdit,
     onCloseModal
   } = props;
-  // console.log("EditPrompt -> beneficiaryItemForEdit", beneficiaryItemForEdit)
+  console.log("EditPrompt -> beneficiaryItemForEdit", beneficiaryItemForEdit)
   const { t } = useTranslation();
   const [fields, setFields] = useState({});
   const [formData, setFormData] = useState({});
-  const getType: keyof typeof editFormFields = beneficiaryItemForEdit.serviceType.toLowerCase();
+  const getType: keyof typeof editFormFields = beneficiaryItemForEdit.serviceTypeCode.toLowerCase();
   const [disabledEditButton, setDisabledEditButton] = useState(true);
   const [hideSalikPin, setHideSalikPin] = useState(false);
   const [savePin, setSavePin] = useState(true);
-
-  // console.log("EditPrompt -> formData", formData)
 
   const onBlurFields = (resData: any) => {
     let cloneData = { ...resData };
@@ -89,21 +87,11 @@ const EditPrompt = (props: EdidPromptProps) => {
     const initFieldProps = () => {
       const formFields: any =
         editFormFields[getType === "salik" ? "salik" : "other"]["fields"];
-      console.log(
-        "initFieldProps -> formFields",
-        formFields,
-        beneficiaryItemForEdit.nickname
-      );
       for (let field in formFields) {
         console.log("loop -> field", field);
         if (field === "nickName") {
           formFields[field]["config"]["value"] =
             beneficiaryItemForEdit.nickname;
-          console.log(
-            "initFieldProps -> beneficiaryItemForEdit.nickname",
-            formFields,
-            beneficiaryItemForEdit.nickname
-          );
         }
       }
       return formFields;

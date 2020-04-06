@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   UnderlineText,
   Button,
@@ -7,12 +7,16 @@ import {
   Caption,
   SectionSplitter,
 } from "@mashreq-digital/ui";
+import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Check } from "@mashreq-digital/webassets";
 // import getBeneficiariesAvatar from "../../../../util/getBeneficiariesAvatar";
 import SucessFailureIcon from "@mashreq-digital/ui/dist/components/successFailureIcon";
 import ReviewAmountType from "../../../../components/billpayment/reviewAmountType";
 import CardPayNow from "../../../../common/card/CardPayNow";
+import EditPrompt from "../../../../components/editPrompt/index";
+import * as Actions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
+import SuccessModel from "./saveBeneficiary/SuccessModel";
 
 type SuccessProps = {
   success: boolean;
@@ -42,9 +46,38 @@ const Success = (props: SuccessProps) => {
     onReceiptCallback,
     title,
     success,
-    subTitle
+    subTitle,
   } = props;
   const { t } = useTranslation();
+  const [editModal, setEditModal] = useState(false);
+  const [sucessModel, setSucessModel] = useState(false);
+  const dispatch = useDispatch();
+  let sucessData = data;
+
+  const beneficiaryItemForEdit: any = {
+    accountNumber: data.accountNumber,
+    nickname: "",
+    serviceTypeCode: data.serviceTypeCode,
+  };
+
+  const SaveBenificiarySubmit = (formData: any) => {
+    let saveData: any = {
+      nickname: formData.nickName,
+      serviceTypeCode: data.serviceTypeCode,
+      accountNumber: data.accountNumber,
+    };
+    if (data.serviceTypeCode === "Salik") {
+      saveData["salikPinCode"] = "NDIxOQ==";
+      saveData["savePinCode"] = false;
+    }
+    sucessData = saveData;
+    console.log("SaveBenificiarySubmit -> saveData", saveData);
+    dispatch(
+      Actions.addUpdateBeneficiaryRequest({ updateMode: false, data: saveData })
+    );
+    setEditModal(false);
+    setSucessModel(true);
+  };
 
   return (
     <SectionSplitter
@@ -63,31 +96,56 @@ const Success = (props: SuccessProps) => {
           )}
           {data && type && (
             <>
-              <ReviewAmountType data={data} type={type} leftIcon={Check} isSuccess title={"Debited"}/>
+              <ReviewAmountType
+                data={data}
+                type={type}
+                leftIcon={Check}
+                isSuccess
+                title={"Debited"}
+              />
               <Box mt={6}>
                 <CardPayNow
                   arrow={true}
+                  callback={() => setEditModal(true)}
+                  buttonLable="click"
                   heading={t(`billPayments.steps.confirmation.payment`)}
                   subheading={t(`billPayments.steps.confirmation.saveIt`)}
                 />
               </Box>
             </>
-          ) 
-          //: 
-        //   <>
-        //   <Box mt={10} display="flex" alignItems="center">
-        //   <H4>{t(`billPayments.steps.confirmation.contactus`)} </H4>
-        //   </Box>
-        //   <Box mt={5} mb={5} display="flex" alignItems="center">
-        //   <CardPayNow
-        //     style={{ justifyContent: "space-evenly" }}
-        //     arrow={true}
-        //     heading={t(`billPayments.steps.confirmation.customerCare`)}
-        //     subheading={t(`billPayments.steps.confirmation.support`)}
-        //   />
-        //   </Box>
-        // </>
-        }
+          )
+          //:
+          //   <>
+          //   <Box mt={10} display="flex" alignItems="center">
+          //   <H4>{t(`billPayments.steps.confirmation.contactus`)} </H4>
+          //   </Box>
+          //   <Box mt={5} mb={5} display="flex" alignItems="center">
+          //   <CardPayNow
+          //     style={{ justifyContent: "space-evenly" }}
+          //     arrow={true}
+          //     heading={t(`billPayments.steps.confirmation.customerCare`)}
+          //     subheading={t(`billPayments.steps.confirmation.support`)}
+          //   />
+          //   </Box>
+          // </>
+          }
+
+          {editModal && (
+            <EditPrompt
+              title={t("beneficiary.manage.prompts.edit.titleSvaveBenificiary")}
+              buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel2")}
+              desc={""}
+              beneficiaryItemForEdit={beneficiaryItemForEdit}
+              openModal={editModal}
+              onCloseModal={() => {
+                // dispatch(ManageActions.clearBeneficiaryAddNew());
+                setEditModal(false);
+              }}
+              onSubmitEdit={(val: any) => SaveBenificiarySubmit(val)}
+            />
+          )}
+
+          {sucessModel && ( <SuccessModel data={sucessData} />)}
         </>
       }
       bottom={
@@ -97,7 +155,10 @@ const Success = (props: SuccessProps) => {
               variant="outlined"
               size="large"
               onClick={() => {
-                if(onReceiptCallback && typeof onReceiptCallback === "function") {
+                if (
+                  onReceiptCallback &&
+                  typeof onReceiptCallback === "function"
+                ) {
                   onReceiptCallback();
                 }
               }}
@@ -124,7 +185,7 @@ const Success = (props: SuccessProps) => {
 };
 
 Success.defaultProps = {
-  success: true
+  success: true,
 };
 
 export default Success;

@@ -206,6 +206,9 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
       data["savePinCode"] = savePin;
     }
     data["serviceTypeCode"] = serviceType;
+   
+    console.log("masood onClickSubmit -> data", data)
+    
     dispatch(Actions.addUpdateBeneficiaryRequest({ updateMode: false, data }));
   };
 

@@ -4,7 +4,7 @@ import {
   ListItemAvatar,
   ListItemText,
   Avatar,
-  Body2,
+  Body1,
   H3,
   H5,
   Caption,
@@ -132,10 +132,10 @@ const PayListItem = (props: CustomListItemProps) => {
             <ListItemText
               primary={
                 <>
-                  <Box pr={1} display="inline-block"><Body2>{accountNumber}</Body2></Box>
-                  <Box display="inline-block"><Body2>|</Body2></Box>
+                  <Box pr={1} display="inline-block"><Body1>{accountNumber}</Body1></Box>
+                  <Box display="inline-block"><Body1>|</Body1></Box>
                   <Box pl={1} display="inline-block">
-                    <Body2 className={statusStyle} >{capitalizeFirstLetter(status)}</Body2>
+                    <Body1 className={statusStyle} >{capitalizeFirstLetter(status)}</Body1>
                   </Box>
                 </>
               }

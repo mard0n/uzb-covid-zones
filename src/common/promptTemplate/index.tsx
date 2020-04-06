@@ -85,7 +85,7 @@ const PromptTemplate = (props: PrompTemplateProps) => {
             px={2.3}
             className={svgIconStyle}
           >
-            <SvgIcon htmlColor="#ffffff" component={icon} />
+            <SvgIcon htmlColor="#fff" component={icon} />
           </Box>
         )}
         <Box mt={2} mb={3.5}>

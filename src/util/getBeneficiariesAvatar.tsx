@@ -30,6 +30,8 @@ const getBeneficiariesAvatar = (serviceType: any) => {
       return DEWA;
     case "du":
       return DU;
+    case "duetisalat-prepaid":
+      return ETISALAT;      
     case "etisalat":
       return ETISALAT;
     case "fewa":

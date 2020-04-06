@@ -13,6 +13,7 @@ import BackButton from "../../../../common/backButton/index";
 import PayFromList from "../../../../components/billpayment/review/PayFromList";
 import ReviewAmountType from "../../../../components/billpayment/reviewAmountType";
 
+
 const Review = (props: any) => {
   const { data, type, onHandleBack, onSubmit } = props;
   const { rechargeAmount } = data;

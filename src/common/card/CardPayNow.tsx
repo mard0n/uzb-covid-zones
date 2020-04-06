@@ -47,7 +47,7 @@ type CardPayNowProps = {
 }
 
 const CardPayNow = (props: CardPayNowProps) => {
-  const { heading,arrow, icon, subheading, style={}, buttonLable, image, link } = props;
+  const { heading,arrow, icon, subheading, style={}, buttonLable, image, link,callback } = props;
 
   const classes = useStyles(props);
   return (
@@ -60,7 +60,7 @@ const CardPayNow = (props: CardPayNowProps) => {
       </CardContent>
       {buttonLable && 
       <Button
-        // onClick={(e: any)=>callback(e)}
+        onClick={(e: any)=>callback(e)}
         variant="contained"
         color="primary"
         className={classes.button}

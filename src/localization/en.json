@@ -24,6 +24,7 @@
       "change": "Change",
       "cancel": "Cancel",
       "payNow": "Pay Now",
+      "gotit":"Got It",
       "pay": "Pay",
       "receipt":"Payment Receipt",
       "payCustomAmount" : "Pay Custom Amount",
@@ -138,8 +139,10 @@
         },
         "edit" : {
           "title" : "Edit",
+          "titleSvaveBenificiary":"Beneficiary Details",
           "desc" : "Find you beneficiaries quicker by naming them. For eg. Masood DEWA Home.",
-          "buttonLabel" : "Submit"
+          "buttonLabel" : "Submit",
+          "buttonLabel2" : "Save Beneficiary"
         }
       },
       "info" : {

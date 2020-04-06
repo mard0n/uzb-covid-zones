@@ -3,7 +3,7 @@ import {
   Box,
   makeStyles,
   H5,
-  Body2,
+  Body1,
   colors
 } from "@mashreq-digital/ui";
 import { SvgIcon } from "@mashreq-digital/ui";
@@ -54,7 +54,7 @@ const ReviewAmountType = (props: ReviewAmountTypeProps) => {
         icon={<Box className={isSuccess ? successIconStyle : iconStyle} p={1.6} borderRadius="50%" display="flex">
         <SvgIcon height="1rem" width="1rem" component={leftIcon} />
       </Box>}
-        heading={<Body2>{title}</Body2>}
+        heading={<Body1>{title}</Body1>}
         subheading={<H5>{Math.abs(rechargeAmount)}</H5>}
       />
       <Box ml={3} mr={3}>
