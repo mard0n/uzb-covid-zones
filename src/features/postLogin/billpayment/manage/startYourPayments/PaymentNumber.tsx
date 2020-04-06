@@ -86,6 +86,9 @@ const PaymentNumber = (props: PaymentNumberProps) => {
       } else if(val.data && val.data.data) {
         if(onProceed && typeof onProceed === "function") {
           let res = {...data, ...val.data.data};
+          if(telecomValue){
+            res["telecomType"] = telecomValue;
+          }
           onProceed(res);
         }
       }

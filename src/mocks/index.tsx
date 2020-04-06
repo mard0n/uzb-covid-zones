@@ -3,6 +3,7 @@ import { API } from "../network";
 import * as Endpoints from "../network/Endpoints";
 import { mockServiceTypes } from "./mockData/beneficiary/billPayment/mockServiceTypes";
 import { mockMyBillPaymentBeneficiaries } from "./mockData/beneficiary/billPayment/mockMyBillPaymentBeneficiaries";
+import { mockPaymentSource } from "./mockData/billPayment/mockPaymentSource";
 
 const startMocking = (isMockingRequired: boolean = false) => {
   if (isMockingRequired) {
@@ -16,8 +17,8 @@ const startMocking = (isMockingRequired: boolean = false) => {
     // );
 
     mock
-      //   .onPost(Endpoints.BANK_DETAILS_ACCUITY_SEARCH_ENDPOINT)
-      //   .reply(200, mockIBanAccountDetails)
+        .onPost(Endpoints.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT)
+        .reply(200, mockPaymentSource)
       .onGet(Endpoints.BENEFICIARY_SERVICE_TYPES_ENDPOINT)
       .reply(200, mockServiceTypes)
       .onGet(Endpoints.MY_BILL_PAYMENT_BENEFICIARES_ENDPOINT)

@@ -32,7 +32,8 @@ const useStyles = makeStyles((theme: Theme) =>
         position: "fixed",
         left: 0,
         bottom: "0px",
-        width: "100%"
+        width: "100%",
+        zIndex: 1400
       }
     },
     drawerPaper: {
@@ -90,7 +91,7 @@ const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
           {!exludePath.test(props.match.url) && (
             <Box px={5} className={enableSidebar ? classes.footerWithSidebar : ''}>
             <Footer>
-              <Box display="flex" justifyContent="space-between">
+              <Box display="flex" justifyContent="space-between" px={2}>
                 <Box>&copy; {t("footer.copy")}</Box>
                 <Box>
                   <ul className="list-style-none inline border">

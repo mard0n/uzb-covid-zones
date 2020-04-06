@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import AuthOtp from "../../../../components/authOtp";
 import StepperDialogModal from "../../../../components/stepperDialog/stepperDialogModal";
 import { useDispatch } from "react-redux";
-import * as Actions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import Review from "./Review";
-import Confirmation from "../../../../common/confirmation";
 import { useTranslation } from 'react-i18next';
-import {H2} from "@mashreq-digital/ui";
+import Success from "./Success";
+import * as Endpoint from '../../../../network/Endpoints';
 
 import StartPayments from "./startYourPayments";
+import { API } from "../../../../mocks";
 // import * as LandingActions from "../../../../redux/actions/beneficiary/billPayment/landingActions";
 
 const ManageBillPayments = (props: any) => {
@@ -25,30 +25,49 @@ const ManageBillPayments = (props: any) => {
   const [step, setStep] = useState("");
   const [startPayentData, setStartPaymentData] = useState({});
   const [stepInit, setStepInit] = useState("Start Your Payment");
-  const [draftData, setDraftData] = useState<any>({});
+  // const [draftData, setDraftData] = useState<any>({});
 const {t} = useTranslation();
 
-  const onSubmitCallback = (data: any) => {
-    if (data && data.id) {
-      setDraftData(data);
-      setStep("otp");
-      setStepInit("Authorization");
-    }
-  };
+  // const onSubmitCallback = (data: any) => {
+  //   if (data && data.id) {
+  //     setDraftData(data);
+  //     setStep("otp");
+  //     setStepInit("Authorization");
+  //   }
+  // };
 
   const onSuccessOTP = () => {
-    if (draftData && draftData.id) {
-      // dispatch(
-      //   Actions.activateBeneficiaryRequest({ beneficiaryId: draftData.id })
-      // );
-      setStep("confirmation");
-      setStepInit("Confirmation");
-    }
+    console.log(startPayentData, "final response =========");
+      updateStep({step: "confirmation", stepInit: "Confirmation"});
+      const {accountNumber, serviceTypeCode, billRefNo, rechargeAmount, selectedAccount} =startPayentData as any, url = Endpoint.BILL_PAYMENT_PAY_BILL_ENDPOINT,
+      data= {
+        "consumerId": accountNumber, //"0504930554",
+        "billerType": serviceTypeCode, //"etisalat-prepaid",
+        "billRefNo" : billRefNo, //"06120204224478456558",
+        "paymentMode": "ACCOUNT",
+        "paidAmount": rechargeAmount, //"20.00",
+        "debitAccountNo": selectedAccount.accountNumber //"010490707201"
+    };
+      const config = {
+        method: 'POST',
+        url,
+        data,
+      };
+      API(config).then((val: any) => {
+        if (val && val.data && val.data.data) {
+          const resData = val.data.data;
+          console.log(resData, "final response =========");
+        }
+      });
   };
+
+  const onSubmitReview = (item: any) => {
+    updateStep({step: "otp", stepInit: "Authorization"});
+    setStartPaymentData(item);
+  }
 
   const successFailureCallback = () => {
     if (finalCallback && typeof finalCallback === "function") {
-      dispatch(Actions.clearBeneficiaryAddNew());
       finalCallback();
     }
   };
@@ -63,12 +82,15 @@ const {t} = useTranslation();
     setOptions(leftSideOptions);
   }
 
+  const updateStep = (data: any) => {
+    setStep(data.step);
+    setStepInit(data.stepInit);
+  }
+
   /* Stary your payment submit */
   const onSubmitPayment = (data: any) => {
     setStartPaymentData(data);
-    // console.log(data, "data =======>>>>>>>>")
-    setStep("review");
-    setStepInit("Review");
+    updateStep({step: "review", stepInit: "Review"});
     // if(data && data.id) {
       
     // } else {
@@ -90,55 +112,26 @@ const {t} = useTranslation();
         );
       case "confirmation":
         return (
-          // <Success
-          //   type={billType}
-          //   data={draftData}
-          //   onButtonCallback={() => successFailureCallback()}
-          // />
-          <></>
-        );
+          <Success
+          success={true}
+          data={startPayentData}
+          type={billType}
+          title={t(`billPayments.steps.confirmation.success`)}
+          onDoneCallback={()=>successFailureCallback()}
+          />
+      );
 
       case "review":
         return (  
          <Review
           data={startPayentData}
           type={billType}
+          onHandleBack={()=>updateStep({step: "", stepInit: "Start Your Payment"})}
+          onSubmit={onSubmitReview}
         />)
       default:
         return (
-          // <Review
-          //   data={{
-          //     dueAmount: 150,
-          //     accountNumber: "12312312",
-          //     serviceTypeCode: "Etisalat Prepaid",
-          //     nickname: "masas",
-          //     id: "111"
-          //   }}
-          //   type="etisalat"
-          // />
           <StartPayments type={billType} onHandleBeneficiary={()=>onHandleBeneficiary()} onSubmitPayment={onSubmitPayment} onHandleBack={()=>onHandleBack()}/>
-
-          //For success
-          // <Confirmation
-          // success={true}
-          // type="etisalat"
-          // title={t(`billPayments.steps.confirmation.success`)}
-          // data={{
-          //   dueAmount: 150,
-          //   accountNumber: "12312312",
-          //   serviceTypeCode: "Etisalat Prepaid",
-          //   nickname: "masas",
-          //   id: "111"
-          // }}
-          // />
-
-//For Failure 
-          // <Confirmation
-          // type="etisalat"
-          // title={t(`billPayments.steps.confirmation.fail`)}
-          // subTitle= {t(`billPayments.steps.confirmation.failSubHeading`)}
-          // />
-
         );
     }
   };

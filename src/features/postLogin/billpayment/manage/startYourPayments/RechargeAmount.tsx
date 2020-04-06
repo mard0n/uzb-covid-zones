@@ -4,7 +4,6 @@ import {
   Grid,
   Box,
   SectionSplitter,
-  IconText,
   Caption,
   makeStyles,
   Theme,
@@ -15,7 +14,7 @@ import CardPayNow from "../../../../../common/card/CardPayNow";
 import getBeneficiariesAvatar from "../../../../../util/getBeneficiariesAvatar";
 import BackButton from "../../../../../common/backButton";
 import AmountWithInput from "../../../../../common/amount/AmountWithInput";
-import { MoneyPouch } from "@mashreq-digital/webassets";
+// import { MoneyPouch } from "@mashreq-digital/webassets";
 import PayCustomAmount from "./PayCustomAmount";
 import { capitalizeFirstLetter, replaceStr } from "../../../../../util/helper";
 import DueAmount from "../../../../../components/beneficiary/billPayment/DueAmount";
@@ -83,6 +82,12 @@ const RechargeAmount = (props: RechargeAmountProps) => {
     setPayModal(false);
   };
 
+  const onSubmitAmount = (customAmount: number) => {
+    onCloseModal();
+    let submitObj = { ...activeBeneficiary, rechargeAmount: customAmount};
+    handleReviewPayment(submitObj);
+  };
+
 
   if(type && activeBeneficiary && accountNumber) {
     let cardSubheading = nickname ? `${capitalizeFirstLetter(type)} ${
@@ -95,6 +100,7 @@ const RechargeAmount = (props: RechargeAmountProps) => {
         <PayCustomAmount
           openModal={payModal}
           onCloseModal={() => onCloseModal()}
+          onSubmitCallback={onSubmitAmount}
         />
       )}
       <SectionSplitter
@@ -131,7 +137,7 @@ const RechargeAmount = (props: RechargeAmountProps) => {
                       onChangeField={(value: any) => onChangeField(value)}
                     />
                   </Grid>
-                  <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
+                  {/* <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
                     <Box className={prepaidAmountStyle} display="inline-block">
                       <IconText
                         icon={MoneyPouch}
@@ -156,7 +162,7 @@ const RechargeAmount = (props: RechargeAmountProps) => {
                         }
                       />
                     </Box>
-                  </Grid>
+                  </Grid> */}
                 </Grid>
                 <Box mt={2}>
                   <Caption>
@@ -173,6 +179,7 @@ const RechargeAmount = (props: RechargeAmountProps) => {
               disableRoute
               onClickBack={() => onClickBackCallback()}
             />
+            {dueAmount && dueAmount !== 0 && dueAmount > 0 &&
             <Button
               variant={isPostpaid ? "outlined" : "contained"}
               onClick={() => onSubmitReview()}
@@ -183,6 +190,7 @@ const RechargeAmount = (props: RechargeAmountProps) => {
                 ? t("common.action.payCustomAmount")
                 : t("common.action.reviewPayment")}
             </Button>
+            }
           </Box>
         }
       />

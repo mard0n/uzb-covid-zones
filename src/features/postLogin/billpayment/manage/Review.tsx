@@ -1,116 +1,66 @@
 import React, { useState } from "react";
-import CardPayNow from "../../../../common/card/CardPayNow";
 import {
   Box,
   UnderlineText,
   H2,
-  H4,
-  H5,
   SectionSplitter,
   Button,
   Grid
 } from "@mashreq-digital/ui";
-import getBeneficiariesAvatar from "../../../../util/getBeneficiariesAvatar";
 import { useTranslation } from "react-i18next";
-import { ArrowRight } from "@mashreq-digital/webassets";
-import { SvgIcon } from "@mashreq-digital/ui";
+import { ArrowDown } from "@mashreq-digital/webassets";
 import BackButton from "../../../../common/backButton/index";
-import PayListItem from "../../../../common/payList/index";
+import PayFromList from "../../../../components/billpayment/review/PayFromList";
+import ReviewAmountType from "../../../../components/billpayment/reviewAmountType";
 
 const Review = (props: any) => {
-  const { data, type, title } = props;
+  const { data, type, onHandleBack, onSubmit } = props;
+  const { rechargeAmount } = data;
   const { t } = useTranslation();
-  const [dropList, setDropList] = useState(false);
+  const [ selectedAccount, setSelectedAccount ] = useState({});
+  const { currency, availableBalance } = selectedAccount as any;
+  const parsedAmount = parseInt(rechargeAmount);
+  const isDisabled = !(parsedAmount !== 0 && parsedAmount > 0 && availableBalance > parsedAmount);
+  
 
+
+  const onChangeList = (item: any) => {
+    setSelectedAccount(item)
+  }
+  
   return (
     <SectionSplitter
-      height="calc(100vh - 250px)"
+      height={"calc(100vh - 400px)"}
       top={
         <>
           <UnderlineText color="primary">
-            <H2>{t("review.title")}</H2>
+            <H2>{t("billPayments.steps.review.title")}</H2>
           </UnderlineText>
-          {data && data.id && (
-            <>
-              <Box mt={6} mb={6} display="flex" alignItems="center">
-                <CardPayNow
-                  style={{ justifyContent: "space-evenly" }}
-                  heading="You are paying"
-                  subheading={Math.abs(data.dueAmount)}
-                />
-                <Box ml={3} mr={3}>
-                  <SvgIcon component={ArrowRight} />
-                </Box>
-                <CardPayNow
-                  style={{ justifyContent: "space-evenly" }}
-                  heading={data.nickname}
-                  subheading={
-                    data.serviceTypeCode +
-                    " " +
-                    (type && type.toLowerCase()! === ("du" || "etisalat")
-                      ? t("common.label.nickName")
-                      : "") +
-                    " | " +
-                    data.accountNumber
-                  }
-                  image={getBeneficiariesAvatar(type.toLowerCase())}
-                />
-              </Box>
-            </>
+          {rechargeAmount && (
+            <ReviewAmountType data={data} type={type} leftIcon={ArrowDown} title={t("billPayments.steps.review.youarePaying")} />
           )}
 
           <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
-            <Box mb={3} mt={5} display="flex" justifyContent="space-between">
-              <H4>Paying From </H4>
-              <Button
-                onClick={() => {
-                  setDropList(!dropList);
-                }}
-                color="primary"
-              >
-                Change
-              </Button>
-            </Box>
-            <PayListItem
-              avatarName="asdsada"
-              nickname="test"
-              accountNumber="12312312"
-              amount="AED 121"
-            />
-            
-            {dropList && (
-              <>
-                <PayListItem
-                  avatarName="asdsada"
-                  nickname="test"
-                  accountNumber="12312312"
-                  amount="AED 121"
-                />
-                <PayListItem
-                  avatarName="asdsada"
-                  nickname="test"
-                  accountNumber="12312312"
-                  amount="AED 121"
-                />
-              </>
-            )}
+            <PayFromList onChangeList={onChangeList} />
           </Grid>
         </>
       }
       bottom={
         <Box display="flex" justifyContent="space-between">
-          <BackButton />
-
+          <BackButton disableRoute onClickBack={() => {
+              onHandleBack()
+            }}/>
+            {rechargeAmount &&
           <Button
             variant="contained"
             size="large"
-            onClick={() => {
-              console.log("Payclick");
-            }}
             color="primary"
+            disabled={isDisabled}
+            onClick={()=>onSubmit({...data, selectedAccount})}
           >
-            Pay AED {Math.abs(data.dueAmount)}
+            {t("common.action.pay")} {currency} {rechargeAmount}
           </Button>
+          }
         </Box>
       }
     />

@@ -19,6 +19,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor:colors?.grey?.[300],
     maxWidth: "360px",
     padding: theme?.spacing(7)
+  },
+  rightStyle: {
+    maxWidth: "calc(100vw - 360px)",
+    flexBasis: "calc(100vw - 360px)"
   }
 })); 
 
@@ -32,7 +36,7 @@ interface StepperDialogProps extends transitionModalProps {
 };
 
 const StepperDialog = (props: StepperDialogProps) => {
-  const { leftStyle } = useStyles();
+  const { leftStyle, rightStyle } = useStyles();
   const [stepInit, setStepInit] = useState('');
   // const [options, setOptions] = useState('');
   const { content, step, type, stepperOptions, stepperInit, onCloseCallback, ...rest } = props;
@@ -60,9 +64,9 @@ const StepperDialog = (props: StepperDialogProps) => {
           </Box>
           
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={9} className={rightStyle}>
           <Box pl={30} py={20.6} pr={10}>
-            {step && step !== "confirmation" && type && (
+            {step !== "confirmation" && type && (
               <Box mb={6}>
                 <ImageWithText name={type} />
               </Box>

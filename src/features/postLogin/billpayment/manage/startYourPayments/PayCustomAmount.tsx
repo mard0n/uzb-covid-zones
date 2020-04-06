@@ -9,10 +9,11 @@ import { replaceStr } from "../../../../../util/helper";
 type PayCustomAmountProps = {
   openModal: boolean;
   onCloseModal?: any;
+  onSubmitCallback?: any;
 }
 
 const PayCustomAmount = (props: PayCustomAmountProps) => {
-  const { openModal, onCloseModal } = props;
+  const { openModal, onCloseModal, onSubmitCallback } = props;
   const { t } = useTranslation();
   const [formData, setFormData] = useState({});
   const [fields, setFields] = useState(FormFields["payAmount"]["fields"]);
@@ -29,7 +30,9 @@ const PayCustomAmount = (props: PayCustomAmountProps) => {
       let amount = Number(cloneData.customAmount);
       
       if(amount >= 50 && amount <= 1000){
-       console.log(res);
+       if(onSubmitCallback && typeof onSubmitCallback === "function") {
+        onSubmitCallback(amount);
+       }
       } else {
          /* update error */
          setDisabledEditButton(true);  

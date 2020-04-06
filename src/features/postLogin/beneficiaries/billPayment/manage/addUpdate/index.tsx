@@ -18,7 +18,7 @@ const AddUpdateDialog = (props: any) => {
     ...rest
   } = props;
   const dispatch = useDispatch();
-  const [step, setStep] = useState("Beneficiary Details");
+  const [step, setStep] = useState("");
   const [stepInit, setStepInit] = useState("Beneficiary Details");
   const [draftData, setDraftData] = useState<any>({});
   // const addNew = useSelector(

@@ -21,7 +21,10 @@
     },
     "action": {
       "back": "Back",
+      "change": "Change",
+      "cancel": "Cancel",
       "payNow": "Pay Now",
+      "pay": "Pay",
       "receipt":"Payment Receipt",
       "payCustomAmount" : "Pay Custom Amount",
       "proceed": "Proceed",
@@ -44,9 +47,6 @@
       "NO_ESB_ENQUIRY_DETAILS" : "Please enter a valid number",
       "BN-3001" : "Invalid number"
     }
-  },
-  "review":{
-    "title":"Review your payment"
   },
   "error": {
     "title": "Oops!",
@@ -212,6 +212,11 @@
           "title" : "Your Beneficiaries",
           "desc" : "Click on your beneficiaries to start payments"
         }
+      },
+      "review": {
+        "title":"Review your payment",
+        "youarePaying" : "You are paying",
+        "payingFrom" : "Paying From"
       },
       "confirmation":{
         "success":"Transaction is successfully completed",

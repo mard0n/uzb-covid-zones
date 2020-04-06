@@ -40,18 +40,20 @@ type CardPayNowProps = {
   callback? : any;
   buttonLable? : string; 
   arrow?:boolean;
+  icon?: ReactNode;
   image? : string;
   link?: boolean;
   style? : any;
 }
 
 const CardPayNow = (props: CardPayNowProps) => {
-  const { heading,arrow, subheading, style={}, buttonLable, image, link } = props;
+  const { heading,arrow, icon, subheading, style={}, buttonLable, image, link } = props;
 
   const classes = useStyles(props);
   return (
     <Card className={classes.card} style={style}>
       {image && <Avatar src={image} />}
+      {icon}
       <CardContent>
         <H4 gutterBottom> {heading} </H4>
         <Caption>{subheading}</Caption>

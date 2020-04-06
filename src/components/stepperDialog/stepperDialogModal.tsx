@@ -6,7 +6,7 @@ const height = "calc(100vh - 51px)";
 const useStyles = makeStyles(() => ({
   root: {
    height: height,
-   "& .MuiBackdrop-root, & .MuiPaper-root" : {
+   "& > .MuiBackdrop-root, & .MuiDialog-container > .MuiPaper-root" : {
      height: height,
      boxShadow: "none"
    }

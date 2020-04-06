@@ -47,7 +47,6 @@ const AmountWithInput = (props: AmountWithInputProps) => {
   const onChange = (e: any) => {
     const isValidValue = new RegExp(RegEx.NUMERIC_ONLY),
     targetValue = e.target.value;
-    onChange(e.target.value);
     /* onchange empty default amount */
     if(targetValue) {
       setDefaultAmount('');
@@ -65,7 +64,7 @@ const AmountWithInput = (props: AmountWithInputProps) => {
       <TextField
             className={inputStyle}
               value={amount}
-              onChange={(e: any) => onChange(e)}
+              onChange={(val: any) => onChange(val)}
               InputProps={{
                 startAdornment: <Box mt={3} mr={1}><Caption className={adornmentStule}>AED</Caption></Box>,
               }}
