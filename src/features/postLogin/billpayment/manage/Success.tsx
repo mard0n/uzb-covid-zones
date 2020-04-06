@@ -107,13 +107,13 @@ const Success = (props: SuccessProps) => {
                 title={"Debited"}
               />
               <Box mt={6}>
+              <Button onClick={() => setEditModal(true)}>
                 <CardPayNow
                   arrow={true}
-                  callback={() => setEditModal(true)}
-                  buttonLable="click"
                   heading={t(`billPayments.steps.confirmation.payment`)}
                   subheading={t(`billPayments.steps.confirmation.saveIt`)}
                 />
+                </Button>
               </Box>
             </>
           )
