@@ -14,7 +14,7 @@ import { Check } from "@mashreq-digital/webassets";
 import SucessFailureIcon from "@mashreq-digital/ui/dist/components/successFailureIcon";
 import ReviewAmountType from "../../../../components/billpayment/reviewAmountType";
 import CardPayNow from "../../../../common/card/CardPayNow";
-import EditPrompt from "../../../../components/editPrompt/index";
+import SaveBeneficiaryPrompt from "./saveBeneficiary";
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import SuccessModel from "./saveBeneficiary/SuccessModel";
 
@@ -51,8 +51,8 @@ const Success = (props: SuccessProps) => {
   const { t } = useTranslation();
   const [editModal, setEditModal] = useState(false);
   const [sucessModel, setSucessModel] = useState(false);
+  const [saveData, setSaveData] = useState({});
   const dispatch = useDispatch();
-  let sucessData = data;
 
   const beneficiaryItemForEdit: any = {
     accountNumber: data.accountNumber,
@@ -61,16 +61,19 @@ const Success = (props: SuccessProps) => {
   };
 
   const SaveBenificiarySubmit = (formData: any) => {
-    let saveData: any = {
+    setSaveData ({
       nickname: formData.nickName,
       serviceTypeCode: data.serviceTypeCode,
       accountNumber: data.accountNumber,
-    };
+    });
     if (data.serviceTypeCode === "Salik") {
-      saveData["salikPinCode"] = "NDIxOQ==";
-      saveData["savePinCode"] = false;
+      setSaveData({
+        ...saveData,
+        salikPinCode: "NDIxOQ==",
+        savePinCode: false,
+      });
+
     }
-    sucessData = saveData;
     console.log("SaveBenificiarySubmit -> saveData", saveData);
     dispatch(
       Actions.addUpdateBeneficiaryRequest({ updateMode: false, data: saveData })
@@ -131,21 +134,21 @@ const Success = (props: SuccessProps) => {
           }
 
           {editModal && (
-            <EditPrompt
+            <SaveBeneficiaryPrompt
               title={t("beneficiary.manage.prompts.edit.titleSvaveBenificiary")}
               buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel2")}
               desc={""}
-              beneficiaryItemForEdit={beneficiaryItemForEdit}
+              beneficiaryItemForSave={beneficiaryItemForEdit}
               openModal={editModal}
               onCloseModal={() => {
                 // dispatch(ManageActions.clearBeneficiaryAddNew());
                 setEditModal(false);
               }}
-              onSubmitEdit={(val: any) => SaveBenificiarySubmit(val)}
+              onSubmitSave={(val: any) => SaveBenificiarySubmit(val)}
             />
           )}
 
-          {sucessModel && ( <SuccessModel data={sucessData} />)}
+          {sucessModel && ( <SuccessModel data={saveData} />)}
         </>
       }
       bottom={
