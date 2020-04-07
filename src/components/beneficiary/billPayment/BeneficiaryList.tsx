@@ -99,7 +99,7 @@ const BeneficiaryList = (props: BeneficiaryListProps) => {
                         //   md={4}
                         //   className={firstIconText}
                         // >
-                          <ImageWithText className={`${imageTextStyle} ${boxShadow ? boxShadowStyle : ''}`} name={name} data={dItem} onClick={() => onClickServiceType(name, dItem)}/>
+                          <ImageWithText key={j+"beneficiaryImageList"} className={`${imageTextStyle} ${boxShadow ? boxShadowStyle : ''}`} name={name} data={dItem} onClick={() => onClickServiceType(name, dItem)}/>
                           
                         // </Grid>
                       );

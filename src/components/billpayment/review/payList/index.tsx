@@ -12,8 +12,10 @@ import {
   Theme,
   Box,
   colors,
+  SvgIcon,
 } from "@mashreq-digital/ui";
 import { capitalizeFirstLetter } from "../../../../util/helper";
+import { MoneyPouch } from "@mashreq-digital/webassets";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -61,6 +63,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   statusStyle: {
     color: colors.green[500]
   },
+  avatarSvgStyle: {
+    backgroundColor: colors.teal[50],
+    padding: `${theme.spacing(1.66)}px ${theme.spacing(2)}px`,
+    "& > svg" : {
+      height: "20px",
+      width: "16px"
+    }
+  }
 }));
 
 /**
@@ -103,7 +113,7 @@ const PayListItem = (props: CustomListItemProps) => {
     currency,
     availableBalance,
   } = data;
-  const { root, staticStyle, statusStyle, activeStyle, goldStyle, disabledStyle } = useStyles(props);
+  const { root, staticStyle, avatarSvgStyle, statusStyle, activeStyle, goldStyle, disabledStyle } = useStyles(props);
   let svgIconProps: any = {};
 
   if (color) {
@@ -118,8 +128,9 @@ const PayListItem = (props: CustomListItemProps) => {
         disabled ? disabledStyle : ""
       }`}
     >
+        {/* <Avatar alt={customerName} src={avatarImage} /> */}
       <ListItemAvatar>
-        <Avatar alt={customerName} src={avatarImage} />
+       <Box className={avatarSvgStyle} p={1.5} display="inline-flex" borderRadius="50%"><SvgIcon height="14" width="16" htmlColor={colors.teal[800]} component={MoneyPouch}/></Box>
       </ListItemAvatar>
       <Box
         display="flex"
@@ -154,7 +165,7 @@ const PayListItem = (props: CustomListItemProps) => {
           <ListItemText
             primary={
               <Box display="flex" justifyContent="flex-end">
-                <H5 className={goldStyle}>Gold</H5>
+                {/* <H5 className={goldStyle}>Gold</H5> */}
               </Box>
             }
           />

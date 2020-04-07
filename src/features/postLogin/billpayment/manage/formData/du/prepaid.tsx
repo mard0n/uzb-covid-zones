@@ -12,8 +12,8 @@ const prepaid = {
         },
         required: true,
         value: "",
-        helperText: "common.label.mobileNumber",
-        label: "Etisalat " + i18n.t("common.label.mobileNumber")
+        helperText: replaceStr(i18n.t("common.hintText.mobileNumber"), "--No--", "10"),
+        label: replaceStr(i18n.t("common.label.enterMobileNo"), "--type--", "du prepaid")
       },
       validation: {
         onChangeRegex: RegEx.NUMERIC_ONLY,

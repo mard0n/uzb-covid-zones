@@ -46,6 +46,7 @@
     },
     "dbErrors": {
       "NO_ESB_ENQUIRY_DETAILS" : "Please enter a valid number",
+      "INTERFACE_ERROR_INVALID_PARAMETER_VALUES" : "Field should not be blank",
       "BN-3001" : "Invalid number"
     }
   },
@@ -186,8 +187,9 @@
           "desc" : "Go back to beneficiary by click the back button"
         },
         "billDetected" : {
-          "title" : "Bill Detected",
-          "desc" : " We have detected an outstanding bill payment for this account number"
+          "title" : "Bill Status",
+          "desc" : " We have detected an outstanding bill payment for this account number",
+          "zeroAmount" : " You don’t have any outstanding bill payment for this account number."
         }
       },
       "errors" : {
@@ -214,6 +216,9 @@
         "beneficiaryList" : {
           "title" : "Your Beneficiaries",
           "desc" : "Click on your beneficiaries to start payments"
+        },
+        "voucher": {
+          "title" : "Pick a voucher"
         }
       },
       "review": {
@@ -222,15 +227,19 @@
         "payingFrom" : "Paying From"
       },
       "confirmation":{
-        "success":"Transaction is successfully completed",
-        "fail":"Transaction could not be processed",
+        "success": {
+          "title" : "Transaction is successfully completed" 
+        },
+        "failure": {
+          "title" : "Transaction could not be processed",
+          "desc":"lorelum sample text lorelum sample text yet to be added bla bla bla"
+        },
         "customerCare":"Mashreq customer care",
         "payment":"Frequent Payment?",
         "saveIt":"Save it as beneficiary",
         "debited":"Debited",
         "support":"24/7 support",
-        "contactus":"You can contact us",
-        "failSubHeading":"lorelum sample text lorelum sample text yet to be added bla bla bla"
+        "contactus":"You can contact us"
       },
       "payCustomAmount": {
         "title": "Pay Custom Amount"

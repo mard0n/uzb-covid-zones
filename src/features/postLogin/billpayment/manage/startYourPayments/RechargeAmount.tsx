@@ -3,11 +3,14 @@ import {
   Button,
   Grid,
   Box,
+  H4,
   SectionSplitter,
   Caption,
   makeStyles,
   Theme,
-  colors
+  colors,
+  RadioWithLabel,
+  IconText
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
 import CardPayNow from "../../../../../common/card/CardPayNow";
@@ -29,46 +32,37 @@ type RechargeAmountProps = {
   onSubmitPayment?: any;
 };
 
-const useStyles = makeStyles((theme: Theme) => ({
-  prepaidAmountStyle: {
-    backgroundColor: colors.blueGrey[50],
-    borderRadius: "2px",
-    "& .MuiTypography-root, & .MuiTypography-body1": {
-      fontSize: theme.typography.pxToRem(14)
-    },
-    "& .MuiListItem-root": {
-      padding: `${theme.spacing(0.5)}px ${theme.spacing(3.6)}px ${theme.spacing(
-        0.5
-      )}px ${theme.spacing(2.6)}px`
-    }
-  },
-  amountStyle: {
-    "& .MuiTypography-root": {
-      fontWeight: "bold"
-    }
-  }
-}));
+const duVouchers: any = [ 
+  { id: 1, heading: 'Get More Credit', subHeading: 'Get Higher credit for the same recharge value!' },
+  { id: 2, heading: 'Get more Validity of Credit', subHeading: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore distinctio' },
+  { id: 3, heading: 'More International Credit', subHeading: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Labore distinctio tenetur repudiandae expedita consectetur repellendus sapiente repellat' }
+];
 
 const RechargeAmount = (props: RechargeAmountProps) => {
+  const { t } = useTranslation();
   const { type, activeTab, onClickBackCallback, activeBeneficiary, onSubmitPayment } = props;
-  const { id, nickname, accountNumber, dueAmount } = activeBeneficiary;
-  const { prepaidAmountStyle, amountStyle } = useStyles();
+  const { id, nickname, accountNumber, dueAmount, serviceType } = activeBeneficiary;
   const isPostpaid = activeTab && activeTab === "postpaid";
   const [amount, setAmount] = useState(null);
+  const [selVoucher, setSelVoucher] = useState<any>({});
   const [payModal, setPayModal] = useState(false);
 
-  const { t } = useTranslation();
-
   const handleReviewPayment = (obj: any) => {
+    console.log("handleReviewPayment", obj);
     if(onSubmitPayment && typeof onSubmitPayment === "function") {
-      onSubmitPayment(obj);
+      onSubmitPayment({...obj, telecomType: serviceType || activeTab});
     }
   };
 
   const onSubmitReview = () => {
     let submitObj = { ...activeBeneficiary, rechargeAmount: amount};
     if (isPostpaid) {
-      setPayModal(true);
+      if((dueAmount === 0 || dueAmount < 0)){
+        setPayModal(true);
+      } else {
+        submitObj["rechargeAmount"] = dueAmount;
+        handleReviewPayment(submitObj);
+      }
     } else {
       handleReviewPayment(submitObj);
     }
@@ -90,9 +84,9 @@ const RechargeAmount = (props: RechargeAmountProps) => {
 
 
   if(type && activeBeneficiary && accountNumber) {
-    let cardSubheading = nickname ? `${capitalizeFirstLetter(type)} ${
-      activeTab ? capitalizeFirstLetter(activeTab) : ""
-    } | ${accountNumber}` : accountNumber;
+    let typeWithTab = capitalizeFirstLetter(type) + ' '+ (activeTab ? capitalizeFirstLetter(activeTab) : ''),
+    cardHeading = nickname ? nickname : `${typeWithTab}`,
+      cardSubheading = nickname ? `${typeWithTab} | ${accountNumber}` : accountNumber;
 
   return (
     <>
@@ -110,7 +104,7 @@ const RechargeAmount = (props: RechargeAmountProps) => {
             <Box my={6} mt={8}>
               {type && (
                 <CardPayNow
-                  heading={nickname ? nickname : capitalizeFirstLetter(type)}
+                  heading={cardHeading}
                   subheading={cardSubheading}
                   image={getBeneficiariesAvatar(type.toLowerCase())}
                 />
@@ -118,7 +112,7 @@ const RechargeAmount = (props: RechargeAmountProps) => {
             </Box>
 
             {isPostpaid ? (
-              <DueAmount dueAmount={dueAmount ? dueAmount : 0}/>
+              <DueAmount dueAmount={dueAmount ? dueAmount : 0} onClickButton={onSubmitReview}/>
             ) : (
               <>
                 <Grid container spacing={5}>
@@ -136,39 +130,43 @@ const RechargeAmount = (props: RechargeAmountProps) => {
                       amountOptions={[50, 70, 100, 125]}
                       onChangeField={(value: any) => onChangeField(value)}
                     />
-                  </Grid>
-                  {/* <Grid item xs={4} sm={4} md={4} lg={4} xl={4}>
-                    <Box className={prepaidAmountStyle} display="inline-block">
-                      <IconText
-                        icon={MoneyPouch}
-                        primaryText={replaceStr(
-                          replaceStr(
-                            t("billPayments.steps.startPayment.prepaidBalance"),
-                            "--type--",
-                            capitalizeFirstLetter(type)
-                          ),
-                          "--serviceType--",
-                          activeTab ? capitalizeFirstLetter(activeTab) : ""
-                        )}
-                        secondaryText={
-                          <Box display="flex">
-                            <Box mr={1.5}>
-                              <Caption>AED</Caption>
-                            </Box>
-                            <Box className={amountStyle}>
-                              <Caption>10.00</Caption>
-                            </Box>
-                          </Box>
-                        }
-                      />
+                    <Box mt={2}>
+                      <Caption>
+                        {t("billPayments.steps.startPayment.prepaidDesc")}
+                      </Caption>
                     </Box>
-                  </Grid> */}
+                  </Grid>
+                  {!isPostpaid && type === "du" && 
+                  <Grid item xs={12}>
+                    <Box my={3}>
+                      <H4>{t("billPayments.steps.startPayment.voucher.title")}</H4>
+                    </Box>
+                    <Box mb={3}>
+                      <Grid container>
+                      {duVouchers.map((voucher: any, i:number)=>{
+                        let { heading, subHeading } = voucher;
+                        return (
+                          <Grid xs={6} sm={3}>
+                            <RadioWithLabel 
+                            radioFixTop={true}
+                            checked={selVoucher && selVoucher.id ? voucher.id === selVoucher.id : false}
+                            onChange={()=>{setSelVoucher(voucher)}}
+                            border={false}
+                            label={
+                              <IconText 
+                                primaryText={heading}
+                                secondaryText= {subHeading}
+                              />
+                            }
+                            />
+                          </Grid>
+                        )
+                      })}
+                      </Grid>
+                    </Box>
+                  </Grid>
+                  }
                 </Grid>
-                <Box mt={2}>
-                  <Caption>
-                    {t("billPayments.steps.startPayment.prepaidDesc")}
-                  </Caption>
-                </Box>
               </>
             )}
           </>
@@ -179,18 +177,26 @@ const RechargeAmount = (props: RechargeAmountProps) => {
               disableRoute
               onClickBack={() => onClickBackCallback()}
             />
-            {dueAmount && dueAmount !== 0 && dueAmount > 0 &&
+            {!isPostpaid && 
             <Button
-              variant={isPostpaid ? "outlined" : "contained"}
+              variant={"contained"}
               onClick={() => onSubmitReview()}
-              disabled={isPostpaid ? false : !amount}
+              disabled={!amount}
               color="primary"
             >
-              {isPostpaid
-                ? t("common.action.payCustomAmount")
-                : t("common.action.reviewPayment")}
+              {t("common.action.reviewPayment")}
+            </Button>}
+            {isPostpaid && (dueAmount === 0 || dueAmount < 0) &&
+            <Button
+              variant={"outlined"}
+              onClick={() => onSubmitReview()}
+              color="primary"
+            >
+              {console.log(isPostpaid && (dueAmount === 0 || dueAmount < 0), activeTab, isPostpaid, dueAmount)}
+              {t("common.action.payCustomAmount")}
             </Button>
-            }
+        }
+            {/* }*/}
           </Box>
         }
       />

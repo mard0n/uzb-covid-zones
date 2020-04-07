@@ -30,6 +30,9 @@ const useStyles = makeStyles((theme: any) =>
     button: {
       width: 118,
       height: 85
+    },
+    arrowStyle: {
+      height: "15px"
     }
   })
 );
@@ -40,7 +43,7 @@ type CardPayNowProps = {
   callback? : any;
   buttonLable? : string; 
   arrow?:boolean;
-  icon?: ReactNode;
+  icon?: any;
   image? : string;
   link?: boolean;
   style? : any;
@@ -49,9 +52,9 @@ type CardPayNowProps = {
 const CardPayNow = (props: CardPayNowProps) => {
   const { heading,arrow, icon, subheading, style={}, buttonLable, image, link,callback } = props;
 
-  const classes = useStyles(props);
+  const { card, button, arrowStyle } = useStyles(props);
   return (
-    <Card className={classes.card} style={style}>
+    <Card className={card} style={style}>
       {image && <Avatar src={image} />}
       {icon}
       <CardContent>
@@ -60,15 +63,15 @@ const CardPayNow = (props: CardPayNowProps) => {
       </CardContent>
       {buttonLable && 
       <Button
-        onClick={(e: any)=>callback(e)}
+        onClick={(e: any)=> {if(callback && typeof callback === "function"){callback(e)}}}
         variant="contained"
         color="primary"
-        className={classes.button}
+        className={button}
       >
         {buttonLable}
       </Button>
       }
-     {arrow && <SvgIcon component={ChevronRight}/> }
+     {arrow && <SvgIcon className={arrowStyle} component={ChevronRight}/> }
     </Card>
   );
 };

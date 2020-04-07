@@ -3,7 +3,8 @@ import PayListItem from "./payList";
 import {
   H4,
   Button,
-  Box
+  Box,
+  makeStyles
 } from "@mashreq-digital/ui";
 import { API } from '../../../network';
 import * as Endpoint from '../../../network/Endpoints';
@@ -13,11 +14,23 @@ type PayFromListProps = {
   onChangeList?: any
 }
 
+const useStyles = makeStyles(()=>({
+  dropListStyle: {
+    zIndex: 2, 
+    overflow: "auto",
+    position: "absolute",
+    top: "auto",
+    width: "100%",
+    backgroundColor: "#fff"
+  }
+}))
+
 const PayFromList = (props: PayFromListProps) => {
   const { onChangeList } = props;
   const {t} = useTranslation();
+  const { dropListStyle } = useStyles();
   const [active, setActive] = useState<any>({});
-  const [suggestionList, setSuggestionList] = useState([]);
+  const [suggestionList, setSuggestionList] = useState<any>([]);
   const [dropList, setDropList] = useState(false);
 
   useEffect(()=>{
@@ -43,7 +56,7 @@ const PayFromList = (props: PayFromListProps) => {
         }     
       }
     });
-  },[onChangeList])
+  },[onChangeList]);
 
   const onClickCallback = (item?: any) => {
     setDropList(false);
@@ -51,49 +64,52 @@ const PayFromList = (props: PayFromListProps) => {
     onChangeList(item);
   }
 
-  const listHeight = suggestionList && suggestionList.length > 4 ? 75*4 : "auto"
+  const listHeight = suggestionList && suggestionList.length > 4 ? 75*3 : "auto"
+  
+  // if(active && active.availableBalance) {
+    return (
+      <Box position="relative" minHeight="110px">
+        <Box mt={5} display="flex" justifyContent="space-between">
+                <H4>{t("billPayments.steps.review.payingFrom")}</H4>
+                <Button
+                  onClick={() => {
+                    setDropList(!dropList);
+                  }}
+                  color="primary"
+                >
+                  {!dropList  ? t("common.action.change") : t("common.action.cancel")}
+                </Button>
+              </Box>
+              <Box className={dropListStyle} height={dropList ? listHeight : "auto"}>
+                {!dropList &&
+              <PayListItem
+                isDefault
+                data={active}
+              />
+            }
+              
+              {dropList && (
+                <>
 
-  return (
-    <Box position="relative" >
-      <Box mb={3} mt={5} display="flex" justifyContent="space-between">
-              <H4>{t("billPayments.steps.review.payingFrom")}</H4>
-              <Button
-                onClick={() => {
-                  setDropList(!dropList);
-                }}
-                color="primary"
-              >
-                {!dropList  ? t("common.action.change") : t("common.action.cancel")}
-              </Button>
-            </Box>
-            <Box height={dropList ? listHeight : "auto"} overflow="auto" position="absolute" top="100%">
-              {!dropList &&
-            <PayListItem
-              isDefault
-              data={active}
-            />
-          }
-            
-            {dropList && (
-              <>
-
-              {suggestionList.map((item: any, i: number)=>{
-                return(
-                  <Fragment key={i+"PayListItem"}>
-                  <PayListItem
-                    onClickCallback={()=>onClickCallback(item)}
-                      active={item.accountNumber === active.accountNumber}
-                    // disabled
-                    data={item}
-                    />
-                    </Fragment>
-                )
-              })}
-              </>
-            )}
-            </Box>
-    </Box>
-  )
+                {suggestionList.map((item: any, i: number)=>{
+                  return(
+                    <Fragment key={i+"PayListItem"}>
+                    <PayListItem
+                      onClickCallback={()=>onClickCallback(item)}
+                        active={item.accountNumber === active.accountNumber}
+                      // disabled
+                      data={item}
+                      />
+                      </Fragment>
+                  )
+                })}
+                </>
+              )}
+              </Box>
+      </Box>
+    )
+  // }
+  // return <></>;
 }
 
 export default PayFromList;

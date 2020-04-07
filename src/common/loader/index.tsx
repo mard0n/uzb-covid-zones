@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme: Theme)=>({
   //   zIndex: 1200
   // },
   backdrop : {
-    zIndex: theme.zIndex.modal + 5,
+    zIndex: 0,
   },
   textStyle: {
     color: theme?.palette?.common?.white,
@@ -28,11 +28,11 @@ interface LoaderProps {
 
 const Loader = (props: LoaderProps) => {
   const { enable } = props;
-  const { textStyle } = useStyles();
+  const { backdrop, textStyle } = useStyles();
 
   if(enable) {
     return (
-      <Backdrop open={enable}>
+      <Backdrop className={backdrop} open={enable}>
         <Box display="flex" justifyContent="center" alignItems="center" flexDirection="column">
           <CircularProgress/>
           <H3 className={textStyle}>Loading...</H3>

@@ -68,8 +68,8 @@ const PaymentNumber = (props: PaymentNumberProps) => {
     setDisabled(!resData.valid);
   };
 
-  const onClickProceed = () => {
-    let data: any = { ...formData },
+  const onClickProceed = (existingBeneficiary?: any) => {
+    let data: any = existingBeneficiary ? { ...existingBeneficiary } : { ...formData },
       url = BILL_PAYMENT_ENQUIRY;
     data["serviceTypeCode"] = getTelecomServiceType(billType.toLowerCase(), telecomValue);
     delete data["valid"];
@@ -136,12 +136,12 @@ const PaymentNumber = (props: PaymentNumberProps) => {
           color="primary"
           disabled={disabled}
           onClick={() => onClickProceed()}
-          size="medium"
+          size="large"
         >
           {t("common.action.proceed")}
         </Button>
       </Box>
-      <GetBeneficiaryList type={type} telecomActiveTab={telecomValue} onClickBeneficiary={onClickBeneficiary}/>
+      <GetBeneficiaryList type={type} telecomActiveTab={telecomValue} onClickBeneficiary={onClickProceed}/>
     </>
   );
 };

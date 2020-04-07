@@ -18,16 +18,20 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 type DueAmountProps = {
   dueAmount?: number;
+  onClickButton?: any | undefined;
 }
 
 const DueAmount = (props: DueAmountProps) => {
-  const { dueAmount } = props;
+  const { dueAmount, onClickButton } = props;
   const { capitalize} = useStyles();
   const { t } = useTranslation();
 
+  console.log(dueAmount)
+  if(typeof dueAmount !== "undefined") {
+
   return(
   <>
-    {dueAmount && dueAmount < 0 ? (
+    {(dueAmount === 0 || dueAmount < 0) ? (
       <>
         <Box mt={5} mb={5}>
           <H3 gutterBottom>
@@ -35,15 +39,14 @@ const DueAmount = (props: DueAmountProps) => {
           </H3>
           <Box mt={5}>
             <Caption>
-              We have detucted that you are in credit of AED{" "}
-              <b> {Math.abs(dueAmount)} </b> for this account number.
+              {t("beneficiary.manage.details.billDetected.zeroAmount")}
             </Caption>
           </Box>
         </Box>
       </>
     ) : null}
 
-    {dueAmount && dueAmount > 0 ? (
+    {dueAmount > 0? (
       <>
         <Box mt={5} mb={5}>
           <H3 gutterBottom>
@@ -54,10 +57,12 @@ const DueAmount = (props: DueAmountProps) => {
 
         <CardPayNow
           buttonLable={t("common.action.payNow")}
+          style={{justifyContent: "space-between", paddingRight: 0}}
           // heading="Rent Dubai"
           // image={getBeneficiariesAvatar("DU")}
+          callback={onClickButton}
           subheading={
-            <Box display="flex">
+            <Box display="flex" alignItems="center">
               <Box mr={1}>
                 <Caption color="textSecondary" className={capitalize}>
                   AED
@@ -71,6 +76,8 @@ const DueAmount = (props: DueAmountProps) => {
     ) : null}
   </>
   );
+}
+return <></>;
 };
 
 export default DueAmount;

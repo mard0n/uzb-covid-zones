@@ -310,7 +310,19 @@ export const mockPaymentSource = {
               "segment": "conventional"
           }
       ],
-      "cards": [],
+      "cards": [
+        {
+          "customerName": "TEST_CUSTOMER_010424124",
+          "accountNickName": "TEST_ACCOUNT_010424124",
+          "accountType": "CUGOLD",
+          "currency": "AED",
+          "accountNumber": "010797697124",
+          "availableBalance": 84390.21,
+          "status": "ACTIVE",
+          "schemeType": "CA",
+          "segment": "conventional"
+        }
+      ],
       "suggestedAccount": {
           "customerName": "TEST_CUSTOMER_010424124",
           "accountNickName": "TEST_ACCOUNT_010424124",

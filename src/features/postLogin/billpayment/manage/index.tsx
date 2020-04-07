@@ -9,6 +9,7 @@ import * as Endpoint from '../../../../network/Endpoints';
 
 import StartPayments from "./startYourPayments";
 import { API } from "../../../../mocks";
+import Loader from "../../../../common/loader";
 // import * as LandingActions from "../../../../redux/actions/beneficiary/billPayment/landingActions";
 
 const ManageBillPayments = (props: any) => {
@@ -24,6 +25,8 @@ const ManageBillPayments = (props: any) => {
   const [options, setOptions] = useState(leftSideOptions);
   const [step, setStep] = useState("");
   const [startPayentData, setStartPaymentData] = useState({});
+  const [success, setSuccess] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [stepInit, setStepInit] = useState("Start Your Payment");
   // const [draftData, setDraftData] = useState<any>({});
 const {t} = useTranslation();
@@ -37,6 +40,7 @@ const {t} = useTranslation();
   // };
 
   const onSuccessOTP = () => {
+    setLoading(true);
     console.log(startPayentData, "final response =========");
       updateStep({step: "confirmation", stepInit: "Confirmation"});
       const {accountNumber, serviceTypeCode, billRefNo, rechargeAmount, selectedAccount} =startPayentData as any, url = Endpoint.BILL_PAYMENT_PAY_BILL_ENDPOINT,
@@ -53,11 +57,16 @@ const {t} = useTranslation();
         url,
         data,
       };
-      API(config).then((val: any) => {
-        if (val && val.data && val.data.data) {
-          const resData = val.data.data;
-          console.log(resData, "final response =========");
-        }
+        API(config).then((val: any) => {
+          setLoading(false);
+          if (val && val.data && val.data.data) {
+            const resData = val.data.data;
+          } else {
+            setSuccess(false);
+          }
+        }).catch (() => {
+        setSuccess(false);
+        setLoading(false);
       });
   };
 
@@ -111,15 +120,21 @@ const {t} = useTranslation();
           />
         );
       case "confirmation":
-        return (
-          <Success
-          success={true}
-          data={startPayentData}
-          type={billType}
-          title={t(`billPayments.steps.confirmation.success`)}
-          onDoneCallback={()=>successFailureCallback()}
-          />
-      );
+        if(!loading) {
+          return (
+            <Success
+            success={success}
+            data={startPayentData}
+            type={billType}
+            title={t(`billPayments.steps.confirmation.${success ? 'success' : 'failure'}.title`)}
+            subTitle={!success ? t(`billPayments.steps.confirmation.failure.desc`) : ""}
+            onDoneCallback={()=>successFailureCallback()}
+            />
+        );
+
+        }else {
+          return (<Loader enable={true} />);
+        }
 
       case "review":
         return (  

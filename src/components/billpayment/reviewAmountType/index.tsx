@@ -42,11 +42,17 @@ const ReviewAmountType = (props: ReviewAmountTypeProps) => {
   const { rechargeAmount, telecomType, nickname, accountNumber } = data;
   const { iconStyle, successIconStyle } = useStyles();
 
-  let  cardHeading = nickname ? nickname : `${capitalizeFirstLetter(type)} ${
-    telecomType ? capitalizeFirstLetter(telecomType) : ""}`,
-  cardSubheading = nickname ? `${capitalizeFirstLetter(type)} ${
-    telecomType ? capitalizeFirstLetter(telecomType) : ""
-  } | ${accountNumber}` : accountNumber;
+  console.log(data)
+
+  let typeWithTab = capitalizeFirstLetter(type) + ' '+ (telecomType ? capitalizeFirstLetter(telecomType) : ''),
+  cardHeading = nickname ? nickname : `${typeWithTab}`,
+  cardSubheading = nickname ? `${typeWithTab} | ${accountNumber}` : accountNumber;
+
+  // let  cardHeading = nickname ? nickname : `${capitalizeFirstLetter(type)} ${
+  //   telecomType ? capitalizeFirstLetter(telecomType) : ""}`,
+  // cardSubheading = nickname ? `${capitalizeFirstLetter(type)} ${
+  //   telecomType ? capitalizeFirstLetter(telecomType) : ""
+  // } | ${accountNumber}` : accountNumber;
 
   return (
     <Box mt={6} mb={6} display="flex" alignItems="center" >
@@ -55,7 +61,7 @@ const ReviewAmountType = (props: ReviewAmountTypeProps) => {
         <SvgIcon height="1rem" width="1rem" component={leftIcon} />
       </Box>}
         heading={<Body1>{title}</Body1>}
-        subheading={<H5>{Math.abs(rechargeAmount)}</H5>}
+        subheading={<H5>AED {Math.abs(rechargeAmount)}</H5>}
       />
       <Box ml={3} mr={3}>
         <SvgIcon component={ArrowRight} />

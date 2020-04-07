@@ -4,14 +4,16 @@ import {
   Button,
   Box,
   H2,
+  H4,
   Caption,
   SectionSplitter,
+  SvgIcon,
 } from "@mashreq-digital/ui";
 import { useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Check } from "@mashreq-digital/webassets";
+import { Check, Phone24 } from "@mashreq-digital/webassets";
 // import getBeneficiariesAvatar from "../../../../util/getBeneficiariesAvatar";
-import SucessFailureIcon from "@mashreq-digital/ui/dist/components/successFailureIcon";
+import SucessFailureIcon from "../../../../common/successFailureIcon";
 import ReviewAmountType from "../../../../components/billpayment/reviewAmountType";
 import CardPayNow from "../../../../common/card/CardPayNow";
 import SaveBeneficiaryPrompt from "./saveBeneficiary";
@@ -27,15 +29,6 @@ type SuccessProps = {
   onDoneCallback?: any;
   onReceiptCallback?: any;
 };
-
-// const useStyles = makeStyles(() => ({
-//   capitalize: {
-//     textTransform: "capitalize"
-//   },
-//   cardPay: {
-//     justifyContent: "center"
-//   }
-// }));
 
 const Success = (props: SuccessProps) => {
   // const { capitalize, cardPay } = useStyles();
@@ -87,7 +80,7 @@ const Success = (props: SuccessProps) => {
       height="calc(100vh - 250px)"
       top={
         <>
-          <SucessFailureIcon success={success} />
+          <SucessFailureIcon success={success} warning/>
           <UnderlineText color="primary">
             <H2>{title}</H2>
           </UnderlineText>
@@ -97,7 +90,7 @@ const Success = (props: SuccessProps) => {
               <Caption>{subTitle}</Caption>
             </Box>
           )}
-          {data && type && (
+          {success ? (data && type && (
             <>
               <ReviewAmountType
                 data={data}
@@ -116,21 +109,22 @@ const Success = (props: SuccessProps) => {
                 </Button>
               </Box>
             </>
-          )
-          //:
-          //   <>
-          //   <Box mt={10} display="flex" alignItems="center">
-          //   <H4>{t(`billPayments.steps.confirmation.contactus`)} </H4>
-          //   </Box>
-          //   <Box mt={5} mb={5} display="flex" alignItems="center">
-          //   <CardPayNow
-          //     style={{ justifyContent: "space-evenly" }}
-          //     arrow={true}
-          //     heading={t(`billPayments.steps.confirmation.customerCare`)}
-          //     subheading={t(`billPayments.steps.confirmation.support`)}
-          //   />
-          //   </Box>
-          // </>
+          ))
+          :
+            <>
+            <Box mt={10} display="flex" alignItems="center">
+            <H4>{t(`billPayments.steps.confirmation.contactus`)} </H4>
+            </Box>
+            <Box mt={5} mb={5} display="flex" alignItems="center">
+            <CardPayNow
+              icon={<SvgIcon color="primary" component={Phone24} />}
+              style={{ justifyContent: "space-evenly" }}
+              arrow={true}
+              heading={t(`billPayments.steps.confirmation.customerCare`)}
+              subheading={t(`billPayments.steps.confirmation.support`)}
+            />
+            </Box>
+          </>
           }
 
           {editModal && (
@@ -153,6 +147,7 @@ const Success = (props: SuccessProps) => {
       }
       bottom={
         <Box display="flex" justifyContent="space-between">
+          <Box>
           {success && (
             <Button
               variant="outlined"
@@ -170,6 +165,7 @@ const Success = (props: SuccessProps) => {
               {t(`common.action.receipt`)}
             </Button>
           )}
+          </Box>
 
           <Button
             variant="contained"
