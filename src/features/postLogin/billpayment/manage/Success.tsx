@@ -38,15 +38,7 @@ type SuccessProps = {
 //   }
 // }));
 
-let sampleData = {
-  "Paid To": "Etisalat",
-  "Etisalat Mobile Number": "05 34485348",
-  "Paid From": "**** **** **** 8347",
-  "Amount Paid": "aaaa",
-  "Paid On": "05 34485348",
-  "Transaction Status": "test dadasa",
-  "Payment Channel": "saaa",
-};
+
 
 const Success = (props: SuccessProps) => {
   // const { capitalize, cardPay } = useStyles();
@@ -66,10 +58,29 @@ const Success = (props: SuccessProps) => {
   const [saveData, setSaveData] = useState({});
   const dispatch = useDispatch();
 
+//   accountNumber: "0503939393"
+// serviceTypeCode: "etisalat-prepaid"
+// billRefNo: "09820206116723562076"
+// dueAmount: 10000
+// outstandingAmount: null
+// balanceAmount: null
+// telecomType: "prepaid"
+// rechargeAmount: 50
+  console.log("Success -> data laila", data)
   const beneficiaryItemForEdit: any = {
     accountNumber: data.accountNumber,
     nickname: "",
     serviceTypeCode: data.serviceTypeCode,
+  };
+
+  let payreceptData = {
+    "Paid To": "Etisalat",
+    "Etisalat Mobile Number": data.accountNumber,
+    "Paid From": "**** **** **** 8347",
+    "Amount Paid": data.rechargeAmount,
+    "Paid On": data.accountNumber,
+    "Transaction Status": "processed",
+    "Payment Channel": "Online",
   };
 
   const SaveBenificiarySubmit = (formData: any) => {
@@ -164,8 +175,9 @@ const Success = (props: SuccessProps) => {
           {payRecieptModal && (
             <PaymentReceipt
               title={"Your invoice"}
+              billRefNo = {data.billRefNo}
               openModal={payRecieptModal}
-              paymentSummary={sampleData}
+              paymentSummary={payreceptData}
               onCloseModal={() => { setPayRecieptModal(false)}}
             />
           )}

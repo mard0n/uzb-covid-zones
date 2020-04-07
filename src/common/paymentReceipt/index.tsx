@@ -42,13 +42,14 @@ interface PrompTemplateProps {
   paymentSummary: any;
   openModal: boolean;
   minWidth?: boolean;
+  billRefNo?:any;
   onCloseModal?: any;
   modalProps: transitionModalProps;
 }
 
 const PaymentReceipt = (props: PrompTemplateProps) => {
   const { root, svgIconStyle, headingStyle } = useStyles(props);
-  const { title, paymentSummary, openModal, onCloseModal, modalProps } = props;
+  const { title, paymentSummary, openModal, onCloseModal, modalProps,billRefNo } = props;
 
   const onClose = () => {
     if (onCloseModal && typeof onCloseModal === "function") {
@@ -73,7 +74,7 @@ const PaymentReceipt = (props: PrompTemplateProps) => {
           <Grid item xs={6}>
             <TextWraper
               heading={"Reference Number"}
-              subHeading={"3143143141222"}
+              subHeading={billRefNo}
             />
           </Grid>
         </Grid>
