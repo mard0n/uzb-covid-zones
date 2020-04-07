@@ -47,11 +47,14 @@ const StartPayments = (props: StartPaymentsProps) => {
     }
   };
 
+
+
   return (
     <Box>
       <UnderlineText color="primary">
         <H2>{t("billPayments.steps.startPayment.title")}</H2>
       </UnderlineText>
+
       {!toggleView ? (
         <PaymentNumber
           type={type}
