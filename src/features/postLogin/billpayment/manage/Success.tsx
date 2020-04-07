@@ -17,6 +17,7 @@ import CardPayNow from "../../../../common/card/CardPayNow";
 import SaveBeneficiaryPrompt from "./saveBeneficiary";
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import SuccessModel from "./saveBeneficiary/SuccessModel";
+import PaymentReceipt from "../../../../common/paymentReceipt/index";
 
 type SuccessProps = {
   success: boolean;
@@ -37,6 +38,16 @@ type SuccessProps = {
 //   }
 // }));
 
+let sampleData = {
+  "Paid To": "Etisalat",
+  "Etisalat Mobile Number": "05 34485348",
+  "Paid From": "**** **** **** 8347",
+  "Amount Paid": "aaaa",
+  "Paid On": "05 34485348",
+  "Transaction Status": "test dadasa",
+  "Payment Channel": "saaa",
+};
+
 const Success = (props: SuccessProps) => {
   // const { capitalize, cardPay } = useStyles();
   const {
@@ -50,6 +61,7 @@ const Success = (props: SuccessProps) => {
   } = props;
   const { t } = useTranslation();
   const [editModal, setEditModal] = useState(false);
+  const [payRecieptModal, setPayRecieptModal] = useState(false);
   const [sucessModel, setSucessModel] = useState(false);
   const [saveData, setSaveData] = useState({});
   const dispatch = useDispatch();
@@ -61,7 +73,7 @@ const Success = (props: SuccessProps) => {
   };
 
   const SaveBenificiarySubmit = (formData: any) => {
-    setSaveData ({
+    setSaveData({
       nickname: formData.nickName,
       serviceTypeCode: data.serviceTypeCode,
       accountNumber: data.accountNumber,
@@ -72,7 +84,6 @@ const Success = (props: SuccessProps) => {
         salikPinCode: "NDIxOQ==",
         savePinCode: false,
       });
-
     }
     console.log("SaveBenificiarySubmit -> saveData", saveData);
     dispatch(
@@ -107,12 +118,12 @@ const Success = (props: SuccessProps) => {
                 title={"Debited"}
               />
               <Box mt={6}>
-              <Button onClick={() => setEditModal(true)}>
-                <CardPayNow
-                  arrow={true}
-                  heading={t(`billPayments.steps.confirmation.payment`)}
-                  subheading={t(`billPayments.steps.confirmation.saveIt`)}
-                />
+                <Button onClick={() => setEditModal(true)}>
+                  <CardPayNow
+                    arrow={true}
+                    heading={t(`billPayments.steps.confirmation.payment`)}
+                    subheading={t(`billPayments.steps.confirmation.saveIt`)}
+                  />
                 </Button>
               </Box>
             </>
@@ -148,7 +159,17 @@ const Success = (props: SuccessProps) => {
             />
           )}
 
-          {sucessModel && ( <SuccessModel data={saveData} />)}
+          {sucessModel && <SuccessModel data={saveData} />}
+
+          {payRecieptModal && (
+            <PaymentReceipt
+              title={"Your invoice"}
+              openModal={payRecieptModal}
+              paymentSummary={sampleData}
+              onCloseModal={() => { setPayRecieptModal(false)}}
+            />
+          )}
+
         </>
       }
       bottom={
@@ -158,6 +179,7 @@ const Success = (props: SuccessProps) => {
               variant="outlined"
               size="large"
               onClick={() => {
+                setPayRecieptModal(true)
                 if (
                   onReceiptCallback &&
                   typeof onReceiptCallback === "function"
