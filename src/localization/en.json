@@ -17,7 +17,7 @@
       "enterMobileNo": "Enter your --type-- account number"
     },
     "hintText": {
-      "mobileNumber" : "Enter your --No-- digit mobile number"
+      "mobileNumber" : "Enter your --No-- digit acount number"
     },
     "action": {
       "back": "Back",
