@@ -8,14 +8,14 @@ const elife = {
       config: {
         inputProps: {
           minLength: 0,
-          maxLength: 8
+          maxLength: 9
         },
         required: true,
         value: "",
         helperText: replaceStr(
           i18n.t("common.hintText.mobileNumber"),
           "--No--",
-          "8"
+          "9"
         ),
         label: replaceStr(
           i18n.t("common.label.enterMobileNo"),
@@ -30,12 +30,12 @@ const elife = {
             regEx: replaceStr(
               replaceStr(RegEx.NUMERIC_LIMIT, "min,", ""),
               "max",
-              8
+              9
             ),
             errorCode: replaceStr(
               i18n.t("beneficiary.manage.errors.maxLength"),
               "--max--",
-              8
+              9
             )
           }
         ]
