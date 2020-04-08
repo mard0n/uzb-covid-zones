@@ -3,7 +3,6 @@ import { UnderlineText, H2, Box, H4 } from "@mashreq-digital/ui";
 import { useDispatch, useSelector } from "react-redux";
 import BeneficiaryList from "../../../components/beneficiary/billPayment/BeneficiaryList";
 import * as Actions from "../../../redux/actions/beneficiary/billPayment/addBillPaymentActions";
-import Loader from "../../../common/loader";
 import { useTranslation } from "react-i18next";
 import NoBeneficiaryFound from "../../../components/beneficiary/billPayment/NoBeneficiaryFound";
 import InputSearch from "../../../common/inputSearch";

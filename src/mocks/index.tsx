@@ -1,10 +1,10 @@
 import MockAdapter from "axios-mock-adapter";
 import { API } from "../network";
-import * as Endpoints from "../network/Endpoints";
-import { mockServiceTypes } from "./mockData/beneficiary/billPayment/mockServiceTypes";
-import { mockMyBillPaymentBeneficiaries } from "./mockData/beneficiary/billPayment/mockMyBillPaymentBeneficiaries";
-import { mockPaymentSource } from "./mockData/billPayment/mockPaymentSource";
-import { mockPaymentEnquiry } from "./mockData/billPayment/mockPaymentEnquiry";
+// import * as Endpoints from "../network/Endpoints";
+// import { mockServiceTypes } from "./mockData/beneficiary/billPayment/mockServiceTypes";
+// import { mockMyBillPaymentBeneficiaries } from "./mockData/beneficiary/billPayment/mockMyBillPaymentBeneficiaries";
+// import { mockPaymentSource } from "./mockData/billPayment/mockPaymentSource";
+// import { mockPaymentEnquiry } from "./mockData/billPayment/mockPaymentEnquiry";
 
 const startMocking = (isMockingRequired: boolean = false) => {
   if (isMockingRequired) {

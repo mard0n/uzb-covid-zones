@@ -17,7 +17,8 @@ type PaymentNumberProps = {
 }
 
 const PaymentNumber = (props: PaymentNumberProps) => {
-  const { type, onProceed, onClickBeneficiary, onChangeTab } = props;
+  // onClickBeneficiary,
+  const { type, onProceed, onChangeTab } = props;
   const getType: keyof typeof FormFields = type;
   const formSchema: any = FormFields[getType];
   const telecomOptions =

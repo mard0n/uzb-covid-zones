@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AuthOtp from "../../../../components/authOtp";
 import StepperDialogModal from "../../../../components/stepperDialog/stepperDialogModal";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import Review from "./Review";
 import { useTranslation } from 'react-i18next';
 import Success from "./Success";
@@ -20,7 +20,6 @@ const ManageBillPayments = (props: any) => {
     onCloseCallback,
     ...rest
   } = props;
-  const dispatch = useDispatch();
   const leftSideOptions = ["Start Your Payment", "Review", "Authorization", "Confirmation"];
   const [options, setOptions] = useState(leftSideOptions);
   const [step, setStep] = useState("");

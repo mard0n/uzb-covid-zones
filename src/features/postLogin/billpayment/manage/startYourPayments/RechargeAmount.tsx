@@ -6,9 +6,6 @@ import {
   H4,
   SectionSplitter,
   Caption,
-  makeStyles,
-  Theme,
-  colors,
   RadioWithLabel,
   IconText
 } from "@mashreq-digital/ui";
@@ -41,9 +38,9 @@ const duVouchers: any = [
 const RechargeAmount = (props: RechargeAmountProps) => {
   const { t } = useTranslation();
   const { type, activeTab, onClickBackCallback, activeBeneficiary, onSubmitPayment } = props;
-  const { id, nickname, accountNumber, dueAmount, serviceType } = activeBeneficiary;
-  const isPostpaid = activeTab && activeTab === "postpaid";
-  const [amount, setAmount] = useState(null);
+  const { nickname, accountNumber, dueAmount, serviceType } = activeBeneficiary;
+  const isPrepaid = activeTab && activeTab === "prepaid";
+  const [amount, setAmount] = useState<any>(null);
   const [selVoucher, setSelVoucher] = useState<any>({});
   const [payModal, setPayModal] = useState(false);
 
@@ -56,14 +53,14 @@ const RechargeAmount = (props: RechargeAmountProps) => {
 
   const onSubmitReview = () => {
     let submitObj = { ...activeBeneficiary, rechargeAmount: amount};
-    if (isPostpaid) {
-      if((dueAmount === 0 || dueAmount < 0)){
-        setPayModal(true);
-      } else {
-        submitObj["rechargeAmount"] = dueAmount;
+    if (isPrepaid) {
+      // if((dueAmount === 0 || dueAmount < 0)){
+      //   setPayModal(true);
+      // } else {
         handleReviewPayment(submitObj);
-      }
+      // }
     } else {
+      submitObj["rechargeAmount"] = dueAmount;
       handleReviewPayment(submitObj);
     }
   };
@@ -88,6 +85,7 @@ const RechargeAmount = (props: RechargeAmountProps) => {
     cardHeading = nickname ? nickname : `${typeWithTab}`,
       cardSubheading = nickname ? `${typeWithTab} | ${accountNumber}` : accountNumber;
 
+    const isValidAmount = amount ? !(amount >= 50 && amount <= 1000) : false;
   return (
     <>
       {payModal && (
@@ -111,7 +109,7 @@ const RechargeAmount = (props: RechargeAmountProps) => {
               )}
             </Box>
 
-            {isPostpaid ? (
+            {!isPrepaid ? (
               <DueAmount dueAmount={dueAmount ? dueAmount : 0} onClickButton={onSubmitReview}/>
             ) : (
               <>
@@ -125,7 +123,9 @@ const RechargeAmount = (props: RechargeAmountProps) => {
                         inputProps: {
                           "aria-label": t("common.label.username"),
                           maxLength: 80
-                        }
+                        },
+                        error: isValidAmount,
+                        helperText: isValidAmount? replaceStr(replaceStr(t("beneficiary.manage.errors.matchNumber"), "--greater--", 50), "--lesser--", 1000) : ''
                       }}
                       amountOptions={[50, 70, 100, 125]}
                       onChangeField={(value: any) => onChangeField(value)}
@@ -136,7 +136,7 @@ const RechargeAmount = (props: RechargeAmountProps) => {
                       </Caption>
                     </Box>
                   </Grid>
-                  {!isPostpaid && type === "du" && 
+                  {isPrepaid && type === "du" && 
                   <Grid item xs={12}>
                     <Box my={3}>
                       <H4>{t("billPayments.steps.startPayment.voucher.title")}</H4>
@@ -177,25 +177,28 @@ const RechargeAmount = (props: RechargeAmountProps) => {
               disableRoute
               onClickBack={() => onClickBackCallback()}
             />
-            {!isPostpaid && 
-            <Button
-              variant={"contained"}
-              onClick={() => onSubmitReview()}
-              disabled={!amount}
-              color="primary"
-            >
-              {t("common.action.reviewPayment")}
-            </Button>}
-            {isPostpaid && (dueAmount === 0 || dueAmount < 0) &&
-            <Button
-              variant={"outlined"}
-              onClick={() => onSubmitReview()}
-              color="primary"
-            >
-              {console.log(isPostpaid && (dueAmount === 0 || dueAmount < 0), activeTab, isPostpaid, dueAmount)}
-              {t("common.action.payCustomAmount")}
-            </Button>
-        }
+            {isPrepaid ? 
+              (<Button
+                variant={"contained"}
+                onClick={() => onSubmitReview()}
+                disabled={!amount}
+                color="primary"
+              >
+                {t("common.action.reviewPayment")}
+              </Button>) : (
+                <Button
+                variant={"outlined"}
+                onClick={() => {setPayModal(true)}}
+                color="primary"
+                >
+                {/* {console.log(isPostpaid && (dueAmount === 0 || dueAmount < 0), activeTab, isPostpaid, dueAmount)} */}
+                {t("common.action.payCustomAmount")}
+                </Button>
+              )
+            }
+            {/* {isPostpaid && (dueAmount === 0 || dueAmount < 0) && */}
+           
+        {/* } */}
             {/* }*/}
           </Box>
         }

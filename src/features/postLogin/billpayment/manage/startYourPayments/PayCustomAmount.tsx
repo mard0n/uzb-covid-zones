@@ -1,7 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PromptTemplate from "../../../../../common/promptTemplate";
 import { useTranslation } from "react-i18next";
-import { Caption } from "@mashreq-digital/ui";
+// import { Caption } from "@mashreq-digital/ui";
 import { FormFields } from "../formData";
 import InputWrapper from "../../../../../common/inputWrapper";
 import { replaceStr } from "../../../../../util/helper";
@@ -16,8 +16,19 @@ const PayCustomAmount = (props: PayCustomAmountProps) => {
   const { openModal, onCloseModal, onSubmitCallback } = props;
   const { t } = useTranslation();
   const [formData, setFormData] = useState({});
-  const [fields, setFields] = useState(FormFields["payAmount"]["fields"]);
+  const formFields: any = FormFields["payAmount"]["fields"];
+  const [fields, setFields] = useState<any>(formFields);
   const [disabledEditButton, setDisabledEditButton] = useState(true);
+  
+
+  useEffect(()=>{
+    for (const field in formFields) {
+      formFields[field]["config"]["value"] = "";
+      formFields[field]["config"]["error"] = false;
+      formFields[field]["config"]["errorText"] = '';
+    }
+    setFields(formFields);
+  },[formFields]);
 
   const onBlurFields = (resData: any) => {
     let cloneData = { ...resData };
