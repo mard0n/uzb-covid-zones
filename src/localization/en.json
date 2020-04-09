@@ -190,7 +190,7 @@
           "title" : "Bill Status",
           "desc" : " We have detected an outstanding bill payment for this account number",
           "zeroAmount" : " You don’t have any outstanding bill payment for this account number.",
-          "negativeAmount" : "We have detucted that you are in credit of AED --amount-- for this account number."
+          "negativeAmount" : "We have deducted that you are in credit of AED --amount-- for this account number."
         }
       },
       "errors" : {
