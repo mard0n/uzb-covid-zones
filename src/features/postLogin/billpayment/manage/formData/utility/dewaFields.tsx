@@ -2,8 +2,9 @@ import i18n from "../../../../../../config/i18n";
 import { RegEx } from "../../../../../../util/RegEx";
 import { replaceStr } from "../../../../../../util/helper";
 
-const sewa = {
-  type: "sewa",
+const dewa = {
+  type: "dewa",
+  serviceType : "BillType",
   fields: {
     accountNumber: {
       config: {
@@ -43,4 +44,4 @@ const sewa = {
   }
 };
 
-export default sewa;
+export default dewa;
