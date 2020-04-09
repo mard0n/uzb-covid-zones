@@ -8,6 +8,7 @@ import { FormFields } from "../formData";
 import { getTelecomServiceType } from "../../../../../util/getTelecomServiceType";
 import { BILL_PAYMENT_ENQUIRY } from "../../../../../network/Endpoints";
 import { API } from "../../../../../network";
+import { capitalizeFirstLetter } from "../../../../../util/helper";
 
 type PaymentNumberProps = {
   type : any,
@@ -72,7 +73,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
   const onClickProceed = (existingBeneficiary?: any) => {
     let data: any = existingBeneficiary ? { ...existingBeneficiary } : { ...formData },
       url = BILL_PAYMENT_ENQUIRY;
-    data["serviceTypeCode"] = getTelecomServiceType((type === "du" || type === "etisalat") ? billType.toLowerCase() : billType.toUpperCase(), telecomValue);
+    data["serviceTypeCode"] = getTelecomServiceType((type === "du" || type === "etisalat") ? billType.toLowerCase() : type === "noqodi" ? capitalizeFirstLetter(billType) : billType.toUpperCase(), telecomValue);
     delete data["valid"];
     const config = {
       method: 'POST',
