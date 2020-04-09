@@ -11,7 +11,7 @@ USER appuser
 COPY nginx.conf /etc/nginx/nginx.conf
 
 # Copy in minified files from CI process
-COPY ./packages/app/build /var/www
+COPY ./build /var/www
 
 EXPOSE 8080
 
