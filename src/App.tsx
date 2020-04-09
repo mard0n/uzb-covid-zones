@@ -2,7 +2,7 @@ import React, { FunctionComponent, useEffect } from "react";
 import Routes from "./router";
 import { AppProps } from "./types";
 import { Footer, Main, Box, Drawer, makeStyles, createStyles, Theme } from "@mashreq-digital/ui";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import MOLHeader from "./features/header";
 import SideDrawer from "./components/sidebar";
@@ -50,8 +50,7 @@ const useStyles = makeStyles((theme: Theme) =>
 const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
   const classes = useStyles();
   const { t } = useTranslation();
-  const currentUrl = props.match.url;
-  console.log("currentUrl", currentUrl)
+  const currentUrl = props && props.match && props.match.url ? props.match.url : "";
   let sidebarCondition = ["beneficiaries", "billpayment"],
   splitUrl = currentUrl.indexOf("/") > -1 ? currentUrl.split("/") : [],
   enableSidebar = splitUrl && splitUrl.length > 0 ? sidebarCondition.indexOf(splitUrl[1]) > -1 : false;
@@ -88,7 +87,7 @@ const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
       main={<Routes />}
       footer={
         <>
-          {!exludePath.test(props.match.url) && (
+          {currentUrl && !exludePath.test(props.match.url) && (
             <Box px={5} className={enableSidebar ? classes.footerWithSidebar : ''}>
             <Footer>
               <Box display="flex" justifyContent="space-between" px={2}>
@@ -111,4 +110,4 @@ const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
   );
 };
 
-export default withRouter(App);
+export default App;

@@ -30,7 +30,7 @@ const MOLHeader = (props: any) => {
   const { t } = useTranslation();
   const steps = t("account.steps", { returnObjects: true });
   const { activeStep } = useSelector((state: any) => ({
-    activeStep: state.createAccount.activeStep
+    activeStep: state?.createAccount?.activeStep
   }));
   const dispatch = useDispatch();
 
@@ -55,7 +55,7 @@ const MOLHeader = (props: any) => {
             {!props.hasSidebar &&
             <MashreqLogo width="40px" height="25px" />
           }
-            {!exludePath.test(props.match.url) ? null : (
+            {!exludePath.test(props?.match?.url) ? null : (
               <Box ml={2.5}>
                 <Caption>{steps[activeStep]}</Caption>
               </Box>
@@ -64,7 +64,7 @@ const MOLHeader = (props: any) => {
         }
         right={
           <Box>
-            {!exludePath.test(props.match.url) ? (
+            {!exludePath.test(props?.match?.url) ? (
               <Select native onChange={handleLanguageChange}>
                 <option value="er">{t("common.language.english")}</option>
                 <option value="ar">{t("common.language.arabic")}</option>
@@ -76,7 +76,7 @@ const MOLHeader = (props: any) => {
         }
       />
 
-      {!exludePath.test(props.match.url) ? null : (
+      {!exludePath.test(props?.match?.url) ? null : (
         <LinearProgressBar
           activeStep={activeStep}
           variant="determinate"

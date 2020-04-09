@@ -4,7 +4,7 @@ import Login from "../features/authentication/Login";
 import CreateAccount from "../features/createAccount";
 import MobileNumber from "../features/createAccount/MobileNumber";
 import PasswordScreen from "../features/createAccount/PasswordScreen";
-import Test from "../pages/test";
+// import Test from "../pages/test";
 import * as RoutePath from "./config";
 import PostLogin from "../features/postLogin/";
 const NoMatchPage = () => {
@@ -32,10 +32,10 @@ const routes = [
     path: RoutePath.CREATE_ACCOUNT,
     component: CreateAccount
   },
-  {
-    path: RoutePath.TEST,
-    component: Test
-  },
+  // {
+  //   path: RoutePath.TEST,
+  //   component: Test
+  // },
   {
     path: RoutePath.OTHER_ROUTES,
     component: NoMatchPage
