@@ -1,0 +1,49 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: #{Build.Repository.Name}#
+  labels:
+    app: #{Build.Repository.Name}#
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: #{Build.Repository.Name}#
+  template:
+    metadata:
+      labels:
+        app: #{Build.Repository.Name}#
+      annotations:
+        collectord.io/stdout-logs-type: 'access_combined'
+        collectord.io/stderr-logs-type: 'access_combined'
+    spec:
+      containers:
+        - name: #{Build.Repository.Name}#
+          image: mashrequae.azurecr.io/#{Build.Repository.Name}#:#{Build.BuildId}#
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: '256Mi'
+              cpu: '500m'
+            limits:
+              memory: '512Mi'
+              cpu: '2048m'
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+      imagePullSecrets:
+        - name: mashreq-docker-key
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: #{Build.Repository.Name}#
+spec:
+  selector:
+    app: #{Build.Repository.Name}#
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: NodePort
