@@ -72,7 +72,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
   const onClickProceed = (existingBeneficiary?: any) => {
     let data: any = existingBeneficiary ? { ...existingBeneficiary } : { ...formData },
       url = BILL_PAYMENT_ENQUIRY;
-    data["serviceTypeCode"] = getTelecomServiceType(billType.toLowerCase(), telecomValue);
+    data["serviceTypeCode"] = getTelecomServiceType((type === "du" || type === "etisalat") ? billType.toLowerCase() : billType.toUpperCase(), telecomValue);
     delete data["valid"];
     const config = {
       method: 'POST',
