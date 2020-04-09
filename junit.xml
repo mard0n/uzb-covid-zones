@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites name="jest tests" tests="1" failures="1" time="16.677">
+  <testsuite name="undefined" errors="0" failures="1" skipped="0" timestamp="2020-04-09T10:47:32" time="11.005" tests="1">
+    <testcase classname=" matches snapshot" name=" matches snapshot" time="0.059">
+      <failure>Error: Invariant failed: You should not use &lt;withRouter(App) /&gt; outside a &lt;Router&gt;
+    at invariant (/Users/designer26/akshay/mob-web-app/node_modules/tiny-invariant/dist/tiny-invariant.cjs.js:13:11)
+    at /Users/designer26/akshay/mob-web-app/node_modules/react-router/modules/withRouter.js:18:11
+    at updateContextConsumer (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:18337:19)
+    at beginWork (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:18694:14)
+    at HTMLUnknownElement.callCallback (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:188:14)
+    at invokeEventListeners (/Users/designer26/akshay/mob-web-app/node_modules/jest-environment-jsdom/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:193:27)
+    at HTMLUnknownElementImpl._dispatch (/Users/designer26/akshay/mob-web-app/node_modules/jest-environment-jsdom/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:119:9)
+    at HTMLUnknownElementImpl.dispatchEvent (/Users/designer26/akshay/mob-web-app/node_modules/jest-environment-jsdom/node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:82:17)
+    at HTMLUnknownElementImpl.dispatchEvent (/Users/designer26/akshay/mob-web-app/node_modules/jest-environment-jsdom/node_modules/jsdom/lib/jsdom/living/nodes/HTMLElement-impl.js:30:27)
+    at HTMLUnknownElement.dispatchEvent (/Users/designer26/akshay/mob-web-app/node_modules/jest-environment-jsdom/node_modules/jsdom/lib/jsdom/living/generated/EventTarget.js:157:21)
+    at Object.invokeGuardedCallbackDev (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:237:16)
+    at invokeGuardedCallback (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:292:31)
+    at beginWork$1 (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:23234:7)
+    at performUnitOfWork (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:22188:12)
+    at workLoopSync (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:22161:22)
+    at performSyncWorkOnRoot (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:21787:9)
+    at scheduleUpdateOnFiber (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:21219:7)
+    at updateContainer (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:24407:3)
+    at /Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:24792:7
+    at unbatchedUpdates (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:21934:12)
+    at legacyRenderSubtreeIntoContainer (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:24791:5)
+    at Object.render (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:24874:10)
+    at /Users/designer26/akshay/mob-web-app/node_modules/@testing-library/react/dist/pure.js:86:25
+    at batchedUpdates$1 (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom.development.js:21887:12)
+    at act (/Users/designer26/akshay/mob-web-app/node_modules/react-dom/cjs/react-dom-test-utils.development.js:929:14)
+    at render (/Users/designer26/akshay/mob-web-app/node_modules/@testing-library/react/dist/pure.js:82:26)
+    at Object.&lt;anonymous&gt; (/Users/designer26/akshay/mob-web-app/src/__tests__/App.test.js:8:26)
+    at Object.asyncJestTest (/Users/designer26/akshay/mob-web-app/node_modules/jest-jasmine2/build/jasmineAsyncInstall.js:102:37)
+    at /Users/designer26/akshay/mob-web-app/node_modules/jest-jasmine2/build/queueRunner.js:43:12
+    at new Promise (&lt;anonymous&gt;)
+    at mapper (/Users/designer26/akshay/mob-web-app/node_modules/jest-jasmine2/build/queueRunner.js:26:19)
+    at /Users/designer26/akshay/mob-web-app/node_modules/jest-jasmine2/build/queueRunner.js:73:41
+    at processTicksAndRejections (internal/process/task_queues.js:93:5)</failure>
+    </testcase>
+  </testsuite>
+</testsuites>

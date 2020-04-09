@@ -2,6 +2,7 @@
   "name": "mob-web-app",
   "version": "0.0.1",
   "private": true,
+  "homepage": "/casa/",
   "dependencies": {
     "@mashreq-digital/network": "^1.0.1",
     "@mashreq-digital/ui": "^1.0.1",
@@ -29,6 +30,7 @@
     "start": "yarn lint && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:ci": "CI=1 react-scripts test --reporters=default --reporters=jest-junit --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./",
     "lint:fix": "yarn lint --fix"
@@ -77,6 +79,7 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "http-proxy-middleware": "^1.0.1",
     "husky": "^4.2.3",
+    "jest-junit": "^10.0.0",
     "lint-staged": "^10.0.0-beta.14",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
