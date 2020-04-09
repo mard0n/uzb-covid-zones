@@ -9,7 +9,7 @@ import {
   SectionSplitter,
   SvgIcon,
 } from "@mashreq-digital/ui";
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Check, Phone24 } from "@mashreq-digital/webassets";
 // import getBeneficiariesAvatar from "../../../../util/getBeneficiariesAvatar";
@@ -43,11 +43,15 @@ const Success = (props: SuccessProps) => {
     subTitle,
   } = props;
   const { t } = useTranslation();
+
   const [editModal, setEditModal] = useState(false);
   const [payRecieptModal, setPayRecieptModal] = useState(false);
   const [sucessModel, setSucessModel] = useState(false);
   const [saveData, setSaveData] = useState({});
   const dispatch = useDispatch();
+  const benErrorOnSave = useSelector((state:any) => state.beneficiary.billPayment.errorCode);
+  const addNew = useSelector((state:any) => state.beneficiary.billPayment.addNew);
+
 
   const beneficiaryItemForEdit: any = {
     accountNumber: data.accountNumber,
@@ -85,6 +89,14 @@ const Success = (props: SuccessProps) => {
     setEditModal(false);
     setSucessModel(true);
   };
+
+  // if(addNew == "" && benErrorOnSave !== "" ){
+  //   console.log("error in creating benificiary");
+  //   alert("error in creating benificiary == " + benErrorOnSave);
+  // }else{
+  //   console.log("addnew is pushpa ", addNew);
+  //   setSucessModel(true);
+  // }
 
   return (
     <SectionSplitter
@@ -153,7 +165,10 @@ const Success = (props: SuccessProps) => {
             />
           )}
 
-          {sucessModel && <SuccessModel data={saveData} type={type} telecomType={data.telecomType}/>}
+          {sucessModel && addNew !== undefined  && <SuccessModel data={saveData} type={type} telecomType={data.telecomType}/>}
+    
+          { benErrorOnSave !== "" && alert("error saving benificiary " +benErrorOnSave )}   
+
 
           {payRecieptModal && (
             <PaymentReceipt

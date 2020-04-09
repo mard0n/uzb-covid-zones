@@ -84,6 +84,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
     
     if(data["serviceTypeCode"]) {
       API(config).then((val: any) => { 
+      console.log("onClickProceed -> val", val);
       if(val && val.data && (val.data.errorCode || val.data.errorId)) {
         setError(val.data.errorCode || val.data.errorId)
       } else if(val.data && val.data.data) {
