@@ -6,18 +6,27 @@ import {capitalizeFirstLetter} from "../../../../../util/helper";
 import { Box } from "@mashreq-digital/ui";
 import getBeneficiariesAvatar from "../../../../../util/getBeneficiariesAvatar";
 import { Check } from '@mashreq-digital/webassets';
+import * as Actions from "../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
+import { useDispatch } from 'react-redux';
 
 const SuccessModel = (props: any) => {
   const { data, type, telecomType } = props;
   const { accountNumber, nickname } = data;
   const [openModal, setOpenModal] = useState(true);
   console.log("SuccessModel -> data laila", data)
-
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-
+  
   let typeWithTab = capitalizeFirstLetter(type) + ' '+ (telecomType ? capitalizeFirstLetter(telecomType) : ''),
     cardHeading = nickname ? nickname : `${typeWithTab}`,
       cardSubheading = nickname ? `${typeWithTab} | ${accountNumber}` : accountNumber;
+
+const onClickGotIt= ()=>{
+  dispatch(
+    Actions.editAddModel(false)
+  );
+  setOpenModal(false);
+}
 
   return (
     <PromptTemplate
@@ -30,22 +39,6 @@ const SuccessModel = (props: any) => {
       content={
         <>
           <Box mt={6} mb={6}>
-            {/* <CardPayNow
-              style={{ justifyContent: "space-evenly" }}
-              heading={data.nickname}
-              subheading={
-                data.serviceTypeCode +
-                " " +
-                (data.serviceTypeCode &&
-                data.serviceTypeCode.toLowerCase()! ===
-                  ("du-prepaid" || "etisalat-prepaid")
-                  ? t("common.label.nickName")
-                  : "") +
-                " | " +
-                data.accountNumber
-              }
-              image={getBeneficiariesAvatar(data.serviceTypeCode.toLowerCase())}
-            /> */}
             {type && (
                 <CardPayNow
                   heading={cardHeading}
@@ -59,9 +52,7 @@ const SuccessModel = (props: any) => {
       buttonLabel={t("common.action.gotit")}
       buttonProps={{
         variant: "outlined",
-        onClick: () => {
-          setOpenModal(false);
-        },
+        onClick: onClickGotIt,
       }}
     />
   );

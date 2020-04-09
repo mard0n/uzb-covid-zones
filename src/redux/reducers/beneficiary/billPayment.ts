@@ -7,10 +7,10 @@ export const initialState: any = {
   loading: false,
   serviceTypes: [],
   myBills: [],
+  addEditModal:false,
   addNew: {},
   errorCode : '',
   errorMessage : ''
-
 };
 
 /**
@@ -26,6 +26,7 @@ export default function(state = initialState, action: any) {
         ...state,
         loading: true,
       };
+      
     case AddBillActions.FETCH_BENEFICIARY_SERVICE_TYPES_SUCCESS:
       return {
         ...state,
@@ -149,6 +150,12 @@ export default function(state = initialState, action: any) {
           loading: false,
           // response: action.payload,
         };
+        case ManageActions.EDIT_ADD_MODEL:
+          return {
+            ...state,
+            loading: false,
+            addEditModal:action.payload
+          };
     default:
       return state;
   }

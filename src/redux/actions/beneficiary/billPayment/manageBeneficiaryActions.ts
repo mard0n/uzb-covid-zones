@@ -23,6 +23,10 @@ export const ACTIVATE_BENEFICIARY_REQUEST = 'ACTIVATE_BENEFICIARY_REQUEST';
 export const ACTIVATE_BENEFICIARY_SUCCESS = 'ACTIVATE_BENEFICIARY_SUCCESS';
 export const ACTIVATE_BENEFICIARY_FAILURE = 'ACTIVATE_BENEFICIARY_FAILURE';
 
+export const EDIT_ADD_MODEL=
+'EDIT_ADD_MODEL';
+
+
 /**
  * @func addUpdateBeneficiaryRequest
  * @param ``
@@ -36,6 +40,7 @@ export const addUpdateBeneficiaryRequest = (payload: any) => {
 
 export const addUpdateBeneficiarySuccess = (payload: any) => {
   console.log("addUpdateBeneficiarySuccess -> payload masood ====>", payload)
+
   return ({
   type: ADD_UPDATE_BILL_PAY_BENEFICIARY_SUCCESS,
   payload,
@@ -96,3 +101,17 @@ export const activateBeneficiaryFailure = (payload: any) => ({
   type: ACTIVATE_BENEFICIARY_FAILURE,
   payload,
 });
+
+
+/**
+ * @func editAddModel
+ * @param ``
+ */
+export const editAddModel = (payload: any) => {
+  return ({
+  type: EDIT_ADD_MODEL,
+  payload,
+})};
+
+
+
