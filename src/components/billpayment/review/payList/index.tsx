@@ -145,7 +145,7 @@ const PayListItem = (props: CustomListItemProps) => {
           {status && (
             <ListItemText
               primary={
-                <>
+                <Box display="flex">
                   <Box pr={1} display="inline-block"><Body1>{type && isCard ? "**** **** **** " : ''}{accNo}</Body1></Box>
                   {type && !isCard &&
                   <>
@@ -155,7 +155,7 @@ const PayListItem = (props: CustomListItemProps) => {
                   </Box>
                   </>
                   }
-                </>
+                </Box>
               }
             />
           )}

@@ -49,15 +49,6 @@ const Success = (props: SuccessProps) => {
   const [saveData, setSaveData] = useState({});
   const dispatch = useDispatch();
 
-//   accountNumber: "0503939393"
-// serviceTypeCode: "etisalat-prepaid"
-// billRefNo: "09820206116723562076"
-// dueAmount: 10000
-// outstandingAmount: null
-// balanceAmount: null
-// telecomType: "prepaid"
-// rechargeAmount: 50
-  console.log("Success -> data laila", data)
   const beneficiaryItemForEdit: any = {
     accountNumber: data.accountNumber,
     nickname: "",
@@ -75,21 +66,21 @@ const Success = (props: SuccessProps) => {
   };
 
   const SaveBenificiarySubmit = (formData: any) => {
-    setSaveData({
+    let resData = {
       nickname: formData.nickName,
       serviceTypeCode: data.serviceTypeCode,
       accountNumber: data.accountNumber,
-    });
+    }
+    setSaveData(resData);
     if (data.serviceTypeCode === "Salik") {
       setSaveData({
-        ...saveData,
+        ...resData,
         salikPinCode: "NDIxOQ==",
         savePinCode: false,
       });
     }
-    console.log("SaveBenificiarySubmit -> saveData", saveData);
     dispatch(
-      Actions.addUpdateBeneficiaryRequest({ updateMode: false, data: saveData })
+      Actions.addUpdateBeneficiaryRequest({ updateMode: false, data: resData })
     );
     setEditModal(false);
     setSucessModel(true);
@@ -162,7 +153,7 @@ const Success = (props: SuccessProps) => {
             />
           )}
 
-          {sucessModel && <SuccessModel data={saveData} />}
+          {sucessModel && <SuccessModel data={saveData} type={type} telecomType={data.telecomType}/>}
 
           {payRecieptModal && (
             <PaymentReceipt

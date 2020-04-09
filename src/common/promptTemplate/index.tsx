@@ -22,14 +22,14 @@ const useStyles = makeStyles((theme: Theme) => ({
       width: props && props.minWidth ? "312px" : "60%"
     }
   }),
-  svgIconStyle: {
-    backgroundColor: colors?.orange[500],
+  svgIconStyle: (props: any) => ({
+    backgroundColor: props.iconBgVariant && props.iconBgVariant === "warning" ? colors?.orange[500] : theme?.palette[props.iconBgVariant === "success" ? "success" : "error"]["main"],
     borderRadius: "50%",
     "& > svg": {
       height: "20px",
       width: "20px"
     }
-  },
+  }),
   headingStyle: {
     marginBottom: theme?.spacing(2)
   }
@@ -42,6 +42,7 @@ interface PrompTemplateProps {
   buttonProps?: ButtonProps;
   openModal: boolean;
   minWidth?: boolean;
+  iconBgVariant?: "success" | "warning" | "error";
   onCloseModal?: any;
   modalProps: transitionModalProps;
   content?: ReactElement | undefined;
@@ -59,6 +60,7 @@ const PromptTemplate = (props: PrompTemplateProps) => {
     buttonProps,
     openModal,
     onCloseModal,
+    iconBgVariant,
     modalProps
   } = props;
 
@@ -108,6 +110,7 @@ const PromptTemplate = (props: PrompTemplateProps) => {
 PromptTemplate.defaultProps = {
   buttonProps: {},
   minWidth: true,
+  iconBgVariant: "success",
   modalProps: { children: <></> }
 };
 

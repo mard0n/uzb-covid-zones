@@ -144,7 +144,7 @@ const DetailViewLayout = (props: any) => {
           </Grid>
         </Box>
 
-        {dueAmount && dueAmount < 0 ? (
+        {/* {dueAmount && dueAmount < 0 ? (
           <>
             <Box mt={5} mb={5} >
             <H3 gutterBottom>
@@ -157,7 +157,7 @@ const DetailViewLayout = (props: any) => {
             </Box>
           </Box>
             </>
-        ):null}
+        ):null} */}
           <DueAmount dueAmount={dueAmount}/>
       </Box>
     </Box>

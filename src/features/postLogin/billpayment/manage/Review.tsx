@@ -41,7 +41,7 @@ const Review = (props: any) => {
             <ReviewAmountType data={data} type={type} leftIcon={ArrowDown} title={t("billPayments.steps.review.youarePaying")} />
           )}
 
-          <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
+          <Grid item xl={12} lg={5} md={5} sm={12} xs={12}>
             <PayFromList onChangeList={onChangeList} />
           </Grid>
         </>

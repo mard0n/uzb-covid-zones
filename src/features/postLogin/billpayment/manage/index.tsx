@@ -40,7 +40,6 @@ const {t} = useTranslation();
 
   const onSuccessOTP = () => {
     setLoading(true);
-    console.log(startPayentData, "final response =========");
       updateStep({step: "confirmation", stepInit: "Confirmation"});
       const {accountNumber, serviceTypeCode, billRefNo, rechargeAmount, selectedAccount} =startPayentData as any, url = Endpoint.BILL_PAYMENT_PAY_BILL_ENDPOINT,
       data= {
@@ -59,7 +58,7 @@ const {t} = useTranslation();
         API(config).then((val: any) => {
           setLoading(false);
           if (val && val.data && val.data.data) {
-            const resData = val.data.data;
+            // const resData = val.data.data;
           } else {
             setSuccess(false);
           }
@@ -99,12 +98,6 @@ const {t} = useTranslation();
   const onSubmitPayment = (data: any) => {
     setStartPaymentData(data);
     updateStep({step: "review", stepInit: "Review"});
-    // if(data && data.id) {
-      
-    // } else {
-    //   setStep("otp");
-    //   setStepInit("Authorization");
-    // }
     setStartPaymentData(data);
   }
 
