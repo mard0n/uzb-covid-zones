@@ -1,0 +1,105 @@
+import React, { useEffect } from "react";
+import { Box } from "@mashreq-digital/ui";
+import { connect } from "react-redux";
+import { ReduxAction, stepsID } from "../../redux/reducers/createAcountReducer";
+import { CreateAccountActions } from "../../redux/actions/createAccountActions";
+import { Dispatch } from "redux";
+import AuthOtp from "../../components/authOtp";
+// import { default as MobileInfo } from "./MobileNumber";
+import PreLogin from "./PreLogin";
+import Terms from "./Terms";
+// import PasswordScreen from "./PasswordScreen";
+import Success from "./Success";
+
+const PersonalInformatin = (props: any) => {
+  const {
+    match,
+    history,
+    activeStep,
+    setActiveStep,
+    isLastStep,
+    isFirstStep
+  } = props;
+
+
+  useEffect(() => {
+    let routePath = match?.params?.stepId,
+      getActiveID = stepsID.indexOf(routePath);
+    setActiveStep(getActiveID > 0 ? getActiveID : 0);
+  }, [match, setActiveStep]);
+
+  const handleNextStep = () => {
+    // active step is the last step
+    if (isLastStep) return;
+    history.push(`/account/${stepsID[activeStep + 1]}`);
+  };
+  const handleBack = () => {
+    // currently at the first step
+    if (isFirstStep) return;
+    history.goBack();
+  };
+
+  const getStepContent = (step: number) => {
+    switch (step) {
+      case 0:
+        return (
+          <PreLogin
+            handleNextStep={handleNextStep}
+            // handleBack={handleBack}
+            {...props}
+          />
+        );
+      case 1:
+        return (
+          <AuthOtp
+            onSuccess={handleNextStep}
+            handleBack={handleBack}
+            {...props}
+          />
+        );
+      case 2:
+        return (
+          <Terms
+            handleNextStep={handleNextStep}
+            handleBack={handleBack}
+            {...props}
+          />
+        );
+      case 3:
+        return (
+          <Success
+            handleNextStep={handleNextStep}
+            handleBack={handleBack}
+            {...props}
+          />
+        );
+      default:
+        return (
+          <PreLogin
+            handleNextStep={handleNextStep}
+            // handleBack={handleBack}
+            {...props}
+          />
+        );
+    }
+  };
+
+  return (
+    <div>
+      <Box>{getStepContent(activeStep)}</Box>
+    </div>
+  );
+};
+
+const mapStateToProps = (state: any) => ({
+  activeStep: state.createAccount.activeStep,
+  isFirstStep: state.createAccount.isFirstStep,
+  isLastStep: state.createAccount.isLastStep
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<ReduxAction>) => ({
+  setActiveStep: (step: number) =>
+    dispatch({ type: CreateAccountActions.setActiveStep, payload: step })
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalInformatin);

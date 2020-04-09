@@ -1,0 +1,259 @@
+{
+  "common": {
+    "language": {
+      "ar": "عربى",
+      "en": "EN",
+      "arabic": "عربى",
+      "english": "English"
+    },
+    "label": {
+      "username": "Username",
+      "password": "Password",
+      "pincode": "Pincode",
+      "mobileNumber": "Mobile Number",
+      "nickName": "Nick Name",
+      "accountNumber": "Account Number",
+      "payCustomAmount" : "Pay Custom Amount",
+      "enterMobileNo": "Enter your --type-- account number"
+    },
+    "hintText": {
+      "mobileNumber" : "Enter your --No-- digit acount number"
+    },
+    "action": {
+      "back": "Back",
+      "change": "Change",
+      "cancel": "Cancel",
+      "payNow": "Pay Now",
+      "gotit":"Got It",
+      "pay": "Pay",
+      "receipt":"Payment Receipt",
+      "payCustomAmount" : "Pay Custom Amount",
+      "proceed": "Proceed",
+      "signin": "Signin",
+      "submit": "Submit",
+      "signup": "Sign Up",
+      "rm": "Read More",
+      "resume" : "Resume",
+      "started": "Get Started",
+      "tryAgain": "Try Again",
+      "done" : "Done",
+      "reviewPayment" : "Review your payment"
+    },
+    "links": {
+      "forgetUsername": "Forgot your Username?",
+      "forgetPassword": "Forgot your Password?",
+      "needHelp": "Need Help ?"
+    },
+    "dbErrors": {
+      "NO_ESB_ENQUIRY_DETAILS" : "Please enter a valid number",
+      "INTERFACE_ERROR_INVALID_PARAMETER_VALUES" : "Field should not be blank",
+      "BN-3001" : "Invalid number"
+    }
+  },
+  "error": {
+    "title": "Oops!",
+    "somethingWrong" : "Something went wrong",
+    "desc": "Sorry it seems like you’ve made a mistake"
+  },
+  "login": {
+    "title": "Welcome to Mashreq Online Banking",
+    "ensure": "Ensure You are Always Protected",
+    "securityTips": "Check out these security tips to protect yourself from being a victim of online threats.",
+    "keyboard": "Virtual Keyboard",
+    "forgot": "Forgot your Username or Password"
+  },
+  "account": {
+    "steps": [
+      "Step 1. Username and password ",
+      "Step 2. OTP verification",
+      "Step 3. Terms and Condition",
+      "Success"
+    ],
+    "personalinfo": {
+      "title": "Let’s start with your mobile number",
+      "new": "New to Mashreq Online Banking?",
+      "descStart": "Please enter your mobile number",
+      "descBold": "registered with Mashreq",
+      "descEnd": "We will send you a text message with a 6 digit code for authentication."
+    },
+    "prelogin": {
+      "title": "Login with your credentials",
+      "title2": "Let’s login",
+      "desc": "We’re making the process easier for our customers, let’s start with your current login details.",
+      "descBold": "registered with Mashreq",
+      "descEnd": "We will send you a text message with a 6 digit code for authentication."
+    },
+    "authentication": {
+      "title": "Authentication",
+      "info": "Please enter the security code sent to your mobile number",
+      "cardTitle": "Don’t have this mobile number anymore?",
+      "cardDesc": "Please visit our branch for assistance",
+      "desc": "Please enter the 6 digit code sent to your mobile number",
+      "nootp": "Didn’t receive it?",
+      "resendOtp": {
+        "action": "Resend OTP Code",
+        "desc": "Resend possible in",
+        "sec": "sec"
+      },
+      "locked": {
+        "title": "You’ve been locked out",
+        "desc": "Too many authentication attemps. For your security we have disabled this device for 15 min",
+        "nofity": "Notify me when ready"
+      },
+      "errors": {
+        "title": "Ooops!",
+        "desc": "Sorry it seems like you’ve made a mistake in your OTP. You have",
+        "attemptsLeft": "attempts left."
+      }
+    },
+    "termsAndConditions": {
+      "title": "Terms & Conditions",
+      "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+      "action": "Agree and proceed"
+    },
+    "success": {
+      "title": "Success",
+      "action": "Start Demo again"
+    }
+  },
+  "beneficiary" : {
+    "landing" : {
+      "title" : "Beneficiaries",
+      "tabs": ["Bill Payments", "Money Transfer"],
+      "searchPlaceholder" : "Search for billers",
+      "addButtonLabel" : "Add New Beneficiary",
+      "notFound" : {
+        "title" : "You don't have any beneficiaries",
+        "desc" : "Start by adding new beneficiary"
+      },
+      "addBeneficiary" : {
+        "title" : "Add a bill payment beneficiary",
+        "desc" : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe officia assumenda animi similique earum quos esse expedita dignissimos quod accusantium. Rerum perferendis ea beatae illo placeat vero, nesciunt animi incidunt."
+      }
+    },
+    "manage" :{
+      "prompts" : {
+        "delete" : {
+          "title" : "Delete Beneficiary",
+          "desc" : "Are you sure you want to delete --username-- beneficiary?",
+          "buttonLabel" : "Delete"
+        },
+        "edit" : {
+          "title" : "Edit",
+          "titleSvaveBenificiary":"Beneficiary Details",
+          "desc" : "Find you beneficiaries quicker by naming them. For eg. Masood DEWA Home.",
+          "buttonLabel" : "Submit",
+          "buttonLabel2" : "Save Beneficiary"
+        }
+      },
+      "info" : {
+        "title": "Your --type-- Account Number",
+        "desc": "will be in this section of your bill"
+      },
+      "addEdit" : {
+        "title" : "Let’s get started with your beneficiary details",
+        "desc" : "Please enter your details",
+        "salik" : {
+          "savePin" : "Save my Salik PIN for future transactions",
+          "info": {
+          "title" : "Why should i save my PIN?",
+          "item1" : "We securely save an encryted version of your PIN",
+          "item2" : "You are never asked for your Salik PIN again",
+          "item3" : "Salik account top-ups will be just 2 clicks away!"
+        }
+        },
+        "helperText" : {
+          "accountNumber" : "Account number helperText",
+          "nickName" : "Find your beneficiaries quicker by naming them. --br-- For e.g. Masood DEWA Home"
+        },
+        "success" : {
+          "title" : "New --type-- beneficiary created",
+          "desc" : "You will now receive notifications whenever we detect a due bill against this number",
+          "buttonLanbel" : "Done"
+        },
+        "failure" : {
+          "title" : "Failure",
+          "desc" : "Failure Desc",
+          "buttonLanbel" : "Try Again"
+        }
+      },
+      "details" : {
+        "title" : "Beneficiary details",
+        "type" : "Beneficiary Type",
+        "status" : "Status",
+        "creationDate": "Beneficiary Creation Date",
+        "notFound" : {
+          "title" : "Benecifiary not found",
+          "desc" : "Go back to beneficiary by click the back button"
+        },
+        "billDetected" : {
+          "title" : "Bill Status",
+          "desc" : " We have detected an outstanding bill payment for this account number",
+          "zeroAmount" : " You don’t have any outstanding bill payment for this account number.",
+          "negativeAmount" : "We have detucted that you are in credit of AED --amount-- for this account number."
+        }
+      },
+      "errors" : {
+        "onlyNumbers" : "Allow only numbers",
+        "minMaxLength" : "Only between --min-- - --max-- are valid.",
+        "matchNumber" : "Entered number should be greater than --greater-- and lesser than --lesser--",
+        "maxLength" : "Length should be --max--",
+        "nickName" : "Allow only these special characters @_#&-"
+      }
+    }
+   
+  },
+  "billPayments": {
+    "landing" : {
+      "title": "Recharges & Bill Payments",
+      "searchTitle" : "Search for a Service Provider, Type or Beneficiary",
+      "searchPlaceholder" : "Search for a Service Provider or Bill payment type"
+    },
+    "steps" : {
+      "startPayment" : {
+        "title" : "Start your payment",
+        "prepaidBalance" : "Current --type-- --serviceType-- balance",
+        "prepaidDesc" : "Make sure this amount is greater then AED 50.00, but doesn't exceed AED 1,000.00",
+        "beneficiaryList" : {
+          "title" : "Your Beneficiaries",
+          "desc" : "Click on your beneficiaries to start payments"
+        },
+        "voucher": {
+          "title" : "Pick a voucher"
+        }
+      },
+      "review": {
+        "title":"Review your payment",
+        "youarePaying" : "You are paying",
+        "payingFrom" : "Paying From"
+      },
+      "confirmation":{
+        "success": {
+          "title" : "Transaction is successfully completed" 
+        },
+        "failure": {
+          "title" : "Transaction could not be processed",
+          "desc":"lorelum sample text lorelum sample text yet to be added bla bla bla"
+        },
+        "customerCare":"Mashreq customer care",
+        "payment":"Frequent Payment?",
+        "saveIt":"Save it as beneficiary",
+        "debited":"Debited",
+        "support":"24/7 support",
+        "contactus":"You can contact us"
+      },
+      "payCustomAmount": {
+        "title": "Pay Custom Amount"
+      }
+    }
+  },
+  "mobileinfo": {
+    "tipstitle": "Please enter your mobile number",
+    "boldpart": "registered with Mashreq. ",
+    "message6": " We will send you a text message with a 6 digit code for authentication."
+  },
+  "footer": {
+    "copy": "2019 Mashreq",
+    "links": ["Requirements", "Security", "Privacy policy", "Service Terms"]
+  }
+}
