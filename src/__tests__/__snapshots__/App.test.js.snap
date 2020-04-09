@@ -2,10 +2,258 @@
 
 exports[`matches snapshot 1`] = `
 <DocumentFragment>
-  <div>
-    <h1>
-       Welcome to mashreq boilerplate you can start editing at App.js 
-    </h1>
+  <div
+    class="MuiBox-root MuiBox-root-6"
+  >
+    <div
+      class="MuiGrid-root makeStyles-root-7 makeStyles-root-9 MuiGrid-container"
+    >
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-12 MuiGrid-grid-xl-12"
+      >
+        <div
+          class="MuiBox-root MuiBox-root-114"
+        >
+          <div
+            class="Header makeStyles-grow-118"
+          >
+            <header
+              class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary makeStyles-appBar-115 MuiPaper-elevation4"
+            >
+              <div
+                class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-116 MuiToolbar-gutters"
+              >
+                <div
+                  class="makeStyles-flexGrow-117"
+                >
+                  <div
+                    class="MuiBox-root MuiBox-root-162"
+                  >
+                    <svg
+                      height="25px"
+                      viewBox="0 0 91 44"
+                      width="40px"
+                    >
+                      <defs>
+                        <lineargradient
+                          id="Logos_Mashreq_symbol_svg__a"
+                          x1="16.934%"
+                          x2="100%"
+                          y1="50%"
+                          y2="50%"
+                        >
+                          <stop
+                            offset="0%"
+                            stop-color="#E85236"
+                          />
+                          <stop
+                            offset="48.2%"
+                            stop-color="#F49E30"
+                          />
+                          <stop
+                            offset="100%"
+                            stop-color="#EFE300"
+                          />
+                        </lineargradient>
+                        <lineargradient
+                          id="Logos_Mashreq_symbol_svg__b"
+                          x1="-8.33%"
+                          x2="115.535%"
+                          y1="32.642%"
+                          y2="68.696%"
+                        >
+                          <stop
+                            offset="0%"
+                            stop-color="#E85236"
+                          />
+                          <stop
+                            offset="48.2%"
+                            stop-color="#F49E30"
+                          />
+                          <stop
+                            offset="100%"
+                            stop-color="#EFE300"
+                          />
+                        </lineargradient>
+                        <lineargradient
+                          id="Logos_Mashreq_symbol_svg__c"
+                          x1="28.643%"
+                          x2="67.441%"
+                          y1="-28.7%"
+                          y2="113.091%"
+                        >
+                          <stop
+                            offset="0%"
+                            stop-color="#E85236"
+                          />
+                          <stop
+                            offset="48.2%"
+                            stop-color="#F49E30"
+                          />
+                          <stop
+                            offset="100%"
+                            stop-color="#EFE300"
+                          />
+                        </lineargradient>
+                        <lineargradient
+                          id="Logos_Mashreq_symbol_svg__d"
+                          x1="51.719%"
+                          x2="49.364%"
+                          y1="-15.755%"
+                          y2="120.799%"
+                        >
+                          <stop
+                            offset="0%"
+                            stop-color="#E85236"
+                          />
+                          <stop
+                            offset="48.2%"
+                            stop-color="#F49E30"
+                          />
+                          <stop
+                            offset="100%"
+                            stop-color="#EFE300"
+                          />
+                        </lineargradient>
+                        <lineargradient
+                          id="Logos_Mashreq_symbol_svg__e"
+                          x1="89.178%"
+                          x2="11.363%"
+                          y1="-29.754%"
+                          y2="122.437%"
+                        >
+                          <stop
+                            offset="0%"
+                            stop-color="#E85236"
+                          />
+                          <stop
+                            offset="48.2%"
+                            stop-color="#F49E30"
+                          />
+                          <stop
+                            offset="100%"
+                            stop-color="#EFE300"
+                          />
+                        </lineargradient>
+                        <lineargradient
+                          id="Logos_Mashreq_symbol_svg__f"
+                          x1="118.022%"
+                          x2="-15.179%"
+                          y1="33.611%"
+                          y2="65.78%"
+                        >
+                          <stop
+                            offset="0%"
+                            stop-color="#E85236"
+                          />
+                          <stop
+                            offset="48.2%"
+                            stop-color="#F49E30"
+                          />
+                          <stop
+                            offset="100%"
+                            stop-color="#EFE300"
+                          />
+                        </lineargradient>
+                      </defs>
+                      <g
+                        fill="none"
+                        fill-rule="evenodd"
+                      >
+                        <path
+                          d="M0 37.178c9.945 4.374 19.617 6.682 28.99 6.701h.235c9.073-.018 17.868-2.186 26.355-6.701-9.31-4.238-18.663-6.463-28.072-6.463C18.39 30.716 9.22 32.806 0 37.178"
+                          fill="url(#Logos_Mashreq_symbol_svg__a)"
+                        />
+                        <path
+                          d="M58.506 30.676c-8.69-12.852-21.115-20.068-38.03-20.438 9.128 13.953 21.71 21.079 38.03 20.438"
+                        />
+                        <path
+                          d="M58.506 30.676c-8.69-12.852-21.115-20.068-38.03-20.438 9.128 13.953 21.71 21.079 38.03 20.438"
+                          fill="url(#Logos_Mashreq_symbol_svg__b)"
+                        />
+                        <path
+                          d="M46.97 0c-1.142 12.109 3.626 21.525 14.287 27.79C62.4 16.633 57.94 7.246 46.97 0z"
+                          fill="url(#Logos_Mashreq_symbol_svg__c)"
+                        />
+                        <path
+                          d="M66.944 26.327c5.687-7.096 6.387-14.891 1.3-23.402-6.678 7.454-7.098 15.36-1.3 23.402"
+                          fill="url(#Logos_Mashreq_symbol_svg__d)"
+                        />
+                        <path
+                          d="M73.156 27.79c7.626-2.021 11.559-7.348 11.677-16.089-8.071 2.025-12.05 7.434-11.677 16.09"
+                          fill="url(#Logos_Mashreq_symbol_svg__e)"
+                        />
+                        <path
+                          d="M76.057 30.393c6.985 1.168 12.166-.792 14.627-6.676a20.055 20.055 0 00-3.435-.315c-5.097 0-8.895 2.311-11.192 6.991"
+                          fill="url(#Logos_Mashreq_symbol_svg__f)"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+                </div>
+                <div
+                  class="makeStyles-flexGrow-117"
+                />
+                <div>
+                  <div
+                    class="MuiBox-root MuiBox-root-163"
+                  >
+                    <div
+                      class="MuiInputBase-root MuiInput-root MuiInput-underline"
+                    >
+                      <select
+                        class="MuiSelect-root MuiSelect-select MuiInputBase-input MuiInput-input"
+                      >
+                        <option
+                          value="er"
+                        >
+                          English
+                        </option>
+                        <option
+                          value="ar"
+                        >
+                          عربى
+                        </option>
+                      </select>
+                      <svg
+                        aria-hidden="true"
+                        class="MuiSvgIcon-root MuiSelect-icon"
+                        focusable="false"
+                        role="presentation"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          d="M7 10l5 5 5-5z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </header>
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-12 MuiGrid-grid-xl-12"
+      >
+        <div
+          class="MuiBox-root MuiBox-root-215"
+        >
+          <div
+            class="MuiBox-root MuiBox-root-216"
+          >
+            <div
+              class="MuiBox-root MuiBox-root-217"
+            />
+          </div>
+        </div>
+      </div>
+      <div
+        class="MuiGrid-root makeStyles-footerStyle-8 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-12 MuiGrid-grid-xl-12"
+      />
+    </div>
   </div>
+   
 </DocumentFragment>
 `;
