@@ -19,9 +19,9 @@ const Review = (props: any) => {
   const { rechargeAmount } = data;
   const { t } = useTranslation();
   const [ selectedAccount, setSelectedAccount ] = useState({});
-  const { currency, availableBalance } = selectedAccount as any;
+  const { currency, balance } = selectedAccount as any;
   const parsedAmount = parseInt(rechargeAmount);
-  const isDisabled = !(parsedAmount !== 0 && parsedAmount > 0 && availableBalance > parsedAmount);
+  const isDisabled = !(parsedAmount !== 0 && parsedAmount > 0 && balance > parsedAmount);
   
 
 

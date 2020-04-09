@@ -12,8 +12,9 @@ import {
   Theme,
   Box,
   colors,
-  SvgIcon,
+  SvgIcon
 } from "@mashreq-digital/ui";
+import CardIcon from "../../../../common/cardIcon";
 import { capitalizeFirstLetter } from "../../../../util/helper";
 import { MoneyPouch } from "@mashreq-digital/webassets";
 
@@ -107,12 +108,14 @@ const PayListItem = (props: CustomListItemProps) => {
     data,
   } = props;
   const {
-    customerName,
-    accountNumber,
+    name,
+    accNo,
     status,
     currency,
-    availableBalance,
+    balance,
+    type
   } = data;
+  const isCard = type && type === "cards";
   const { root, staticStyle, avatarSvgStyle, statusStyle, activeStyle, goldStyle, disabledStyle } = useStyles(props);
   let svgIconProps: any = {};
 
@@ -128,9 +131,9 @@ const PayListItem = (props: CustomListItemProps) => {
         disabled ? disabledStyle : ""
       }`}
     >
-        {/* <Avatar alt={customerName} src={avatarImage} /> */}
+        {/* <Avatar alt={name} src={avatarImage} /> */}
       <ListItemAvatar>
-       <Box className={avatarSvgStyle} p={1.5} display="inline-flex" borderRadius="50%"><SvgIcon height="14" width="16" htmlColor={colors.teal[800]} component={MoneyPouch}/></Box>
+       {type && isCard ? <CardIcon /> : <Box className={avatarSvgStyle} p={1.5} display="inline-flex" borderRadius="50%"><SvgIcon height="14" width="16" htmlColor={colors.teal[800]} component={MoneyPouch}/></Box>}
       </ListItemAvatar>
       <Box
         display="flex"
@@ -138,16 +141,20 @@ const PayListItem = (props: CustomListItemProps) => {
         style={{ width: "100%" }}
       >
         <Box width="calc(100% - 120px)">
-          <ListItemText primary={<H3 noWrap> {customerName} </H3>} />
+          <ListItemText primary={<H3 noWrap> {name} </H3>} />
           {status && (
             <ListItemText
               primary={
                 <>
-                  <Box pr={1} display="inline-block"><Body1>{accountNumber}</Body1></Box>
+                  <Box pr={1} display="inline-block"><Body1>{type && isCard ? "**** **** **** " : ''}{accNo}</Body1></Box>
+                  {type && !isCard &&
+                  <>
                   <Box display="inline-block"><Body1>|</Body1></Box>
                   <Box pl={1} display="inline-block">
                     <Body1 className={statusStyle} >{capitalizeFirstLetter(status)}</Body1>
                   </Box>
+                  </>
+                  }
                 </>
               }
             />
@@ -158,7 +165,7 @@ const PayListItem = (props: CustomListItemProps) => {
           <ListItemText
             primary={
               <Caption>
-                {currency} <b>{availableBalance}</b>
+                {currency} <b>{balance}</b>
               </Caption>
             }
           />
