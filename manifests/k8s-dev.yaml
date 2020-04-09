@@ -1,0 +1,46 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: #{Build.Repository.Name}#
+  labels:
+    app: #{Build.Repository.Name}#
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: #{Build.Repository.Name}#
+  template:
+    metadata:
+      labels:
+        app: #{Build.Repository.Name}#
+      annotations:
+        collectord.io/stdout-logs-type: "access_combined"
+        collectord.io/stderr-logs-type: "access_combined"
+    spec:
+      containers:
+        - name: #{Build.Repository.Name}#
+          image: mashrequae.azurecr.io/#{Build.Repository.Name}#:#{Build.BuildId}#
+          resources:
+            requests:
+              memory: "10Mi"
+              cpu: "0.1"
+            limits:
+              memory: "200Mi"
+              cpu: "1"
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: #{Build.Repository.Name}#
+spec:
+  selector:
+    app: #{Build.Repository.Name}#
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: ClusterIP
