@@ -50,7 +50,7 @@ const Success = (props: SuccessProps) => {
   const [saveData, setSaveData] = useState({});
   const dispatch = useDispatch();
   const benErrorOnSave = useSelector((state:any) => state.beneficiary.billPayment.errorCode);
-  // const addNew = useSelector((state:any) => state.beneficiary.billPayment.addNew);
+  const addNew = useSelector((state:any) => state.beneficiary.billPayment.addNew);
 
 
   const beneficiaryItemForEdit: any = {
@@ -165,7 +165,8 @@ const Success = (props: SuccessProps) => {
             />
           )}
 
-          {sucessModel && benErrorOnSave === "" && <SuccessModel data={saveData} type={type} telecomType={data.telecomType}/>}
+          {sucessModel && addNew !== undefined  && <SuccessModel data={saveData} type={type} telecomType={data.telecomType}/>}
+    
           { benErrorOnSave !== "" && alert("error saving benificiary " +benErrorOnSave )}   
 
 
