@@ -1,115 +1,182 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from "react";
 import PayListItem from "./payList";
 import {
   H4,
   Button,
   Box,
-  makeStyles
+  makeStyles,
+  Theme,
+  CircularProgress,
 } from "@mashreq-digital/ui";
-import { API } from '../../../network';
-import * as Endpoint from '../../../network/Endpoints';
-import { useTranslation } from 'react-i18next';
+import { API } from "../../../network";
+import * as Endpoint from "../../../network/Endpoints";
+import { useTranslation } from "react-i18next";
 
 type PayFromListProps = {
-  onChangeList?: any
-}
+  onChangeList?: any;
+};
 
-const useStyles = makeStyles(()=>({
+const useStyles = makeStyles((theme: Theme) => ({
   dropListStyle: {
-    zIndex: 2, 
+    zIndex: 2,
     overflow: "auto",
     position: "absolute",
     top: "auto",
     width: "100%",
-    backgroundColor: "#fff"
-  }
-}))
+    paddingRight: theme.spacing(2),
+    backgroundColor: "#fff",
+  },
+}));
 
 const PayFromList = (props: PayFromListProps) => {
   const { onChangeList } = props;
-  const {t} = useTranslation();
+  const { t } = useTranslation();
   const { dropListStyle } = useStyles();
   const [active, setActive] = useState<any>({});
   const [suggestionList, setSuggestionList] = useState<any>([]);
   const [dropList, setDropList] = useState(false);
+  const listItems = ["accounts","cards"]
 
-  useEffect(()=>{
-    let url = Endpoint.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT, data={
-      minAmountToBeAvailable : "200",
-      suggestAccountOrCard : true
-    };
+  useEffect(() => {
+    let url = Endpoint.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT,
+      data = {
+        minAmountToBeAvailable: "200",
+        suggestAccountOrCard: true,
+      };
     const config = {
-      method: 'POST',
+      method: "POST",
       url,
-      data
+      data,
     };
 
     API(config).then((val: any) => {
       if (val && val.data && val.data.data) {
-        const { accounts, suggestedAccount } = val.data.data;
-        if(suggestedAccount && suggestedAccount.status) {
-          setActive(suggestedAccount);
-          onChangeList(suggestedAccount);
+        const {
+          accounts,
+          cards,
+          suggestedAccount,
+          suggestedCard,
+        } = val.data.data;
+        if (suggestedAccount && suggestedAccount.status) {
+          let acctData = convertCardAccounts(suggestedAccount, "accounts");
+          setActive(acctData);
+          onChangeList({...suggestedAccount, balance: acctData.balance, type: "accounts"});
         }
-        if(accounts && accounts.length > 0) {
-          setSuggestionList(accounts);
-        }     
+        if (suggestedCard && suggestedCard.cardHolderName) {
+          let cardData = convertCardAccounts(suggestedCard, "cards");
+          setActive(cardData);
+          // setActive(suggestedCard);
+          onChangeList({...suggestedCard, balance: cardData.balance, type: "accounts"});
+        }
+        setSuggestionList({
+          accounts: accounts && accounts.length > 0 ? accounts : [],
+          cards: cards && cards.length > 0 ? cards : [],
+        });
       }
     });
-  },[onChangeList]);
+  }, [onChangeList]);
 
-  const onClickCallback = (item?: any) => {
+  const onClickCallback = (data: any, item?: any) => {
     setDropList(false);
-    setActive(item);
+    setActive(data);
     onChangeList(item);
+  };
+
+  const convertCardAccounts = (obj: any, type: string) => {
+    let data = {
+      name: "",
+      accNo: "",
+      status: "",
+      currency: "",
+      balance: "",
+      type: ""
+    };
+    data["type"] = type;
+    if(type === "accounts") {
+      const { customerName,
+        accountNumber,
+        status,
+        currency,
+        availableBalance} = obj;
+      data["name"] = customerName;
+      data["accNo"] = accountNumber;
+      data["status"] = status;
+      data["currency"] = currency;
+      data["balance"] = availableBalance;
+
+    } else if (type === "cards") {
+      const { cardHolderName,
+        cardNo,
+        cardStatus,
+        currency,
+        availableCreditLimit} = obj;
+        data["name"] = cardHolderName;
+        data["accNo"] = cardNo;
+        data["status"] = cardStatus;
+        data["currency"] = currency;
+        data["balance"] = availableCreditLimit;
+
+    }
+    return data;
   }
 
-  const listHeight = suggestionList && suggestionList.length > 4 ? 75*3 : "auto"
-  
-  // if(active && active.availableBalance) {
+  const allSuggestions = [...(suggestionList && suggestionList.cards && suggestionList.cards.length > 0 ? suggestionList.cards : []), 
+  ...(suggestionList && suggestionList.accounts && suggestionList.accounts.length > 0 ? suggestionList.accounts : [])],
+  listHeight = allSuggestions && allSuggestions.length > 4 ? 75 * 3 : "auto";
+
+  if (active && active.currency) {
     return (
       <Box position="relative" minHeight="110px">
         <Box mt={5} display="flex" justifyContent="space-between">
-                <H4>{t("billPayments.steps.review.payingFrom")}</H4>
-                <Button
-                  onClick={() => {
-                    setDropList(!dropList);
-                  }}
-                  color="primary"
-                >
-                  {!dropList  ? t("common.action.change") : t("common.action.cancel")}
-                </Button>
-              </Box>
-              <Box className={dropListStyle} height={dropList ? listHeight : "auto"}>
-                {!dropList &&
-              <PayListItem
-                isDefault
-                data={active}
-              />
-            }
-              
-              {dropList && (
-                <>
+          <H4>{t("billPayments.steps.review.payingFrom")}</H4>
+          <Button
+            onClick={() => {
+              setDropList(!dropList);
+            }}
+            color="primary"
+          >
+            {!dropList ? t("common.action.change") : t("common.action.cancel")}
+          </Button>
+        </Box>
+        <Box className={dropListStyle} height={dropList ? listHeight : "auto"}>
+          {!dropList && <PayListItem isDefault data={active} />}
 
-                {suggestionList.map((item: any, i: number)=>{
-                  return(
-                    <Fragment key={i+"PayListItem"}>
-                    <PayListItem
-                      onClickCallback={()=>onClickCallback(item)}
-                        active={item.accountNumber === active.accountNumber}
-                      // disabled
-                      data={item}
-                      />
-                      </Fragment>
-                  )
-                })}
+          {dropList && (
+            <>
+              {suggestionList &&
+                <>
+                  {listItems.map((list: string)=>{
+                    if(suggestionList[list] && suggestionList[list].length > 0) {
+                      return suggestionList[list].map((item: any, i:number)=>{
+                        let data = convertCardAccounts(item, list);
+                        return (
+                          <Fragment key={i + "PayListItem"}>
+                            <PayListItem
+                              onClickCallback={() => onClickCallback(data, {...item, balance: data.balance, type: list})}
+                              active={data.accNo === active.accNo}
+                              data={data}
+                            />
+                          </Fragment>
+                        );
+                      });
+                    } else {
+                      return false
+                    }
+                    
+                  })}
                 </>
-              )}
-              </Box>
+              }
+            </>
+          )}
+        </Box>
       </Box>
-    )
-  // }
-  // return <></>;
-}
+    );
+  }
+  return (
+    <Box display="flex" alignItems="baseline">
+      <CircularProgress />
+    </Box>
+  );
+};
 
 export default PayFromList;
