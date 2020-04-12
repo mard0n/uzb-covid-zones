@@ -91,7 +91,6 @@ const PaymentNumber = (props: PaymentNumberProps) => {
 
   const onClickExistingBeneficiary = (existingBeneficiary: any) => {
     onClickProceed(existingBeneficiary);
-    console.log(existingBeneficiary, "existingBeneficiary =====>>>>>>>");
     onClickBeneficiary();
   }
 
@@ -116,11 +115,9 @@ const PaymentNumber = (props: PaymentNumberProps) => {
       data,
       url,
     };
-    console.log("onClickProceed -> data", data);
     
     if(data["serviceTypeCode"]) {
       API(config).then((val: any) => { 
-      console.log("onClickProceed -> val", val);
       if(val && val.data && (val.data.errorCode || val.data.errorId)) {
         setError(val.data.errorCode || val.data.errorId)
       } else if(val.data && val.data.data) {

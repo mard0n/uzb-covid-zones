@@ -32,14 +32,12 @@ export const EDIT_ADD_MODEL=
  * @param ``
  */
 export const addUpdateBeneficiaryRequest = (payload: any) => {
-  console.log("addUpdateBeneficiaryRequest -> payload masood", payload)
   return ({
   type: ADD_UPDATE_BILL_PAY_BENEFICIARY_REQUEST,
   payload,
 })};
 
 export const addUpdateBeneficiarySuccess = (payload: any) => {
-  console.log("addUpdateBeneficiarySuccess -> payload masood ====>", payload)
 
   return ({
   type: ADD_UPDATE_BILL_PAY_BENEFICIARY_SUCCESS,

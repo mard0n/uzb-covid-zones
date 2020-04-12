@@ -23,8 +23,6 @@ const Review = (props: any) => {
   const parsedAmount = parseInt(rechargeAmount);
   const isDisabled = !(parsedAmount !== 0 && parsedAmount > 0 && balance > parsedAmount);
   
-
-
   const onChangeList = (item: any) => {
     setSelectedAccount(item)
   }

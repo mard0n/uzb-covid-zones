@@ -158,7 +158,7 @@ const {t} = useTranslation();
         />)
       default:
         return (
-          <StartPayments type={billType} onHandleBeneficiary={()=>onHandleBeneficiary()} onSubmitPayment={onSubmitPayment} onHandleBack={()=>onHandleBack()}/>
+          <StartPayments data={startPayentData} type={billType} onHandleBeneficiary={()=>onHandleBeneficiary()} onSubmitPayment={onSubmitPayment} onHandleBack={()=>onHandleBack()}/>
         );
     }
   };

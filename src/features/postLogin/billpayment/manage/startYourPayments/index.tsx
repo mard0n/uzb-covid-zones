@@ -8,11 +8,12 @@ type StartPaymentsProps = {
   type: string | any;
   onHandleBeneficiary?: any;
   onHandleBack?: any;
+  data? : any;
   onSubmitPayment?: any
 };
 
 const StartPayments = (props: StartPaymentsProps) => {
-  const { type, onHandleBeneficiary, onHandleBack, onSubmitPayment } = props;
+  const { type, data, onHandleBeneficiary, onHandleBack, onSubmitPayment } = props;
   const [toggleView, setToggleView] = useState(false);
   const [activeTab, setActiveTab] = useState("");
   const [activeBeneficiary, setActiveBaneficiary] = useState({});
@@ -24,6 +25,21 @@ const StartPayments = (props: StartPaymentsProps) => {
       setActiveTab("prepaid");
     }
   },[type]);
+
+  useEffect(()=>{
+    // if(type && (type === "etisalat" || type === "du")) {
+    //   setActiveTab("prepaid");
+    // }
+    if(data && data.rechargeAmount) {
+      // setActiveTab(data.)
+      // console.log(data, "data rechargeAmount =====")
+      if(data.telecomType) {
+        setActiveTab(data.telecomType);
+      }
+      setToggleView(true);
+      setActiveBaneficiary(data);
+    }
+  },[data]);
 
   const onChangeTab = (data: string) => {
     setActiveTab(data);

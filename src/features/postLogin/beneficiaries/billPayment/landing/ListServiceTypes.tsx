@@ -192,7 +192,6 @@ const ListServiceTypes = (props: any) => {
     );
   }
 
-  console.log(editModal, "editModal ========>>>>>>")
 
   // if (!loading) {
   return (

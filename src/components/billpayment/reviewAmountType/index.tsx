@@ -42,8 +42,6 @@ const ReviewAmountType = (props: ReviewAmountTypeProps) => {
   const { rechargeAmount, telecomType, nickname, accountNumber } = data;
   const { iconStyle, successIconStyle } = useStyles();
 
-  console.log(data)
-
   let typeWithTab = capitalizeFirstLetter(type) + ' '+ (telecomType ? capitalizeFirstLetter(telecomType) : ''),
   cardHeading = nickname ? nickname : `${typeWithTab}`,
   cardSubheading = nickname ? `${typeWithTab} | ${accountNumber}` : accountNumber;

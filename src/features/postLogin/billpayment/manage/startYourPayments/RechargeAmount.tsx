@@ -45,7 +45,6 @@ const RechargeAmount = (props: RechargeAmountProps) => {
   const [payModal, setPayModal] = useState(false);
 
   const handleReviewPayment = (obj: any) => {
-    console.log("handleReviewPayment", obj);
     if(onSubmitPayment && typeof onSubmitPayment === "function") {
       onSubmitPayment({...obj, telecomType: serviceType || activeTab});
     }
@@ -85,7 +84,7 @@ const RechargeAmount = (props: RechargeAmountProps) => {
     cardHeading = nickname ? nickname : `${typeWithTab}`,
       cardSubheading = nickname ? `${typeWithTab} | ${accountNumber}` : accountNumber;
 
-    const isValidAmount = amount ? !(amount >= 50 && amount <= 1000) : false;
+    const isValidAmount = amount && (type === "etisalat" || type === "salik") ? !(amount >= 50 && amount <= 1000) : false;
   return (
     <>
       {payModal && (
@@ -116,6 +115,7 @@ const RechargeAmount = (props: RechargeAmountProps) => {
                 <Grid container spacing={5}>
                   <Grid item xs={5} sm={5} md={5} lg={5} xl={5}>
                     <AmountWithInput
+                      hideAmountList={type === "noqodi" || type === "salik"}
                       input={{
                         fullWidth: true,
                         autoFocus: true,
@@ -130,11 +130,13 @@ const RechargeAmount = (props: RechargeAmountProps) => {
                       amountOptions={[50, 70, 100, 125]}
                       onChangeField={(value: any) => onChangeField(value)}
                     />
+                    {!(type === "noqodi") &&
                     <Box mt={2}>
                       <Caption>
                         {t("billPayments.steps.startPayment.prepaidDesc")}
                       </Caption>
                     </Box>
+                    }
                   </Grid>
                   {isPrepaid && type === "du" && 
                   <Grid item xs={12}>

@@ -49,7 +49,6 @@ const SaveBeneficiaryPrompt = (props: saveBeneficiaryProps) => {
   useEffect(() => {
     const handleClickShowPassword = (val: any) => {
       let cloneFields = { ...val };
-      console.log(cloneFields);
       cloneFields["pincode"]["config"]["type"] = hideSalikPin
         ? "password"
         : "text";
