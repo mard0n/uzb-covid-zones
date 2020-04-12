@@ -38,7 +38,7 @@ const duVouchers: any = [
 const RechargeAmount = (props: RechargeAmountProps) => {
   const { t } = useTranslation();
   const { type, activeTab, onClickBackCallback, activeBeneficiary, onSubmitPayment } = props;
-  const { nickname, accountNumber, dueAmount, serviceType } = activeBeneficiary;
+  const { nickname, accountNumber, dueAmount, serviceType } = activeBeneficiary || {};
   const isPrepaid = (activeTab && activeTab === "prepaid") || type === "noqodi" || type === "salik";
   const [amount, setAmount] = useState<any>(null);
   const [selVoucher, setSelVoucher] = useState<any>({});
