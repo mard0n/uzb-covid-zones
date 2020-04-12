@@ -94,9 +94,9 @@ const PaymentNumber = (props: PaymentNumberProps) => {
     onClickBeneficiary();
   }
 
-  const onBlurFields = (resData: any) => {
-    setFormData(resData);
-    setDisabled(!resData.valid);
+  const onBlurFields = (resData: any, formData: any) => {
+    setFormData(formData);
+    setDisabled(!formData.valid);
   };
 
   const onClickProceed = (existingBeneficiary?: any) => {
@@ -162,7 +162,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
             <InputWrapper
               type={type}
               initialState={fields}
-              onBlur={onBlurFields}
+              onChangeFields={onBlurFields}
             />
           </Grid>
         </Grid>
