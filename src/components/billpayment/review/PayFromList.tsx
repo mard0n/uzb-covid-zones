@@ -35,46 +35,66 @@ const PayFromList = (props: PayFromListProps) => {
   const [active, setActive] = useState<any>({});
   const [suggestionList, setSuggestionList] = useState<any>([]);
   const [dropList, setDropList] = useState(false);
-  const listItems = ["accounts","cards"]
+  const listItems = ["accounts","cards"];
+
+  // const callOnChangeList = useCallback((activeAct: any, type: string) => {
+  //   let acctData = convertCardAccounts(activeAct, type);
+  //   setActive(acctData);
+  //   if(onChangeList && typeof onChangeList === "function") {
+  //     onChangeList({...activeAct, balance: acctData.balance, type: type});
+  //   }
+  // }, [onChangeList]);
 
   useEffect(() => {
-    let url = Endpoint.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT,
-      data = {
-        minAmountToBeAvailable: "200",
-        suggestAccountOrCard: true,
-      };
-    const config = {
-      method: "POST",
-      url,
-      data,
+    
+    const callOnChangeList = (activeAct: any, type: string) => {
+      let acctData = convertCardAccounts(activeAct, type);
+      setActive(acctData);
+      if(onChangeList && typeof onChangeList === "function") {
+        onChangeList({...activeAct, balance: acctData.balance, type: type});
+      }
     };
 
-    API(config).then((val: any) => {
-      if (val && val.data && val.data.data) {
-        const {
-          accounts,
-          cards,
-          suggestedAccount,
-          suggestedCard,
-        } = val.data.data;
-        if (suggestedAccount && suggestedAccount.status) {
-          let acctData = convertCardAccounts(suggestedAccount, "accounts");
-          setActive(acctData);
-          onChangeList({...suggestedAccount, balance: acctData.balance, type: "accounts"});
+    const getPaymentList = () => {
+      let url = Endpoint.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT,
+        data = {
+          minAmountToBeAvailable: "200",
+          suggestAccountOrCard: true,
+        };
+      const config = {
+        method: "POST",
+        url,
+        data,
+      };
+
+      API(config).then((val: any) => {
+        if (val && val.data && val.data.data) {
+          const {
+            accounts,
+            cards,
+            suggestedAccount,
+            suggestedCard,
+          } = val.data.data;
+          if (suggestedAccount && suggestedAccount.status) {
+            callOnChangeList(suggestedAccount, "accounts");
+          }
+          if (suggestedCard && suggestedCard.cardHolderName) {
+            callOnChangeList(suggestedCard, "cards");
+          }
+          setSuggestionList({
+            accounts: accounts && accounts.length > 0 ? accounts : [],
+            cards: cards && cards.length > 0 ? cards : [],
+          });
         }
-        if (suggestedCard && suggestedCard.cardHolderName) {
-          let cardData = convertCardAccounts(suggestedCard, "cards");
-          setActive(cardData);
-          // setActive(suggestedCard);
-          onChangeList({...suggestedCard, balance: cardData.balance, type: "accounts"});
-        }
-        setSuggestionList({
-          accounts: accounts && accounts.length > 0 ? accounts : [],
-          cards: cards && cards.length > 0 ? cards : [],
-        });
-      }
-    });
-  }, [onChangeList]);
+      });
+    }
+
+    getPaymentList();
+
+    /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
+    We should add onChangeList as dependency then source api will get triggered infinitely */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
 
   const onClickCallback = (data: any, item?: any) => {
     setDropList(false);

@@ -41,15 +41,24 @@ const {t} = useTranslation();
   const onSuccessOTP = () => {
     setLoading(true);
       updateStep({step: "confirmation", stepInit: "Confirmation"});
-      const {accountNumber, serviceTypeCode, billRefNo, rechargeAmount, selectedAccount} =startPayentData as any, url = Endpoint.BILL_PAYMENT_PAY_BILL_ENDPOINT,
-      data= {
+      const {accountNumber, serviceTypeCode, billRefNo, rechargeAmount, selectedAccount} =startPayentData as any, url = Endpoint.BILL_PAYMENT_PAY_BILL_ENDPOINT;
+      let data: any = {
         "consumerId": accountNumber, //"0504930554",
         "billerType": serviceTypeCode, //"etisalat-prepaid",
         "billRefNo" : billRefNo, //"06120204224478456558",
-        "paymentMode": "ACCOUNT",
         "paidAmount": rechargeAmount, //"20.00",
-        "debitAccountNo": selectedAccount.accountNumber //"010490707201"
     };
+
+    if(selectedAccount) {
+      if(selectedAccount.type === "cards" && selectedAccount.encryptedCardNumber) {
+        data["debitAccountNo"] = selectedAccount.encryptedCardNumber; //cardNo
+        data["paymentMode"] = "CARD"; //cardNo
+      } else if(selectedAccount.accountNumber) {
+        data["debitAccountNo"]= selectedAccount.accountNumber; //accountNumber
+        data["paymentMode"] = "ACCOUNT";
+      }
+    }
+    
       const config = {
         method: 'POST',
         url,
