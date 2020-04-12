@@ -208,7 +208,13 @@
     "landing" : {
       "title": "Recharges & Bill Payments",
       "searchTitle" : "Search for a Service Provider, Type or Beneficiary",
-      "searchPlaceholder" : "Search for a Service Provider or Bill payment type"
+      "searchPlaceholder" : "Search for a Service Provider or Bill payment type",
+      "search" : {
+        "notFound": {
+          "title" : "No search results",
+          "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+        }
+      }
     },
     "steps" : {
       "startPayment" : {

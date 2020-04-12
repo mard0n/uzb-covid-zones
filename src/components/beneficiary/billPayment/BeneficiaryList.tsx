@@ -14,7 +14,8 @@ import {
 // import { BENIFICIARY_BILL_PAYMENT_ADD_EDIT } from "../../../router/config";
 // import { updateBeneficiaryStatus } from "../../../redux/actions/beneficiary/billPayment/addBillPaymentActions";
 // import getBeneficiariesAvatar from "../../util/getBeneficiariesAvatar";
-import ImageWithText from "../../../common/imageWithText";
+// import ImageWithText from "../../../common/imageWithText";
+import BeneficiaryCardList from "./BeneficiaryListCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
   firstIconText: {
@@ -84,7 +85,8 @@ const BeneficiaryList = (props: BeneficiaryListProps) => {
             <Box my={5} key={i}>
               <Box mb={2}>{name && <H5>{name}</H5>}</Box>
               {/* <Grid container> */}
-              <Box display="flex" flexWrap="wrap">
+              <BeneficiaryCardList data={data} boxShadow={boxShadow} onClick={onClickServiceType}/>
+              {/* <Box display="flex" flexWrap="wrap">
                 {data &&
                   data.length > 0 &&
                   data.map((dItem: any, j: number) => {
@@ -106,7 +108,7 @@ const BeneficiaryList = (props: BeneficiaryListProps) => {
                     }
                     return null;
                   })}
-                  </Box>
+                  </Box> */}
               {/* </Grid> */}
             </Box>
           );

@@ -1,23 +1,37 @@
 import React from 'react'
 import { TextField, IconButton, TextFieldProps } from '@mashreq-digital/ui';
-import { Search } from '@mashreq-digital/webassets';
+import { Search, CrossCircle } from '@mashreq-digital/webassets';
 
-const InputSearch = (props: TextFieldProps) => {
+type InputSearchProps = TextFieldProps & {
+  onClickClear?: any,
+}
+
+const InputSearch = (props: InputSearchProps) => {
+  const {onClickClear, ...rest} = props;
+  let adornment: any = {
+    startAdornment: (
+      <IconButton type="submit" aria-label="search">
+        <Search />
+      </IconButton>
+    )
+  };
+
+  if(rest.value) {
+    adornment["endAdornment"] = (
+      <IconButton onClick={onClickClear}>
+        <CrossCircle />
+      </IconButton>
+    )
+  }
   return (
     <TextField
       fullWidth
-      placeholder={props.placeholder}
+      placeholder={rest.placeholder}
       inputProps={{
-        "aria-label": props.placeholder
+        "aria-label": rest.placeholder
       }}
-      InputProps={{
-        startAdornment: (
-          <IconButton type="submit" aria-label="search">
-            <Search />
-          </IconButton>
-        )
-      }}
-      {...props}
+      InputProps={adornment}
+      {...rest}
     />
   )
 }
