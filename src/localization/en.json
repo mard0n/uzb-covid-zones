@@ -14,7 +14,8 @@
       "nickName": "Nick Name",
       "accountNumber": "Account Number",
       "payCustomAmount" : "Pay Custom Amount",
-      "enterMobileNo": "Enter your --type-- account number"
+      "enterMobileNo": "Enter your --type-- account number",
+      "enterCode": "Enter your --type-- code"
     },
     "hintText": {
       "mobileNumber" : "Enter your --No-- digit acount number"

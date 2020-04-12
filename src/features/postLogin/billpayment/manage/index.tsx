@@ -41,7 +41,7 @@ const {t} = useTranslation();
   const onSuccessOTP = () => {
     setLoading(true);
       updateStep({step: "confirmation", stepInit: "Confirmation"});
-      const {accountNumber, serviceTypeCode, billRefNo, rechargeAmount, selectedAccount} =startPayentData as any, url = Endpoint.BILL_PAYMENT_PAY_BILL_ENDPOINT;
+      const {accountNumber, salikPinCode, serviceTypeCode, billRefNo, rechargeAmount, selectedAccount} =startPayentData as any, url = Endpoint.BILL_PAYMENT_PAY_BILL_ENDPOINT;
       let data: any = {
         "consumerId": accountNumber, //"0504930554",
         "billerType": serviceTypeCode, //"etisalat-prepaid",
@@ -50,6 +50,11 @@ const {t} = useTranslation();
     };
 
     if(selectedAccount) {
+      //salik
+      if(salikPinCode) {
+        let isValidNumber = !isNaN(Number(salikPinCode));
+        data["checkDigit"] = isValidNumber ? btoa(salikPinCode) : salikPinCode;
+      }
       if(selectedAccount.type === "cards" && selectedAccount.encryptedCardNumber) {
         data["debitAccountNo"] = selectedAccount.encryptedCardNumber; //cardNo
         data["paymentMode"] = "CARD"; //cardNo

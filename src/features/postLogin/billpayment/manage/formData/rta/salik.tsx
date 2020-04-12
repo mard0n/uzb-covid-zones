@@ -14,7 +14,11 @@ const salik = {
         required: true,
         value: "",
         helperText: "common.label.accountNumber",
-        label: "common.label.accountNumber"
+        label: replaceStr(
+          i18n.t("common.label.enterMobileNo"),
+          "--type--",
+          "Salik"
+        )
       },
       validation: {
         onChangeRegex: RegEx.NUMERIC_ONLY,
@@ -49,7 +53,11 @@ const salik = {
         required: true,
         value: "",
         helperText: "common.label.pincode",
-        label: "SALIK " + i18n.t("common.label.pincode")
+        label: replaceStr(
+          i18n.t("common.label.enterCode"),
+          "--type--",
+          "Salik PIN"
+        )
       },
       validation: {
         onChangeRegex: RegEx.NUMERIC_ONLY,

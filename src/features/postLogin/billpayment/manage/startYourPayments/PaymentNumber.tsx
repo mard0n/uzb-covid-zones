@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Grid, Box } from "@mashreq-digital/ui";
+import { Button, Grid, Box, IconButton } from "@mashreq-digital/ui";
 import FilledCheckBox from "../../../../../common/filledCheckbox";
 import InputWrapper from "../../../../../common/inputWrapper";
 import GetBeneficiaryList from "./GetBeneficiaryList";
@@ -9,6 +9,7 @@ import { getTelecomServiceType } from "../../../../../util/getTelecomServiceType
 import { BILL_PAYMENT_ENQUIRY } from "../../../../../network/Endpoints";
 import { API } from "../../../../../network";
 import { capitalizeFirstLetter } from "../../../../../util/helper";
+import { Eye, Eye2 } from "@mashreq-digital/webassets";
 
 type PaymentNumberProps = {
   type : any,
@@ -28,6 +29,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
       : [];
   const [billType, setBillType] = useState(formSchema["type"]);
   const [telecomValue, setTelecomValue] = useState("prepaid");
+  const [hideSalikPin, setHideSalikPin] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [fields, setFields] = useState<any>({});
   const [formData, setFormData] = useState({});
@@ -49,6 +51,29 @@ const PaymentNumber = (props: PaymentNumberProps) => {
     };
     setFields(initFieldProps());
   }, [formFields, type]);
+
+  useEffect(()=>{
+    const handleClickShowPassword = (val: any) => {
+      let cloneFields = {...val};
+      cloneFields['pincode']['config']['type'] = hideSalikPin ?  'password' : 'text';
+      setHideSalikPin(!hideSalikPin);
+      setFields(cloneFields);
+    }
+
+    for (const field in formFields) {
+      if (type==="salik" && field === "pincode") {
+        formFields[field]["config"]["InputProps"] = {
+          endAdornment: (
+            <IconButton
+            aria-label="toggle password visibility"
+            onClick={()=>handleClickShowPassword(fields)}
+          >
+            {hideSalikPin ? <Eye /> : <Eye2 />}
+          </IconButton>
+          )
+        };
+      }
+    }},[type, fields, hideSalikPin, formFields]);
 
   const onClickFilledOptions = (selItem: any) => {
     let cloneFields = { ...formSchema[selItem]["fields"] };
@@ -73,8 +98,14 @@ const PaymentNumber = (props: PaymentNumberProps) => {
   const onClickProceed = (existingBeneficiary?: any) => {
     let data: any = existingBeneficiary ? { ...existingBeneficiary } : { ...formData },
       url = BILL_PAYMENT_ENQUIRY;
-    data["serviceTypeCode"] = getTelecomServiceType((type === "du" || type === "etisalat") ? billType.toLowerCase() : type === "noqodi" ? capitalizeFirstLetter(billType) : billType.toUpperCase(), telecomValue);
+    data["serviceTypeCode"] = getTelecomServiceType((type === "du" || type === "etisalat") ? billType.toLowerCase() : (type === "noqodi" || type === "salik") ? capitalizeFirstLetter(billType) : billType.toUpperCase(), telecomValue);
     delete data["valid"];
+
+    if(type === 'salik') {
+      delete data["pincode"];
+      data["salikPinCode"] = btoa(fields["pincode"]['config']['value']);
+    }
+
     const config = {
       method: 'POST',
       data,
