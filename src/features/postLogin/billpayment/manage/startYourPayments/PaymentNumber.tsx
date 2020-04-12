@@ -19,8 +19,7 @@ type PaymentNumberProps = {
 }
 
 const PaymentNumber = (props: PaymentNumberProps) => {
-  // onClickBeneficiary,
-  const { type, onProceed, onChangeTab } = props;
+  const { type, onProceed, onChangeTab, onClickBeneficiary } = props;
   const getType: keyof typeof FormFields = type;
   const formSchema: any = FormFields[getType];
   const telecomOptions =
@@ -89,6 +88,12 @@ const PaymentNumber = (props: PaymentNumberProps) => {
       onChangeTab(selItem);
     }
   };
+
+  const onClickExistingBeneficiary = (existingBeneficiary: any) => {
+    onClickProceed(existingBeneficiary);
+    console.log(existingBeneficiary, "existingBeneficiary =====>>>>>>>");
+    onClickBeneficiary();
+  }
 
   const onBlurFields = (resData: any) => {
     setFormData(resData);
@@ -176,7 +181,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
           {t("common.action.proceed")}
         </Button>
       </Box>
-      <GetBeneficiaryList type={type} telecomActiveTab={telecomValue} onClickBeneficiary={onClickProceed}/>
+      <GetBeneficiaryList type={type} telecomActiveTab={telecomValue} onClickBeneficiary={onClickExistingBeneficiary}/>
     </>
   );
 };

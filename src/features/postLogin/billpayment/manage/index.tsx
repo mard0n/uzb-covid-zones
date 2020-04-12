@@ -38,10 +38,11 @@ const {t} = useTranslation();
   //   }
   // };
 
-  const onSuccessOTP = () => {
+  const onSuccessOTP = (finalData?: any) => {
     setLoading(true);
       updateStep({step: "confirmation", stepInit: "Confirmation"});
-      const {accountNumber, salikPinCode, serviceTypeCode, billRefNo, rechargeAmount, selectedAccount} =startPayentData as any, url = Endpoint.BILL_PAYMENT_PAY_BILL_ENDPOINT;
+      let getAllData = finalData ? finalData : startPayentData;
+      const {accountNumber, salikPinCode, serviceTypeCode, billRefNo, rechargeAmount, selectedAccount} =getAllData as any, url = Endpoint.BILL_PAYMENT_PAY_BILL_ENDPOINT;
       let data: any = {
         "consumerId": accountNumber, //"0504930554",
         "billerType": serviceTypeCode, //"etisalat-prepaid",
@@ -83,7 +84,12 @@ const {t} = useTranslation();
   };
 
   const onSubmitReview = (item: any) => {
-    updateStep({step: "otp", stepInit: "Authorization"});
+    let updateOptions = {step: "otp", stepInit: "Authorization"};
+    if(options && options.length> 0 && options.indexOf("Authorization") === -1) {
+      updateOptions = {step: "confirmation", stepInit: "Confirmation"};
+      onSuccessOTP(item);
+    }
+    updateStep(updateOptions);
     setStartPaymentData(item);
   }
 

@@ -70,18 +70,20 @@ const Success = (props: SuccessProps) => {
   };
 
   const SaveBenificiarySubmit = (formData: any) => {
-    let resData = {
+    let resData: any = {
       nickname: formData.nickName,
       serviceTypeCode: data.serviceTypeCode,
       accountNumber: data.accountNumber,
     }
     setSaveData(resData);
     if (data.serviceTypeCode === "Salik") {
-      setSaveData({
+      let isValidNumber = !isNaN(Number(data.salikPinCode));
+      resData = {
         ...resData,
-        salikPinCode: "NDIxOQ==",
-        savePinCode: false,
-      });
+        salikPinCode: data.salikPinCode ? isValidNumber ? btoa(data.salikPinCode) : data.salikPinCode : '', 
+        savePinCode: formData.savePin,
+      }
+      setSaveData(resData);
     }
     dispatch(
       Actions.addUpdateBeneficiaryRequest({ updateMode: false, data: resData })

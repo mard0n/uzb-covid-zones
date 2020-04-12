@@ -5,41 +5,41 @@ import i18n from '../../../../../../config/i18n';
 const salik = {
   type: "salik",
   fields: {
-    pincode: {
-      config: {
-        type: 'password',
-        inputProps: {
-          maxLength: 4
-        },
-        required: false,
-        value: "",
-        helperText: "common.label.pincode",
-        label: "SALIK" + i18n.t("common.label.pincode")
-      },
-      validation: {
-        onChangeRegex: RegEx.NUMERIC_ONLY,
-        schema: [
-          {
-            regEx: replaceStr(
-              replaceStr(RegEx.NUMERIC_LIMIT, "min,", ''),
-              "max",
-              4
-            ),
-            errorCode: replaceStr(
-              replaceStr(
-                i18n.t("beneficiary.manage.errors.maxLength"),
-                "--min--",
-                ''
-              ),
-              "--max--",
-              4
-            )
-          }
-        ]
-      },
-      valid: false,
-      touched: false
-    },
+    // pincode: {
+    //   config: {
+    //     type: 'password',
+    //     inputProps: {
+    //       maxLength: 4
+    //     },
+    //     required: false,
+    //     value: "",
+    //     helperText: "common.label.pincode",
+    //     label: "SALIK" + i18n.t("common.label.pincode")
+    //   },
+    //   validation: {
+    //     onChangeRegex: RegEx.NUMERIC_ONLY,
+    //     schema: [
+    //       {
+    //         regEx: replaceStr(
+    //           replaceStr(RegEx.NUMERIC_LIMIT, "min,", ''),
+    //           "max",
+    //           4
+    //         ),
+    //         errorCode: replaceStr(
+    //           replaceStr(
+    //             i18n.t("beneficiary.manage.errors.maxLength"),
+    //             "--min--",
+    //             ''
+    //           ),
+    //           "--max--",
+    //           4
+    //         )
+    //       }
+    //     ]
+    //   },
+    //   valid: false,
+    //   touched: false
+    // },
     nickName: {
       config: {
         type: "text",

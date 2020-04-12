@@ -121,7 +121,7 @@ const SaveBeneficiaryPrompt = (props: saveBeneficiaryProps) => {
               checked={savePin}
               onChange={() => onChangeSavePin()}
               color="default"
-              label={t("beneficiary.manage.addSave.salik.savePin")}
+              label={t("beneficiary.manage.addEdit.salik.savePin")}
             />
           )}
         </>
@@ -131,7 +131,11 @@ const SaveBeneficiaryPrompt = (props: saveBeneficiaryProps) => {
         variant: "contained",
         disabled: disabledSaveButton,
         onClick: () => {
-          onSubmitSave(formData);
+          let resData: any = {...formData};
+          if(getType === "salik") {
+            resData["savePin"] = savePin;
+          }
+          onSubmitSave(resData);
         }
       }}
     />
