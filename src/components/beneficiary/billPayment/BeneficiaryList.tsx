@@ -53,16 +53,17 @@ const BeneficiaryList = (props: BeneficiaryListProps) => {
   // const dispatch = useDispatch();
   // const history = useHistory();
 
+  /* Credit Card Changes */
   useEffect(()=>{
     let cloneList: any = [...list];
     if(cloneList && cloneList.length > 0) {
-      let cardsObj = {
-        name: "Credit Card Payments",
-        data: [{name: "My Mashreq Credit Card", code: "AADC"}, 
-        {name: "Another Mashreq Credit Card", code: "AADC"}, 
-        {name: "Non-Mashreq Credit Card",   code: "AADC"}]
-      };
-      cloneList[cloneList.length] = cardsObj;
+      // let cardsObj = {
+      //   name: "Credit Card Payments",
+      //   data: [{name: "My Mashreq Credit Card", code: "AADC"}, 
+      //   {name: "Another Mashreq Credit Card", code: "AADC"}, 
+      //   {name: "Non-Mashreq Credit Card",   code: "AADC"}]
+      // };
+      // cloneList[cloneList.length] = cardsObj;
       setListItems(cloneList);    
     }
   },[list]);
