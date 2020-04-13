@@ -44,7 +44,7 @@ interface PrompTemplateProps {
   minWidth?: boolean;
   iconBgVariant?: "success" | "warning" | "error";
   onCloseModal?: any;
-  modalProps: transitionModalProps;
+  modalProps: any;
   content?: ReactElement | undefined;
   icon?: any;
 }

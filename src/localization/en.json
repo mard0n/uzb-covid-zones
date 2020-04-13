@@ -48,7 +48,9 @@
     "dbErrors": {
       "NO_ESB_ENQUIRY_DETAILS" : "Please enter a valid number",
       "INTERFACE_ERROR_INVALID_PARAMETER_VALUES" : "Field should not be blank",
-      "BN-3001" : "Invalid number"
+      "BN-3001" : "Invalid number",
+      "BN-4004" : "Beneficiary exists for given Account number",
+      "BN-4003" : "Beneficiary exists for given Account number"
     }
   },
   "error": {
