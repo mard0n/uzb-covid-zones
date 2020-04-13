@@ -10,6 +10,9 @@ import { BILL_PAYMENT_ENQUIRY } from "../../../../../network/Endpoints";
 import { API } from "../../../../../network";
 import { capitalizeFirstLetter } from "../../../../../util/helper";
 import { Eye, Eye2 } from "@mashreq-digital/webassets";
+import SalikPinCodeModal from "./SalikPincodeModal";
+import { useDispatch } from "react-redux";
+import * as Actions from "../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 
 type PaymentNumberProps = {
   type : any,
@@ -22,6 +25,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
   const { type, onProceed, onChangeTab, onClickBeneficiary } = props;
   const getType: keyof typeof FormFields = type;
   const formSchema: any = FormFields[getType];
+  const dispatch = useDispatch();
   const telecomOptions =
     formSchema && formSchema["options"] && formSchema["options"].length > 0
       ? formSchema["options"]
@@ -29,8 +33,11 @@ const PaymentNumber = (props: PaymentNumberProps) => {
   const [billType, setBillType] = useState(formSchema["type"]);
   const [telecomValue, setTelecomValue] = useState("prepaid");
   const [hideSalikPin, setHideSalikPin] = useState(false);
+  const [openSalikModal, setOpenSalikModal] = useState(false);
+  const [salikPincodeError, setSalikPincodeError] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [fields, setFields] = useState<any>({});
+  const [selectedBeneficiary, setSelectedBeneficiary] = useState<any>({});
   const [formData, setFormData] = useState({});
   const formFields: any =
     getType === "etisalat" || getType === "du"
@@ -77,7 +84,6 @@ const PaymentNumber = (props: PaymentNumberProps) => {
   const onClickFilledOptions = (selItem: any) => {
     let cloneFields = { ...formSchema[selItem]["fields"] };
     setTelecomValue(selItem);
-    //console.log("onClickFilledOptions -> cloneFields", cloneFields)
     for (let field in cloneFields) {
       cloneFields[field]["config"]["value"] = "";
       cloneFields[field]["config"]["error"] = false;
@@ -90,8 +96,14 @@ const PaymentNumber = (props: PaymentNumberProps) => {
   };
 
   const onClickExistingBeneficiary = (existingBeneficiary: any) => {
-    onClickProceed(existingBeneficiary);
-    onClickBeneficiary();
+    setSelectedBeneficiary(existingBeneficiary);
+    let { serviceTypeCode, salikPinCode } = existingBeneficiary;
+    if(serviceTypeCode && serviceTypeCode === "Salik" && salikPinCode) {
+      onClickProceed(existingBeneficiary);
+      onClickBeneficiary();
+    }else {
+      setOpenSalikModal(true);
+    }
   }
 
   const onBlurFields = (resData: any, formData: any) => {
@@ -119,12 +131,32 @@ const PaymentNumber = (props: PaymentNumberProps) => {
     if(data["serviceTypeCode"]) {
       API(config).then((val: any) => { 
       if(val && val.data && (val.data.errorCode || val.data.errorId)) {
-        setError(val.data.errorCode || val.data.errorId)
+        let errorId =  val.data.errorCode || val.data.errorId;
+        if(data["serviceTypeCode"] === "Salik" && openSalikModal) {
+          setSalikPincodeError(errorId);
+        } else {
+          setError(errorId);
+        }
       } else if(val.data && val.data.data) {
         if(onProceed && typeof onProceed === "function") {
           let res = {...data, ...val.data.data};
           if(telecomValue){
             res["telecomType"] = telecomValue;
+          }
+          //salik update
+          if(data["serviceTypeCode"] === "Salik" && openSalikModal) {
+            //if save Pincode is true then update the salik savepincode beneficiary
+            if(data["savePinCode"]) {
+              let updateSalik = {
+                id: data.id,
+                accountNumber: data.accountNumber,
+                nickname: data.nickname,
+                serviceTypeCode: "Salik",
+                salikPinCode: data.salikPinCode,
+                savePinCode: true
+              }
+              dispatch(Actions.addUpdateBeneficiaryRequest({ updateMode: true, data: updateSalik, activateAccount: true }));
+            }
           }
           onProceed(res);
         }
@@ -135,7 +167,6 @@ const PaymentNumber = (props: PaymentNumberProps) => {
 
   const setError = (code: string) => {
     let cloneFields = { ...fields };
-    //console.log("onClickFilledOptions -> cloneFields", cloneFields)
     for (let field in cloneFields) {
       cloneFields[field]["config"]["error"] = true;
       cloneFields[field]["config"]["errorText"] = t(`common.dbErrors.${code}`);
@@ -145,6 +176,23 @@ const PaymentNumber = (props: PaymentNumberProps) => {
 
   return (
     <>
+      {openSalikModal && (
+        <SalikPinCodeModal
+          title={t("beneficiary.manage.prompts.edit.titleSvaveBenificiary")}
+          buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel2")}
+          desc={""}
+          isError={salikPincodeError}
+          data={selectedBeneficiary}
+          openModal={openSalikModal}
+          onChangePin={()=>setSalikPincodeError('')}
+          onCloseModal={() => {
+            // dispatch(ManageActions.clearBeneficiaryAddNew());
+            setSalikPincodeError('');
+            setOpenSalikModal(false);
+          }}
+          onSubmitSave={(val: any) => {setSalikPincodeError('');onClickProceed({...selectedBeneficiary, salikPinCode: btoa(val.pincode), savePinCode: val.savePinCode})}}
+        />
+      )}
       <Grid container>
         <Grid item xs={8}>
           {telecomOptions && telecomOptions.length > 0 && (
