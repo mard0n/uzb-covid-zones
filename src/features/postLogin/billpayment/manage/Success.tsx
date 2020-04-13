@@ -112,6 +112,7 @@ const Success = (props: SuccessProps) => {
               <Box mt={6}>
                 <Button onClick={() => setEditModal(true)}>
                   <CardPayNow
+                    style={{ justifyContent: "space-evenly" }}
                     arrow={true}
                     heading={t(`billPayments.steps.confirmation.payment`)}
                     subheading={t(`billPayments.steps.confirmation.saveIt`)}

@@ -182,7 +182,7 @@ const SaveBeneficiaryPrompt = (props: saveBeneficiaryProps) => {
         resData = {
           ...resData,
           salikPinCode: data.salikPinCode ? isValidNumber ? btoa(data.salikPinCode) : data.salikPinCode : '', 
-          savePinCode: formData.savePin,
+          savePinCode: savePin,
         }
       }
       dispatch(

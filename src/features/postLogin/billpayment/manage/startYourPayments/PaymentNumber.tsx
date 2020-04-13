@@ -107,7 +107,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
 
     if(type === 'salik') {
       delete data["pincode"];
-      data["salikPinCode"] = btoa(fields["pincode"]['config']['value']);
+      data["salikPinCode"] = existingBeneficiary ? data.salikPinCode ? data.salikPinCode : '' : btoa(fields["pincode"]['config']['value']);
     }
 
     const config = {
