@@ -92,21 +92,26 @@ const InputWrapper = (props: any) => {
     }
     setValid(isValid);
     if (onChangeFields && typeof onChangeFields === "function") {
-      onChangeFields(formCopy);
+      let resData: any = wrapperOutput();
+      resData["valid"] = isValid;
+      onChangeFields(formCopy, resData);
     }
   };
 
-
-
-  
-
-  const onBlurHandler = (e: any, id: string) => {
+  const wrapperOutput = () => {
     let resData: any = {};
     for (const key in data) {
       let getValue: string = data[key]["config"]["value"];
       resData[key] = getValue ? getValue : "";
     }
     resData["valid"] = valid;
+    return resData;
+  }
+
+  
+
+  const onBlurHandler = (e: any, id: string) => {
+    let resData: any = wrapperOutput();
     if (onBlur && typeof onBlur === "function") {
       onBlur(resData);
       // console.log("onBlurHandler -> resData, asdfjasdjhfhsakjdfhkhaskdfhkhdsakjfhkadfs", resData)
