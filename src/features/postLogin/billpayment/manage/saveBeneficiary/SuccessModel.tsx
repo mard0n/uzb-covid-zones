@@ -25,6 +25,7 @@ const onClickGotIt= ()=>{
   dispatch(
     Actions.editAddModel(false)
   );
+  dispatch(Actions.clearBeneficiaryAddNew());
   setOpenModal(false);
 }
 
