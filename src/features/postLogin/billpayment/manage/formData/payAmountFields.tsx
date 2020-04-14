@@ -12,7 +12,7 @@ const payAmount = {
         },
         required: true,
         value: "",
-        helperText: "billPayments.steps.startPayment.prepaidDesc",
+        helperText: "", //billPayments.steps.startPayment.prepaidDesc
         label: "common.label.payCustomAmount"
       },
       validation: {
