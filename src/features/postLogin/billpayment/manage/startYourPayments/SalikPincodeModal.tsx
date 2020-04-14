@@ -7,9 +7,8 @@ import { Eye } from "@mashreq-digital/webassets";
 import { Eye2 } from "@mashreq-digital/webassets";
 import { CheckboxWithLabel } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 
-type saveBeneficiaryProps = {
+type salikPinCodeModalProps = {
   openModal: any;
   title: any;
   desc: any;
@@ -21,7 +20,7 @@ type saveBeneficiaryProps = {
   onChangePin?: any;
 };
 
-const SalikPinCodeModal = (props: saveBeneficiaryProps) => {
+const SalikPinCodeModal = (props: salikPinCodeModalProps) => {
   const {
     openModal,
     title,
@@ -34,7 +33,6 @@ const SalikPinCodeModal = (props: saveBeneficiaryProps) => {
     onChangePin
   } = props;
   const { t } = useTranslation();
-  const dispatch = useDispatch();
   const [fields, setFields] = useState({});
   const [formData, setFormData] = useState<any>({});
   const getType: string = data.serviceTypeCode.toLowerCase();
@@ -58,7 +56,8 @@ const SalikPinCodeModal = (props: saveBeneficiaryProps) => {
       }
       setFields(cloneFields);
     }
-  },[fields, isError, t])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[isError])
 
   useEffect(() => {
     const handleClickShowPassword = (val: any) => {

@@ -179,7 +179,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
       {openSalikModal && (
         <SalikPinCodeModal
           title={t("beneficiary.manage.prompts.edit.titleSvaveBenificiary")}
-          buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel2")}
+          buttonLabel={t("common.action.submit")}
           desc={""}
           isError={salikPincodeError}
           data={selectedBeneficiary}
