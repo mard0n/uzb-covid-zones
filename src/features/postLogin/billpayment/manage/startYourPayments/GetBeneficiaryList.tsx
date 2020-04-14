@@ -59,7 +59,7 @@ const GetBeneficiaryList = (props: GetBeneficiaryListProps) => {
                     style={{ justifyContent: "space-evenly" }}
                     heading={nickname}
                     subheading={`${capitalizeFirstLetter(type)} ${
-                      telecomActiveTab ? capitalizeFirstLetter(serviceType) : ""
+                      telecomActiveTab ? capitalizeFirstLetter(telecomActiveTab) : ""
                     } | ${accountNumber}`}
                     image={getBeneficiariesAvatar(type.toLowerCase())}
                   />

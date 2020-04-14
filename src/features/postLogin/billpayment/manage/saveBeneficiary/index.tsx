@@ -123,24 +123,24 @@ const SaveBeneficiaryPrompt = (props: saveBeneficiaryProps) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const validateError = () => {
-    if(benErrorOnSave) {
-      setIsError(true);
-      // debugger;
-      const formFields: any =
-      saveBeneficiaryFormFields[getType === "salik" ? "salik" : "other"]["fields"];
-      // if(benErrorOnSave === "BN-4004") {
-      for (let field in formFields) {
-        if (field === "nickName") {
-          formFields[field]["config"]["error"] = true;
-          formFields[field]["config"]["errorText"] = t(`common.dbErrors.${benErrorOnSave}`);
-        }
-      }
-      setFields(formFields);
-    } else {
-      setIsError(false);
-    }
-  }
+  // const validateError = () => {
+  //   if(benErrorOnSave) {
+  //     setIsError(true);
+  //     // debugger;
+  //     const formFields: any =
+  //     saveBeneficiaryFormFields[getType === "salik" ? "salik" : "other"]["fields"];
+  //     // if(benErrorOnSave === "BN-4004") {
+  //     for (let field in formFields) {
+  //       if (field === "nickName") {
+  //         formFields[field]["config"]["error"] = true;
+  //         formFields[field]["config"]["errorText"] = t(`common.dbErrors.${benErrorOnSave}`);
+  //       }
+  //     }
+  //     setFields(formFields);
+  //   } else {
+  //     setIsError(false);
+  //   }
+  // }
 
   useEffect(()=>{
     const benError = () => {
@@ -167,10 +167,10 @@ const SaveBeneficiaryPrompt = (props: saveBeneficiaryProps) => {
   },[benErrorOnSave, getType]);
 
   const onSubmit = () => {
-    if(benErrorOnSave) {
-      dispatch(Actions.clearBeneficiaryErrorCode());
-      validateError();
-    } else {
+    // if(benErrorOnSave) {
+    //   dispatch(Actions.clearBeneficiaryErrorCode());
+    //   validateError();
+    // } else {
       let resData: any = {
         nickname: formData.nickName,
         serviceTypeCode: data.serviceTypeCode,
@@ -188,7 +188,7 @@ const SaveBeneficiaryPrompt = (props: saveBeneficiaryProps) => {
       dispatch(
         Actions.addUpdateBeneficiaryRequest({ updateMode: false, data: resData, activateAccount: true })
       );
-    }
+    // }
   }
 
   return (

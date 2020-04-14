@@ -31,7 +31,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
       ? formSchema["options"]
       : [];
   const [billType, setBillType] = useState(formSchema["type"]);
-  const [telecomValue, setTelecomValue] = useState("prepaid");
+  const [telecomValue, setTelecomValue] = useState((formSchema["type"] === "du" || formSchema["type"] === "etisalat") ? "prepaid" : "");
   const [hideSalikPin, setHideSalikPin] = useState(false);
   const [openSalikModal, setOpenSalikModal] = useState(false);
   const [salikPincodeError, setSalikPincodeError] = useState('');
