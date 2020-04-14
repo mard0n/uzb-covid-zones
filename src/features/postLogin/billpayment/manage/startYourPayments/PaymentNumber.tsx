@@ -98,12 +98,18 @@ const PaymentNumber = (props: PaymentNumberProps) => {
   const onClickExistingBeneficiary = (existingBeneficiary: any) => {
     setSelectedBeneficiary(existingBeneficiary);
     let { serviceTypeCode, salikPinCode } = existingBeneficiary;
-    if(serviceTypeCode && serviceTypeCode === "Salik" && salikPinCode) {
+    if(serviceTypeCode && serviceTypeCode === "Salik") {
+      if(salikPinCode) {
+        onClickProceed(existingBeneficiary);
+        onClickBeneficiary();
+      } else {
+        setOpenSalikModal(true);
+      }
+    } else {
       onClickProceed(existingBeneficiary);
       onClickBeneficiary();
-    }else {
-      setOpenSalikModal(true);
     }
+    
   }
 
   const onBlurFields = (resData: any, formData: any) => {
