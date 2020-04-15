@@ -56,7 +56,7 @@ const GetBeneficiaryList = (props: GetBeneficiaryListProps) => {
                 {type && (
                   <CardPayNow
                     link
-                    style={{ justifyContent: "space-evenly" }}
+                    style={{ justifyContent: "start" }}
                     heading={nickname}
                     subheading={`${capitalizeFirstLetter(type)} ${
                       telecomActiveTab ? capitalizeFirstLetter(telecomActiveTab) : ""

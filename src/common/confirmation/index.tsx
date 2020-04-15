@@ -57,7 +57,7 @@ const Confirmation = (props: ConfirmationProps) => {
 
   return (
     <SectionSplitter
-      height="calc(100vh - 250px)"
+      height="calc(100vh - 400px)"
       top={
         <>
           <SucessFailureIcon success={success} />
