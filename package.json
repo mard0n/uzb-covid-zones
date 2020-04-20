@@ -2,7 +2,7 @@
   "name": "mob-web-app",
   "version": "0.0.1",
   "private": true,
-  "homepage": ".",
+  "homepage": "/individual/",
   "dependencies": {
     "@mashreq-digital/network": "^1.0.1",
     "@mashreq-digital/ui": "^1.0.1",
