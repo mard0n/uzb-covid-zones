@@ -7,6 +7,7 @@ import * as RoutePath from "../../router/config";
 import {
   Box
 } from "@mashreq-digital/ui";
+import MoneyTransfer from './moneyTransfer/index';
 
 const routes: any = [
   {
@@ -16,7 +17,11 @@ const routes: any = [
   {
     path: RoutePath.BILL_PAYMENTS,
     component: BillPayments
-  }
+  },
+  {
+    path: RoutePath.MONEYTRANSFER,
+    component: MoneyTransfer
+  },
 ];
 
 const PostLogin = () => {

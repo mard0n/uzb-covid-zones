@@ -206,6 +206,16 @@
     }
    
   },
+  "moneytransfer":{
+    "landing":{
+    "title":"Money Transfers",
+    "choose":"Choose a Transfer Type",
+    "within":"Within your Mashreq Accounts",
+    "toAnother":"To Another Mashreq Account",
+    "local":"To a Local UAE Account",
+    "international":"To An International Account "
+    }
+  },
   "billPayments": {
     "landing" : {
       "title": "Recharges & Bill Payments",

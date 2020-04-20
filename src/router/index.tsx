@@ -7,6 +7,7 @@ import PasswordScreen from "../features/createAccount/PasswordScreen";
 // import Test from "../pages/test";
 import * as RoutePath from "./config";
 import PostLogin from "../features/postLogin/";
+import MoneyTransfer from '../features/postLogin/moneyTransfer/index';
 const NoMatchPage = () => {
   return <h3>404 - Not found</h3>;
 };
