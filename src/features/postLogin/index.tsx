@@ -9,6 +9,7 @@ import {
 } from "@mashreq-digital/ui";
 import SideDrawer from "../../components/sidebar";
 import { globalStyle } from "../../util/constants";
+import MoneyTransfer from './moneyTransfer/index';
 
 const { postLogin, sidebarWidth, defaultGutter } = globalStyle;
 const routes: any = [
@@ -19,7 +20,11 @@ const routes: any = [
   {
     path: RoutePath.BILL_PAYMENTS,
     component: BillPayments
-  }
+  },
+  {
+    path: RoutePath.MONEYTRANSFER,
+    component: MoneyTransfer
+  },
 ];
 
 const useStyles = makeStyles((theme: Theme)=>({

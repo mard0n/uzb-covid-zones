@@ -48,7 +48,7 @@ const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
   const { footerRoot, footerWithSidebar } = useStyles();
   const { t } = useTranslation();
   const currentUrl = props && props.match && props.match.url ? props.match.url : "";
-  let sidebarCondition = ["beneficiaries", "billpayment"],
+  let sidebarCondition = ["beneficiaries", "billpayment","moneytransfer"],
   splitUrl = currentUrl.indexOf("/") > -1 ? currentUrl.split("/") : [],
   enableSidebar = splitUrl && splitUrl.length > 0 ? sidebarCondition.indexOf(splitUrl[1]) > -1 : false;
 
