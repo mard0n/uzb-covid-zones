@@ -69,7 +69,7 @@ const Success = (props: SuccessProps) => {
             <>
               <Box mt={6} mb={6}>
                 <CardPayNow
-                style={{justifyContent: "space-evenly"}}
+                style={{justifyContent: "start"}}
                   heading={data.nickname}
                   subheading={
                     data.serviceTypeCode +

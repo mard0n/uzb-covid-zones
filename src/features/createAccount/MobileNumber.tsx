@@ -147,7 +147,7 @@ const MobileNumber = (props: any) => {
   const { backgroundImg } = useStyles();
   return (
     <SubMain
-      content={<LeftContent {...props} />}
+      content={<Box height="100%" pb={5}><LeftContent {...props} /></Box>}
       image={<Box width="100%" height="100%" className={backgroundImg}></Box>}
     />
   );

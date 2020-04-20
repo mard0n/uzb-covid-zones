@@ -22,7 +22,7 @@ function NoBeneficiaryFound(props: NoBeneficiaryFoundProps) {
   const { svgIconStyle } = useStyles();
   const {t} = useTranslation();
   return (
-    <Box className={className} display="flex" height="calc(100vh - 250px)" flexDirection="column" justifyContent="center" alignItems="center">
+    <Box className={className} display="flex" height="40vh" flexDirection="column" justifyContent="center" alignItems="center">
       {icon && <SvgIcon className={svgIconStyle} htmlColor={colors.blueGrey[500]} component={icon} /> }
       <H3 gutterBottom>
         {t(`${title}`)}

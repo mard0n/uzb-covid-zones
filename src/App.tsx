@@ -1,54 +1,51 @@
 import React, { FunctionComponent, useEffect } from "react";
 import Routes from "./router";
 import { AppProps } from "./types";
-import { Footer, Main, Box, Drawer, makeStyles, createStyles, Theme } from "@mashreq-digital/ui";
+import { Footer, Main, Box, Body2, makeStyles, createStyles, Theme } from "@mashreq-digital/ui";
 // import { withRouter } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import MOLHeader from "./features/header";
-import SideDrawer from "./components/sidebar";
+import { globalStyle } from "./util/constants";
+// import SideDrawer from "./components/sidebar";
 // import { API } from "./mocks/index";
 // import * as Endpoints from "./network/Endpoints";
 // import SidebarNav from "./features/sidebar";
 
-const drawerWidth = 360, drawerHeight="calc(100vh - 51px)";
-
+const { postLogin, footer, defaultGutter } = globalStyle;
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    drawer: {
-      width: drawerWidth,
-      height: drawerHeight,
-      overflow: "auto",
-      flexShrink: 0,
-      "& .MuiDrawer-paperAnchorDockedLeft" : {
-        width: drawerWidth,
-        height: drawerHeight,
-        overflow: "auto",
-        padding: `${theme?.spacing(6)}px 0px ${theme?.spacing(6)}px ${theme?.spacing(8)}px`,
-      }
-    },
-    footerWithSidebar: {
+    footerRoot: {
       "& > .MuiBox-root" : {
+        minHeight: footer,
+        padding: `${theme.spacing(3.6)}px ${defaultGutter}px`,
         borderTop: "1px solid rgba(0, 0, 0, 0.12)",
         position: "fixed",
         left: 0,
         bottom: "0px",
-        width: "100%",
-        zIndex: 1400
+        width: "100%"
+      },
+      "& .MuiTypography-body2": {
+        fontSize: "0.8125rem",
+        lineHeight: "0.8125rem"
       }
     },
-    drawerPaper: {
-      width: drawerWidth,
-      height: drawerHeight,
-      overflow: "auto",
+    footerWithSidebar: {
+      // "& > .MuiBox-root" : {
+      //   borderTop: "1px solid rgba(0, 0, 0, 0.12)",
+      //   position: "fixed",
+      //   left: 0,
+      //   bottom: "0px",
+      //   width: "100%"
+      // }
     },
-    content: {
-      flexGrow: 1
-    },
+    // content: {
+    //   flexGrow: 1
+    // },
   }),
 );
 
 const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
-  const classes = useStyles();
+  const { footerRoot, footerWithSidebar } = useStyles();
   const { t } = useTranslation();
   const currentUrl = props && props.match && props.match.url ? props.match.url : "";
   let sidebarCondition = ["beneficiaries", "billpayment"],
@@ -70,32 +67,21 @@ const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
 
   return (
     <Box display="flex">
-      {enableSidebar && 
-       <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper
-        }}
-        anchor="left"
-      >
-        <SideDrawer />
-      </Drawer>
-      }
     <Main
+      removeMainGutter={enableSidebar}
       header={<MOLHeader  hasSidebar={enableSidebar} {...props} />}
-      main={<Routes />}
+      main={<Box height={postLogin.height} mt={`${postLogin.top}px`}><Routes /></Box>}
       footer={
         <>
           {currentUrl && !exludePath.test(props.match.url) && (
-            <Box px={5} className={enableSidebar ? classes.footerWithSidebar : ''}>
+            <Box px={5} className={`${footerRoot} ${enableSidebar ? footerWithSidebar : ''}`}>
             <Footer>
               <Box display="flex" justifyContent="space-between" px={2}>
-                <Box>&copy; {t("footer.copy")}</Box>
+                <Box><Body2>&copy; {t("footer.copy")}</Body2></Box>
                 <Box>
                   <ul className="list-style-none inline border">
                     {footerLinks.map((list: string, i: number) => (
-                      <li key={"footerlist" + i}>{list}</li>
+                      <li key={"footerlist" + i}><Body2>{list}</Body2></li>
                     ))}
                   </ul>
                 </Box>

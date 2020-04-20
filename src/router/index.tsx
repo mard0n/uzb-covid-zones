@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import { Switch, Route } from "react-router-dom";
 import Login from "../features/authentication/Login";
-import CreateAccount from "../features/createAccount";
+import PersonalInformation from "../features/createAccount";
 import MobileNumber from "../features/createAccount/MobileNumber";
 import PasswordScreen from "../features/createAccount/PasswordScreen";
 // import Test from "../pages/test";
@@ -30,7 +30,7 @@ const routes = [
   },
   {
     path: RoutePath.CREATE_ACCOUNT,
-    component: CreateAccount
+    component: PersonalInformation
   },
   // {
   //   path: RoutePath.TEST,
