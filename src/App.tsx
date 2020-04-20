@@ -76,12 +76,13 @@ const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
           {currentUrl && !exludePath.test(props.match.url) && (
             <Box px={5} className={`${footerRoot} ${enableSidebar ? footerWithSidebar : ''}`}>
             <Footer>
-              <Box display="flex" justifyContent="space-between" px={2}>
+              <Box display="flex" justifyContent="space-between">
                 <Box><Body2>&copy; {t("footer.copy")}</Body2></Box>
                 <Box>
-                  <ul className="list-style-none inline border">
+                {/* border */}
+                  <ul className="list-style-none inline">
                     {footerLinks.map((list: string, i: number) => (
-                      <li key={"footerlist" + i}><Body2>{list}</Body2></li>
+                      <li className="footerlist" key={"footerlist" + i}><Body2>{list}</Body2></li>
                     ))}
                   </ul>
                 </Box>

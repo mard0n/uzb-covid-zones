@@ -272,7 +272,7 @@
     "message6": " We will send you a text message with a 6 digit code for authentication."
   },
   "footer": {
-    "copy": "2019 Mashreq",
-    "links": ["Requirements", "Security", "Privacy policy", "Service Terms"]
+    "copy": "Copyright Mashreq 2020. All rights reserved.",
+    "links": ["Disclaimer", "Teram & Conditions", "Sitemap"]
   }
 }
