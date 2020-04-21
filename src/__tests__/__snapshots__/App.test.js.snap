@@ -3,22 +3,22 @@
 exports[`matches snapshot 1`] = `
 <DocumentFragment>
   <div
-    class="MuiBox-root MuiBox-root-6"
+    class="MuiBox-root MuiBox-root-4"
   >
     <div
-      class="MuiGrid-root makeStyles-root-7 makeStyles-root-9 MuiGrid-container"
+      class="MuiGrid-root makeStyles-root-5 makeStyles-root-7 MuiGrid-container"
     >
       <div
         class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-12 MuiGrid-grid-xl-12"
       >
         <div
-          class="MuiBox-root MuiBox-root-114"
+          class="MuiBox-root MuiBox-root-114 makeStyles-root-111 "
         >
           <div
             class="Header makeStyles-grow-118"
           >
             <header
-              class="MuiPaper-root MuiAppBar-root MuiAppBar-positionStatic MuiAppBar-colorPrimary makeStyles-appBar-115 MuiPaper-elevation4"
+              class="MuiPaper-root MuiAppBar-root MuiAppBar-positionFixed MuiAppBar-colorPrimary makeStyles-appBar-115 mui-fixed MuiPaper-elevation4"
             >
               <div
                 class="MuiToolbar-root MuiToolbar-regular makeStyles-toolbar-116 MuiToolbar-gutters"
@@ -30,9 +30,9 @@ exports[`matches snapshot 1`] = `
                     class="MuiBox-root MuiBox-root-162"
                   >
                     <svg
-                      height="25px"
+                      height="40"
                       viewBox="0 0 91 44"
-                      width="40px"
+                      width="80"
                     >
                       <defs>
                         <lineargradient
@@ -219,6 +219,7 @@ exports[`matches snapshot 1`] = `
                         aria-hidden="true"
                         class="MuiSvgIcon-root MuiSelect-icon"
                         focusable="false"
+                        role="presentation"
                         viewBox="0 0 24 24"
                       >
                         <path
@@ -243,13 +244,240 @@ exports[`matches snapshot 1`] = `
             class="MuiBox-root MuiBox-root-216"
           >
             <div
-              class="MuiBox-root MuiBox-root-217"
-            />
+              class="MuiGrid-root makeStyles-root-219 makeStyles-root-221 MuiGrid-container"
+            >
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-7 MuiGrid-grid-lg-7 MuiGrid-grid-xl-7"
+              >
+                <div
+                  class="MuiBox-root MuiBox-root-223 makeStyles-contentWrapper-220 makeStyles-contentWrapper-222"
+                >
+                  <div
+                    class="MuiBox-root MuiBox-root-224"
+                  >
+                    <div
+                      class="MuiBox-root MuiBox-root-227 makeStyles-root-225 makeStyles-root-226"
+                    >
+                      <div
+                        class="MuiBox-root MuiBox-root-228"
+                      >
+                        <div
+                          class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-10 MuiGrid-grid-sm-10 MuiGrid-grid-md-10 MuiGrid-grid-lg-10 MuiGrid-grid-xl-10"
+                        >
+                          <div
+                            class="MuiBox-root MuiBox-root-236"
+                          >
+                            <h1
+                              class="MuiTypography-root MuiTypography-h1"
+                            >
+                              Welcome to Mashreq Online Banking
+                            </h1>
+                            <div
+                              class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-7 MuiGrid-grid-sm-7 MuiGrid-grid-md-7 MuiGrid-grid-lg-7 MuiGrid-grid-xl-7"
+                            >
+                              <div
+                                class="MuiFormGroup-root"
+                              >
+                                <div
+                                  class="MuiFormControl-root makeStyles-inputBox-218"
+                                >
+                                  <div
+                                    aria-describedby="Username"
+                                    class="MuiFormControl-root MuiTextField-root makeStyles-root-273 makeStyles-root-278"
+                                  >
+                                    <label
+                                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-shrink MuiInputLabel-filled Mui-focused Mui-focused"
+                                      data-shrink="true"
+                                      for="username"
+                                      id="username-label"
+                                    >
+                                      Username
+                                    </label>
+                                    <div
+                                      class="MuiInputBase-root MuiFilledInput-root Mui-focused Mui-focused MuiInputBase-formControl MuiInputBase-adornedEnd MuiFilledInput-adornedEnd"
+                                    >
+                                      <input
+                                        aria-invalid="false"
+                                        aria-label="Username"
+                                        class="MuiInputBase-input MuiFilledInput-input MuiInputBase-inputAdornedEnd MuiFilledInput-inputAdornedEnd"
+                                        id="username"
+                                        maxlength="80"
+                                        type="text"
+                                        value=""
+                                      />
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  class="MuiFormControl-root makeStyles-inputBox-218"
+                                >
+                                  <div
+                                    class="MuiFormControl-root MuiTextField-root makeStyles-root-273 makeStyles-root-316"
+                                  >
+                                    <label
+                                      class="MuiFormLabel-root MuiInputLabel-root MuiInputLabel-formControl MuiInputLabel-animated MuiInputLabel-filled"
+                                      data-shrink="false"
+                                      for="password"
+                                      id="password-label"
+                                    >
+                                      Password
+                                    </label>
+                                    <div
+                                      class="MuiInputBase-root MuiFilledInput-root MuiInputBase-formControl MuiInputBase-adornedEnd MuiFilledInput-adornedEnd"
+                                    >
+                                      <input
+                                        aria-invalid="false"
+                                        aria-label="Password"
+                                        class="MuiInputBase-input MuiFilledInput-input MuiInputBase-inputAdornedEnd MuiFilledInput-inputAdornedEnd"
+                                        id="password"
+                                        maxlength="80"
+                                        type="password"
+                                        value=""
+                                      />
+                                      <div
+                                        class="MuiInputAdornment-root MuiInputAdornment-filled MuiInputAdornment-positionEnd"
+                                      >
+                                        <button
+                                          aria-label="Password"
+                                          class="MuiButtonBase-root MuiIconButton-root"
+                                          tabindex="0"
+                                          type="button"
+                                        >
+                                          <span
+                                            class="MuiIconButton-label"
+                                          >
+                                            <svg
+                                              height="1em"
+                                              viewBox="0 0 24 24"
+                                              width="1em"
+                                            >
+                                              <path
+                                                d="M17.499 1c3.584 0 6.5 2.916 6.5 6.5a6.481 6.481 0 01-1.688 4.366c.475.453.953.944 1.425 1.459.35.381.35.969 0 1.353-1.9 2.072-3.837 3.653-5.759 4.703C16.005 20.453 13.993 21 11.999 21c-1.994 0-4.006-.547-5.978-1.622-1.922-1.047-3.859-2.631-5.759-4.703a1 1 0 010-1.35c1.816-1.981 3.669-3.516 5.503-4.559 1.731-.987 3.497-1.563 5.25-1.722A6.508 6.508 0 0117.499 1zM8.141 9.822c-1.906.806-3.834 2.203-5.763 4.178C5.615 17.319 8.85 19 12 19c3.15 0 6.384-1.681 9.625-5a26.446 26.446 0 00-.884-.866 6.473 6.473 0 01-3.835.838 4.989 4.989 0 01-1.525 2.712A4.995 4.995 0 0112 18c-2.756 0-5-2.244-5-5a4.98 4.98 0 011.141-3.178zm3.053-.741A3.976 3.976 0 008 13c0 2.206 1.794 4 4 4a3.976 3.976 0 003.919-3.194 6.526 6.526 0 01-4.725-4.725zM17.5 2A5.508 5.508 0 0012 7.5c0 3.031 2.469 5.5 5.5 5.5S23 10.531 23 7.5 20.531 2 17.5 2zm2 2.794l.706.706-2 2 2 2-.706.706-2-2-2 2-.706-.706 2-2-2-2 .706-.706 2 2 2-2z"
+                                                fill="currentColor"
+                                                fill-rule="evenodd"
+                                              />
+                                            </svg>
+                                          </span>
+                                          <span
+                                            class="MuiTouchRipple-root"
+                                          />
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  class="MuiBox-root MuiBox-root-336"
+                                >
+                                  <label
+                                    class="MuiFormControlLabel-root makeStyles-inputBox-218"
+                                  >
+                                    <span
+                                      class="MuiSwitch-root makeStyles-root-343 makeStyles-root-350 MuiSwitch-sizeSmall makeStyles-sizeSmall-345 makeStyles-sizeSmall-351"
+                                    >
+                                      <span
+                                        aria-disabled="false"
+                                        class="MuiButtonBase-root MuiIconButton-root PrivateSwitchBase-root-366 MuiSwitch-switchBase makeStyles-switchBase-344"
+                                        variant="ios"
+                                      >
+                                        <span
+                                          class="MuiIconButton-label"
+                                        >
+                                          <input
+                                            class="PrivateSwitchBase-input-369 MuiSwitch-input"
+                                            type="checkbox"
+                                            value="showKeyboard"
+                                          />
+                                          <span
+                                            class="MuiSwitch-thumb makeStyles-thumb-346 makeStyles-thumb-352"
+                                          />
+                                        </span>
+                                      </span>
+                                      <span
+                                        class="MuiSwitch-track makeStyles-track-347 makeStyles-track-353"
+                                      />
+                                    </span>
+                                    <span
+                                      class="MuiTypography-root MuiFormControlLabel-label MuiTypography-body1"
+                                    >
+                                      Virtual Keyboard
+                                    </span>
+                                  </label>
+                                </div>
+                                <div
+                                  class="MuiBox-root MuiBox-root-370"
+                                >
+                                  <h4
+                                    class="MuiTypography-root MuiTypography-h4"
+                                  >
+                                     Ensure You are Always Protected 
+                                  </h4>
+                                  <span
+                                    class="MuiTypography-root MuiTypography-caption"
+                                  >
+                                     Check out these security tips to protect yourself from being a victim of online threats.
+                                  </span>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div
+                        class="MuiBox-root MuiBox-root-371"
+                      >
+                        <div
+                          class="MuiBox-root MuiBox-root-372"
+                        >
+                          <button
+                            class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary"
+                            tabindex="0"
+                            type="button"
+                          >
+                            <span
+                              class="MuiButton-label"
+                            >
+                              <span
+                                color="primary"
+                              >
+                                Forgot your Username or Password 
+                              </span>
+                            </span>
+                            <span
+                              class="MuiTouchRipple-root"
+                            />
+                          </button>
+                          <button
+                            class="MuiButtonBase-root MuiButton-root MuiButton-contained MuiButton-containedPrimary Mui-disabled Mui-disabled"
+                            disabled=""
+                            tabindex="-1"
+                            type="button"
+                          >
+                            <span
+                              class="MuiButton-label"
+                            >
+                              Signin
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div
+                class="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-5 MuiGrid-grid-lg-5 MuiGrid-grid-xl-5"
+              >
+                <div
+                  class="MuiBox-root MuiBox-root-402 makeStyles-backgroundImg-217"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <div
-        class="MuiGrid-root makeStyles-footerStyle-8 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-12 MuiGrid-grid-xl-12"
+        class="MuiGrid-root makeStyles-footerStyle-6 MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-12 MuiGrid-grid-xl-12"
       />
     </div>
   </div>
