@@ -1,17 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Grid, H2, Box, UnderlineText, H5 } from "@mashreq-digital/ui";
 import TransferTypeCard from "../../../common/card/TransferTypeCard";
 import {
-  User,
   getMashreqLogo,
-  Network,
-  BillDollar,
+  SingleNeutral,
+  Earth1,
+  CashPinMap,
+  LoveHeartHandsHold3,
+  NetworkArrowSync
+
 } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
 import CardPayNow from "../../../common/card/CardPayNow";
+import { useDispatch } from "react-redux";
+import * as Action from "../../../redux/actions/moneyTransfer/landingActions";
+import { useSelector } from "react-redux";
+import ManageMoneyTransferModal from './manage/index';
+
+let serviceTypeCode = [
+  { type: "local", icon: SingleNeutral, logo: false },
+  { type: "within-mashreq", icon: getMashreqLogo("symbol"), logo: true },
+  { type: "international", icon: Earth1, logo: false },
+  { type: "own-account", icon: CashPinMap, logo: false },
+];
 
 const MoneyTransfer = (props: any) => {
   const { t } = useTranslation();
+  const [addServiceType, setAddServiceType] = useState("");
+  const [addEditModal, setaddEditModal] =  useState(false);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(Action.fetchMoneyTransferLandingRequest());
+  }, [dispatch]);
+
+  const closeDialogModal = () => {
+    setaddEditModal(false);
+  };
+
+  const onSuccessCallback = () => {
+        setaddEditModal(false)
+  };
+
+  
+  const serviceTypes = useSelector(
+    (state: any) => state?.moneyTransfer?.landing?.serviceTypesFT
+  );
+  console.log("MoneyTransfer -> serviceTypes", serviceTypes);
 
   return (
     <>
@@ -23,46 +57,35 @@ const MoneyTransfer = (props: any) => {
       <Box mb={5}>
         <H5>{t("moneytransfer.landing.choose")}</H5>
       </Box>
-
+      <Grid container xs={10} sm={10} lg={10} xl={10}>
       <Grid container>
-        <Grid item xs={6} sm={3} lg={3} xl={3}>
-          <TransferTypeCard
-            Icon={User}
-            callbak={() => {
-              console.log("MoneyTransfer -> console");
-            }}
-            title={t("moneytransfer.landing.within")}
-          />
-        </Grid>
-
-        <Grid item xs={6} sm={3} lg={3} xl={3}>
-          <TransferTypeCard
-            logo={true}
-            Icon={getMashreqLogo("symbol")}
-            title={t("moneytransfer.landing.toAnother")}
-          />
-        </Grid>
-
-        <Grid item xs={6} sm={3} lg={3} xl={3}>
-          <TransferTypeCard
-            Icon={BillDollar}
-            title={t("moneytransfer.landing.local")}
-          />
-        </Grid>
-
-        <Grid item xs={6} sm={3} lg={3} xl={3}>
-          <TransferTypeCard
-            Icon={Network}
-            title={t("moneytransfer.landing.international")}
-          />
-        </Grid>
+        {serviceTypes &&
+          serviceTypes.filter((service:any)=>service.code !== "quick-remit").map((eachServiceType: any) => {
+            let prop = serviceTypeCode.find(
+              (el: any) => el.type === eachServiceType.code
+            );
+            return (
+              <Grid item xs={6} sm={3} lg={3} xl={3}>
+                <TransferTypeCard
+                  Icon={prop?.icon}
+                  logo={prop?.logo}
+                  callbak={() => {
+                    setAddServiceType(eachServiceType.code);
+                    setaddEditModal(true)
+                    console.log("MoneyTransfer -> console");
+                  }}
+                  title={eachServiceType.name}
+                />
+              </Grid>
+            );
+          })}
       </Grid>
-      <Box mb={10}></Box>
+      <Box mb={40}></Box>
 
       <Grid container>
         <Grid item xs={6} sm={6} lg={6} xl={6}>
           <CardPayNow
-            TIcon={Network}
+            TIcon={LoveHeartHandsHold3}
             cardCallBack={() => {
               console.log("MoneyTransfer -> as");
             }}
@@ -73,10 +96,10 @@ const MoneyTransfer = (props: any) => {
 
         <Grid item xs={6} sm={6} lg={6} xl={6}>
           <CardPayNow
-            TIcon={Network}
+            TIcon={NetworkArrowSync}
             cardCallBack={() => {
-                console.log("MoneyTransfer -> as");
-              }}
+              console.log("MoneyTransfer -> as");
+            }}
             heading={"Quick Remit"}
             subheading={
               "A faster, cheaper and convenient way of sending money home"
@@ -84,8 +107,39 @@ const MoneyTransfer = (props: any) => {
           />
         </Grid>
       </Grid>
+      </Grid>
+
+
+      {addEditModal && (
+        <ManageMoneyTransferModal
+          billType={addServiceType}
+          iconType = {true}
+          open={addEditModal}
+          onCloseCallback={() => closeDialogModal()}
+          finalCallback={() => onSuccessCallback()}
+        />
+      )}
+
     </>
   );
 };
 
 export default MoneyTransfer;
+
+
+// "serviceTypes": [
+//     {
+//         "code": "local",
+//         "name": "Other Local Account",
+//         "category": "Fund Transfer",
+//         "coolingPeriodMin": 3,
+//         "minAmount": "10",
+//         "maxAmount": "10000",
+//         "fractialPayment": true,
+//         "partialPayment": null,
+//         "overPayment": null,
+//         "advancePayment": null,
+//         "paymentRange": [],
+//         "serviceGroup": "Fund Transfer",
+//         "suggestedPosition": null
+//     }

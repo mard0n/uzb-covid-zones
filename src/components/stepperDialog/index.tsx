@@ -31,6 +31,7 @@ interface StepperDialogProps extends transitionModalProps {
   stepperInit : string,
   onCloseCallback? : any,
   step : string,
+  iconType?:any;
   type : string,
   stepperOptions? : Array<string>
 };
@@ -39,7 +40,7 @@ const StepperDialog = (props: StepperDialogProps) => {
   const { leftStyle, rightStyle } = useStyles();
   const [stepInit, setStepInit] = useState('');
   // const [options, setOptions] = useState('');
-  const { content, step, type, stepperOptions, stepperInit, onCloseCallback, ...rest } = props;
+  const { content, step, type, stepperOptions, stepperInit, onCloseCallback, iconType,...rest } = props;
 
   useEffect(()=>{
     setStepInit(stepperInit)
@@ -68,7 +69,7 @@ const StepperDialog = (props: StepperDialogProps) => {
           <Box pl={30} py={20.6} pr={10}>
             {step !== "confirmation" && type && (
               <Box mb={6}>
-                <ImageWithText name={type} />
+                <ImageWithText name={type} iconType = {iconType}/>
               </Box>
             )}
             {content}

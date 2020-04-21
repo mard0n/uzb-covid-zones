@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
   iconStyle: {
     display: "flex",
     justifyContent: "left",
-    marginBottom: theme.spacing(2.5),
+    marginBottom: theme.spacing(3.5),
   },
   avt: {
     minHeight: "64px",
@@ -48,26 +48,29 @@ const TransferTypeCard = (props: any) => {
         }
       }}
     >
-      {Icon && (
-        <div className={iconStyle}>
-          {logo ? (
-            <Avatar className={avt}>
-              <Icon width="50px" height="46px" />
-            </Avatar>
-          ) : (
-            <Avatar className={avt}>
-              <SvgIcon
-                fontSize={"large"}
-                {...rest}
-                color={color}
-                component={Icon}
-              />
-            </Avatar>
-          )}
-        </div>
-      )}
+   
       {title && (
         <CardContent className={root}>
+
+        {Icon && (
+            <div className={iconStyle}>
+              {logo ? (
+                <Avatar className={avt}>
+                  <Icon width="50px" height="46px" />
+                </Avatar>
+              ) : (
+                <Avatar className={avt}>
+                  <SvgIcon
+                    fontSize={"large"}
+                    {...rest}
+                    color={"primary"}
+                    component={Icon}
+                  />
+                </Avatar>
+              )}
+            </div>
+          )}
+
           <H5>{title}</H5>
         </CardContent>
       )}
