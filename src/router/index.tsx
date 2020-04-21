@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import Login from "../features/authentication/Login";
 import PersonalInformation from "../features/createAccount";
 import MobileNumber from "../features/createAccount/MobileNumber";
@@ -52,6 +52,7 @@ export const RouteConfig = (route: any) => {
 const Routes: FunctionComponent = (): JSX.Element => {
   return (
     <Switch>
+      <Redirect exact from='/' to={RoutePath.LOGINPAGE}/>
       {routes.map((route, i) => {
         return <RouteConfig key={i} {...route} />;
       })}
