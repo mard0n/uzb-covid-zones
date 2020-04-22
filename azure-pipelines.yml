@@ -1,10 +1,10 @@
 trigger:
   - master
-  - development
+  - develop
 
 pr:
   - master
-  - development
+  - develop
 
 #variables:
 #  npm_config_cache: $(Pipeline.Workspace)/.npm

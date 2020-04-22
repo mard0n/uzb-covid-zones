@@ -1202,27 +1202,27 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@mashreq-digital/material-ui@^1.0.1":
-  version "1.0.1"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/material-ui/-/material-ui-1.0.1.tgz#c31e493d698242ff27e560eace0abff4137819e4"
-  integrity sha1-wx5JPWmCQv8n5WDqzgq/9BN4GeQ=
+"@mashreq-digital/material-ui@^1.0.2":
+  version "1.0.2"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/material-ui/-/material-ui-1.0.2.tgz#83593f5ec677bd48b794e2efce096f3655f879b5"
+  integrity sha1-g1k/XsZ3vUi3lOLvzglvNlX4ebU=
   dependencies:
     "@material-ui/core" "^4.8.3"
     "@material-ui/lab" "^4.0.0-alpha.39"
 
-"@mashreq-digital/network@^1.0.1":
-  version "1.0.1"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/network/-/network-1.0.1.tgz#39e343e1013310c369d9abbc2bdc768d16ca6f9e"
-  integrity sha1-OeND4QEzEMNp2au8K9x2jRbKb54=
+"@mashreq-digital/network@^1.0.2":
+  version "1.0.2"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/network/-/network-1.0.2.tgz#30c59f6000bb14ed0919baba23ef0e2d340ff592"
+  integrity sha1-MMWfYAC7FO0JGbq6I+8OLTQP9ZI=
   dependencies:
     axios "^0.19.0"
 
-"@mashreq-digital/ui@^1.0.1":
-  version "1.0.1"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/ui/-/ui-1.0.1.tgz#0fa3af94800cefca3d0e7f30717df18fe9cf37e7"
-  integrity sha1-D6OvlIAM78o9Dn8wcX3xj+nPN+c=
+"@mashreq-digital/ui@^1.0.2":
+  version "1.0.2"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/ui/-/ui-1.0.2.tgz#0242e510958f2ff99a52e1461ed4f9c2eac49af8"
+  integrity sha1-AkLlEJWPL/maUuFGHtT5wurEmvg=
   dependencies:
-    "@mashreq-digital/material-ui" "^1.0.1"
+    "@mashreq-digital/material-ui" "^1.0.2"
     "@mashreq-digital/webassets" "^1.0.1"
     heic2any "^0.0.2"
     react-gtm-module "^2.0.8"
@@ -1234,6 +1234,11 @@
   version "1.0.1"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/webassets/-/webassets-1.0.1.tgz#20f513a52c0914b505088ff9bf197d08b1251762"
   integrity sha1-IPUTpSwJFLUFCI/5vxl9CLElF2I=
+
+"@mashreq-digital/webassets@^1.0.2":
+  version "1.0.2"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/webassets/-/webassets-1.0.2.tgz#d6f210f7115420c5a7a3668a8ec97feeb579de46"
+  integrity sha1-1vIQ9xFUIMWno2aKjsl/7rV53kY=
 
 "@material-ui/core@^4.8.3":
   version "4.9.9"

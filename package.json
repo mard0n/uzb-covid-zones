@@ -33,7 +33,8 @@
     "test:ci": "CI=1 react-scripts test --reporters=default --reporters=jest-junit --coverage",
     "eject": "react-scripts eject",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx ./",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "docker:build:dev": "yarn build --production && docker build -t mob-web-app ."
   },
   "eslintConfig": {
     "extends": "react-app"
