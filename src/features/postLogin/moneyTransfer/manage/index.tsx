@@ -15,7 +15,7 @@ import Loader from "../../../../common/loader";
 const ManageMoneyTransferModal = (props: any) => {
   const {
     children,
-    billType,
+    serviceType,
     finalCallback,
     onCloseCallback,
     ...rest
@@ -127,7 +127,7 @@ const ManageMoneyTransferModal = (props: any) => {
             <Success
             success={success}
             data={startPayentData}
-            type={billType}
+            type={serviceType}
             title={t(`billPayments.steps.confirmation.${success ? 'success' : 'failure'}.title`)}
             subTitle={!success ? t(`billPayments.steps.confirmation.failure.desc`) : ""}
             onDoneCallback={()=>successFailureCallback()}
@@ -142,13 +142,13 @@ const ManageMoneyTransferModal = (props: any) => {
         return (  
          <Review
           data={startPayentData}
-          type={billType}
+          type={serviceType}
           onHandleBack={()=>updateStep({step: "", stepInit: "Start Your Payment"})}
           onSubmit={onSubmitReview}
         />)
       default:
         return (
-          <StartPayments data={startPayentData} type={billType} onHandleBeneficiary={()=>onHandleBeneficiary()} onSubmitPayment={onSubmitPayment} onHandleBack={()=>onHandleBack()}/>
+          <StartPayments data={startPayentData} type={serviceType} onHandleBeneficiary={()=>onHandleBeneficiary()} onSubmitPayment={onSubmitPayment} onHandleBack={()=>onHandleBack()}/>
         );
     }
   };
@@ -160,7 +160,7 @@ const ManageMoneyTransferModal = (props: any) => {
       stepperOptions={options}
       stepperInit={stepInit}
       step={step}
-      type={billType}
+      type={serviceType}
       onCloseCallback={() => onCloseCallback()}
       content={switchComponent()}
     />
@@ -168,7 +168,7 @@ const ManageMoneyTransferModal = (props: any) => {
 };
 
 ManageMoneyTransferModal.defaultProps = {
-  billType: "sewa"
+  serviceType: "sewa"
 };
 
 export default ManageMoneyTransferModal;

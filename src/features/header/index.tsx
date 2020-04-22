@@ -12,7 +12,7 @@ import {
 } from "@mashreq-digital/ui";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { getMashreqLogo, Search, AlarmBell, SingleNeutral } from "@mashreq-digital/webassets";
+import { getMashreqLogo, Search, AlarmBell, SingleNeutral, Logout } from "@mashreq-digital/webassets";
 import { stepsID } from "../../redux/reducers/createAcountReducer";
 import i18n from "../../config/i18n";
 import { changeLocalization } from "../../redux/actions/globalSetupAction";
@@ -32,6 +32,10 @@ const headerIcons = [
   {
     title: "user",
     icon: SingleNeutral
+  },
+  {
+    title:"lagout",
+    icon:Logout
   }
 ];
 

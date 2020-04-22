@@ -16,8 +16,6 @@ import { Check, Phone24 } from "@mashreq-digital/webassets";
 import SucessFailureIcon from "../../../../common/successFailureIcon";
 import ReviewAmountType from "../../../../components/billpayment/reviewAmountType";
 import CardPayNow from "../../../../common/card/CardPayNow";
-import SaveBeneficiaryPrompt from "./saveBeneficiary";
-import SuccessModel from "./saveBeneficiary/SuccessModel";
 import PaymentReceipt from "../../../../common/paymentReceipt/index";
 
 type SuccessProps = {
@@ -66,16 +64,7 @@ const Success = (props: SuccessProps) => {
     "Payment Channel": "Online",
   };
 
-  const SaveBenificiarySubmit = (formData: any) => {
-    let resData: any = {
-      nickname: formData.nickName,
-      serviceTypeCode: data.serviceTypeCode,
-      accountNumber: data.accountNumber,
-    }
-    setSaveData(resData);
-    setEditModal(false);
-    setSucessModel(true);
-  };
+
 
   // if(addNew == "" && benErrorOnSave !== "" ){
   //   console.log("error in creating benificiary");
@@ -138,23 +127,6 @@ const Success = (props: SuccessProps) => {
           </>
           }
 
-          {editModal && (
-            <SaveBeneficiaryPrompt
-              title={t("beneficiary.manage.prompts.edit.titleSvaveBenificiary")}
-              buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel2")}
-              desc={""}
-              data={data}
-              beneficiaryItemForSave={beneficiaryItemForEdit}
-              openModal={editModal}
-              onCloseModal={() => {
-                // dispatch(ManageActions.clearBeneficiaryAddNew());
-                setEditModal(false);
-              }}
-              onSubmitSave={(val: any) => SaveBenificiarySubmit(val)}
-            />
-          )}
-
-          {sucessModel && addNew !== undefined  && <SuccessModel data={saveData} type={type} telecomType={data.telecomType}/>}
     
           {payRecieptModal && (
             <PaymentReceipt
