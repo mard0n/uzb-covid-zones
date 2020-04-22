@@ -65,7 +65,7 @@ const MoneyTransfer = (props: any) => {
               (el: any) => el.type === eachServiceType.code
             );
             return (
-              <Grid item xs={6} sm={3} lg={3} xl={3}>
+              <Grid item xs={6} sm={6} lg={3} xl={3}>
                 <TransferTypeCard
                   Icon={prop?.icon}
                   logo={prop?.logo}
@@ -83,7 +83,7 @@ const MoneyTransfer = (props: any) => {
       <Box mb={40}></Box>
 
       <Grid container>
-        <Grid item xs={6} sm={6} lg={6} xl={6}>
+        <Grid item xs={12} sm={12} lg={6} xl={6}>
           <CardPayNow
             TIcon={LoveHeartHandsHold3}
             cardCallBack={() => {

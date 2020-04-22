@@ -11,8 +11,8 @@ import {
 const useStyles = makeStyles((theme) => ({
   card: ({ fullWidth }: any) => ({
     width: fullWidth ? "100%" : "192px",
-    minHeight: "172px",
-    padding: theme.spacing(2),
+    height: "172px",
+    padding: theme.spacing(4),
     borderRadius: theme.spacing(0.67),
     boxShadow: `0px 8px 12px 0px rgba(0, 0, 0, 0.06)`,
   }),
@@ -29,7 +29,6 @@ const useStyles = makeStyles((theme) => ({
   },
   root: {
     padding: 0,
-    marginTop: theme.spacing(1.9),
     fontSize: theme.spacing(2.5),
   },
 }));
