@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
-import PayListItem from "./payList";
+import PayListItem from "../payList";
 import {
   H4,
   Button,
@@ -8,12 +8,15 @@ import {
   Theme,
   CircularProgress,
 } from "@mashreq-digital/ui";
-import { API } from "../../../network";
-import * as Endpoint from "../../../network/Endpoints";
 import { useTranslation } from "react-i18next";
+import { useSelector } from 'react-redux';
+import SmartPayList from '../payList/smartPayList';
 
-type PayFromListProps = {
+type CardPayListProps = {
   onChangeList?: any;
+  type?:any;
+  payListData?:any;
+  heading?:any;
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -28,25 +31,21 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-const PayFromList = (props: PayFromListProps) => {
-  const { onChangeList } = props;
+const CardPayList = (props: CardPayListProps) => {
+  const { onChangeList , type,heading, payListData} = props;
   const { t } = useTranslation();
   const { dropListStyle } = useStyles();
   const [active, setActive] = useState<any>({});
+  const [select, setSelect] = useState(false);
   const [suggestionList, setSuggestionList] = useState<any>([]);
   const [dropList, setDropList] = useState(false);
   const listItems = ["accounts","cards"];
-  
-  // const callOnChangeList = useCallback((activeAct: any, type: string) => {
-  //   let acctData = convertCardAccounts(activeAct, type);
-  //   setActive(acctData);
-  //   if(onChangeList && typeof onChangeList === "function") {
-  //     onChangeList({...activeAct, balance: acctData.balance, type: type});
-  //   }
-  // }, [onChangeList]);
+  let transfer = useSelector(
+    (state: any) => state.moneyTransfer.other.transfer
+  );
 
   useEffect(() => {
-    
+
     const callOnChangeList = (activeAct: any, type: string) => {
       let acctData = convertCardAccounts(activeAct, type);
       setActive(acctData);
@@ -56,27 +55,16 @@ const PayFromList = (props: PayFromListProps) => {
     };
 
     const getPaymentList = () => {
-      let url = Endpoint.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT,
-        data = {
-          minAmountToBeAvailable: "200",
-          suggestAccountOrCard: true,
-        };
-      const config = {
-        method: "POST",
-        url,
-        data,
-      };
-
-      API(config).then((val: any) => {
-        if (val && val.data && val.data.data) {
           const {
             accounts,
             cards,
             suggestedAccount,
             suggestedCard,
-          } = val.data.data;
+          } = payListData;
           if (suggestedAccount && suggestedAccount.status) {
             callOnChangeList(suggestedAccount, "accounts");
+          }else{
+            setSelect(true);
           }
           if (suggestedCard && suggestedCard.cardHolderName) {
             callOnChangeList(suggestedCard, "cards");
@@ -85,8 +73,6 @@ const PayFromList = (props: PayFromListProps) => {
             accounts: accounts && accounts.length > 0 ? accounts : [],
             cards: cards && cards.length > 0 ? cards : [],
           });
-        }
-      });
     }
 
     getPaymentList();
@@ -105,6 +91,7 @@ const PayFromList = (props: PayFromListProps) => {
   const convertCardAccounts = (obj: any, type: string) => {
     let data = {
       name: "",
+      description:"",
       accNo: "",
       status: "",
       currency: "",
@@ -116,10 +103,12 @@ const PayFromList = (props: PayFromListProps) => {
       const { customerName,
         accountNumber,
         status,
+        accountDescription,
         currency,
         availableBalance} = obj;
       data["name"] = customerName;
       data["accNo"] = accountNumber;
+      data["description"] = accountDescription;
       data["status"] = status;
       data["currency"] = currency;
       data["balance"] = availableBalance;
@@ -144,11 +133,12 @@ const PayFromList = (props: PayFromListProps) => {
   ...(suggestionList && suggestionList.accounts && suggestionList.accounts.length > 0 ? suggestionList.accounts : [])],
   listHeight = allSuggestions && allSuggestions.length > 4 ? 75 * 3 : "auto";
 
-  if (active && active.currency) {
+  if (active && active.currency || select) {
     return (
-      <Box position="relative" minHeight="110px">
+      <Box  minHeight="110px">
+
         <Box mt={5} display="flex" justifyContent="space-between">
-          <H4>{t("billPayments.steps.review.payingFrom")}</H4>
+          <H4>{heading}</H4>
           <Button
             onClick={() => {
               setDropList(!dropList);
@@ -158,8 +148,16 @@ const PayFromList = (props: PayFromListProps) => {
             {!dropList ? t("common.action.change") : t("common.action.cancel")}
           </Button>
         </Box>
+
         <Box className={dropListStyle} height={dropList ? listHeight : "auto"}>
-          {!dropList && <PayListItem isDefault data={active} />}
+          {!dropList && 
+            Object.keys(active).length === 0? type === "smart" ? <SmartPayList isDefault select={select} disabled={true}  data={active} /> : <PayListItem isDefault select={select} disabled={true}  data={active} /> :
+             type === "smart" ?<SmartPayList isDefault data={active} /> :<PayListItem isDefault data={active} />
+        
+        }
+
+        
+
 
           {dropList && (
             <>
@@ -171,11 +169,19 @@ const PayFromList = (props: PayFromListProps) => {
                         let data = convertCardAccounts(item, list);
                         return (
                           <Fragment key={i + "PayListItem"}>
-                            <PayListItem
+                         { type === "smart" ?
+                            <SmartPayList
                               onClickCallback={() => onClickCallback(data, {...item, balance: data.balance, type: list})}
                               active={data.accNo === active.accNo}
                               data={data}
                             />
+                          :
+                          <PayListItem
+                          onClickCallback={() => onClickCallback(data, {...item, balance: data.balance, type: list})}
+                          active={data.accNo === active.accNo}
+                          data={data}
+                        />
+                          }
                           </Fragment>
                         );
                       });
@@ -199,4 +205,4 @@ const PayFromList = (props: PayFromListProps) => {
   );
 };
 
-export default PayFromList;
+export default CardPayList;

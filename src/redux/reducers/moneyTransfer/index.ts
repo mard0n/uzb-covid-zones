@@ -1,9 +1,12 @@
 
 import { combineReducers } from 'redux';
-import { default as moneyTransfer } from './landing';
+import { default as moneyTransferLanding } from './landing';
+import { default as moneyTransferPayList} from './payList';
+
 
 const MoneyTransferReducer:any = combineReducers({
-    landing: moneyTransfer,
+    landing: moneyTransferLanding,
+    other:moneyTransferPayList
 });
 
 export default MoneyTransferReducer;
