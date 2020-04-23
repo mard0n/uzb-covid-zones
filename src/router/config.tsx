@@ -5,6 +5,9 @@ export const PASSCODE = `/passcode`;
 export const MOBILEINFO = `/mobileinfo`;
 
 /* Beneficiary */
+export const DASHBOARD = "/dashboard/";
+
+/* Beneficiary */
 export const BENEFICIARY = "/beneficiaries/";
 export const MONEYTRANSFER = "/moneytransfer/";
 

@@ -40,7 +40,7 @@ let SideDrawer = () => {
   const { drawer, drawerPaper } = useStyles();
   const location = useLocation();
   const currentUrl = location && location.pathname  ? location.pathname : "";
-  let sidebarCondition = ["beneficiaries", "billpayment","moneytransfer"],
+  let sidebarCondition = ["dashboard", "beneficiaries", "billpayment","moneytransfer"],
   splitUrl = currentUrl.indexOf("/") > -1 ? currentUrl.split("/") : [],
   enableSidebar = splitUrl && splitUrl.length > 0 ? sidebarCondition.indexOf(splitUrl[1]) > -1 : false;
 

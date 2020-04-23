@@ -34,8 +34,8 @@ const headerIcons = [
     icon: SingleNeutral
   },
   {
-    title:"lagout",
-    icon:Logout
+    title: "logout",
+    icon: Logout
   }
 ];
 
