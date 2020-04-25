@@ -69,7 +69,7 @@ const MoneyTransfer = (props: any) => {
                   Icon={prop?.icon}
                   logo={prop?.logo}
                   callbak={() => {
-                    setAddServiceType(eachServiceType.code);
+                    setAddServiceType(eachServiceType);
                     setaddEditModal(true)
                     console.log("MoneyTransfer -> console");
                   }}

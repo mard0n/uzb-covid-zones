@@ -139,16 +139,14 @@ const SmartPayList = (props: CustomListItemProps) => {
         style={{ width: "100%" }}
       >
         <Box width="calc(100% - 120px)">
-          <ListItemText primary={<H3 noWrap> {description} </H3>} />
+          <ListItemText primary={<Caption noWrap> <b> {description} </b></Caption>} />
           {status && (
             <ListItemText
               primary={
                 <Box display="flex">
-                  <Box pr={1} display="inline-block">
                     <Body1>
-                      {currency} <b>{ balance}</b>
+                    {currency} <b>{ balance}</b>
                     </Body1>
-                  </Box>
                 </Box>
               }
             />
@@ -166,8 +164,8 @@ const SmartPayList = (props: CustomListItemProps) => {
           />
           <ListItemText
             primary={
-              <Box display="flex" justifyContent="flex-end">
-              <H5>Mashreq</H5> 
+              <Box display="flex" justifyContent="flex-end" style={{height: "23px",width: "61px",borderRadius: "5px"}}>
+              <Body1 color="primary">Mashreq</Body1> 
               </Box>
             }
           />

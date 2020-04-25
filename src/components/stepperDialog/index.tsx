@@ -66,7 +66,7 @@ const StepperDialog = (props: StepperDialogProps) => {
           
         </Grid>
         <Grid item xs={9} className={rightStyle}>
-          <Box pl={30} py={20.6} pr={10}>
+          <Box pl={20} py={10.6} pr={10}>
             {step !== "confirmation" && type && (
               <Box mb={6}>
                 <ImageWithText name={type} iconType = {iconType}/>
