@@ -3,6 +3,11 @@
  */
 export const TEST = "/test";
 
+/* Account Loan List */
+export const PRODUCT_SUMMARY_ACC_LOAN_DEP_ENDPOINT = '/mob-dashboard/v1/summary/account-loan-deposit';
+export const PRODUCT_SUMMARY_CARD_ENDPOINT = '/mob-dashboard/v1/summary/cards';
+export const PRODUCT_SUMMARY_REWARDS_ENDPOINT ='/mob-dashboard/v1/summary/rewards';
+
 /* MANAGE BENEFICIARY */
 /* Beneficiary */
 // const Beneficiary_bill_payment

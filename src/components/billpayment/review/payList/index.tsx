@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     margin: `${theme.spacing(2.5)}px 0`,
     boxShadow: " 0px 8px 12px 0px rgba(0, 0, 0, 0.06)",
     border: "2px solid transparent",
+    backgroundColor: "#fff",
     "&:hover, &:focus, &:active": {
       borderColor: "rgb(49, 49, 49)",
     },

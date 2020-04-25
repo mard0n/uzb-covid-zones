@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box } from '@mashreq-digital/ui';
 import BillPaymentLanding from './Landing';
 import ManageBillPayments from './manage';
@@ -10,6 +10,13 @@ const BillPayments = () => {
   // const [addEditModal, setAddEditModal] = useState(false);
   const dispatch = useDispatch();
   let addEditModal = useSelector((state:any) => state.beneficiary.billPayment.addEditModal);
+  let createnewModal = useSelector((state:any) => state.beneficiary.billPayment.createNew);
+
+  useEffect(()=>{
+    if(createnewModal) {
+      setAddServiceType(createnewModal.toLowerCase());
+    }
+  },[createnewModal]);
 
   const onClickService = (name: any) => {
     setAddServiceType(name.toLowerCase());
