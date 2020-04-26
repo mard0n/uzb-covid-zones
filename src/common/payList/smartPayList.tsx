@@ -12,6 +12,7 @@ import {
   colors,
   SvgIcon,
   H5,
+  H4,
 } from "@mashreq-digital/ui";
 import CardIcon from "../cardIcon";
 import { capitalizeFirstLetter } from "../../util/helper";
@@ -73,19 +74,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-/**
- * @customProps
- *  @prop {Component}  avatarComponent ,
- *  @prop {string} avatarImage,
- *  @prop {boolean} disabled,
- *  @prop {boolean} static,
- *  @prop {object} data,
- *  @prop {string} color,
- *  @prop {function} onClickCallback
- * @return {Component}
- *
- */
-
 interface CustomListItemProps {
   avatarImage?: string | undefined;
   disabled?: boolean;
@@ -98,24 +86,12 @@ interface CustomListItemProps {
 }
 
 const SmartPayList = (props: CustomListItemProps) => {
-  const {
-    disabled,
-    color,
-    isDefault,
-    active,
-    onClickCallback,
-    data,
-  } = props;
-  const { name, accNo, status, currency, balance, type,description } = data;
+  const { disabled, color, isDefault, active, onClickCallback, data , select} = props;
+  const { name, accNo, status, currency, balance, type, description } = data;
   const isCard = type && type === "cards";
-  const {
-    root,
-    staticStyle,
-    avatarSvgStyle,
-    statusStyle,
-    activeStyle,
-    disabledStyle,
-  } = useStyles(props);
+  const { root, staticStyle, activeStyle, disabledStyle } = useStyles(
+    props
+  );
   let svgIconProps: any = {};
 
   if (color) {
@@ -130,48 +106,61 @@ const SmartPayList = (props: CustomListItemProps) => {
         isDefault ? staticStyle : ""
       } ${disabled ? disabledStyle : ""}`}
     >
-
-
-
-      <Box
-        display="flex"
-        justifyContent="space-between"
-        style={{ width: "100%" }}
-      >
-        <Box width="calc(100% - 120px)">
-          <ListItemText primary={<Caption noWrap> <b> {description} </b></Caption>} />
-          {status && (
+      {select ? (
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          style={{ width: "100%" }}
+        >
+          <ListItemText
+            primary={<H3 noWrap> Please Select the card from list </H3>}
+          />
+        </Box>
+      ) : (
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          style={{ width: "100%" }}
+        >
+          <Box width="calc(100% - 120px)">
             <ListItemText
               primary={
-                <Box display="flex">
-                    <Body1>
-                    {currency} <b>{ balance}</b>
-                    </Body1>
+                <Caption noWrap>
+                  {" "}
+                  <b> {description} </b>
+                </Caption>
+              }
+            />
+            {status && (
+              <ListItemText
+                primary={
+                  <Box display="flex">
+                    {currency + " "}
+                    <H4>
+                      <b> {balance}</b>
+                    </H4>
+                  </Box>
+                }
+              />
+            )}
+          </Box>
+
+          <Box>
+            <ListItemText primary={<Caption>{accNo}</Caption>} />
+            <ListItemText
+              primary={
+                <Box
+                  display="flex"
+                  justifyContent="flex-end"
+                  style={{ height: "23px", width: "61px", borderRadius: "5px" }}
+                >
+                  <Body1 color="primary">Mashreq</Body1>
                 </Box>
               }
             />
-          )}
+          </Box>
         </Box>
-
-
-        <Box>
-          <ListItemText
-            primary={
-              <Caption>
-                {accNo}
-              </Caption>
-            }
-          />
-          <ListItemText
-            primary={
-              <Box display="flex" justifyContent="flex-end" style={{height: "23px",width: "61px",borderRadius: "5px"}}>
-              <Body1 color="primary">Mashreq</Body1> 
-              </Box>
-            }
-          />
-        </Box>
-      </Box>
-      
+      )}
     </ListItem>
   );
 };

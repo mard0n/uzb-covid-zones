@@ -7,7 +7,7 @@ import currencyConverterReducer from './currencyConverterReducer';
 
 const MoneyTransferReducer:any = combineReducers({
     landing: moneyTransferLanding,
-    curency: currencyConverterReducer,
+    currencyConverter: currencyConverterReducer,
     other:moneyTransferPayList
 });
 

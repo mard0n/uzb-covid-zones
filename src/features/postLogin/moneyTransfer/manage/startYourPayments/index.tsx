@@ -30,10 +30,12 @@ const StartPayments = (props: StartPaymentsProps) => {
   let transfer = useSelector(
     (state: any) => state.moneyTransfer.other.transfer
   );
+  // accountNumber
+
   const { t } = useTranslation();
 
   const onChangeFromAcount = (item: any) => {
-    transfer = { ...transfer, fromAccount: item.accountNumber };
+    transfer = { ...transfer, fromAccount: item };
     dispatch(Actions.setTransferObject(transfer));
     if (
       transfer.hasOwnProperty("fromAccount") &&
@@ -44,7 +46,7 @@ const StartPayments = (props: StartPaymentsProps) => {
   };
 
   const onChangeToAcount = (item: any) => {
-    transfer = { ...transfer, toAccount: item.accountNumber };
+    transfer = { ...transfer, toAccount: item };
     dispatch(Actions.setTransferObject(transfer));
     if (
       transfer.hasOwnProperty("fromAccount") &&
@@ -79,6 +81,7 @@ const StartPayments = (props: StartPaymentsProps) => {
               }
               rightContent={
                 <CardPayList
+                  type="smart"
                   heading="To this account"
                   payListData={payCardListData.destination}
                   onChangeList={onChangeToAcount}

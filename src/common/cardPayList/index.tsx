@@ -25,8 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     overflow: "auto",
     position: "absolute",
     top: "auto",
-    width: "408px",
-    paddingRight: theme.spacing(2),
+    width: "520px",
     backgroundColor: "#fff",
   },
 }));

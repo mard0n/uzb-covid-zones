@@ -31,7 +31,7 @@ export function fetchCurrencyRate(action: any) {
   };
   console.log('fetchCurrencyRate data', action);
 
-  return API.post(config).then((val: any) => val);
+  return API(config);
 }
 
 /**
