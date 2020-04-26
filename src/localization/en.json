@@ -132,7 +132,7 @@
       "buttonLinkLabel": "Start A New Transfer"
     },
     "productSummary" : {
-      "account" : {
+      "accounts" : {
         "title": "Accounts",
         "availableBalance" : "Available Balance",
         "currentBalance" : "Current Balance",
@@ -141,7 +141,7 @@
           "desc" : "Lorem ipsum"
         }
       },
-      "card" : {
+      "cards" : {
         "title": "Credit Card",
         "availableBalance" : "Available Balance",
         "currentBalance" : "Current Spender",
@@ -150,7 +150,7 @@
           "desc" : "Lorem ipsum"
         }
       },
-      "loan" : {
+      "loans" : {
         "title": "Loan",
         "availableBalance" : "Total Outstanding",
         "currentBalance" : "Current Spender",
@@ -159,7 +159,7 @@
           "desc" : "Insurance is easy, and safe"
         }
       },
-      "deposit" : {
+      "deposits" : {
         "title": "Deposits",
         "availableBalance" : "Maturity Amount",
         "currentBalance" : "Principle Deposits",

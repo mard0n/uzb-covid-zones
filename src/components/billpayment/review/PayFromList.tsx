@@ -11,6 +11,7 @@ import {
 import { API } from "../../../network";
 import * as Endpoint from "../../../network/Endpoints";
 import { useTranslation } from "react-i18next";
+import { getPayListFromattedData } from "../../../util/getPayListFormattedData";
 
 type PayFromListProps = {
   onChangeList?: any;
@@ -48,7 +49,7 @@ const PayFromList = (props: PayFromListProps) => {
   useEffect(() => {
     
     const callOnChangeList = (activeAct: any, type: string) => {
-      let acctData = convertCardAccounts(activeAct, type);
+      let acctData = getPayListFromattedData(activeAct, type);
       setActive(acctData);
       if(onChangeList && typeof onChangeList === "function") {
         onChangeList({...activeAct, balance: acctData.balance, type: type});
@@ -102,43 +103,43 @@ const PayFromList = (props: PayFromListProps) => {
     onChangeList(item);
   };
 
-  const convertCardAccounts = (obj: any, type: string) => {
-    let data = {
-      name: "",
-      accNo: "",
-      status: "",
-      currency: "",
-      balance: "",
-      type: ""
-    };
-    data["type"] = type;
-    if(type === "accounts") {
-      const { customerName,
-        accountNumber,
-        status,
-        currency,
-        availableBalance} = obj;
-      data["name"] = customerName;
-      data["accNo"] = accountNumber;
-      data["status"] = status;
-      data["currency"] = currency;
-      data["balance"] = availableBalance;
+  // const convertCardAccounts = (obj: any, type: string) => {
+  //   let data = {
+  //     name: "",
+  //     accNo: "",
+  //     status: "",
+  //     currency: "",
+  //     balance: "",
+  //     type: ""
+  //   };
+  //   data["type"] = type;
+  //   if(type === "accounts") {
+  //     const { customerName,
+  //       accountNumber,
+  //       status,
+  //       currency,
+  //       availableBalance} = obj;
+  //     data["name"] = customerName;
+  //     data["accNo"] = accountNumber;
+  //     data["status"] = status;
+  //     data["currency"] = currency;
+  //     data["balance"] = availableBalance;
 
-    } else if (type === "cards") {
-      const { cardHolderName,
-        cardNo,
-        cardStatus,
-        currency,
-        availableCreditLimit} = obj;
-        data["name"] = cardHolderName;
-        data["accNo"] = cardNo;
-        data["status"] = cardStatus;
-        data["currency"] = currency;
-        data["balance"] = availableCreditLimit;
+  //   } else if (type === "cards") {
+  //     const { cardHolderName,
+  //       cardNo,
+  //       cardStatus,
+  //       currency,
+  //       availableCreditLimit} = obj;
+  //       data["name"] = cardHolderName;
+  //       data["accNo"] = cardNo;
+  //       data["status"] = cardStatus;
+  //       data["currency"] = currency;
+  //       data["balance"] = availableCreditLimit;
 
-    }
-    return data;
-  }
+  //   }
+  //   return data;
+  // }
 
   const allSuggestions = [...(suggestionList && suggestionList.cards && suggestionList.cards.length > 0 ? suggestionList.cards : []), 
   ...(suggestionList && suggestionList.accounts && suggestionList.accounts.length > 0 ? suggestionList.accounts : [])],
@@ -168,7 +169,7 @@ const PayFromList = (props: PayFromListProps) => {
                   {listItems.map((list: string)=>{
                     if(suggestionList[list] && suggestionList[list].length > 0) {
                       return suggestionList[list].map((item: any, i:number)=>{
-                        let data = convertCardAccounts(item, list);
+                        let data = getPayListFromattedData(item, list);
                         return (
                           <Fragment key={i + "PayListItem"}>
                             <PayListItem

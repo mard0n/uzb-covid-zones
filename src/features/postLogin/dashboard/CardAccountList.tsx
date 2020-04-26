@@ -6,6 +6,7 @@ import { ChartUpward, Umbrella } from "@mashreq-digital/webassets";
 import { useSelector } from "react-redux";
 import getProductColor from "../../../util/getProductColor";
 import { useTranslation } from "react-i18next";
+import { getPayListFromattedData } from "../../../util/getPayListFormattedData";
 
 const useStyles = makeStyles(() => ({
   emptyAcctStyle: {
@@ -28,22 +29,30 @@ const CardAccountList = () => {
     const generateRenderObj = (type: string, objName: string, list: any) => {
       let returnObj: any = {},
         productList = list && list["products"] ? list["products"] : undefined,
-        productSnapshot =
-          list && list["snapshot"] ? list["snapshot"] : undefined;
+        productSnapshot = list && list["snapshot"] ? list["snapshot"] : undefined;
       returnObj["type"] = type;
+      // Product Data List
       if (
         productList &&
         productList[objName] &&
         productList[objName].length > 0
       ) {
-        returnObj["data"] = productList[objName].slice(0, 3);
+        let splicedList = productList[objName].slice(0, 2);
+        splicedList = splicedList.map((splList: any)=> getPayListFromattedData(splList, type));
+        returnObj["data"] = splicedList;
+      } else {
+        returnObj["data"] = [];
       }
+      //Snapshot
       if (
         productSnapshot &&
         productSnapshot[objName] &&
         productSnapshot[objName]
       ) {
         returnObj = { ...returnObj, ...productSnapshot[objName] };
+        if(type === "salaam") {
+          returnObj["data"] = [{...getPayListFromattedData(returnObj, type)}]
+        }
       }
       return returnObj;
     };
@@ -53,13 +62,13 @@ const CardAccountList = () => {
         let listItems: any = [];
         for (let list in Products) {
           if (list && Products[list]) {
-            let prodList = Products[list];
+            let prodList = Products[list] ? Products[list] : [];
             if (list === "accountLoanDeposit") {
-              listItems.push(generateRenderObj("account", "acc", prodList));
-              listItems.push(generateRenderObj("deposit", "dep", prodList));
-              listItems.push(generateRenderObj("loan", "lon", prodList));
+              listItems.push(generateRenderObj("accounts", "acc", prodList));
+              listItems.push(generateRenderObj("deposits", "dep", prodList));
+              listItems.push(generateRenderObj("loans", "lon", prodList));
             } else if (list === "card") {
-              listItems.push(generateRenderObj(list, "crd", prodList));
+              listItems.push(generateRenderObj("cards", "crd", prodList));
             } else if (list === "reward") {
               listItems.push(generateRenderObj("salaam", "slm", prodList));
             }
@@ -74,7 +83,6 @@ const CardAccountList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [Products]);
 
-
   return (
     <>
       <Box mt={1}>
@@ -87,6 +95,7 @@ const CardAccountList = () => {
                 count,
                 availableBalance,
                 currency,
+                salamPointsInAed,
                 currentBalance,
                 data,
               } = listItem;
@@ -96,14 +105,15 @@ const CardAccountList = () => {
                     <AccountCard
                       color={getProductColor(type)}
                       title={
-                        count +
+                        (count ? count : '') +
                         " " +
                         t(`dashboard.productSummary.${type}.title`)
                       }
-                      balanceAmount={currentBalance}
-                      balance={t(
+                      data={data}
+                      balanceAmount={salamPointsInAed || currentBalance}
+                      balance={!salamPointsInAed ? t(
                         `dashboard.productSummary.${type}.availableBalance`
-                      )}
+                      ) : ''}
                       currentBalance={t(
                         `dashboard.productSummary.${type}.currentBalance`
                       )}

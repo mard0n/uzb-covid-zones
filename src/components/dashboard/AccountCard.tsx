@@ -14,6 +14,7 @@ type AccountCardProps = {
   color: string;
   title: string;
   balance?: string;
+  data?: Array<any>;
   balanceAmount?: number;
   currentBalance?: string;
   currentBalanceAmount?: number;
@@ -60,6 +61,7 @@ const AccountCard = (props: AccountCardProps) => {
     currentBalance,
     currentBalanceAmount,
     btnLabel,
+    data,
     onClickAllList,
   } = props;
   const {
@@ -102,8 +104,11 @@ const AccountCard = (props: AccountCardProps) => {
           </Box>
         </Grid>
         <Grid item xs={7} sm={7} md={7}>
-          <PayListItem data={{}} />
-          <PayListItem data={{}} />
+          {data && data.length > 0 && data.map((item: any, i: number)=>{
+            return <PayListItem isDefault key={i} data={item} />
+          })}
+          {/* <PayListItem data={{}} />
+          <PayListItem data={{}} /> */}
         </Grid>
       </Grid>
       {btnLabel && (

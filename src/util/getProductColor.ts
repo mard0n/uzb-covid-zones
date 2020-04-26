@@ -1,12 +1,12 @@
 const getProductColor = (type: any) => {
   switch (type) {
-    case "account":
+    case "accounts":
       return "#fcb41d";
-    case "card":
+    case "cards":
       return "#f48e26";
-    case "loan":
+    case "loans":
       return "#f26d2d";
-    case "deposit":
+    case "deposits":
       return "#c22d18";
     case "salaam":
       return "#85271a";
