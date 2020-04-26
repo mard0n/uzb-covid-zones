@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import AuthOtp from "../../../../components/authOtp";
 import StepperDialogModal from "../../../../components/stepperDialog/stepperDialogModal";
-// import { useDispatch } from "react-redux";
 import Review from "./Review";
 import { useTranslation } from 'react-i18next';
 import Success from "./Success";
-import * as Endpoint from '../../../../network/Endpoints';
-
 import StartPayments from "./startYourPayments";
-import { API } from "../../../../mocks";
 import Loader from "../../../../common/loader";
-// import * as LandingActions from "../../../../redux/actions/beneficiary/billPayment/landingActions";
+import SetTransferAmount from "./setTransferAmount";
 
 const ManageMoneyTransferModal = (props: any) => {
   const {
@@ -29,55 +25,11 @@ const ManageMoneyTransferModal = (props: any) => {
   const [stepInit, setStepInit] = useState("Start Your Transfer");
   const {t} = useTranslation();
 
-
-  const onSuccessOTP = (finalData?: any) => {
-      setLoading(true);
-      updateStep({step: "confirmation", stepInit: "Confirmation"});
-      let getAllData = finalData ? finalData : startPayentData;
-      const {accountNumber, salikPinCode, serviceTypeCode, billRefNo, rechargeAmount, selectedAccount} =getAllData as any, url = Endpoint.BILL_PAYMENT_PAY_BILL_ENDPOINT;
-      let data: any = {
-        "consumerId": accountNumber, //"0504930554",
-        "billerType": serviceTypeCode, //"etisalat-prepaid",
-        "billRefNo" : billRefNo, //"06120204224478456558",
-        "paidAmount": rechargeAmount, //"20.00",
-    };
-    if(selectedAccount) {
-      //salik
-      if(salikPinCode) {
-        let isValidNumber = !isNaN(Number(salikPinCode));
-        data["checkDigit"] = isValidNumber ? btoa(salikPinCode) : salikPinCode;
-      }
-      if(selectedAccount.type === "cards" && selectedAccount.encryptedCardNumber) {
-        data["debitAccountNo"] = selectedAccount.encryptedCardNumber; //cardNo
-        data["paymentMode"] = "CARD"; //cardNo
-      } else if(selectedAccount.accountNumber) {
-        data["debitAccountNo"]= selectedAccount.accountNumber; //accountNumber
-        data["paymentMode"] = "ACCOUNT";
-      }
-    }
-      const config = {
-        method: 'POST',
-        url,
-        data,
-      };
-        API(config).then((val: any) => {
-          setLoading(false);
-          if (val && val.data && val.data.data) {
-            // const resData = val.data.data;
-          } else {
-            setSuccess(false);
-          }
-        }).catch (() => {
-        setSuccess(false);
-        setLoading(false);
-      });
-  };
-
   const onSubmitReview = (item: any) => {
     let updateOptions = {step: "otp", stepInit: "Authorization"};
     if(options && options.length> 0 && options.indexOf("Authorization") === -1) {
       updateOptions = {step: "confirmation", stepInit: "Confirmation"};
-      onSuccessOTP(item);
+      // onSuccessOTP(item);
     }
     updateStep(updateOptions);
     setStartPaymentData(item);
@@ -89,11 +41,6 @@ const ManageMoneyTransferModal = (props: any) => {
     }
   };
 
-  const onHandleBeneficiary = () => {
-    let updateOptions = [...options];
-    updateOptions.splice(2, 1);
-    setOptions(updateOptions);
-  }
 
   const onHandleBack = () => {
     setOptions(leftSideOptions);
@@ -104,12 +51,10 @@ const ManageMoneyTransferModal = (props: any) => {
     setStepInit(data.stepInit);
   }
 
-  /* Stary your payment submit */
   const onSubmitPayment = (data: any) => {
-    setStartPaymentData(data);
-    updateStep({step: "review", stepInit: "Review"});
-    setStartPaymentData(data);
+    updateStep({step: "Set transfer amount", stepInit: "Set transfer amount"});
   }
+
 
   const switchComponent = () => {
     switch (step) {
@@ -118,22 +63,28 @@ const ManageMoneyTransferModal = (props: any) => {
           <AuthOtp
             enableBack={false}
             enableCard={false}
-            onSuccess={() => onSuccessOTP()}
+            // onSuccess={() => onSuccessOTP()}
           />
         );
+        case "Set transfer amount":
+          return (
+            <SetTransferAmount
+            serviceType = {serviceType}
+            onHandleBack={()=>updateStep({step: "Start Your Payment", stepInit: "Start Your Payment"})}
+            />
+          );
       case "confirmation":
         if(!loading) {
           return (
             <Success
             success={success}
             data={startPayentData}
-            type={serviceType}
+            type={serviceType.code}
             title={t(`billPayments.steps.confirmation.${success ? 'success' : 'failure'}.title`)}
             subTitle={!success ? t(`billPayments.steps.confirmation.failure.desc`) : ""}
             onDoneCallback={()=>successFailureCallback()}
             />
         );
-
         }else {
           return (<Loader enable={true} />);
         }
@@ -142,13 +93,13 @@ const ManageMoneyTransferModal = (props: any) => {
         return (  
          <Review
           data={startPayentData}
-          type={serviceType}
+          type={serviceType.code}
           onHandleBack={()=>updateStep({step: "", stepInit: "Start Your Payment"})}
           onSubmit={onSubmitReview}
         />)
       default:
         return (
-          <StartPayments data={startPayentData} type={serviceType} onHandleBeneficiary={()=>onHandleBeneficiary()} onSubmitPayment={onSubmitPayment} onHandleBack={()=>onHandleBack()}/>
+          <StartPayments data={startPayentData} type={serviceType.code} onSubmitPayment={onSubmitPayment} onHandleBack={()=>onHandleBack()}/>
         );
     }
   };
@@ -160,15 +111,11 @@ const ManageMoneyTransferModal = (props: any) => {
       stepperOptions={options}
       stepperInit={stepInit}
       step={step}
-      type={serviceType}
+      type={serviceType.code}
       onCloseCallback={() => onCloseCallback()}
       content={switchComponent()}
     />
   );
-};
-
-ManageMoneyTransferModal.defaultProps = {
-  serviceType: "sewa"
 };
 
 export default ManageMoneyTransferModal;

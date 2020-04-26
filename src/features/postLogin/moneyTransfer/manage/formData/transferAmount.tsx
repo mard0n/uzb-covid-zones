@@ -1,8 +1,10 @@
+import React  from 'react';
 import i18n from "../../../../../config/i18n";
 import { RegEx } from "../../../../../util/RegEx";
 import { replaceStr } from "../../../../../util/helper";
+import { IconButton } from '@mashreq-digital/ui';
 
-const payAmount = {
+const amountFeildTransfer = {
   fields: {
     customAmount: {
       config: {
@@ -10,11 +12,25 @@ const payAmount = {
           minLength: 0,
           maxLength: 10
         },
-        required: true,
+        endAdornment: (
+          <IconButton
+            aria-label="Curency symbol"
+          >
+            USD
+          </IconButton>
+        ),
+        required: false,
         value: "",
-        helperText: "", //billPayments.steps.startPayment.prepaidDesc
-        label: "common.label.payCustomAmount"
+        helperText: "",
+        label: "Transfer amount"
       },
+      endAdornment: (
+        <IconButton
+          aria-label="Curency symbol"
+        >
+          USD
+        </IconButton>
+      ),
       validation: {
         onChangeRegex: RegEx.NUMERIC_ONLY,
         schema: [
@@ -42,4 +58,4 @@ const payAmount = {
   }
 };
 
-export default payAmount;
+export default amountFeildTransfer;

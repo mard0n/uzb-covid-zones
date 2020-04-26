@@ -8,7 +8,6 @@ import {
   CashPinMap,
   LoveHeartHandsHold3,
   NetworkArrowSync
-
 } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
 import CardPayNow from "../../../common/card/CardPayNow";
@@ -27,7 +26,7 @@ let serviceTypeCode = [
 const MoneyTransfer = (props: any) => {
   const { t } = useTranslation();
   const [addServiceType, setAddServiceType] = useState("");
-  const [addEditModal, setaddEditModal] =  useState(false);
+  const [addEditModal, setaddEditModal] =  useState(true);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Action.fetchMoneyTransferLandingRequest());
@@ -70,7 +69,7 @@ const MoneyTransfer = (props: any) => {
                   Icon={prop?.icon}
                   logo={prop?.logo}
                   callbak={() => {
-                    setAddServiceType(eachServiceType.code);
+                    setAddServiceType(eachServiceType);
                     setaddEditModal(true)
                     console.log("MoneyTransfer -> console");
                   }}

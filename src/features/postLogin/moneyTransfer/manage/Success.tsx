@@ -127,6 +127,8 @@ const Success = (props: SuccessProps) => {
           </>
           }
 
+
+
     
           {payRecieptModal && (
             <PaymentReceipt

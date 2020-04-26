@@ -1,38 +1,37 @@
-import i18n from "../../../../../../config/i18n";
-import { RegEx } from "../../../../../../util/RegEx";
-import { replaceStr } from "../../../../../../util/helper";
+import i18n from "../../../../../config/i18n";
+import { RegEx } from "../../../../../util/RegEx";
+import { replaceStr } from "../../../../../util/helper";
 
-const addc = {
-  type: "addc",
+const amountFeild = {
   fields: {
-    accountNumber: {
+    customAmount: {
       config: {
         inputProps: {
-          minLength: 8,
-          maxLength: 12
+          minLength: 0,
+          maxLength: 10
         },
-        required: true,
+        required: false,
         value: "",
-        helperText: "common.label.accountNumber",
-        label: "common.label.accountNumber"
+        helperText: "",
+        label: "Recieving amount"
       },
       validation: {
         onChangeRegex: RegEx.NUMERIC_ONLY,
         schema: [
           {
             regEx: replaceStr(
-              replaceStr(RegEx.NUMERIC_LIMIT, "min", 8),
+              replaceStr(RegEx.NUMERIC_LIMIT, "min", 0),
               "max",
-              12
+              10
             ),
             errorCode: replaceStr(
               replaceStr(
                 i18n.t("beneficiary.manage.errors.minMaxLength"),
                 "--min--",
-                8
+                0
               ),
               "--max--",
-              12
+              10
             )
           }
         ]
@@ -43,4 +42,4 @@ const addc = {
   }
 };
 
-export default addc;
+export default amountFeild;

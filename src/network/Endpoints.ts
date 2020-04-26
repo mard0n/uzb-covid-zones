@@ -25,3 +25,7 @@ export const BILL_PAYMENT_PAY_BILL_ENDPOINT = `/payment-core-service/v1/bills/pa
 
 /* Money Transfer */
 export const MONEY_TRANSFER_LANDING = `/beneficiary-core-service/v1/beneficiary/category?name=Fund%20Transfer`;
+export const PAY_LIST_OWN_ACOUNT = "mob-common-service/v1/payment-options/own-account"
+export const MONEY_TRANSFER_CURRENCY_EXCHANGE_ENDPOINT = `/mob-facade/v1/currency/conversion`;
+export const MONEY_TRANSFER_INITIATE_TRANSFER_ENDPOINT = `/transfer-core-service/v1/transfer`;
+
