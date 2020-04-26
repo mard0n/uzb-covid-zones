@@ -64,16 +64,7 @@ const Success = (props: SuccessProps) => {
     "Payment Channel": "Online",
   };
 
-  const SaveBenificiarySubmit = (formData: any) => {
-    let resData: any = {
-      nickname: formData.nickName,
-      serviceTypeCode: data.serviceTypeCode,
-      accountNumber: data.accountNumber,
-    }
-    setSaveData(resData);
-    setEditModal(false);
-    setSucessModel(true);
-  };
+
 
   // if(addNew == "" && benErrorOnSave !== "" ){
   //   console.log("error in creating benificiary");

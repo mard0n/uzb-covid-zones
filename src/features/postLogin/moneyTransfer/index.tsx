@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, H2, Box, UnderlineText, H5 } from "@mashreq-digital/ui";
+import { Grid, H2, Box, UnderlineText, H5,SvgIcon } from "@mashreq-digital/ui";
 import TransferTypeCard from "../../../common/card/TransferTypeCard";
 import {
   getMashreqLogo,
@@ -17,10 +17,10 @@ import { useSelector } from "react-redux";
 import ManageMoneyTransferModal from './manage/index';
 
 let serviceTypeCode = [
-  { type: "local", icon: SingleNeutral, logo: false },
+  { type: "local", icon: CashPinMap, logo: false },
   { type: "within-mashreq", icon: getMashreqLogo("symbol"), logo: true },
   { type: "international", icon: Earth1, logo: false },
-  { type: "own-account", icon: CashPinMap, logo: false },
+  { type: "own-account", icon: SingleNeutral, logo: false },
 ];
 
 const MoneyTransfer = (props: any) => {
@@ -55,7 +55,7 @@ const MoneyTransfer = (props: any) => {
       </Box>
       <Box mb={5}>
         <H5>{t("moneytransfer.landing.choose")}</H5>
-      </Box>
+        </Box>
       <Grid container xs={10} sm={10} lg={10} xl={10}>
       <Grid container>
         {serviceTypes &&
@@ -108,7 +108,7 @@ const MoneyTransfer = (props: any) => {
       </Grid>
       </Grid>
 
-
+      
       {addEditModal && (
         <ManageMoneyTransferModal
           serviceType={addServiceType}

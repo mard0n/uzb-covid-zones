@@ -47,6 +47,9 @@ const SetTransferAmount = (props: any) => {
   } = useCurrencyConverter();
 
 
+  useEffect(() => {
+  
+  },[])
 
   useEffect(() => {
     console.log('currencyConverterResponse', currencyConverterResponse);

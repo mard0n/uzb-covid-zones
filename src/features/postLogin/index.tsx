@@ -10,9 +10,14 @@ import {
 import SideDrawer from "../../components/sidebar";
 import { globalStyle } from "../../util/constants";
 import MoneyTransfer from './moneyTransfer/index';
+import Dashboard from "./dashboard";
 
 const { postLogin, sidebarWidth, defaultGutter } = globalStyle;
 const routes: any = [
+  {
+    path: RoutePath.DASHBOARD,
+    component: Dashboard
+  },
   {
     path: RoutePath.BENIFICIARY_BILL_PAYMENT,
     component: BillPayment

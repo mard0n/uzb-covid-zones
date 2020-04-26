@@ -119,6 +119,9 @@
       "action": "Start Demo again"
     }
   },
+  "dashboard": {
+    "welcomeNote": "Welcome back!"
+  },
   "beneficiary" : {
     "landing" : {
       "title" : "Beneficiaries",

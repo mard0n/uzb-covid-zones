@@ -50,9 +50,9 @@ const getBeneficiariesAvatar = (serviceType: any) => {
     case "international":
       return Earth1;
     case "own-account":
-      return CashPinMap;
-    case "local":
       return SingleNeutral;
+    case "local":
+      return CashPinMap;
     case "thvte":
       return THAVTE;
     default:
