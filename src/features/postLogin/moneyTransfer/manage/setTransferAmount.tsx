@@ -57,7 +57,10 @@ const SetTransferAmount = (props: any) => {
         setMaxAmounts({ ...maxAmounts, to: newAmount });
       }
     }
-  }, [currencyConverterResponse, maxAmounts, srcAmount]);
+      /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
+    We should add onChangeList as dependency then source api will get triggered infinitely */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currencyConverterResponse]);
 
   useEffect(() => {
     if (currenciesAreDifferent) {
@@ -70,7 +73,10 @@ const SetTransferAmount = (props: any) => {
       };
       fetchCurrencyRate(data);
     }
-  }, [currenciesAreDifferent, destCurrency, fetchCurrencyRate, maxAmounts, srcAmount, srcCurrency, transfer.fromAccount.accountNumber, transfer.fromAccount.availableBalance]);
+      /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
+    We should add onChangeList as dependency then source api will get triggered infinitely */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const onChangeOfReciveAmount = (event: any) => {
     setsourceAmount(event.target.value);
