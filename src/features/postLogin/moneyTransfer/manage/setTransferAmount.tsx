@@ -109,6 +109,7 @@ const SetTransferAmount = (props: any) => {
                       fullWidth
                       label="Transfer amount"
                       id="transferAmount"
+                      type="number"
                       variant="filled"
                       onFocus={() => {
                         setFromTouched(false);
@@ -144,6 +145,7 @@ const SetTransferAmount = (props: any) => {
                     <H5>You will be debited</H5>
                     <TextField
                     fullWidth
+                    type="number"
                     label="Recieving Amount"
                     value={sourceAmount}
                     id="recievingAmount"
@@ -341,7 +343,7 @@ const SetTransferAmount = (props: any) => {
         </>
       }
       bottom={
-        <Box display="flex" justifyContent="space-between">
+        <Box display="flex" justifyContent="space-between" mt={10}>
           <BackButton
             disableRoute
             onClickBack={() => {

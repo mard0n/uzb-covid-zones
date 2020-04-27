@@ -15,9 +15,10 @@ import { getPayListFromattedData } from "../../../util/getPayListFormattedData";
 
 type PayFromListProps = {
   onChangeList?: any;
-  heading?:any;
-  selectOptions?:boolean;
-  payListData?:any;
+  heading?: any;
+  type?: any;
+  selectOptions?: boolean;
+  payListData?: any;
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -33,13 +34,13 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const PayFromList = (props: PayFromListProps) => {
-  const { onChangeList,heading, payListData,selectOptions} = props;
+  const { onChangeList, heading, payListData, selectOptions, type } = props;
   const { t } = useTranslation();
   const { dropListStyle } = useStyles();
   const [active, setActive] = useState<any>({});
   const [suggestionList, setSuggestionList] = useState<any>([]);
   const [dropList, setDropList] = useState(false);
-  const listItems = ["accounts","cards"];
+  const listItems = ["accounts", "cards"];
   const [noSuggetion, setNosuggestion] = useState(false);
 
   // const callOnChangeList = useCallback((activeAct: any, type: string) => {
@@ -51,39 +52,31 @@ const PayFromList = (props: PayFromListProps) => {
   // }, [onChangeList]);
 
   useEffect(() => {
-    
     const callOnChangeList = (activeAct: any, type: string) => {
       let acctData = getPayListFromattedData(activeAct, type);
       setActive(acctData);
-      if(onChangeList && typeof onChangeList === "function") {
-        onChangeList({...activeAct, balance: acctData.balance, type: type});
+      if (onChangeList && typeof onChangeList === "function") {
+        onChangeList({ ...activeAct, balance: acctData.balance, type: type });
       }
     };
 
+    const configurValues = (val: any) => {
+      const { accounts, cards, suggestedAccount, suggestedCard } = val;
 
-    const configurValues=(val:any)=>{      
-        const {
-          accounts,
-          cards,
-          suggestedAccount,
-          suggestedCard,
-        } = val;
+      if (suggestedAccount && suggestedAccount.status) {
+        callOnChangeList(suggestedAccount, "accounts");
+      } else {
+        setNosuggestion(true);
+      }
 
-        if (suggestedAccount && suggestedAccount.status) {
-          callOnChangeList(suggestedAccount, "accounts");
-        }else{
-          setNosuggestion(true);
-        }
+      if (suggestedCard && suggestedCard.cardHolderName) {
+        callOnChangeList(suggestedCard, "cards");
+      }
 
-        if (suggestedCard && suggestedCard.cardHolderName) {
-          callOnChangeList(suggestedCard, "cards");
-        }
-
-        setSuggestionList({
-          accounts: accounts && accounts.length > 0 ? accounts : [],
-          cards: cards && cards.length > 0 ? cards : [],
-        });
-
+      setSuggestionList({
+        accounts: accounts && accounts.length > 0 ? accounts : [],
+        cards: cards && cards.length > 0 ? cards : [],
+      });
     };
 
     const getPaymentList = () => {
@@ -98,23 +91,21 @@ const PayFromList = (props: PayFromListProps) => {
         data,
       };
 
-      payListData?configurValues(payListData):
-      API(config).then((val: any) => {
-        if (val && val.data && val.data.data) {
-        configurValues(val.data.data);
-        }
-      });
-
-
-
-    }
+      payListData
+        ? configurValues(payListData)
+        : API(config).then((val: any) => {
+            if (val && val.data && val.data.data) {
+              configurValues(val.data.data);
+            }
+          });
+    };
 
     getPaymentList();
 
     /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
     We should add onChangeList as dependency then source api will get triggered infinitely */
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[]);
+  }, []);
 
   const onClickCallback = (data: any, item?: any) => {
     setDropList(false);
@@ -160,15 +151,27 @@ const PayFromList = (props: PayFromListProps) => {
   //   return data;
   // }
 
-  const allSuggestions = [...(suggestionList && suggestionList.cards && suggestionList.cards.length > 0 ? suggestionList.cards : []), 
-  ...(suggestionList && suggestionList.accounts && suggestionList.accounts.length > 0 ? suggestionList.accounts : [])],
-  listHeight = allSuggestions && allSuggestions.length > 4 ? 75 * 3 : "auto";
+  const allSuggestions = [
+      ...(suggestionList &&
+      suggestionList.cards &&
+      suggestionList.cards.length > 0
+        ? suggestionList.cards
+        : []),
+      ...(suggestionList &&
+      suggestionList.accounts &&
+      suggestionList.accounts.length > 0
+        ? suggestionList.accounts
+        : []),
+    ],
+    listHeight = allSuggestions && allSuggestions.length > 4 ? 75 * 3 : "auto";
 
-  if (active && active.currency || noSuggetion) {
+  if ((active && active.currency) || noSuggetion) {
     return (
       <Box position="relative" minHeight="110px">
         <Box display="flex" justifyContent="space-between">
-          <H4>{ heading?heading:t("billPayments.steps.review.payingFrom")}</H4>
+          <H4>
+            {heading ? heading : t("billPayments.steps.review.payingFrom")}
+          </H4>
           <Button
             onClick={() => {
               setDropList(!dropList);
@@ -179,33 +182,51 @@ const PayFromList = (props: PayFromListProps) => {
           </Button>
         </Box>
         <Box className={dropListStyle} height={dropList ? listHeight : "auto"}>
-          {!dropList && (active && active.currency)? <PayListItem isDefault data={active}/>:<PayListItem isDefault data={active} selectOptions={selectOptions}/>}
+          {!dropList && active && active.currency ? (
+            <PayListItem isDefault data={active} />
+          ) : (
+            <PayListItem
+              isDefault
+              data={active}
+              selectOptions={selectOptions}
+            />
+          )}
 
           {dropList && (
             <>
-              {suggestionList &&
+              {suggestionList && (
                 <>
-                  {listItems.map((list: string)=>{
-                    if(suggestionList[list] && suggestionList[list].length > 0) {
-                      return suggestionList[list].map((item: any, i:number)=>{
-                        let data = getPayListFromattedData(item, list);
-                        return (
-                          <Fragment key={i + "PayListItem"}>
-                            <PayListItem
-                              onClickCallback={() => onClickCallback(data, {...item, balance: data.balance, type: list})}
-                              active={data.accNo === active.accNo}
-                              data={data}
-                            />
-                          </Fragment>
-                        );
-                      });
+                  {listItems.map((list: string) => {
+                    if (
+                      suggestionList[list] &&
+                      suggestionList[list].length > 0
+                    ) {
+                      return suggestionList[list].map(
+                        (item: any, i: number) => {
+                          let data = getPayListFromattedData(item, list);
+                          return (
+                            <Fragment key={i + "PayListItem"}>
+                              <PayListItem
+                                onClickCallback={() =>
+                                  onClickCallback(data, {
+                                    ...item,
+                                    balance: data.balance,
+                                    type: list,
+                                  })
+                                }
+                                active={data.accNo === active.accNo}
+                                data={data}
+                              />
+                            </Fragment>
+                          );
+                        }
+                      );
                     } else {
-                      return false
+                      return false;
                     }
-                    
                   })}
                 </>
-              }
+              )}
             </>
           )}
         </Box>

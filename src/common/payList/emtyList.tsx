@@ -2,13 +2,9 @@ import React from "react";
 import {
   ListItem,
   Button,
-  ListItemText,
-  H3,
   makeStyles,
   Theme,
-  Box,
-  Body1,
-  colors,
+  Body1
 } from "@mashreq-digital/ui";
 
 const useStyles = makeStyles((theme: Theme) => ({

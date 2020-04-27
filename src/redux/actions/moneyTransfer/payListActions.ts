@@ -17,8 +17,9 @@ export const FETCH_PAY_LIST_FAILURE =
  * @func fetchPayListRequest
  * @param
  */
-export const fetchPayListRequest = () => ({
-  type: FETCH_PAY_LIST_REQUEST
+export const fetchPayListRequest = (payload:any) => ({
+  type: FETCH_PAY_LIST_REQUEST,
+  payload
 });
 
 export const fetchPayListSuccess = (payload: any) => ({

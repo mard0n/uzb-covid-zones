@@ -28,14 +28,15 @@ const StartPayments = (props: StartPaymentsProps) => {
   const { type, data, onHandleBack, onSubmitPayment } = props;
   const [transferButton, setTransferButton] = useState(false);
   const dispatch = useDispatch();
-  const payCardListData = useSelector(
+  const payCardListData =Object.assign(
+     useSelector(
     (state: any) => state.moneyTransfer.other.payListData
-  );
+  ));
+  
+
   let transfer = useSelector(
     (state: any) => state.moneyTransfer.other.transfer
   );
-  // accountNumber
-
   
   const { t } = useTranslation();
 
@@ -46,6 +47,7 @@ const StartPayments = (props: StartPaymentsProps) => {
       transfer.hasOwnProperty("fromAccount") &&
       transfer.hasOwnProperty("toAccount")
     ) {
+  console.log("StartPayments -> payCardListData gubad", payCardListData)
       setTransferButton(true);
     }
   };
@@ -62,8 +64,9 @@ const StartPayments = (props: StartPaymentsProps) => {
   };
 
   useEffect(() => {
-    dispatch(Actions.fetchPayListRequest());
-  }, [dispatch]);
+    dispatch(Actions.fetchPayListRequest({"type":type}));
+
+  }, [dispatch, type]);
 
   return (
     <SectionSplitter
@@ -84,6 +87,13 @@ const StartPayments = (props: StartPaymentsProps) => {
                 />
               }
               rightContent={
+                type === "within-mashreq"?
+                <PayFromList
+                  selectOptions={true}
+                  heading="To this account"
+                  payListData={payCardListData.destination}
+                  onChangeList={onChangeToAcount}
+                />:
                 <PayFromList
                   selectOptions={true}
                   heading="To this account"
@@ -92,6 +102,7 @@ const StartPayments = (props: StartPaymentsProps) => {
                 />
               }
             />
+
           ) : (
             <Box display="flex" mt={12} alignItems="baseline">
               <CircularProgress />
