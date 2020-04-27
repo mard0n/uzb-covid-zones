@@ -24,6 +24,7 @@
       "back": "Back",
       "change": "Change",
       "cancel": "Cancel",
+      "applyNow": "Apply Now",
       "payNow": "Pay Now",
       "gotit":"Got It",
       "pay": "Pay",
@@ -120,7 +121,61 @@
     }
   },
   "dashboard": {
-    "welcomeNote": "Welcome back!"
+    "welcomeNote": "Welcome back!",
+    "payYourBill" : {
+      "title": "Pay your Bills",
+      "buttonLinkLabel": "View All Billers"
+    },
+    "sendMoney" : {
+      "title": "Send money to",
+      "buttonLabel": "View All Your Beneficiaries",
+      "buttonLinkLabel": "Start A New Transfer"
+    },
+    "productSummary" : {
+      "accounts" : {
+        "title": "Accounts",
+        "availableBalance" : "Available Balance",
+        "currentBalance" : "Current Balance",
+        "empty": {
+          "title" : "Accounts",
+          "desc" : "Lorem ipsum"
+        }
+      },
+      "cards" : {
+        "title": "Credit Card",
+        "availableBalance" : "Available Balance",
+        "currentBalance" : "Current Spender",
+        "empty": {
+          "title" : "Credit Cards",
+          "desc" : "Lorem ipsum"
+        }
+      },
+      "loans" : {
+        "title": "Loan",
+        "availableBalance" : "Total Outstanding",
+        "currentBalance" : "Current Spender",
+        "empty": {
+          "title" : "Protect everything",
+          "desc" : "Insurance is easy, and safe"
+        }
+      },
+      "deposits" : {
+        "title": "Deposits",
+        "availableBalance" : "Maturity Amount",
+        "currentBalance" : "Principle Deposits",
+        "empty": {
+          "title" : "Invest smartly",
+          "desc" : "Make your money work for you"
+        }
+      },
+      "salaam" : {
+        "title": "Salaam Rewards",
+        "empty": {
+          "title" : "Salaam Rewards",
+          "desc" : "Lorem ipsum"
+        }
+      }
+    }
   },
   "beneficiary" : {
     "landing" : {

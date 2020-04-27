@@ -1,34 +1,129 @@
 import React, { useState, useEffect } from "react";
-import { Box, UnderlineText, H2, Grid } from "@mashreq-digital/ui";
+import {
+  Box,
+  UnderlineText,
+  H2,
+  Button,
+  SectionSplitter,
+  CircularProgress,
+} from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
-import PayFromList from '../../../../../components/billpayment/review/PayFromList';
+import CardPayList from "../../../../../common/cardPayList/index";
+import { useDispatch, useSelector } from "react-redux";
+import * as Actions from "../../../../../redux/actions/moneyTransfer/payListActions";
+import CardDash from "../../../../../common/cardDash/index";
+import PayFromList from "../../../../../components/billpayment/review/PayFromList";
+
+
+
 
 type StartPaymentsProps = {
   type: string | any;
-  onHandleBeneficiary?: any;
   onHandleBack?: any;
-  data? : any;
-  onSubmitPayment?: any
+  data?: any;
+  onSubmitPayment?: any;
 };
 
 const StartPayments = (props: StartPaymentsProps) => {
-  const { type, data, onHandleBeneficiary, onHandleBack, onSubmitPayment } = props;
+  const { type, data, onHandleBack, onSubmitPayment } = props;
+  const [transferButton, setTransferButton] = useState(false);
+  const dispatch = useDispatch();
+  const payCardListData =Object.assign(
+     useSelector(
+    (state: any) => state.moneyTransfer.other.payListData
+  ));
+  
 
+  let transfer = useSelector(
+    (state: any) => state.moneyTransfer.other.transfer
+  );
+  
   const { t } = useTranslation();
 
+  const onChangeFromAcount = (item: any) => {
+    transfer = { ...transfer, fromAccount: item };
+    dispatch(Actions.setTransferObject(transfer));
+    if (
+      transfer.hasOwnProperty("fromAccount") &&
+      transfer.hasOwnProperty("toAccount")
+    ) {
+  console.log("StartPayments -> payCardListData gubad", payCardListData)
+      setTransferButton(true);
+    }
+  };
+
+  const onChangeToAcount = (item: any) => {
+    transfer = { ...transfer, toAccount: item };
+    dispatch(Actions.setTransferObject(transfer));
+    if (
+      transfer.hasOwnProperty("fromAccount") &&
+      transfer.hasOwnProperty("toAccount")
+    ) {
+      setTransferButton(true);
+    }
+  };
+
+  useEffect(() => {
+    dispatch(Actions.fetchPayListRequest({"type":type}));
+
+  }, [dispatch, type]);
 
   return (
-    <>
-    <Box mb={10}>
-      <UnderlineText color="primary">
-        <H2>Start your transfer</H2>
-      </UnderlineText>
-    </Box>
+    <SectionSplitter
+      height={"calc(100vh - 400px)"}
+      top={
+        <>
+          <UnderlineText color="primary">
+            <H2>Start your transfer</H2>
+          </UnderlineText>
 
-    <Grid item xl={12} lg={6} md={5} sm={12} xs={12}>
-    <PayFromList onChangeList={()=>{}} />
-  </Grid>
-  </>
+          {Object.keys(payCardListData).length !== 0 ? (
+            <CardDash
+              leftContent={
+                <PayFromList
+                heading="I want to send money from"
+                payListData={payCardListData.source}
+                onChangeList={onChangeFromAcount}
+                />
+              }
+              rightContent={
+                type === "within-mashreq"?
+                <PayFromList
+                  selectOptions={true}
+                  heading="To this account"
+                  payListData={payCardListData.destination}
+                  onChangeList={onChangeToAcount}
+                />:
+                <PayFromList
+                  selectOptions={true}
+                  heading="To this account"
+                  payListData={payCardListData.destination}
+                  onChangeList={onChangeToAcount}
+                />
+              }
+            />
+
+          ) : (
+            <Box display="flex" mt={12} alignItems="baseline">
+              <CircularProgress />
+            </Box>
+          )}
+        </>
+      }
+      bottom={
+        <Box display="flex" justifyContent="flex-end">
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={!transferButton}
+            onClick={onSubmitPayment}
+            size="large"
+          >
+            Set Transfer Amount
+          </Button>
+        </Box>
+      }
+    />
   );
 };
 

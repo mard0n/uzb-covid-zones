@@ -1,9 +1,21 @@
 
 import { combineReducers } from 'redux';
-import { default as moneyTransfer } from './landing';
+import { default as moneyTransferLanding } from './landing';
+import { default as moneyTransferPayList} from './payList';
+import currencyConverterReducer from './currencyConverterReducer';
+import { getBasicReducer } from '../../../util/reducer';
+import * as Actions from "../../actions/moneyTransfer/transaction"
 
 const MoneyTransferReducer:any = combineReducers({
-    landing: moneyTransfer,
+    landing: moneyTransferLanding,
+    currencyConverter: currencyConverterReducer,
+    other:moneyTransferPayList,
+    makeTransfer: getBasicReducer({
+        success: Actions.MONEY_TRANSFER_INITIATE_TRANSFER_SUCCESS,
+        request: Actions.MONEY_TRANSFER_INITIATE_TRANSFER_REQUEST,
+        failure: Actions.MONEY_TRANSFER_INITIATE_TRANSFER_FAILURE,
+        clear: Actions.MONEY_TRANSFER_INITIATE_TRANSFER_CLEAR,
+      })
 });
 
 export default MoneyTransferReducer;

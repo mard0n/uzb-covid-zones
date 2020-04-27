@@ -11,7 +11,7 @@ import {
   ButtonProps,
   colors
 } from "@mashreq-digital/ui";
-import { transitionModalProps } from "@mashreq-digital/ui/dist/types/components";
+// import { transitionModalProps } from "@mashreq-digital/ui/dist/types/components";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: (props: any) => ({

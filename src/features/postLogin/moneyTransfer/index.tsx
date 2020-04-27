@@ -8,7 +8,6 @@ import {
   CashPinMap,
   LoveHeartHandsHold3,
   NetworkArrowSync
-
 } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
 import CardPayNow from "../../../common/card/CardPayNow";
@@ -70,7 +69,7 @@ const MoneyTransfer = (props: any) => {
                   Icon={prop?.icon}
                   logo={prop?.logo}
                   callbak={() => {
-                    setAddServiceType(eachServiceType.code);
+                    setAddServiceType(eachServiceType);
                     setaddEditModal(true)
                     console.log("MoneyTransfer -> console");
                   }}

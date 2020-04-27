@@ -3,6 +3,10 @@ import { useTranslation } from 'react-i18next';
 import { Box, H3, Caption, SvgIcon, makeStyles, Theme, colors } from '@mashreq-digital/ui';
 
 const useStyles = makeStyles((theme: Theme) => ({
+  root: (props: any) => ({
+    width: props && props.fullWidth ? "100%" : "auto",
+    padding: theme.spacing(3)
+  }),
   svgIconStyle: {
     height: "100px",
     width: "100px",
@@ -14,15 +18,17 @@ type NoBeneficiaryFoundProps = {
   icon?: any;
   title: string;
   desc?: string;
+  fullWidth?: boolean;
   className?: any;
 }
 
 function NoBeneficiaryFound(props: NoBeneficiaryFoundProps) {
   const { className, icon, title, desc} = props;
-  const { svgIconStyle } = useStyles();
+  const { root, svgIconStyle } = useStyles(props);
   const {t} = useTranslation();
+
   return (
-    <Box className={className} display="flex" height="40vh" flexDirection="column" justifyContent="center" alignItems="center">
+    <Box className={`${root} ${className}`} display="flex" height="40vh" flexDirection="column" justifyContent="center" alignItems="center">
       {icon && <SvgIcon className={svgIconStyle} htmlColor={colors.blueGrey[500]} component={icon} /> }
       <H3 gutterBottom>
         {t(`${title}`)}
