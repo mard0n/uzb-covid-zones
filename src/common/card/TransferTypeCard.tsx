@@ -6,6 +6,7 @@ import {
   H5,
   Avatar,
   makeStyles,
+  Body2,
 } from "@mashreq-digital/ui";
 
 const useStyles = makeStyles((theme) => ({
@@ -15,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     padding: theme.spacing(4),
     borderRadius: theme.spacing(0.67),
     boxShadow: `0px 8px 12px 0px rgba(0, 0, 0, 0.06)`,
+    cursor: "pointer"
   }),
   iconStyle: {
     display: "flex",
@@ -31,6 +33,9 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
     fontSize: theme.spacing(2.5),
   },
+  titleStyle: {
+    fontWeight: 600
+  }
 }));
 
 const TransferTypeCard = (props: any) => {
@@ -70,7 +75,7 @@ const TransferTypeCard = (props: any) => {
             </div>
           )}
 
-          <H5>{title}</H5>
+          <Body2 className={classes.titleStyle}>{title}</Body2>
         </CardContent>
       )}
     </Card>

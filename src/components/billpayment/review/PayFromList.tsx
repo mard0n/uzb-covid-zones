@@ -167,7 +167,7 @@ const PayFromList = (props: PayFromListProps) => {
   if (active && active.currency || noSuggetion) {
     return (
       <Box position="relative" minHeight="110px">
-        <Box mt={5} display="flex" justifyContent="space-between">
+        <Box display="flex" justifyContent="space-between">
           <H4>{ heading?heading:t("billPayments.steps.review.payingFrom")}</H4>
           <Button
             onClick={() => {

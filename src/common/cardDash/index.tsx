@@ -10,46 +10,51 @@ type CardDashProps = {
 
 const useStyles = makeStyles((theme: any) => ({
   myarrow: {
-    position: "absolute",
-    top: 0,
-    bottom: 0,
-    transform: "rotate(90deg)",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "80%",
+    height: "100%"
   },
   line: {
-    borderRight: "0.2rem dashed rgb(173, 184, 191)",
+    borderBottom: "0.2rem dashed rgb(173, 184, 191)",
     display: "inline-block",
-    height: "5rem",
+    width: "5rem",
+    height: "2px"
   },
   arrow: {
-    position: "absolute",
-    top: "-0.3rem",
-    bottom: 0,
-    height: "1rem",
-    borderRight: "0.2rem solid rgb(173, 184, 191)",
+    width: 0,
+    height: 0,
     display: "inline-block",
-    right: "0.3rem",
-    transform: "rotate(45deg)",
+    borderTop: "6px solid transparent",
+    borderBottom: "6px solid transparent",
+    borderLeft: "10px solid rgb(173, 184, 191)"
   },
+  arrowWrapperStyle: {
+    position: "relative"
+  }
 }));
 
 const CardDash = (props: CardDashProps) => {
   const { leftContent, rightContent } = props;
-  const { myarrow, arrow, line } = useStyles();
+  const { myarrow, arrow, arrowWrapperStyle, line } = useStyles();
   return (
     <Box mt={6} mb={6} display="flex" alignItems="center">
-      <Box width="500px">{leftContent}</Box>
-      <Box ml={3} mr={3}>
-        <SvgIcon component={ArrowRight} />
-      </Box>
-      {
-        // <Box ml={2} mr={2} className={myarrow}>
-        // <span className={arrow}></span>
-        // <span className={line}></span>
-        // </Box>
-      }
-
-      <Box width="500px">{rightContent}</Box>
-    </Box>
+      <Grid container>
+        <Grid item xs={5}>
+        {leftContent}
+        </Grid>
+        <Grid item xs={2} className={arrowWrapperStyle}>
+          <Box ml={2} mr={2} className={myarrow}>
+          <span className={line}></span>
+          <span className={arrow}></span>
+          </Box>
+        </Grid>
+        <Grid item xs={5}>
+        {rightContent}
+        </Grid>
+      </Grid>
+    </Box> 
   );
 };
 

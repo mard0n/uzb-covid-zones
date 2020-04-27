@@ -44,7 +44,7 @@ const WelcomeUser = () => {
         <CardPayNow
           fullWidth
           icon={<Box component="span" className={exclamationStyle}><SvgIcon htmlColor="#fff" component={Exclamation} /></Box>}
-          style={{ justifyContent: "space-evenly" }}
+          style={{ justifyContent: "space-between" }}
           arrow={true}
           heading="KYC due to expire"
           subheading="Please, renew in 3 days"
