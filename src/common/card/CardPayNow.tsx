@@ -9,6 +9,7 @@ import {
   SvgIcon,
   makeStyles,
   createStyles,
+  Body2,
 } from "@mashreq-digital/ui";
 
 import { ChevronRight } from "@mashreq-digital/webassets";
@@ -28,6 +29,9 @@ const useStyles = makeStyles((theme: any) =>
       padding: `0 ${theme.spacing(4)}px`,
       cursor: props && props.link ? "pointer" : "default"
     }),
+    headingStyle: {
+      fontWeight: 600
+    },
     iconStyle: {
       display: "flex",
       justifyContent: "left",
@@ -82,7 +86,7 @@ const CardPayNow = (props: CardPayNowProps) => {
     callback,
   } = props;
 
-  const { card, button, arrowStyle, iconStyle, avt } = useStyles(props);
+  const { card, button, headingStyle, arrowStyle, iconStyle, avt } = useStyles(props);
   return (
     <Card
       className={card}
@@ -109,7 +113,7 @@ const CardPayNow = (props: CardPayNowProps) => {
         </div>
       )}
       <CardContent>
-        <H5 gutterBottom> {heading} </H5>
+        <Body2 gutterBottom className={headingStyle}> {heading} </Body2>
         <Caption>{subheading}</Caption>
       </CardContent>
       {buttonLable && (

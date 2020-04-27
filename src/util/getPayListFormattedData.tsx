@@ -1,6 +1,4 @@
 export const getPayListFromattedData = (obj: any, type: string) => {
-console.log("getPayListFromattedData -> ###### type", type)
-console.log("getPayListFromattedData -> obj", obj);
   let data = {
     name: "",
     accNo: "",
