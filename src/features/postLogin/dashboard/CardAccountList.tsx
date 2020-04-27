@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import getProductColor from "../../../util/getProductColor";
 import { useTranslation } from "react-i18next";
 import { getPayListFromattedData } from "../../../util/getPayListFormattedData";
+import NoBeneficiaryFound from "../../../components/beneficiary/billPayment/NoBeneficiaryFound";
 
 const useStyles = makeStyles(() => ({
   emptyAcctStyle: {
@@ -58,8 +59,8 @@ const CardAccountList = () => {
     };
 
     const generateRenderData = () => {
+      let listItems: any = [];
       if (Products) {
-        let listItems: any = [];
         for (let list in Products) {
           if (list && Products[list]) {
             let prodList = Products[list] ? Products[list] : [];
@@ -77,7 +78,7 @@ const CardAccountList = () => {
         }
       }
     };
-    if (Products && Products.card && renderData && renderData.length === 0) {
+    if (Products && renderData && (renderData.length === 0 || renderData.length < 5)) {
       generateRenderData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -88,8 +89,8 @@ const CardAccountList = () => {
       <Box mt={1}>
         <Grid container spacing={4}>
           {renderData &&
-            renderData.length > 0 &&
-            renderData.map((listItem: any, i: number) => {
+            renderData.length > 0 ?
+            (<>{renderData.map((listItem: any, i: number) => {
               const {
                 type,
                 count,
@@ -134,6 +135,15 @@ const CardAccountList = () => {
                 );
               }
             })}
+            </>
+            ): (
+              <Grid item xs={12}>
+              <NoBeneficiaryFound
+                title="error.title"
+                desc="error.somethingWrong"
+              />
+              </Grid>
+            )}
         </Grid>
       </Box>
     </>

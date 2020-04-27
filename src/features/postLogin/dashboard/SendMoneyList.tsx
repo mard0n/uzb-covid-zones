@@ -8,6 +8,7 @@ import {
   H4,
   Button,
   CircularProgress,
+  makeStyles,
 } from "@mashreq-digital/ui";
 import CardPayNow from "../../../common/card/CardPayNow";
 import getBeneficiariesAvatar from "../../../util/getBeneficiariesAvatar";
@@ -15,14 +16,20 @@ import * as RoutePath from "../../../router/config";
 import * as ActionsLandingBeneficiary from "../../../redux/actions/beneficiary/billPayment/landingActions";
 import NoBeneficiaryFound from "../../../components/beneficiary/billPayment/NoBeneficiaryFound";
 
+const useStyles = makeStyles(()=>({
+  notFoundStyle: {
+    height: "auto"
+  }
+}));
 
 const SendMoneyList = () => {
+  const { notFoundStyle } = useStyles();
   const { t } = useTranslation();
   const dispatch = useDispatch();
   const history = useHistory();
   const { beneficiaryList, loading } = useSelector((state: any) => ({
-    beneficiaryList: state?.beneficiary?.billPayment?.myBills,
-    loading: state?.beneficiary?.billPayment?.loading
+    beneficiaryList: state?.beneficiary?.billPayment?.myBills || [],
+    loading: state?.beneficiary?.billPayment?.loading,
   }));
 
   useEffect(() => {
@@ -37,67 +44,71 @@ const SendMoneyList = () => {
       content={
         <>
           <H4>{t("dashboard.sendMoney.title")}</H4>
-          {!loading ?
-            (<>{beneficiaryList && beneficiaryList.length > 0 ? (
-              <>
-                <Box my={3.34} mb={2}>
-                  {beneficiaryList[0] &&
-                    beneficiaryList[0]["data"] &&
-                    beneficiaryList[0]["data"].length > 0 &&
-                    beneficiaryList[0]["data"].map((item: any, i: number) => {
-                      const { nickname, serviceType, accountNumber } = item;
-                      if(i < 3) {
-                      return (
-                        <CardPayNow
-                          key={i}
-                          fullWidth
-                          image={getBeneficiariesAvatar("etisalat")}
-                          boxShadow={false}
-                          style={{ paddingLeft: 0 }}
-                          heading={nickname}
-                          subheading={`${serviceType} |  ${accountNumber}`}
-                        />
-                      );
-                    }
-                    return false;
-                    })}
-                </Box>
-                <Button
-                  fullWidth
-                  variant="text"
-                  color="primary"
-                  onClick={() => history.push(RoutePath.BENIFICIARY_BILL_PAYMENT)}
-                >
-                  {t("dashboard.sendMoney.buttonLinkLabel")}
-                </Button>
-                <Box mt={4}>
+          {!loading ? (
+            <>
+              {beneficiaryList && beneficiaryList.length > 0 ? (
+                <>
+                  <Box my={3.34} mb={2}>
+                    {beneficiaryList[0] &&
+                      beneficiaryList[0]["data"] &&
+                      beneficiaryList[0]["data"].length > 0 &&
+                      beneficiaryList[0]["data"].map((item: any, i: number) => {
+                        const { nickname, serviceType, accountNumber } = item;
+                        if (i < 3) {
+                          return (
+                            <CardPayNow
+                              key={i}
+                              fullWidth
+                              image={getBeneficiariesAvatar("etisalat")}
+                              boxShadow={false}
+                              style={{ paddingLeft: 0 }}
+                              heading={nickname}
+                              subheading={`${serviceType} |  ${accountNumber}`}
+                            />
+                          );
+                        }
+                        return false;
+                      })}
+                  </Box>
                   <Button
                     fullWidth
-                    variant="contained"
+                    variant="text"
                     color="primary"
                     onClick={() =>
                       history.push(RoutePath.BENIFICIARY_BILL_PAYMENT)
                     }
                   >
-                    {t("dashboard.sendMoney.buttonLabel")}
+                    {t("dashboard.sendMoney.buttonLinkLabel")}
                   </Button>
+                  <Box mt={4}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      onClick={() =>
+                        history.push(RoutePath.BENIFICIARY_BILL_PAYMENT)
+                      }
+                    >
+                      {t("dashboard.sendMoney.buttonLabel")}
+                    </Button>
+                  </Box>
+                </>
+              ) : (
+                <Box display="flex" alignItems="baseline">
+                  <CircularProgress />
                 </Box>
-              </>
-            ) : (
-              <Box display="flex" alignItems="baseline">
-                <NoBeneficiaryFound
-                  // className={notFoundStyle}
-                  title="error.title"
-                  desc="error.somethingWrong"
-                />
-              </Box>
-            )}</>)
-            : (
-              <Box display="flex" alignItems="baseline">
-                <CircularProgress />
-              </Box>
-            )}
-            
+              )}
+            </>
+          ) : (
+            <Box display="flex" alignItems="baseline">
+              <NoBeneficiaryFound
+                fullWidth
+                className={notFoundStyle}
+                title="error.title"
+                desc="error.somethingWrong"
+              />
+            </Box>
+          )}
         </>
       }
     />

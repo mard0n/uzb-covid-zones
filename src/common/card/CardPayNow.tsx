@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import {
-  H4,
+  H5,
   Caption,
   Avatar,
   Card,
@@ -109,7 +109,7 @@ const CardPayNow = (props: CardPayNowProps) => {
         </div>
       )}
       <CardContent>
-        <H4 gutterBottom> {heading} </H4>
+        <H5 gutterBottom> {heading} </H5>
         <Caption>{subheading}</Caption>
       </CardContent>
       {buttonLable && (
