@@ -16,10 +16,10 @@ import * as RoutePath from "../../../router/config";
 import * as ActionsLandingBeneficiary from "../../../redux/actions/beneficiary/billPayment/landingActions";
 import NoBeneficiaryFound from "../../../components/beneficiary/billPayment/NoBeneficiaryFound";
 
-const useStyles = makeStyles(()=>({
+const useStyles = makeStyles(() => ({
   notFoundStyle: {
-    height: "auto"
-  }
+    height: "auto",
+  },
 }));
 
 const SendMoneyList = () => {
@@ -75,29 +75,41 @@ const SendMoneyList = () => {
                     variant="text"
                     color="primary"
                     onClick={() =>
-                      history.push(RoutePath.BENIFICIARY_BILL_PAYMENT)
+                      history.push(RoutePath.MONEYTRANSFER)
                     }
                   >
                     {t("dashboard.sendMoney.buttonLinkLabel")}
                   </Button>
-                  <Box mt={4}>
-                    <Button
-                      fullWidth
-                      variant="contained"
-                      color="primary"
-                      onClick={() =>
-                        history.push(RoutePath.BENIFICIARY_BILL_PAYMENT)
-                      }
-                    >
-                      {t("dashboard.sendMoney.buttonLabel")}
-                    </Button>
-                  </Box>
                 </>
               ) : (
-                <Box display="flex" alignItems="baseline">
-                  <CircularProgress />
-                </Box>
+                <>
+                  {beneficiaryList && beneficiaryList.length === 0 ? (
+                    <Box display="flex" alignItems="baseline">
+                      <NoBeneficiaryFound
+                        fullWidth
+                        className={notFoundStyle}
+                        desc="notFound.title"
+                      />
+                    </Box>
+                  ) : (
+                    <Box display="flex" alignItems="baseline">
+                      <CircularProgress />
+                    </Box>
+                  )}
+                </>
               )}
+              <Box mt={4}>
+                <Button
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  onClick={() =>
+                    history.push(RoutePath.BENIFICIARY_BILL_PAYMENT)
+                  }
+                >
+                  {t("dashboard.sendMoney.buttonLabel")}
+                </Button>
+              </Box>
             </>
           ) : (
             <Box display="flex" alignItems="baseline">

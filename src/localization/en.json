@@ -59,6 +59,9 @@
     "somethingWrong" : "Something went wrong",
     "desc": "Sorry it seems like you’ve made a mistake"
   },
+  "notFound": {
+    "title": "No Records Found"
+  },
   "login": {
     "title": "Welcome to Mashreq Online Banking",
     "ensure": "Ensure You are Always Protected",
@@ -136,24 +139,27 @@
         "title": "Accounts",
         "availableBalance" : "Available Balance",
         "currentBalance" : "Current Balance",
+        "seeAll" : "See All Accounts",
         "empty": {
           "title" : "Accounts",
-          "desc" : "Lorem ipsum"
+          "desc" : "Lorem ipsum dolor sit amet consectetur"
         }
       },
       "cards" : {
         "title": "Credit Card",
         "availableBalance" : "Available Balance",
         "currentBalance" : "Current Spender",
+        "seeAll" : "See All Cards",
         "empty": {
           "title" : "Credit Cards",
-          "desc" : "Lorem ipsum"
+          "desc" : "Lorem ipsum dolor sit amet consectetur"
         }
       },
       "loans" : {
         "title": "Loan",
         "availableBalance" : "Total Outstanding",
         "currentBalance" : "Current Spender",
+        "seeAll" : "See All Loans",
         "empty": {
           "title" : "Protect everything",
           "desc" : "Insurance is easy, and safe"
@@ -163,6 +169,7 @@
         "title": "Deposits",
         "availableBalance" : "Maturity Amount",
         "currentBalance" : "Principle Deposits",
+        "seeAll" : "See All Deposits",
         "empty": {
           "title" : "Invest smartly",
           "desc" : "Make your money work for you"
@@ -172,7 +179,7 @@
         "title": "Salaam Rewards",
         "empty": {
           "title" : "Salaam Rewards",
-          "desc" : "Lorem ipsum"
+          "desc" : "Lorem ipsum dolor sit amet consectetur"
         }
       }
     }

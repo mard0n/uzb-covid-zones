@@ -19,7 +19,7 @@ const ProductSummary = combineReducers({
     request: Actions.PRODUCT_SUMMARY_REWARDS_REQUEST,
     success: Actions.PRODUCT_SUMMARY_REWARDS_SUCCESS,
     failure: Actions.PRODUCT_SUMMARY_REWARDS_FAILURE
-  }),
+  })
 });
 
 export default ProductSummary
