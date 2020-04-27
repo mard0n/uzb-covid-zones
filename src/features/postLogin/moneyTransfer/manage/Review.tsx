@@ -40,6 +40,10 @@ const Review = (props: any) => {
   let transfer = useSelector(
     (state: any) => state.moneyTransfer.other.transfer
   );
+  const financialTxnNumber = useSelector(
+    (state: any) => state.moneyTransfer.other.payListData.financialTxnNumber
+  );
+
   let srcAcount = transfer.fromAccount;
   let destAcount = transfer.toAccount;
 
@@ -102,7 +106,7 @@ const Review = (props: any) => {
                 "amount": transfer.amount.total,
               "currency": transfer.amount.type,
               "dealNumber": "",
-              "finTxnNo": "FTO-UAE-010424124-200419140031",
+              "finTxnNo": financialTxnNumber,
               "fromAccount": transfer.fromAccount.accountNumber,
               "purposeCode": "",
               "serviceType": type,

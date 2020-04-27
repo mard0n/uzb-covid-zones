@@ -129,8 +129,8 @@ let transaction = useSelector(
               )}
               subTitle={
                 !success
-                  ? t(`billPayments.steps.confirmation.failure.desc`)
-                  : `Your transaction with reference number {#123546788798767832121} {\n} Please check the Transaction Queue tab to follow up on the status of the transaction.`
+                  ? "Your transaction with fallowing errror " + transaction.error
+                  : `Your transaction with reference number  Please check the Transaction Queue tab to follow up on the status of the transaction.`
               }
               onDoneCallback={() => successFailureCallback()}
             />

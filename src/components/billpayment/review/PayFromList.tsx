@@ -179,7 +179,7 @@ const PayFromList = (props: PayFromListProps) => {
           </Button>
         </Box>
         <Box className={dropListStyle} height={dropList ? listHeight : "auto"}>
-          {!dropList && <PayListItem isDefault data={active} selectOptions={selectOptions}/>}
+          {!dropList && (active && active.currency)? <PayListItem isDefault data={active}/>:<PayListItem isDefault data={active} selectOptions={selectOptions}/>}
 
           {dropList && (
             <>
