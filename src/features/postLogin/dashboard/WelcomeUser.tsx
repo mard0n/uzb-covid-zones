@@ -25,7 +25,7 @@ const WelcomeUser = () => {
 
   return (
     <Grid container>
-      <Grid item xs={9} sm={9} md={9}>
+      <Grid item xs={8} sm={8} md={8}>
         <Body2 gutterBottom className={welcomeNoteStyle}>{t('dashboard.welcomeNote')}</Body2>
         <Box display="flex" alignItems="center">
           <H2 noWrap>M Masood Hussain</H2>
@@ -33,7 +33,7 @@ const WelcomeUser = () => {
           <H2 noWrap>Icon</H2>
         </Box>
       </Grid>
-      <Grid item xs={3} sm={3} md={3}>
+      <Grid item xs={4} sm={4} md={4}>
         <CardPayNow
           fullWidth
           icon={<Box component="span" className={exclamationStyle}><SvgIcon htmlColor="#fff" component={Exclamation} /></Box>}

@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme)=>({
   root: (props: any) => ({
     border: `2px dashed ${props && props.color ? props.color : "#fff"}`,
     borderRadius: "6px",
-    padding: `${theme.spacing(6.1)}px ${theme.spacing(5.8)}px`,
+    padding: `${theme.spacing(2.1)}px ${theme.spacing(2.8)}px`,
     position: "relative",
     cursor: "pointer"
   }),
@@ -28,8 +28,8 @@ const useStyles = makeStyles((theme)=>({
     borderRadius: "50%",
     padding: theme.spacing(1.4),
     position: "absolute",
-    top: "50%",
-    left: "60px",
+    top: "45%",
+    left: "44px",
     border: "4px solid #fff",
     "& svg": {
       height: "16px",

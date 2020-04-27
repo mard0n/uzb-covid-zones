@@ -72,13 +72,13 @@ const Dashboard = () => {
       <WelcomeUser />
       <Box mt={5.8}>
         <Grid container>
-          <Grid item xs={9} sm={9} md={9} className={leftGridStyle}>
+          <Grid item xs={8} sm={8} md={8} className={leftGridStyle}>
             <CardBanner />
             <Box mt={5.8}>
               <CardAccountList />
             </Box>
           </Grid>
-          <Grid item xs={3} sm={3} md={3}>
+          <Grid item xs={4} sm={4} md={4}>
           <InfoCard
             minHeight={false}
             fullWidth
