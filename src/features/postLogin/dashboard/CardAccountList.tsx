@@ -129,7 +129,6 @@ const CardAccountList = () => {
                   </Grid>
                 );
               } else {
-                console.log(type, t(`dashboard.productSummary.${type}.empty.title`), "type======")
                 return (
                   <Grid key={i} item xs={6} className={emptyAcctStyle}>
                     <EmptyAccountCard
