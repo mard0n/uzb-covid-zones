@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Body2, colors, makeStyles, H2, Box, SvgIcon } from '@mashreq-digital/ui';
 import { useTranslation } from 'react-i18next';
 import CardPayNow from '../../../common/card/CardPayNow';
-import { Exclamation } from '@mashreq-digital/webassets';
+import { Exclamation, getFlag } from '@mashreq-digital/webassets';
 import AccountType from '../../../common/accountType';
 
 const useStyles = makeStyles((theme)=>({
@@ -30,7 +30,14 @@ const WelcomeUser = () => {
         <Box display="flex" alignItems="center">
           <H2 noWrap>M Masood Hussain</H2>
           <Box ml={4} mr={1.3}><AccountType value="Individual" /></Box>
-          <H2 noWrap>Icon</H2>
+          <H2 noWrap>
+          <SvgIcon
+          height="14"
+          width="16"
+          htmlColor={colors.teal[800]}
+          component={getFlag("AE")}
+        />
+          </H2>
         </Box>
       </Grid>
       <Grid item xs={3} sm={3} md={3}>

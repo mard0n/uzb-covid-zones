@@ -5,18 +5,24 @@ import {
   Box,
   H2,
   H4,
+  makeStyles,
+  colors,
   Caption,
   SectionSplitter,
   SvgIcon,
+  Body1,
+  H5,
 } from "@mashreq-digital/ui";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Check, Phone24 } from "@mashreq-digital/webassets";
+import { Check, Phone24, ArrowDown, User } from "@mashreq-digital/webassets";
 // import getBeneficiariesAvatar from "../../../../util/getBeneficiariesAvatar";
 import SucessFailureIcon from "../../../../common/successFailureIcon";
-import ReviewAmountType from "../../../../components/billpayment/reviewAmountType";
 import CardPayNow from "../../../../common/card/CardPayNow";
 import PaymentReceipt from "../../../../common/paymentReceipt/index";
+import CardDash from "../../../../common/cardDash";
+import { getPayListFromattedData } from "../../../../util/getPayListFormattedData";
+import PayListItem from "../../../../common/payList/index";
 
 type SuccessProps = {
   success: boolean;
@@ -27,6 +33,14 @@ type SuccessProps = {
   onDoneCallback?: any;
   onReceiptCallback?: any;
 };
+const useStyles = makeStyles(() => ({
+  successIconStyle: {
+    backgroundColor: colors.green[100],
+    "& > svg": {
+      fill: colors.green[500],
+    },
+  },
+}));
 
 const Success = (props: SuccessProps) => {
   // const { capitalize, cardPay } = useStyles();
@@ -41,12 +55,21 @@ const Success = (props: SuccessProps) => {
   } = props;
   const { t } = useTranslation();
 
+  const { successIconStyle } = useStyles();
+
   const [editModal, setEditModal] = useState(false);
   const [payRecieptModal, setPayRecieptModal] = useState(false);
   const [sucessModel, setSucessModel] = useState(false);
   const [saveData, setSaveData] = useState({});
-  const addNew = useSelector((state:any) => state.beneficiary.billPayment.addNew);
+  const addNew = useSelector(
+    (state: any) => state.beneficiary.billPayment.addNew
+  );
 
+  let transfer = useSelector(
+    (state: any) => state.moneyTransfer.other.transfer
+  );
+  let srcAcount = transfer.fromAccount;
+  let destAcount = transfer.toAccount;
 
   const beneficiaryItemForEdit: any = {
     accountNumber: data.accountNumber,
@@ -64,22 +87,12 @@ const Success = (props: SuccessProps) => {
     "Payment Channel": "Online",
   };
 
-
-
-  // if(addNew == "" && benErrorOnSave !== "" ){
-  //   console.log("error in creating benificiary");
-  //   alert("error in creating benificiary == " + benErrorOnSave);
-  // }else{
-  //   console.log("addnew is pushpa ", addNew);
-  //   setSucessModel(true);
-  // }
-
   return (
     <SectionSplitter
       height="calc(100vh - 250px)"
       top={
         <>
-          <SucessFailureIcon success={success} warning/>
+          <SucessFailureIcon success={success} warning />
           <UnderlineText color="primary">
             <H2>{title}</H2>
           </UnderlineText>
@@ -89,80 +102,97 @@ const Success = (props: SuccessProps) => {
               <Caption>{subTitle}</Caption>
             </Box>
           )}
-          {success ? (data && type && (
+
+          {success ? (
             <>
-              <ReviewAmountType
-                data={data}
-                type={type}
-                leftIcon={Check}
-                isSuccess
-                title={"Debited"}
-              />
-              <Box mt={6}>
-                <Button onClick={() => setEditModal(true)}>
+              <CardDash
+                leftContent={
                   <CardPayNow
-                    style={{ justifyContent: "space-evenly" }}
-                    arrow={true}
-                    heading={t(`billPayments.steps.confirmation.payment`)}
-                    subheading={t(`billPayments.steps.confirmation.saveIt`)}
+                    icon={
+                      <Box
+                        className={successIconStyle}
+                        p={1.6}
+                        borderRadius="50%"
+                        display="flex"
+                      >
+                        <SvgIcon height="1rem" width="1rem" component={Check} />
+                      </Box>
+                    }
+                    heading={<Body1>You are Transfering</Body1>}
+                    subheading={
+                      <H5>
+                        {transfer.amount.type} {Math.abs(transfer.amount.total)}
+                      </H5>
+                    }
                   />
-                </Button>
+                }
+                rightContent={
+                  <PayListItem
+                    data={getPayListFromattedData(destAcount, "accounts")}
+                  />
+                }
+              />
+
+              <Box mt={10} mb={10} display="flex" alignItems="center">
+                <CardPayNow
+                  icon={<SvgIcon color="primary" component={User} />}
+                  style={{ justifyContent: "space-evenly" }}
+                  arrow={true}
+                  heading={"Frequent Payment?"}
+                  subheading={"Set up as standing instruction"}
+                />
               </Box>
             </>
-          ))
-          :
+          ) : (
             <>
-            <Box mt={10} display="flex" alignItems="center">
-            <H4>{t(`billPayments.steps.confirmation.contactus`)} </H4>
-            </Box>
-            <Box mt={5} mb={5} display="flex" alignItems="center">
-            <CardPayNow
-              icon={<SvgIcon color="primary" component={Phone24} />}
-              style={{ justifyContent: "space-evenly" }}
-              arrow={true}
-              heading={t(`billPayments.steps.confirmation.customerCare`)}
-              subheading={t(`billPayments.steps.confirmation.support`)}
-            />
-            </Box>
-          </>
-          }
-
-
-
-    
+              <Box mt={10} display="flex" alignItems="center">
+                <H4>{t(`billPayments.steps.confirmation.contactus`)} </H4>
+              </Box>
+              <Box mt={5} mb={5} display="flex" alignItems="center">
+                <CardPayNow
+                  icon={<SvgIcon color="primary" component={Phone24} />}
+                  style={{ justifyContent: "space-evenly" }}
+                  arrow={true}
+                  heading={t(`billPayments.steps.confirmation.customerCare`)}
+                  subheading={t(`billPayments.steps.confirmation.support`)}
+                />
+              </Box>
+            </>
+          )}
           {payRecieptModal && (
             <PaymentReceipt
               title={"Your invoice"}
-              billRefNo = {data.billRefNo}
+              billRefNo={data.billRefNo}
               openModal={payRecieptModal}
               paymentSummary={payreceptData}
-              onCloseModal={() => { setPayRecieptModal(false)}}
+              onCloseModal={() => {
+                setPayRecieptModal(false);
+              }}
             />
           )}
-
         </>
       }
       bottom={
         <Box display="flex" justifyContent="space-between">
           <Box>
-          {success && (
-            <Button
-              variant="outlined"
-              size="large"
-              onClick={() => {
-                setPayRecieptModal(true)
-                if (
-                  onReceiptCallback &&
-                  typeof onReceiptCallback === "function"
-                ) {
-                  onReceiptCallback();
-                }
-              }}
-              color="primary"
-            >
-              {t(`common.action.receipt`)}
-            </Button>
-          )}
+            {success && (
+              <Button
+                variant="outlined"
+                size="large"
+                onClick={() => {
+                  setPayRecieptModal(true);
+                  if (
+                    onReceiptCallback &&
+                    typeof onReceiptCallback === "function"
+                  ) {
+                    onReceiptCallback();
+                  }
+                }}
+                color="primary"
+              >
+                {t(`common.action.receipt`)}
+              </Button>
+            )}
           </Box>
 
           <Button

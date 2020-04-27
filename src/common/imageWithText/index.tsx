@@ -7,6 +7,7 @@ type ImageWithTextProps = {
   className?: any;
   iconType?: any;
   onClick?: any;
+  description?:any;
   data?: any;
 };
 
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 
 const ImageWithText = (props: ImageWithTextProps) => {
-  const { name, data, className, onClick, iconType } = props;
+  const { name, data, className, onClick,description, iconType } = props;
   const { captionStyle, avt } = useStyles();
   return (
     <Box
@@ -56,7 +57,7 @@ const ImageWithText = (props: ImageWithTextProps) => {
         </Box>
       )}
 
-      <Caption className={captionStyle}>{name}</Caption>
+      <Caption className={captionStyle}>{description?description:name}</Caption>
     </Box>
   );
 };

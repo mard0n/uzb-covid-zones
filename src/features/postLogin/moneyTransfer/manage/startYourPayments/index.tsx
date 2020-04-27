@@ -12,6 +12,10 @@ import CardPayList from "../../../../../common/cardPayList/index";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../../../../redux/actions/moneyTransfer/payListActions";
 import CardDash from "../../../../../common/cardDash/index";
+import PayFromList from "../../../../../components/billpayment/review/PayFromList";
+
+
+
 
 type StartPaymentsProps = {
   type: string | any;
@@ -72,16 +76,15 @@ const StartPayments = (props: StartPaymentsProps) => {
           {Object.keys(payCardListData).length !== 0 ? (
             <CardDash
               leftContent={
-                <CardPayList
-                  type="smart"
-                  heading="I want to send money from"
-                  payListData={payCardListData.source}
-                  onChangeList={onChangeFromAcount}
+                <PayFromList
+                heading="I want to send money from"
+                payListData={payCardListData.source}
+                onChangeList={onChangeFromAcount}
                 />
               }
               rightContent={
-                <CardPayList
-                  type="smart"
+                <PayFromList
+                  selectOptions={true}
                   heading="To this account"
                   payListData={payCardListData.destination}
                   onChangeList={onChangeToAcount}

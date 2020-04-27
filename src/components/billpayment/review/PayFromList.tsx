@@ -15,6 +15,9 @@ import { getPayListFromattedData } from "../../../util/getPayListFormattedData";
 
 type PayFromListProps = {
   onChangeList?: any;
+  heading?:any;
+  selectOptions?:boolean;
+  payListData?:any;
 };
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -30,14 +33,15 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const PayFromList = (props: PayFromListProps) => {
-  const { onChangeList } = props;
+  const { onChangeList,heading, payListData,selectOptions} = props;
   const { t } = useTranslation();
   const { dropListStyle } = useStyles();
   const [active, setActive] = useState<any>({});
   const [suggestionList, setSuggestionList] = useState<any>([]);
   const [dropList, setDropList] = useState(false);
   const listItems = ["accounts","cards"];
-  
+  const [noSuggetion, setNosuggestion] = useState(false);
+
   // const callOnChangeList = useCallback((activeAct: any, type: string) => {
   //   let acctData = convertCardAccounts(activeAct, type);
   //   setActive(acctData);
@@ -56,6 +60,32 @@ const PayFromList = (props: PayFromListProps) => {
       }
     };
 
+
+    const configurValues=(val:any)=>{      
+        const {
+          accounts,
+          cards,
+          suggestedAccount,
+          suggestedCard,
+        } = val;
+
+        if (suggestedAccount && suggestedAccount.status) {
+          callOnChangeList(suggestedAccount, "accounts");
+        }else{
+          setNosuggestion(true);
+        }
+
+        if (suggestedCard && suggestedCard.cardHolderName) {
+          callOnChangeList(suggestedCard, "cards");
+        }
+
+        setSuggestionList({
+          accounts: accounts && accounts.length > 0 ? accounts : [],
+          cards: cards && cards.length > 0 ? cards : [],
+        });
+
+    };
+
     const getPaymentList = () => {
       let url = Endpoint.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT,
         data = {
@@ -68,26 +98,15 @@ const PayFromList = (props: PayFromListProps) => {
         data,
       };
 
+      payListData?configurValues(payListData):
       API(config).then((val: any) => {
         if (val && val.data && val.data.data) {
-          const {
-            accounts,
-            cards,
-            suggestedAccount,
-            suggestedCard,
-          } = val.data.data;
-          if (suggestedAccount && suggestedAccount.status) {
-            callOnChangeList(suggestedAccount, "accounts");
-          }
-          if (suggestedCard && suggestedCard.cardHolderName) {
-            callOnChangeList(suggestedCard, "cards");
-          }
-          setSuggestionList({
-            accounts: accounts && accounts.length > 0 ? accounts : [],
-            cards: cards && cards.length > 0 ? cards : [],
-          });
+        configurValues(val.data.data);
         }
       });
+
+
+
     }
 
     getPaymentList();
@@ -145,11 +164,11 @@ const PayFromList = (props: PayFromListProps) => {
   ...(suggestionList && suggestionList.accounts && suggestionList.accounts.length > 0 ? suggestionList.accounts : [])],
   listHeight = allSuggestions && allSuggestions.length > 4 ? 75 * 3 : "auto";
 
-  if (active && active.currency) {
+  if (active && active.currency || noSuggetion) {
     return (
       <Box position="relative" minHeight="110px">
         <Box mt={5} display="flex" justifyContent="space-between">
-          <H4>{t("billPayments.steps.review.payingFrom")}</H4>
+          <H4>{ heading?heading:t("billPayments.steps.review.payingFrom")}</H4>
           <Button
             onClick={() => {
               setDropList(!dropList);
@@ -160,7 +179,7 @@ const PayFromList = (props: PayFromListProps) => {
           </Button>
         </Box>
         <Box className={dropListStyle} height={dropList ? listHeight : "auto"}>
-          {!dropList && <PayListItem isDefault data={active} />}
+          {!dropList && <PayListItem isDefault data={active} selectOptions={selectOptions}/>}
 
           {dropList && (
             <>

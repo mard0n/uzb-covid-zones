@@ -10,7 +10,7 @@ import { API } from "../../network/index";
 export function* watchCurrencyRateSaga() {
   yield takeLatest(Actions.FETCH_CURRENT_RATE_REQUEST, workerCurrencyRateSaga);
   yield debounce(
-    1000,
+    2000,
     Actions.DEBOUNCE_CURRENT_RATE_REQUEST,
     workerCurrencyRateSaga,
   );

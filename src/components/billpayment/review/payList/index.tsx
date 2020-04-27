@@ -124,6 +124,7 @@ interface CustomListItemProps {
   data: object | any;
   color?: string | undefined;
   isDefault?: boolean;
+  selectOptions?: boolean;
   onClickCallback?: any | undefined;
 }
 
@@ -134,6 +135,7 @@ const PayListItem = (props: CustomListItemProps) => {
     color,
     isDefault,
     active,
+    selectOptions,
     onClickCallback,
     data,
   } = props;
@@ -166,6 +168,15 @@ const PayListItem = (props: CustomListItemProps) => {
         isDefault ? staticStyle : ""
       } ${disabled ? disabledStyle : ""}`}
     >
+    {selectOptions ?
+    <Box
+      display="flex"
+      justifyContent="space-between"
+      style={{ width: "100%" }}
+    >
+    <ListItemText primary={<H5 noWrap> Please Select the card from list </H5>} /> 
+    </Box>:
+    <>
       {/* <Avatar alt={name} src={avatarImage} /> */}
       {type && !isAccountCard && (
         <ListItemAvatar>
@@ -220,12 +231,12 @@ const PayListItem = (props: CustomListItemProps) => {
                       // borderRadius="50%"
                       >
                         {/* Config Flag */}
-                        {/* <SvgIcon
+                       <SvgIcon
                       height="14"
                       width="16"
                       htmlColor={colors.teal[800]}
                       component={MoneyPouch}
-                    /> */}
+                    /> 
                       </Box>
                     )}
                   </ListItemAvatar>
@@ -304,6 +315,8 @@ const PayListItem = (props: CustomListItemProps) => {
           </Box>
         </Box>
       )}
+</>
+            }
     </ListItem>
   );
 };

@@ -26,7 +26,7 @@ let serviceTypeCode = [
 const MoneyTransfer = (props: any) => {
   const { t } = useTranslation();
   const [addServiceType, setAddServiceType] = useState("");
-  const [addEditModal, setaddEditModal] =  useState(true);
+  const [addEditModal, setaddEditModal] =  useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Action.fetchMoneyTransferLandingRequest());
