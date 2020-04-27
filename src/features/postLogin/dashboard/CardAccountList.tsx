@@ -25,6 +25,11 @@ const CardAccountList = () => {
     card: state?.products?.card?.response,
     reward: state?.products?.rewards?.response,
   }));
+  const { accountLoading, cardLoading, rewardLoading }: any = useSelector((state: any) => ({
+    accountLoading: state?.products?.accountLoanDeposit?.loading,
+    cardLoading: state?.products?.card?.loading,
+    rewardLoading: state?.products?.rewards?.loading,
+  }));
 
   useEffect(() => {
     const generateRenderObj = (type: string, objName: string, list: any) => {
@@ -51,7 +56,7 @@ const CardAccountList = () => {
         productSnapshot[objName]
       ) {
         returnObj = { ...returnObj, ...productSnapshot[objName] };
-        if(type === "salaam") {
+        if(type === "salaam" && returnObj && returnObj.salamPoints && returnObj.salamPoints > 0) {
           returnObj["data"] = [{...getPayListFromattedData(returnObj, type)}]
         }
       }
@@ -78,11 +83,11 @@ const CardAccountList = () => {
         }
       }
     };
-    if (Products && renderData && (renderData.length === 0 || renderData.length < 5)) {
+    if (Products && !(accountLoading && cardLoading && rewardLoading)) {
       generateRenderData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [Products]);
+  }, [accountLoading, cardLoading, rewardLoading]);
 
   return (
     <>
@@ -110,6 +115,7 @@ const CardAccountList = () => {
                         " " +
                         t(`dashboard.productSummary.${type}.title`)
                       }
+                      btnLabel={type  && type !== 'salaam' ? t(`dashboard.productSummary.${type}.seeAll`) : ''}
                       data={data}
                       balanceAmount={salamPointsInAed || currentBalance}
                       balance={!salamPointsInAed ? t(

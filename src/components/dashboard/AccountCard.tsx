@@ -112,7 +112,7 @@ const AccountCard = (props: AccountCardProps) => {
         </Grid>
       </Grid>
       {btnLabel && (
-        <Box mt={1.6} display="flex" justifyContent="center">
+        <Box display="flex" justifyContent="center">
           <Button
             className={buttonStyle}
             onClick={onClickAllList}
