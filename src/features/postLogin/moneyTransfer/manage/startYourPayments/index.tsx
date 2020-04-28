@@ -120,7 +120,7 @@ const StartPayments = (props: StartPaymentsProps) => {
               rightContent={
 
                 type === withinMashreq? 
-                false ? <PayFromList
+                benificiary ? <PayFromList
                   selectOptions={true}
                   heading="To this account"
                   payListData={
@@ -129,7 +129,7 @@ const StartPayments = (props: StartPaymentsProps) => {
                   onChangeList={onChangeToAcount}
                 />: "No Benificiary detucted"
                 :
-                false?
+                payCardListData.hasOwnProperty("destination")?
                 <PayFromList
                 selectOptions={true}
                 heading="To this account"
