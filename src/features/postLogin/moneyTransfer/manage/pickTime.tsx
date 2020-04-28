@@ -46,7 +46,7 @@ const PickTime = (props: any) => {
       top={
         <>
           <UnderlineText color="primary">
-            <H2>What time do you want to make this transfer</H2>
+            <H2>What time do you want to make this transfer?</H2>
           </UnderlineText>
 
           <Box mb={3} mt={10}>
