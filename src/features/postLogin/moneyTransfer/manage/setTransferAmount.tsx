@@ -9,6 +9,7 @@ import {
   Grid,
   H5,
   Caption,
+  makeStyles,
   InfoCard,
   H4,
   TextField,
@@ -22,11 +23,29 @@ import useCurrencyConverter from "../../../../redux/hooks/useCurrencyConverter";
 import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
 import { withinMashreq } from "../../../../util/constants";
 
+
+
+
+
+
+const useStyles = makeStyles((theme: any) => ({
+  inputNumber: {
+    "-webkit-appearance": "none",
+    "margin": 0
+  },
+}));
+
+
+
+
 const SetTransferAmount = (props: any) => {
   let transfer = useSelector(
     (state: any) => state.moneyTransfer.other.transfer
   );
   const dispatch = useDispatch();
+
+  const {inputNumber} = useStyles();
+
 
   const [exchangeRate, setExchangeRate] = useState("");
   const [enableButton, setEnableButton] = useState(true);
@@ -134,6 +153,7 @@ const SetTransferAmount = (props: any) => {
                     error={sourceAmount > srcAmount}
                     type="number"
                     label="Receiving Amount"
+                    className={inputNumber}
                     value={sourceAmount}
                     id="recievingAmount"
                     onFocus={() => {
