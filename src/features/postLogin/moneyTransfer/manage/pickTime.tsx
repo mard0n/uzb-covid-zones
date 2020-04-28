@@ -93,7 +93,7 @@ const PickTime = (props: any) => {
           <Button
             variant="contained"
             color="primary"
-            disabled={false}
+            disabled={!selectedTime.id}
             onClick={onNextStep}
             size="large"
           >
