@@ -46,7 +46,16 @@ const StartPayments = (props: StartPaymentsProps) => {
   const onChangeFromAcount = (item: any) => {
     transfer = { ...transfer, fromAccount: item };
     dispatch(Actions.setTransferObject(transfer));
-    payCardListData.source.suggestedAccount = item;
+    if(type !== withinMashreq)
+   { 
+    if(payCardListData && payCardListData.source.suggestedAccount)
+    {
+      payCardListData.source.suggestedAccount = item;
+    }else{
+      payCardListData.source["suggestedAccount"] = item;
+    }
+  }
+
     if (
       transfer.hasOwnProperty("fromAccount") &&
       transfer.hasOwnProperty("toAccount")
@@ -62,7 +71,16 @@ const StartPayments = (props: StartPaymentsProps) => {
 
   const onChangeToAcount = (item: any) => {
     transfer = { ...transfer, toAccount: item };
-    payCardListData.destination.suggestedAccount = item;
+    if(type !== withinMashreq)
+{
+    if(payCardListData && payCardListData.destination.suggestedAccount)
+    {
+      payCardListData.destination.suggestedAccount = item;
+    }else{
+      payCardListData.destination["suggestedAccount"] = item;
+    }
+
+  }
     dispatch(Actions.setTransferObject(transfer));
     if (
       transfer.hasOwnProperty("fromAccount") &&
@@ -113,7 +131,7 @@ const StartPayments = (props: StartPaymentsProps) => {
                   selectOptions={true}
                   heading="To this account"
                   payListData={
-                    type === "within-mashreq"
+                    type === withinMashreq
                       ? { benificiary: benificiary }
                       : payCardListData.destination
                   }
