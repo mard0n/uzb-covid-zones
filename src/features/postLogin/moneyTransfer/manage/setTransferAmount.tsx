@@ -29,6 +29,7 @@ const SetTransferAmount = (props: any) => {
   const dispatch = useDispatch();
 
   const [exchangeRate, setExchangeRate] = useState("");
+  const [enableButton, setEnableButton] = useState(true);
   const [maxAmounts, setMaxAmounts]: any = useState({});
   const { onHandleBack, serviceType, onNextStep } = props;
   const [sourceAmount, setsourceAmount]: any = useState();
@@ -36,6 +37,8 @@ const SetTransferAmount = (props: any) => {
   const [fromTouched, setFromTouched] = useState(false);
   const [toTouched, setToTouched] = useState(false);
   let srcAmount = transfer.fromAccount.availableBalance;
+  let dstAmount = transfer.toAccount.availableBalance;
+
   let srcCurrency = transfer.fromAccount.currency;
 
   let destCurrency = transfer.toAccount.currency;
@@ -88,10 +91,23 @@ const SetTransferAmount = (props: any) => {
     setDestinationAmount(
       (event.target.value / parseFloat(exchangeRate)).toFixed(2)
     );
+    if (event.target.value < srcAmount) {
+      setEnableButton(false);
+    } else {
+      setEnableButton(true);
+    }
   };
   const onChangeOfTransferAmount = (event: any) => {
     setDestinationAmount(event.target.value);
     setsourceAmount((event.target.value * parseFloat(exchangeRate)).toFixed(2));
+    if (
+      event.target.value <
+      (currenciesAreDifferent ? Math.floor(maxAmounts["to"]) : srcAmount)
+    ) {
+      setEnableButton(false);
+    } else {
+      setEnableButton(true);
+    }
   };
 
   console.log("SetTransferAmount -> serviceType", serviceType.maxAmount);
@@ -154,7 +170,7 @@ const SetTransferAmount = (props: any) => {
                       type="number"
                       variant="filled"
                       error={
-                        destCurrency >
+                        destinationAmount >
                         (currenciesAreDifferent
                           ? Math.floor(maxAmounts["to"])
                           : srcAmount)
@@ -293,7 +309,7 @@ const SetTransferAmount = (props: any) => {
           <Button
             variant="contained"
             color="primary"
-            disabled={!destinationAmount}
+            disabled={enableButton}
             onClick={() => {
               transfer = {
                 ...transfer,

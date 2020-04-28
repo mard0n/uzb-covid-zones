@@ -4,7 +4,7 @@ import {
   Button,
   makeStyles,
   Theme,
-  Body1
+  Body1,
 } from "@mashreq-digital/ui";
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -35,13 +35,16 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const EmtyList = (props: any) => {
+  const { heading, button } = props;
   const { root, staticStyle } = useStyles(props);
   return (
     <ListItem button className={`${root} ${staticStyle}`}>
-        <Body1> You dont seems to have another account </Body1>
+      <Body1> {heading} </Body1>
+      {button && (
         <Button size="medium" variant="contained" color="primary">
           Get one in 4 steps
         </Button>
+      )}
     </ListItem>
   );
 };

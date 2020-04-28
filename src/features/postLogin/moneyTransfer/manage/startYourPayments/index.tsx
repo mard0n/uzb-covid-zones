@@ -17,7 +17,7 @@ import * as ActionBeni from "../../../../../redux/actions/moneyTransfer/fetchBen
 import CardPayNow from "../../../../../common/card/CardPayNow";
 import getBeneficiariesAvatar from "../../../../../util/getBeneficiariesAvatar";
 import { withinMashreq } from "../../../../../util/constants";
-import EmtyList from '../../../../../common/payList/emtyList';
+import EmtyList from "../../../../../common/payList/emtyList";
 
 type StartPaymentsProps = {
   type: string | any;
@@ -57,7 +57,7 @@ const StartPayments = (props: StartPaymentsProps) => {
       transfer.hasOwnProperty("fromAccount") &&
       transfer.hasOwnProperty("toAccount")
     ) {
-      if (!(transfer.fromAccount.availableBalance <= 0)) {
+      if (!(transfer.fromAccount.availableBalance <= 0) && transfer.fromAccount.accountNumber !== transfer.toAccount.accountNumber) {
         setTransferButton(true);
       } else {
         setTransferButton(false);
@@ -71,8 +71,8 @@ const StartPayments = (props: StartPaymentsProps) => {
       if (payCardListData) {
         payCardListData.destination = {
           ...payCardListData.destination,
-          "suggestedAccount":item
-        }
+          suggestedAccount: item,
+        };
       }
     }
     dispatch(Actions.setTransferObject(transfer));
@@ -80,7 +80,7 @@ const StartPayments = (props: StartPaymentsProps) => {
       transfer.hasOwnProperty("fromAccount") &&
       transfer.hasOwnProperty("toAccount")
     ) {
-      if (!(transfer.fromAccount.availableBalance <= 0)) {
+      if (!(transfer.fromAccount.availableBalance <= 0) && transfer.fromAccount.accountNumber !== transfer.toAccount.accountNumber) {
         setTransferButton(true);
       } else {
         setTransferButton(false);
@@ -93,6 +93,13 @@ const StartPayments = (props: StartPaymentsProps) => {
     if (type === withinMashreq) {
       dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest());
     }
+   
+    //TODO: update this for on back to keep it selected option
+    // else{
+    //   if (transfer.fromAcount) {
+    //     payCardListData.source["suggestedAccount"] = item;
+    //   }
+    // }
 
     /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
     We should add onChangeList as dependency then source api will get triggered infinitely */
@@ -111,38 +118,45 @@ const StartPayments = (props: StartPaymentsProps) => {
           {Object.keys(payCardListData).length !== 0 ? (
             <CardDash
               leftContent={
-                <PayFromList
-                  heading="I want to send money from"
-                  payListData={payCardListData.source}
-                  onChangeList={onChangeFromAcount}
-                />
+                payCardListData.hasOwnProperty("source") &&
+                payCardListData.source.accounts.length > 0 ? (
+                  <PayFromList
+                    heading="I want to send money from"
+                    payListData={payCardListData.source}
+                    onChangeList={onChangeFromAcount}
+                  />
+                ) : (
+                  <EmtyList heading="You dont seems to have account" />
+                )
               }
               rightContent={
+                type === withinMashreq ? (
+                  benificiary && benificiary.length>0  ? (
+                    <PayFromList
+                      selectOptions={true}
+                      heading="To this account"
+                      payListData={{ benificiary: benificiary }}
+                      onChangeList={onChangeToAcount}
+                    />
+                  ) : (
+                    <EmtyList heading="No Benificiary detucted"/>
 
-                type === withinMashreq? 
-                benificiary ? <PayFromList
-                  selectOptions={true}
-                  heading="To this account"
-                  payListData={
-                    { benificiary: benificiary }
-                  }
-                  onChangeList={onChangeToAcount}
-                />: "No Benificiary detucted"
-                :
-                payCardListData.hasOwnProperty("destination")?
-                <PayFromList
-                selectOptions={true}
-                heading="To this account"
-                payListData={
-                      payCardListData.destination
-                }
-                onChangeList={onChangeToAcount}
-              />: <EmtyList/>
-
+                  )
+                ) : payCardListData.hasOwnProperty("destination") &&
+                  payCardListData.destination.accounts.length > 0 ? (
+                  <PayFromList
+                    selectOptions={true}
+                    heading="To this account"
+                    payListData={payCardListData.destination}
+                    onChangeList={onChangeToAcount}
+                  />
+                ) : (
+                  <EmtyList
+                    button={true}
+                    heading="You dont seems to have another account"
+                  />
+                )
               }
-
-
-
             />
           ) : (
             <Box display="flex" mt={12} alignItems="baseline">
