@@ -1,4 +1,4 @@
-export const getPayListFromattedData = (obj: any, type: string) => {
+export const getPayListFormattedData = (obj: any, type: string) => {
   let data = {
     name: "",
     accNo: "",
@@ -45,7 +45,6 @@ export const getPayListFromattedData = (obj: any, type: string) => {
     data["currency"] = beneficiaryCurrency;
     data["type"] = serviceTypeCode;
   }
-  
   else if(type === "deposits") {
     const { 
       accountDescription,
@@ -58,6 +57,19 @@ export const getPayListFromattedData = (obj: any, type: string) => {
     data["status"] = status;
     data["currency"] = currency;
     data["balance"] = availableBalance;
+
+  } else if(type === "loans") {
+    const { 
+      accountDescription,
+      loanAccountNumber,
+      status,
+      currency,
+      totalOutstanding} = obj;
+    data["name"] = accountDescription;
+    data["accNo"] = loanAccountNumber;
+    data["status"] = '';
+    data["currency"] = currency;
+    data["balance"] = totalOutstanding;
 
   } else if (type === "cards") {
     const { cardHolderName,

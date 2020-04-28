@@ -252,7 +252,7 @@ const PayListItem = (props: CustomListItemProps) => {
                 </Caption>
               }
             />
-            {status && (
+            {currency && (
               <Box display="flex">
                 {isAccountCard && (
                   <ListItemAvatar className={listAvatarStyle}>
