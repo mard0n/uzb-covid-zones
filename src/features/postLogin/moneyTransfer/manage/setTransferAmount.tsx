@@ -91,17 +91,22 @@ const SetTransferAmount = (props: any) => {
     setDestinationAmount(
       (event.target.value / parseFloat(exchangeRate)).toFixed(2)
     );
-    if (event.target.value < srcAmount) {
+
+    if (event.target.value < srcAmount && event.target.value >0) {
       setEnableButton(false);
     } else {
       setEnableButton(true);
     }
+
+
+
+
   };
   const onChangeOfTransferAmount = (event: any) => {
     setDestinationAmount(event.target.value);
     setsourceAmount((event.target.value * parseFloat(exchangeRate)).toFixed(2));
     if (
-      event.target.value <
+      event.target.value > 0 &&  event.target.value <
       (currenciesAreDifferent ? Math.floor(maxAmounts["to"]) : srcAmount)
     ) {
       setEnableButton(false);
@@ -123,12 +128,12 @@ const SetTransferAmount = (props: any) => {
             <Grid item xs={6}>
               {serviceType.code === withinMashreq ? (
                 <Box mt={10}>
-                  <H5>The Recieving account will get</H5>
+                  <H5>The receiving account will get</H5>
                   <TextField
                     fullWidth
                     error={sourceAmount > srcAmount}
                     type="number"
-                    label="Recieving Amount"
+                    label="Receiving Amount"
                     value={sourceAmount}
                     id="recievingAmount"
                     onFocus={() => {
@@ -138,7 +143,7 @@ const SetTransferAmount = (props: any) => {
                     onChange={onChangeOfReciveAmount}
                     variant="filled"
                     inputProps={{
-                      "aria-label": "Reciving amount input box",
+                      "aria-label": "Receiving amount input box",
                     }}
                     InputProps={{
                       startAdornment: (
@@ -162,10 +167,10 @@ const SetTransferAmount = (props: any) => {
               ) : (
                 <>
                   <Box mt={10}>
-                    <H5>The Recieving account will get</H5>
+                    <H5>The Receiving account will get</H5>
                     <TextField
                       fullWidth
-                      label="Recieving Amount"
+                      label="Receiving Amount"
                       id="transferAmount"
                       type="number"
                       variant="filled"
