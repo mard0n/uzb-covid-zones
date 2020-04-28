@@ -23,16 +23,6 @@ export const getPayListFormattedData = (obj: any, type: string) => {
     data["currency"] = currency;
     data["balance"] = availableBalance; 
   }
-  // "id": 266,
-  // "accountNumber": "010490730773",
-  // "nickname": "Ssss",
-  // "category": "Fund Transfer",
-  // "serviceType": "To Another Mashreq Account",
-  // "serviceTypeCode": "within-mashreq",
-  // "status": "ACTIVE",
-  // "createdDate": "2020-04-19T14:28:27.135Z",
-  // "activeAfter": "2020-04-19T14:31:33.534Z",
-  // "beneficiaryCurrency": "AED"
   else if(type === "benificiary") {
     const { 
       accountNumber,
@@ -83,7 +73,7 @@ export const getPayListFormattedData = (obj: any, type: string) => {
       data["accNo"] = cardNo;
       data["status"] = cardStatus;
       data["currency"] = currency;
-      data["balance"] = currentBalance || availableCreditLimit;
+      data["balance"] = typeof currentBalance === "number" ? currentBalance : 0 || availableCreditLimit;
 
   }else if (type === "salaam") {
     const { salamPoints } = obj;

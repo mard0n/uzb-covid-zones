@@ -101,6 +101,7 @@ const CardAccountList = () => {
                 count,
                 availableBalance,
                 currency,
+                totalOutstanding,
                 salamPointsInAed,
                 currentBalance,
                 data,
@@ -115,9 +116,9 @@ const CardAccountList = () => {
                         " " +
                         t(`dashboard.productSummary.${type}.title`)
                       }
-                      btnLabel={type  && data.length > 1 && type !== 'salaam' ? t(`dashboard.productSummary.${type}.seeAll`) : ''}
+                      btnLabel={type  && data.length > 2 && type !== 'salaam' ? t(`dashboard.productSummary.${type}.seeAll`) : ''}
                       data={data}
-                      balanceAmount={salamPointsInAed || currentBalance}
+                      balanceAmount={totalOutstanding || salamPointsInAed || currentBalance}
                       balance={!salamPointsInAed ? t(
                         `dashboard.productSummary.${type}.availableBalance`
                       ) : ''}
