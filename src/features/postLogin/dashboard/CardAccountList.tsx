@@ -89,8 +89,6 @@ const CardAccountList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountLoading, cardLoading, rewardLoading]);
 
-  console.log(renderData, "rednerData =====")
-
   return (
     <>
       <Box mt={1}>
