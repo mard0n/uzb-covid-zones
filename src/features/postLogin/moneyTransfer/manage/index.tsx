@@ -10,6 +10,7 @@ import SetTransferAmount from "./setTransferAmount";
 import PickTime from "./pickTime";
 import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
+import { withinMashreq } from "../../../../util/constants";
 const ManageMoneyTransferModal = (props: any) => {
   const {
     children,
@@ -167,7 +168,8 @@ let transaction = useSelector(
   return (
     <StepperDialogModal
       {...rest}
-      iconType={serviceType.code !== "within-mashreq"}
+      iconType={serviceType.code !== withinMashreq}
+      logo={serviceType.code === withinMashreq}
       stepperOptions={options}
       stepperInit={stepInit}
       step={step}
