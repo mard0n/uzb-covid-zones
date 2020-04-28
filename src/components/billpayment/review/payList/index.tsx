@@ -17,7 +17,7 @@ import {
 } from "@mashreq-digital/ui";
 import CardIcon from "../../../../common/cardIcon";
 import { capitalizeFirstLetter } from "../../../../util/helper";
-import { MoneyPouch } from "@mashreq-digital/webassets";
+import { MoneyPouch, getMashreqLogo } from "@mashreq-digital/webassets";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -98,7 +98,7 @@ const getSVG = (type: any) => {
     case type === "deposits":
       return MoneyPouch;
     case type === "salaam":
-      return MoneyPouch;
+      return MoneyPouch;    
     default:
       return MoneyPouch;
   }
@@ -139,7 +139,9 @@ const PayListItem = (props: CustomListItemProps) => {
     onClickCallback,
     data,
   } = props;
+
   const { name, accNo, status, currency, balance, type } = data;
+  
   const isCard = type && type === "cards",
     isAccountCard = isCard || type === "accounts";
   const {
@@ -156,6 +158,7 @@ const PayListItem = (props: CustomListItemProps) => {
   } = useStyles(props);
   let svgIconProps: any = {};
 
+  let BeniLogo = getMashreqLogo("symbol");
   if (color) {
     svgIconProps["color"] = color;
   }
@@ -174,7 +177,7 @@ const PayListItem = (props: CustomListItemProps) => {
       justifyContent="space-between"
       style={{ width: "100%" }}
     >
-    <ListItemText primary={<H5 noWrap> Please Select the card from list </H5>} /> 
+    <ListItemText primary={<H5 noWrap> Click on change and select </H5>} /> 
     </Box>:
     <>
       {/* <Avatar alt={name} src={avatarImage} /> */}
@@ -186,12 +189,13 @@ const PayListItem = (props: CustomListItemProps) => {
             display="inline-flex"
             borderRadius="50%"
           >
+          {type === "within-mashreq"? <BeniLogo width="20" height="20"/>:
             <SvgIcon
               height="14"
               width="16"
               htmlColor={colors.deepOrange[800]}
               component={getSVG(type)}
-            />
+            />}
           </Box>
         </ListItemAvatar>
       )}
@@ -203,7 +207,8 @@ const PayListItem = (props: CustomListItemProps) => {
           </Box>
           <Box ml={1.3}><Caption>Points</Caption></Box>
         </Box>
-      ) : (
+      ): type === "within-mashreq"? 
+      (
         <Box
           display="flex"
           justifyContent="space-between"
@@ -217,7 +222,37 @@ const PayListItem = (props: CustomListItemProps) => {
                 </Caption>
               }
             />
-            {status && (
+              <Box display="flex">
+                <ListItemText
+                  primary={
+                    <Box display="flex" alignItems="center">
+                      <Box ml={1}>
+                        <Body1> {accNo}</Body1>
+                      </Box>
+                    </Box>
+                  }
+                />
+              
+              </Box>
+    
+          </Box>
+        </Box>
+      )      
+      : (
+        <Box
+          display="flex"
+          justifyContent="space-between"
+          style={{ width: "100%" }}
+        >
+          <Box width="calc(100% - 120px)">
+            <ListItemText
+              primary={
+                <Caption className={descStyle} noWrap>
+                  {name}
+                </Caption>
+              }
+            />
+            {currency && (
               <Box display="flex">
                 {isAccountCard && (
                   <ListItemAvatar className={listAvatarStyle}>
@@ -314,7 +349,9 @@ const PayListItem = (props: CustomListItemProps) => {
             />
           </Box>
         </Box>
-      )}
+      )
+    
+    }
 </>
             }
     </ListItem>

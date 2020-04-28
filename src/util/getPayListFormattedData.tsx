@@ -1,4 +1,4 @@
-export const getPayListFromattedData = (obj: any, type: string) => {
+export const getPayListFormattedData = (obj: any, type: string) => {
   let data = {
     name: "",
     accNo: "",
@@ -21,9 +21,31 @@ export const getPayListFromattedData = (obj: any, type: string) => {
     data["accNo"] = accountNumber || accountNo || currentBalance;
     data["status"] = status;
     data["currency"] = currency;
-    data["balance"] = availableBalance;
-
-  } else if(type === "deposits") {
+    data["balance"] = availableBalance; 
+  }
+  // "id": 266,
+  // "accountNumber": "010490730773",
+  // "nickname": "Ssss",
+  // "category": "Fund Transfer",
+  // "serviceType": "To Another Mashreq Account",
+  // "serviceTypeCode": "within-mashreq",
+  // "status": "ACTIVE",
+  // "createdDate": "2020-04-19T14:28:27.135Z",
+  // "activeAfter": "2020-04-19T14:31:33.534Z",
+  // "beneficiaryCurrency": "AED"
+  else if(type === "benificiary") {
+    const { 
+      accountNumber,
+      nickname,
+      serviceTypeCode,
+      beneficiaryCurrency,
+      } = obj;
+    data["name"] = nickname;
+    data["accNo"] = "Account Number | " +accountNumber;
+    data["currency"] = beneficiaryCurrency;
+    data["type"] = serviceTypeCode;
+  }
+  else if(type === "deposits") {
     const { 
       accountDescription,
       dealReferenceNumber,
@@ -35,6 +57,19 @@ export const getPayListFromattedData = (obj: any, type: string) => {
     data["status"] = status;
     data["currency"] = currency;
     data["balance"] = availableBalance;
+
+  } else if(type === "loans") {
+    const { 
+      accountDescription,
+      loanAccountNumber,
+      status,
+      currency,
+      totalOutstanding} = obj;
+    data["name"] = accountDescription;
+    data["accNo"] = loanAccountNumber;
+    data["status"] = '';
+    data["currency"] = currency;
+    data["balance"] = totalOutstanding;
 
   } else if (type === "cards") {
     const { cardHolderName,

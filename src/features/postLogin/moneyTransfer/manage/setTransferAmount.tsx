@@ -20,6 +20,7 @@ import SuggestionBox from "../../../../common/suggetionBox/index";
 import { useSelector,useDispatch } from "react-redux";
 import useCurrencyConverter from "../../../../redux/hooks/useCurrencyConverter";
 import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
+import { withinMashreq } from "../../../../util/constants";
 
 const SetTransferAmount = (props: any) => {
   let transfer = useSelector(
@@ -28,7 +29,7 @@ const SetTransferAmount = (props: any) => {
   const dispatch = useDispatch();
 
   const [exchangeRate, setExchangeRate] = useState("");
-  const [maxAmounts, setMaxAmounts] = useState({});
+  const [maxAmounts, setMaxAmounts]:any = useState({});
   const { onHandleBack, serviceType,onNextStep } = props;
   const [sourceAmount, setsourceAmount]: any = useState();
   const [destinationAmount, setDestinationAmount]: any = useState();
@@ -36,6 +37,7 @@ const SetTransferAmount = (props: any) => {
   const [toTouched, setToTouched] = useState(false);
   let srcAmount = transfer.fromAccount.availableBalance;
   let srcCurrency = transfer.fromAccount.currency;
+
   let destCurrency = transfer.toAccount.currency;
   const currenciesAreDifferent = srcCurrency !== destCurrency;
   const {
@@ -64,8 +66,10 @@ const SetTransferAmount = (props: any) => {
   }, [currencyConverterResponse]);
 
   useEffect(() => {
+    setMaxAmounts({ ...maxAmounts, from: srcAmount });
+    if(serviceType.code !== withinMashreq)
+    {
     if (currenciesAreDifferent) {
-      setMaxAmounts({ ...maxAmounts, from: srcAmount });
       const data: any = {
         accountNumber: transfer.fromAccount.accountNumber,
         accountCurrency: srcCurrency,
@@ -74,6 +78,7 @@ const SetTransferAmount = (props: any) => {
       };
       fetchCurrencyRate(data);
     }
+  }
       /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
     We should add onChangeList as dependency then source api will get triggered infinitely */
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,12 +107,53 @@ const SetTransferAmount = (props: any) => {
           <Grid container>
             <Grid item xs={6}>
               
+            
+            {serviceType.code===withinMashreq?
+            <Box mt={10}>
+              <H5>The Recieving account will get</H5>
+              <TextField
+              fullWidth
+              type="number"
+              label="Recieving Amount"
+              value={sourceAmount}
+              id="recievingAmount"
+              onFocus={() => {
+                setToTouched(false);
+                setFromTouched(true);
+              }}
+              onChange={onChangeOfReciveAmount}
+              variant="filled"
+              inputProps={{
+                "aria-label": "Reciving amount input box",
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    {srcCurrency}
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+            {sourceAmount && fromTouched && (
+              <Box pt={3}>
+
+              <SuggestionBox
+                activeStep={sourceAmount}
+                currency={srcCurrency}
+                maxPrice={srcAmount}
+                />
+                </Box>
+            )}
+            </Box>
+    
+              :
             <>
                 <Box mt={10}>
                   <H5>The Recieving account will get</H5>
                   <TextField
                       fullWidth
-                      label="Transfer amount"
+                      label="Recieving Amount"
                       id="transferAmount"
                       type="number"
                       variant="filled"
@@ -130,12 +176,14 @@ const SetTransferAmount = (props: any) => {
                     />
 
                     {destinationAmount && toTouched && (
+                      <Box pt={3}>
                       <SuggestionBox
                         activeStep={destinationAmount}
                         currency={destCurrency}
-                        maxPrice={ currenciesAreDifferent?Math.floor((serviceType.maxAmount / parseFloat(exchangeRate))): Math.floor(serviceType.maxAmount)}
+                      maxPrice={ currenciesAreDifferent?Math.floor(maxAmounts["to"]):srcAmount}
 
                       />
+                      </Box>
                     )}
  
                 </Box>
@@ -146,7 +194,7 @@ const SetTransferAmount = (props: any) => {
                     <TextField
                     fullWidth
                     type="number"
-                    label="Recieving Amount"
+                    label="Transfer amount"
                     value={sourceAmount}
                     id="recievingAmount"
                     onFocus={() => {
@@ -168,23 +216,28 @@ const SetTransferAmount = (props: any) => {
                   />
 
                   {sourceAmount && fromTouched && (
+                    <Box pt={3}>
+
                     <SuggestionBox
                       activeStep={sourceAmount}
                       currency={srcCurrency}
-                      maxPrice={Math.floor(serviceType.maxAmount)}
+                      maxPrice={Math.floor(maxAmounts["from"])}
                       />
+                      </Box>
                   )}
                   <Caption>
                   At an exchange rate of <b>{exchangeRate}</b>
                 </Caption>
                   </Box>
                 ) : null}
-              </>
+              </>}
             </Grid>
+
+
             <Grid item xs={2} />
             <Grid item xs={4}>
             <>
-                {currenciesAreDifferent ? (
+                {   serviceType.code !== withinMashreq? ( currenciesAreDifferent? (
                   <Box width={"300px"}>
                     <InfoCard
                       icon={Rocket}
@@ -217,130 +270,13 @@ const SetTransferAmount = (props: any) => {
                       }
                     />
                   </Box>
-                ) : null}
+                ) : null ) : null}
               </>
+                    
             </Grid>
           </Grid>
 
-          {/* <SubMain
-            content={
-              <>
-                <Box mt={10}>
-                  <H5>The Recieving account will get</H5>
-                  <TextField
-                      fullWidth
-                      label="Transfer amount"
-                      id="transferAmount"
-                      variant="filled"
-                      onFocus={() => {
-                        setFromTouched(false);
-                        setToTouched(true);
-                      }}
-                      value={destinationAmount}
-                      onChange={onChangeOfTransferAmount}
-                      inputProps={{
-                        "aria-label": "Transfer amount input box",
-                      }}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            {destCurrency}
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-
-                    {destinationAmount && toTouched && (
-                      <SuggestionBox
-                        activeStep={destinationAmount}
-                        currency={destCurrency}
-                        maxPrice={ currenciesAreDifferent?Math.floor((serviceType.maxAmount / parseFloat(exchangeRate))): Math.floor(serviceType.maxAmount)}
-
-                      />
-                    )}
- 
-                </Box>
-
-                {currenciesAreDifferent ? (
-                  <Box mt={10}>
-                    <H5>You will be debited</H5>
-                    <TextField
-                    fullWidth
-                    label="Recieving Amount"
-                    value={sourceAmount}
-                    id="recievingAmount"
-                    onFocus={() => {
-                      setToTouched(false);
-                      setFromTouched(true);
-                    }}
-                    onChange={onChangeOfReciveAmount}
-                    variant="filled"
-                    inputProps={{
-                      "aria-label": "Reciving amount input box",
-                    }}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          {srcCurrency}
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  {sourceAmount && fromTouched && (
-                    <SuggestionBox
-                      activeStep={sourceAmount}
-                      currency={srcCurrency}
-                      maxPrice={Math.floor(serviceType.maxAmount)}
-                      />
-                  )}
-                  <Caption>
-                  At an exchange rate of <b>{exchangeRate}</b>
-                </Caption>
-                  </Box>
-                ) : null}
-              </>
-            }
-            image={
-              <>
-                {currenciesAreDifferent ? (
-                  <Box width={"300px"}>
-                    <InfoCard
-                      icon={Rocket}
-                      fullWidth={true}
-                      title="Exchange Rate"
-                      content={
-                        <>
-                          <Caption>
-                            Your exchange rate is calculated on the following
-                            values
-                          </Caption>
-                          <Box mt={4}>
-                            <H4>
-                              {srcCurrency} 1.00 ={" "}
-                              {destCurrency +
-                                " " +
-                                (1 / parseFloat(exchangeRate)).toFixed(2)}
-                            </H4>
-                            <Caption>
-                              (
-                              {srcCurrency +
-                                " " +
-                                (100000.0 * parseFloat(exchangeRate)).toFixed(
-                                  2
-                                )}{" "}
-                              = {destCurrency} 100,000.00)
-                            </Caption>
-                          </Box>
-                        </>
-                      }
-                    />
-                  </Box>
-                ) : null}
-              </>
-            }
-          /> */}
-        </>
+                  </>
       }
       bottom={
         <Box display="flex" justifyContent="space-between" mt={10}>
@@ -370,3 +306,6 @@ const SetTransferAmount = (props: any) => {
   );
 };
 export default SetTransferAmount;
+
+//handle enabling button if value is less than max amount
+// && currenciesAreDifferent ? sourceAmount < Math.floor(maxAmounts["from"]):destinationAmount < Math.floor(maxAmounts["to"])

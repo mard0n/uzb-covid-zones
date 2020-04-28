@@ -26,6 +26,7 @@ const useStyles = makeStyles((theme: any) => ({
           </Caption>
         </Box>
         <LinearProgressBar
+          color={activeStep >= maxPrice? "secondary":"primary"}
           activeStep={activeStep}
           totalStep={maxPrice}
           variant={"determinate"}

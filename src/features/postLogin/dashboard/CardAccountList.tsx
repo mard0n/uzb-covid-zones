@@ -6,7 +6,7 @@ import { ChartUpward, Umbrella } from "@mashreq-digital/webassets";
 import { useSelector } from "react-redux";
 import getProductColor from "../../../util/getProductColor";
 import { useTranslation } from "react-i18next";
-import { getPayListFromattedData } from "../../../util/getPayListFormattedData";
+import { getPayListFormattedData } from "../../../util/getPayListFormattedData";
 import NoBeneficiaryFound from "../../../components/beneficiary/billPayment/NoBeneficiaryFound";
 
 const useStyles = makeStyles(() => ({
@@ -44,7 +44,7 @@ const CardAccountList = () => {
         productList[objName].length > 0
       ) {
         let splicedList = productList[objName].slice(0, 2);
-        splicedList = splicedList.map((splList: any)=> getPayListFromattedData(splList, type));
+        splicedList = splicedList.map((splList: any)=> getPayListFormattedData(splList, type));
         returnObj["data"] = splicedList;
       } else {
         returnObj["data"] = [];
@@ -57,7 +57,7 @@ const CardAccountList = () => {
       ) {
         returnObj = { ...returnObj, ...productSnapshot[objName] };
         if(type === "salaam" && returnObj && returnObj.salamPoints && returnObj.salamPoints > 0) {
-          returnObj["data"] = [{...getPayListFromattedData(returnObj, type)}]
+          returnObj["data"] = [{...getPayListFormattedData(returnObj, type)}]
         }
       }
       return returnObj;
@@ -115,7 +115,7 @@ const CardAccountList = () => {
                         " " +
                         t(`dashboard.productSummary.${type}.title`)
                       }
-                      btnLabel={type  && type !== 'salaam' ? t(`dashboard.productSummary.${type}.seeAll`) : ''}
+                      btnLabel={type  && data.length > 1 && type !== 'salaam' ? t(`dashboard.productSummary.${type}.seeAll`) : ''}
                       data={data}
                       balanceAmount={salamPointsInAed || currentBalance}
                       balance={!salamPointsInAed ? t(

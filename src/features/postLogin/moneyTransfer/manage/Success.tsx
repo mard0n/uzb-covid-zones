@@ -21,7 +21,7 @@ import SucessFailureIcon from "../../../../common/successFailureIcon";
 import CardPayNow from "../../../../common/card/CardPayNow";
 import PaymentReceipt from "../../../../common/paymentReceipt/index";
 import CardDash from "../../../../common/cardDash";
-import { getPayListFromattedData } from "../../../../util/getPayListFormattedData";
+import { getPayListFormattedData } from "../../../../util/getPayListFormattedData";
 import PayListItem from "../../../../common/payList/index";
 
 type SuccessProps = {
@@ -128,7 +128,7 @@ const Success = (props: SuccessProps) => {
                 }
                 rightContent={
                   <PayListItem
-                    data={getPayListFromattedData(destAcount, "accounts")}
+                    data={getPayListFormattedData(destAcount, "accounts")}
                   />
                 }
               />

@@ -28,16 +28,6 @@ console.log("fetchPayList -> action", action);
   return API.get(url);
 }
 
-/**
- * @func fetchPayList
- * @param void
- * @description fetch Money Transfer for PayList Own Acount
- */
-export function fetchBeniList(action: any) {
-      const {payload: {type = ''} = {}} = action;
-    const url = Endpoints.MONEY_TRANSFER_BENEFICIARIES_ENDPOINT_Static;
-    return API.get(url);
-  }
 
 /**
  * @func Worker workerPayListSaga
@@ -46,27 +36,13 @@ export function fetchBeniList(action: any) {
  */
 export function* workerPayListSaga(action: any) {  
   try {
-    const {payload: {type = ''} = {}} = action;
-    const { data: beniList = {} } = yield call(
-      fetchBeniList,
-      action
-    );
-    console.log("function*workerPayListSaga -> beniList gubad", beniList)
     const { data: payListData = {} } = yield call(
       fetchPayList,
       action
     );
-
     console.log("function*workerPayListSaga -> payListData", payListData);
-
     if (payListData && payListData.data) {
-      if(type === "within-mashreq"){
-        payListData.data.destination = beniList.data;
-      console.log("function*workerPayListSaga -> payListData gubad", payListData)
       yield put(Actions.fetchPayListSuccess(payListData.data));
-      }else{
-        yield put(Actions.fetchPayListSuccess(payListData.data));
-      }
     }
   } catch (error) {
     yield put(Actions.fetchPayListFailure(error));

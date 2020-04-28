@@ -21,7 +21,7 @@ import PayListItem from "../../../../components/billpayment/review/payList/index
 import ReviewAmountType from "../../../../components/billpayment/reviewAmountType/index";
 import { ArrowDown } from "@mashreq-digital/webassets";
 import CardPayNow from "../../../../common/card/CardPayNow";
-import { getPayListFromattedData } from '../../../../util/getPayListFormattedData';
+import { getPayListFormattedData } from '../../../../util/getPayListFormattedData';
 
 const useStyles = makeStyles(() => ({
   iconStyle: {
@@ -58,6 +58,7 @@ const Review = (props: any) => {
 
           <CardDash
             leftContent={
+
               <CardPayNow
                 icon={
                   <Box
@@ -72,17 +73,25 @@ const Review = (props: any) => {
                 heading={<Body1>You are Transfering</Body1>}
                 subheading={<H5>{transfer.amount.type} {Math.abs(transfer.amount.total)}</H5>}
               />
+
+
             }
-            rightContent={<PayListItem data={
-              getPayListFromattedData(destAcount, "accounts")            
-            } />}
+            rightContent={
+              transfer.toAccount.serviceTypeCode === "within-mashreq"? <PayListItem data={
+                getPayListFormattedData(destAcount, "benificiary")            
+              } /> :
+              <PayListItem data={
+              getPayListFormattedData(destAcount, "accounts")            
+            } />
+          
+          }
           />
 
           <H5>Paying from</H5>
 
           <Grid item xl={12} lg={6} md={5} sm={12} xs={12}>
             <PayListItem data={
-              getPayListFromattedData(srcAcount, "accounts")            
+              getPayListFormattedData(srcAcount, "accounts")            
             } />
           </Grid>
         </>
@@ -102,6 +111,32 @@ const Review = (props: any) => {
             color="primary"
             disabled={false}
             onClick={()=>{
+              //for beni 
+              // {within-mashreq
+              //   "amount": "124.36",
+              //   "beneficiaryId":266,
+              //   "currency": "AED",
+              //   "dealNumber": "",
+              //   "finTxnNo": "FTO-UAE-010424124-200419140032",
+              //   "fromAccount": "019010073752",
+              //   "purposeCode": "",
+              //   "serviceType": "within-mashreq",
+              //   "toAccount": "010490730773"
+              //   }
+            if(transfer.toAccount.serviceTypeCode === "within-mashreq")
+             { let beniData= {
+                "amount": transfer.amount.total,
+                "beneficiaryId": transfer.toAccount.id,
+                "currency": transfer.toAccount.beneficiaryCurrency,
+                "dealNumber": "",
+                "finTxnNo": financialTxnNumber,
+                "fromAccount": transfer.fromAccount.accountNumber,
+                "purposeCode": "",
+                "serviceType": type,
+                "toAccount": transfer.toAccount.accountNumber
+              }
+              onSubmit(beniData)}else{
+
               let data = {
                 "amount": transfer.amount.total,
               "currency": transfer.amount.type,
@@ -113,7 +148,9 @@ const Review = (props: any) => {
               "toAccount": transfer.toAccount.accountNumber
               };
               
-              onSubmit(data)}
+              onSubmit(data)
+            }
+            }
             }
           >
             {t("common.action.pay")} {transfer.amount.type} {Math.abs(transfer.amount.total)}

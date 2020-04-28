@@ -7,6 +7,8 @@ export const TELECOM_SERVICE_TYPE_CODE: any = {
   "etisalat-landline": "Landline"
 };
 
+export const withinMashreq = "within-mashreq";
+
 /* Layout Styles */
 const style = {
   header: 88, //minHeight
