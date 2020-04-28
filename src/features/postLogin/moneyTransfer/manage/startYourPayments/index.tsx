@@ -13,9 +13,10 @@ import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../../../../redux/actions/moneyTransfer/payListActions";
 import CardDash from "../../../../../common/cardDash/index";
 import PayFromList from "../../../../../components/billpayment/review/PayFromList";
-
-
-
+import * as ActionBeni from "../../../../../redux/actions/moneyTransfer/fetchBeni";
+import CardPayNow from "../../../../../common/card/CardPayNow";
+import getBeneficiariesAvatar from "../../../../../util/getBeneficiariesAvatar";
+import { withinMashreq } from "../../../../../util/constants";
 
 type StartPaymentsProps = {
   type: string | any;
@@ -28,45 +29,66 @@ const StartPayments = (props: StartPaymentsProps) => {
   const { type, data, onHandleBack, onSubmitPayment } = props;
   const [transferButton, setTransferButton] = useState(false);
   const dispatch = useDispatch();
-  const payCardListData =Object.assign(
-     useSelector(
-    (state: any) => state.moneyTransfer.other.payListData
-  ));
-  
+  const payCardListData = Object.assign(
+    useSelector((state: any) => state.moneyTransfer.other.payListData)
+  );
 
   let transfer = useSelector(
     (state: any) => state.moneyTransfer.other.transfer
   );
-  
+
+  let benificiary = useSelector(
+    (state: any) => state.moneyTransfer.mtBeni.beneficiaries
+  );
+
   const { t } = useTranslation();
 
   const onChangeFromAcount = (item: any) => {
     transfer = { ...transfer, fromAccount: item };
     dispatch(Actions.setTransferObject(transfer));
+    payCardListData.source.suggestedAccount = item;
     if (
       transfer.hasOwnProperty("fromAccount") &&
       transfer.hasOwnProperty("toAccount")
     ) {
-  console.log("StartPayments -> payCardListData gubad", payCardListData)
-      setTransferButton(true);
+      if( !(transfer.fromAccount.availableBalance <= 0))
+        {
+          setTransferButton(true);
+        }else{
+          setTransferButton(false);
+        }
     }
   };
 
   const onChangeToAcount = (item: any) => {
     transfer = { ...transfer, toAccount: item };
+    payCardListData.destination.suggestedAccount = item;
     dispatch(Actions.setTransferObject(transfer));
     if (
       transfer.hasOwnProperty("fromAccount") &&
       transfer.hasOwnProperty("toAccount")
     ) {
-      setTransferButton(true);
+
+      if( !(transfer.fromAccount.availableBalance <= 0))
+      {
+        setTransferButton(true);
+      }else{
+        setTransferButton(false);
+      }    
+    
     }
   };
 
   useEffect(() => {
-    dispatch(Actions.fetchPayListRequest({"type":type}));
+    dispatch(Actions.fetchPayListRequest({ type: type }));
+    if (type === withinMashreq) {
+      dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest());
+    }
 
-  }, [dispatch, type]);
+    /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
+    We should add onChangeList as dependency then source api will get triggered infinitely */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <SectionSplitter
@@ -81,28 +103,24 @@ const StartPayments = (props: StartPaymentsProps) => {
             <CardDash
               leftContent={
                 <PayFromList
-                heading="I want to send money from"
-                payListData={payCardListData.source}
-                onChangeList={onChangeFromAcount}
+                  heading="I want to send money from"
+                  payListData={payCardListData.source}
+                  onChangeList={onChangeFromAcount}
                 />
               }
               rightContent={
-                type === "within-mashreq"?
                 <PayFromList
                   selectOptions={true}
                   heading="To this account"
-                  payListData={payCardListData.destination}
-                  onChangeList={onChangeToAcount}
-                />:
-                <PayFromList
-                  selectOptions={true}
-                  heading="To this account"
-                  payListData={payCardListData.destination}
+                  payListData={
+                    type === "within-mashreq"
+                      ? { benificiary: benificiary }
+                      : payCardListData.destination
+                  }
                   onChangeList={onChangeToAcount}
                 />
               }
             />
-
           ) : (
             <Box display="flex" mt={12} alignItems="baseline">
               <CircularProgress />
