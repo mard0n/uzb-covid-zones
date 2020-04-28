@@ -12,7 +12,7 @@ export const PRODUCT_SUMMARY_REWARDS_ENDPOINT ='/mob-dashboard/v1/summary/reward
 /* Beneficiary */
 // const Beneficiary_bill_payment
 export const BENEFICIARY_SERVICE_TYPES_ENDPOINT = '/beneficiary-core-service/v1/beneficiary/service-type?category=biller'; //?category="biller" / "utility"
-export const MY_BILL_PAYMENT_BENEFICIARES_ENDPOINT = '/beneficiary-core-service/v1/beneficiary/grouped?size=200    '; //?size=20
+export const MY_BILL_PAYMENT_BENEFICIARES_ENDPOINT = '/beneficiary-core-service/v1/beneficiary/grouped?size=200'; //?size=20
 export const BILL_PAYMENT_DETECTION_ENDPOINT = `/beneficiary-core-service/v1/beneficiary/${'beneficiaryId'}`;
 export const DELETE_BENEFICIARY_BY_ID_ENDPOINT = `/beneficiary-core-service/v1/beneficiary/${'beneficiaryId'}`;
 export const BILL_PAYMENT_ADD_EDIT_BENEFICIARY_ENDPOINT = `/beneficiary-core-service/v1/beneficiary`;
@@ -29,5 +29,5 @@ export const PAY_LIST_OWN_ACOUNT = `/mob-common-service/v1/payment-options/${'ty
 export const MONEY_TRANSFER_CURRENCY_EXCHANGE_ENDPOINT = `/mob-facade/v1/currency/conversion`;
 export const MONEY_TRANSFER_INITIATE_TRANSFER_ENDPOINT = `/transfer-core-service/v1/transfer`;
 export const MONEY_TRANSFER_BENEFICIARIES_ENDPOINT = `/beneficiary-core-service/v1/beneficiary?serviceType=${'type'}&status=${'activationStatus'}`;
-export const MONEY_TRANSFER_BENEFICIARIES_ENDPOINT_Static = `/beneficiary-core-service/v1/beneficiary?serviceType=within-mashreq&status=ACTIVE`;
+export const MONEY_TRANSFER_BENEFICIARIES_ENDPOINT_Static = `/beneficiary-core-service/v1/beneficiary?serviceType=within-mashreq&status=ACTIVE&size=${'count'}`;
 

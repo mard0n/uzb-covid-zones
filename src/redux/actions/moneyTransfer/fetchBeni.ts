@@ -22,8 +22,9 @@ export const FETCH_MONEY_TRANSFER_BENEFICIARIES_AGAIN =
  * @func fetchMoneyTransferBeneficiariesRequest
  * @param ``
  */
-export const fetchMoneyTransferBeneficiariesRequest = () => ({
+export const fetchMoneyTransferBeneficiariesRequest = (payload?: any) => ({
   type: FETCH_MONEY_TRANSFER_BENEFICIARIES_REQUEST,
+  payload
 });
 
 export const removeMoneyTransferBeneficiary = (payload: any) => ({

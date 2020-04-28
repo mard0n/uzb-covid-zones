@@ -11,7 +11,7 @@ import {
 import { API } from "../../../network";
 import * as Endpoint from "../../../network/Endpoints";
 import { useTranslation } from "react-i18next";
-import { getPayListFromattedData } from "../../../util/getPayListFormattedData";
+import { getPayListFormattedData } from "../../../util/getPayListFormattedData";
 import CardPayNow from "../../../common/card/CardPayNow";
 import getBeneficiariesAvatar from "../../../util/getBeneficiariesAvatar";
 
@@ -45,8 +45,6 @@ const PayFromList = (props: PayFromListProps) => {
     type,
     stype,
   } = props;
-  console.log("PayFromList -> payListData araa", payListData );
-
   const { t } = useTranslation();
   const { dropListStyle } = useStyles();
   const [active, setActive] = useState<any>({});
@@ -65,7 +63,7 @@ const PayFromList = (props: PayFromListProps) => {
 
   useEffect(() => {
     const callOnChangeList = (activeAct: any, type: string) => {
-      let acctData = getPayListFromattedData(activeAct, type);
+      let acctData = getPayListFormattedData(activeAct, type);
       setActive(acctData);
       if (onChangeList && typeof onChangeList === "function") {
         onChangeList({ ...activeAct, balance: acctData.balance, type: type });
@@ -234,7 +232,7 @@ const PayFromList = (props: PayFromListProps) => {
                     ) {
                       return suggestionList[list].map(
                         (item: any, i: number) => {
-                          let data = getPayListFromattedData(item, list);
+                          let data = getPayListFormattedData(item, list);
                           return (
                             <Fragment key={i + "PayListItem"}>
                                 <PayListItem

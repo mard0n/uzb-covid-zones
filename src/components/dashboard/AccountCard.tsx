@@ -80,24 +80,22 @@ const AccountCard = (props: AccountCardProps) => {
               <Body1> {title}</Body1>
               <Box className={aedStyle}>AED</Box>
             </Box>
-            {balanceAmount && 
+            {typeof balanceAmount === "number" && 
               <>
                 <H3>{balanceAmount}</H3>
                 {balance && <Caption>{balance}</Caption>}
               </>
             }
             <Box mt={2.6}>
-              {currentBalanceAmount && (
+            {typeof currentBalanceAmount === "number" && (
                 <>
                 <Body1 fontWeight={600} display="inline">
                   {currentBalanceAmount}
                 </Body1>
               
-              {currentBalance && (
                 <Box ml={1} className={currentBalanceStyle} component="span">
                   {currentBalance}
                 </Box>
-              )}
               </>
               )}
             </Box>
@@ -112,7 +110,7 @@ const AccountCard = (props: AccountCardProps) => {
         </Grid>
       </Grid>
       {btnLabel && (
-        <Box mt={1.6} display="flex" justifyContent="center">
+        <Box display="flex" justifyContent="center">
           <Button
             className={buttonStyle}
             onClick={onClickAllList}

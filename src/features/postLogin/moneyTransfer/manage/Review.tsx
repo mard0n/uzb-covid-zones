@@ -21,7 +21,7 @@ import PayListItem from "../../../../components/billpayment/review/payList/index
 import ReviewAmountType from "../../../../components/billpayment/reviewAmountType/index";
 import { ArrowDown } from "@mashreq-digital/webassets";
 import CardPayNow from "../../../../common/card/CardPayNow";
-import { getPayListFromattedData } from '../../../../util/getPayListFormattedData';
+import { getPayListFormattedData } from '../../../../util/getPayListFormattedData';
 
 const useStyles = makeStyles(() => ({
   iconStyle: {
@@ -78,10 +78,10 @@ const Review = (props: any) => {
             }
             rightContent={
               transfer.toAccount.serviceTypeCode === "within-mashreq"? <PayListItem data={
-                getPayListFromattedData(destAcount, "benificiary")            
+                getPayListFormattedData(destAcount, "benificiary")            
               } /> :
               <PayListItem data={
-              getPayListFromattedData(destAcount, "accounts")            
+              getPayListFormattedData(destAcount, "accounts")            
             } />
           
           }
@@ -91,7 +91,7 @@ const Review = (props: any) => {
 
           <Grid item xl={12} lg={6} md={5} sm={12} xs={12}>
             <PayListItem data={
-              getPayListFromattedData(srcAcount, "accounts")            
+              getPayListFormattedData(srcAcount, "accounts")            
             } />
           </Grid>
         </>
