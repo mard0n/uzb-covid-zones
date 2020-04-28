@@ -32,6 +32,9 @@ const useStyles = makeStyles((theme: any) =>
     headingStyle: {
       fontWeight: 600
     },
+    activeStyle: {
+      borderColor: "rgb(49, 49, 49)",
+    },
     iconStyle: {
       display: "flex",
       justifyContent: "left",
@@ -62,6 +65,7 @@ type CardPayNowProps = {
   cardCallBack?: any;
   buttonLable?: string;
   arrow?: boolean;
+  active?:boolean;
   icon?: any;
   image?: string;
   TIcon?: any;
@@ -75,6 +79,7 @@ const CardPayNow = (props: CardPayNowProps) => {
     heading,
     arrow,
     icon,
+    active,
     subheading,
     TIcon,
     logo,
@@ -86,11 +91,13 @@ const CardPayNow = (props: CardPayNowProps) => {
     callback,
   } = props;
 
-  const { card, button, headingStyle, arrowStyle, iconStyle, avt } = useStyles(props);
+  const { card, button, headingStyle, arrowStyle, iconStyle, avt,activeStyle } = useStyles(props);
+
+  let myStyle = active?activeStyle:style;
   return (
     <Card
       className={card}
-      style={style}
+      style={myStyle}
       onClick={(e: any) => {
         if (cardCallBack && typeof cardCallBack === "function") {
           cardCallBack(e);

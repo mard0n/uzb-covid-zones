@@ -58,6 +58,7 @@ const Review = (props: any) => {
 
           <CardDash
             leftContent={
+
               <CardPayNow
                 icon={
                   <Box
@@ -72,10 +73,18 @@ const Review = (props: any) => {
                 heading={<Body1>You are Transfering</Body1>}
                 subheading={<H5>{transfer.amount.type} {Math.abs(transfer.amount.total)}</H5>}
               />
+
+
             }
-            rightContent={<PayListItem data={
+            rightContent={
+              transfer.toAccount.serviceTypeCode === "within-mashreq"? <PayListItem data={
+                getPayListFromattedData(destAcount, "benificiary")            
+              } /> :
+              <PayListItem data={
               getPayListFromattedData(destAcount, "accounts")            
-            } />}
+            } />
+          
+          }
           />
 
           <H5>Paying from</H5>
@@ -102,6 +111,32 @@ const Review = (props: any) => {
             color="primary"
             disabled={false}
             onClick={()=>{
+              //for beni 
+              // {within-mashreq
+              //   "amount": "124.36",
+              //   "beneficiaryId":266,
+              //   "currency": "AED",
+              //   "dealNumber": "",
+              //   "finTxnNo": "FTO-UAE-010424124-200419140032",
+              //   "fromAccount": "019010073752",
+              //   "purposeCode": "",
+              //   "serviceType": "within-mashreq",
+              //   "toAccount": "010490730773"
+              //   }
+            if(transfer.toAccount.serviceTypeCode === "within-mashreq")
+             { let beniData= {
+                "amount": transfer.amount.total,
+                "beneficiaryId": transfer.toAccount.id,
+                "currency": transfer.toAccount.beneficiaryCurrency,
+                "dealNumber": "",
+                "finTxnNo": financialTxnNumber,
+                "fromAccount": transfer.fromAccount.accountNumber,
+                "purposeCode": "",
+                "serviceType": type,
+                "toAccount": transfer.toAccount.accountNumber
+              }
+              onSubmit(beniData)}else{
+
               let data = {
                 "amount": transfer.amount.total,
               "currency": transfer.amount.type,
@@ -113,7 +148,9 @@ const Review = (props: any) => {
               "toAccount": transfer.toAccount.accountNumber
               };
               
-              onSubmit(data)}
+              onSubmit(data)
+            }
+            }
             }
           >
             {t("common.action.pay")} {transfer.amount.type} {Math.abs(transfer.amount.total)}

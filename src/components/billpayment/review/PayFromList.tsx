@@ -12,11 +12,14 @@ import { API } from "../../../network";
 import * as Endpoint from "../../../network/Endpoints";
 import { useTranslation } from "react-i18next";
 import { getPayListFromattedData } from "../../../util/getPayListFormattedData";
+import CardPayNow from "../../../common/card/CardPayNow";
+import getBeneficiariesAvatar from "../../../util/getBeneficiariesAvatar";
 
 type PayFromListProps = {
   onChangeList?: any;
   heading?: any;
   type?: any;
+  stype?: any;
   selectOptions?: boolean;
   payListData?: any;
 };
@@ -34,13 +37,22 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 const PayFromList = (props: PayFromListProps) => {
-  const { onChangeList, heading, payListData, selectOptions, type } = props;
+  const {
+    onChangeList,
+    heading,
+    payListData,
+    selectOptions,
+    type,
+    stype,
+  } = props;
+  console.log("PayFromList -> payListData araa", payListData );
+
   const { t } = useTranslation();
   const { dropListStyle } = useStyles();
   const [active, setActive] = useState<any>({});
   const [suggestionList, setSuggestionList] = useState<any>([]);
   const [dropList, setDropList] = useState(false);
-  const listItems = ["accounts", "cards"];
+  const listItems = ["accounts", "cards","benificiary"];
   const [noSuggetion, setNosuggestion] = useState(false);
 
   // const callOnChangeList = useCallback((activeAct: any, type: string) => {
@@ -61,7 +73,13 @@ const PayFromList = (props: PayFromListProps) => {
     };
 
     const configurValues = (val: any) => {
-      const { accounts, cards, suggestedAccount, suggestedCard } = val;
+      const {
+        accounts,
+        cards,
+        suggestedAccount,
+        suggestedCard,
+        benificiary,
+      } = val;
 
       if (suggestedAccount && suggestedAccount.status) {
         callOnChangeList(suggestedAccount, "accounts");
@@ -73,9 +91,14 @@ const PayFromList = (props: PayFromListProps) => {
         callOnChangeList(suggestedCard, "cards");
       }
 
+      if (benificiary) {
+        callOnChangeList(benificiary, "benificiary");
+      }
+
       setSuggestionList({
         accounts: accounts && accounts.length > 0 ? accounts : [],
         cards: cards && cards.length > 0 ? cards : [],
+        benificiary: benificiary && benificiary.length > 0 ? benificiary : []
       });
     };
 
@@ -162,6 +185,12 @@ const PayFromList = (props: PayFromListProps) => {
       suggestionList.accounts.length > 0
         ? suggestionList.accounts
         : []),
+        ...(suggestionList &&
+          suggestionList.benificiary &&
+          suggestionList.benificiary.length > 0
+            ? suggestionList.benificiary
+            : []),
+
     ],
     listHeight = allSuggestions && allSuggestions.length > 4 ? 75 * 3 : "auto";
 
@@ -183,8 +212,10 @@ const PayFromList = (props: PayFromListProps) => {
         </Box>
         <Box className={dropListStyle} height={dropList ? listHeight : "auto"}>
           {!dropList && active && active.currency ? (
-            <PayListItem isDefault data={active} />
+              <PayListItem isDefault data={active} />
+            
           ) : (
+
             <PayListItem
               isDefault
               data={active}
@@ -206,17 +237,18 @@ const PayFromList = (props: PayFromListProps) => {
                           let data = getPayListFromattedData(item, list);
                           return (
                             <Fragment key={i + "PayListItem"}>
-                              <PayListItem
-                                onClickCallback={() =>
-                                  onClickCallback(data, {
-                                    ...item,
-                                    balance: data.balance,
-                                    type: list,
-                                  })
-                                }
-                                active={data.accNo === active.accNo}
-                                data={data}
-                              />
+                                <PayListItem
+                                  onClickCallback={() =>
+                                    onClickCallback(data, {
+                                      ...item,
+                                      balance: data.balance,
+                                      type: list,
+                                    })
+                                  }
+                                  active={data.accNo === active.accNo}
+                                  data={data}
+                                />
+                              
                             </Fragment>
                           );
                         }

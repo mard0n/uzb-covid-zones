@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme: any) => ({
 const ImageWithText = (props: ImageWithTextProps) => {
   const { name, data, className, onClick,description, iconType } = props;
   const { captionStyle, avt } = useStyles();
+  let NotIcon = getBeneficiariesAvatar(
+    data && data.code ? data.code.toLowerCase() : name.toLowerCase());
+  
   return (
     <Box
       display="inline-flex"
@@ -48,12 +51,17 @@ const ImageWithText = (props: ImageWithTextProps) => {
         </Box>
       ) : (
         <Box mr={2.5}>
-          <img
-            src={getBeneficiariesAvatar(
-              data && data.code ? data.code.toLowerCase() : name.toLowerCase()
-            )}
-            alt={name}
-          />
+        <Avatar className={avt}>
+        <NotIcon width="50" height="50"/>
+        </Avatar>
+
+         { // <img
+          //   src={getBeneficiariesAvatar(
+          //     data && data.code ? data.code.toLowerCase() : name.toLowerCase()
+          //   )}
+          //   alt={name}
+          // />
+        }
         </Box>
       )}
 
