@@ -17,6 +17,7 @@ import * as ActionBeni from "../../../../../redux/actions/moneyTransfer/fetchBen
 import CardPayNow from "../../../../../common/card/CardPayNow";
 import getBeneficiariesAvatar from "../../../../../util/getBeneficiariesAvatar";
 import { withinMashreq } from "../../../../../util/constants";
+import EmtyList from '../../../../../common/payList/emtyList';
 
 type StartPaymentsProps = {
   type: string | any;
@@ -46,54 +47,44 @@ const StartPayments = (props: StartPaymentsProps) => {
   const onChangeFromAcount = (item: any) => {
     transfer = { ...transfer, fromAccount: item };
     dispatch(Actions.setTransferObject(transfer));
-    if(type !== withinMashreq)
-   { 
-    if(payCardListData && payCardListData.source.suggestedAccount)
-    {
-      payCardListData.source.suggestedAccount = item;
-    }else{
-      payCardListData.source["suggestedAccount"] = item;
+    if (type !== withinMashreq) {
+      if (payCardListData) {
+        payCardListData.source["suggestedAccount"] = item;
+      }
     }
-  }
 
     if (
       transfer.hasOwnProperty("fromAccount") &&
       transfer.hasOwnProperty("toAccount")
     ) {
-      if( !(transfer.fromAccount.availableBalance <= 0))
-        {
-          setTransferButton(true);
-        }else{
-          setTransferButton(false);
-        }
+      if (!(transfer.fromAccount.availableBalance <= 0)) {
+        setTransferButton(true);
+      } else {
+        setTransferButton(false);
+      }
     }
   };
 
   const onChangeToAcount = (item: any) => {
     transfer = { ...transfer, toAccount: item };
-    if(type !== withinMashreq)
-{
-    if(payCardListData && payCardListData.destination.suggestedAccount)
-    {
-      payCardListData.destination.suggestedAccount = item;
-    }else{
-      payCardListData.destination["suggestedAccount"] = item;
+    if (type !== withinMashreq) {
+      if (payCardListData) {
+        payCardListData.destination = {
+          ...payCardListData.destination,
+          "suggestedAccount":item
+        }
+      }
     }
-
-  }
     dispatch(Actions.setTransferObject(transfer));
     if (
       transfer.hasOwnProperty("fromAccount") &&
       transfer.hasOwnProperty("toAccount")
     ) {
-
-      if( !(transfer.fromAccount.availableBalance <= 0))
-      {
+      if (!(transfer.fromAccount.availableBalance <= 0)) {
         setTransferButton(true);
-      }else{
+      } else {
         setTransferButton(false);
-      }    
-    
+      }
     }
   };
 
@@ -127,17 +118,31 @@ const StartPayments = (props: StartPaymentsProps) => {
                 />
               }
               rightContent={
-                <PayFromList
+
+                type === withinMashreq? 
+                benificiary ? <PayFromList
                   selectOptions={true}
                   heading="To this account"
                   payListData={
-                    type === withinMashreq
-                      ? { benificiary: benificiary }
-                      : payCardListData.destination
+                    { benificiary: benificiary }
                   }
                   onChangeList={onChangeToAcount}
-                />
+                />: "No Benificiary detucted"
+                :
+                payCardListData.hasOwnProperty("destination")?
+                <PayFromList
+                selectOptions={true}
+                heading="To this account"
+                payListData={
+                      payCardListData.destination
+                }
+                onChangeList={onChangeToAcount}
+              />: <EmtyList/>
+
               }
+
+
+
             />
           ) : (
             <Box display="flex" mt={12} alignItems="baseline">
