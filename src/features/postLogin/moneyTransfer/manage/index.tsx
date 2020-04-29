@@ -65,6 +65,7 @@ let transaction = useSelector(
 
   const successFailureCallback = () => {
     dispatch(PayListActions.setTransferObject({}));
+    dispatch(PayListActions.fetchPayListClear());
     if (finalCallback && typeof finalCallback === "function") {
       finalCallback();
     }

@@ -28,7 +28,6 @@ export const moneyTransferInitiateTransfer = (payload: any) => ({
   });
   
   export const moneyTransferInitiateTransferClear = () => {
-    console.log('ACTION:', MONEY_TRANSFER_INITIATE_TRANSFER_CLEAR);
     return {
       type: MONEY_TRANSFER_INITIATE_TRANSFER_CLEAR,
       payload: {},

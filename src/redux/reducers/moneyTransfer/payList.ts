@@ -21,6 +21,12 @@ export default function(state = initialState, action: any) {
         ...state,
         loading: true,
       };
+    case PayListActions.FETCH_PAY_LIST_CLEAR:
+        return {
+          ...initialState,
+          loading: false,
+          payListData: action.payload
+        }; 
     case PayListActions.FETCH_PAY_LIST_SUCCESS:
       return {
         ...state,

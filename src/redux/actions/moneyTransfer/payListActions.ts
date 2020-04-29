@@ -7,7 +7,8 @@ export const FETCH_PAY_LIST_SUCCESS =
   "FETCH_PAY_LIST_SUCCESS";
 export const FETCH_PAY_LIST_FAILURE =
   "FETCH_PAY_LIST_FAILURE";
-
+  export const FETCH_PAY_LIST_CLEAR =
+  "FETCH_PAY_LIST_FAILURE";
 
   export const SET_TRANSFER_OBJECT =
   "SET_TRANSFER_OBJECT";
@@ -32,6 +33,12 @@ export const fetchPayListFailure = (payload: any) => ({
   payload
 });
 
+export const fetchPayListClear = () => {
+  return {
+    type: FETCH_PAY_LIST_CLEAR,
+    payload: {},
+  };
+};
 
 export const setTransferObject = (payload:any) => ({
   type: SET_TRANSFER_OBJECT,
