@@ -55,16 +55,8 @@ const Success = (props: SuccessProps) => {
     subTitle,
   } = props;
   const { t } = useTranslation();
-
   const { successIconStyle } = useStyles();
-
-  const [editModal, setEditModal] = useState(false);
   const [payRecieptModal, setPayRecieptModal] = useState(false);
-  const [sucessModel, setSucessModel] = useState(false);
-  const [saveData, setSaveData] = useState({});
-  const addNew = useSelector(
-    (state: any) => state.beneficiary.billPayment.addNew
-  );
 
   let transfer = useSelector(
     (state: any) => state.moneyTransfer.other.transfer
