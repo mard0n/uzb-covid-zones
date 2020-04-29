@@ -92,7 +92,7 @@ const Success = (props: SuccessProps) => {
       height="calc(100vh - 250px)"
       top={
         <>
-          <SucessFailureIcon success={success} warning />
+          <SucessFailureIcon success={success} warning2 />
           <UnderlineText color="primary">
             <H2>{title}</H2>
           </UnderlineText>
@@ -146,7 +146,7 @@ const Success = (props: SuccessProps) => {
           ) : (
             <>
               <Box mt={10} display="flex" alignItems="center">
-                <H4>{t(`billPayments.steps.confirmation.contactus`)} </H4>
+                <H4>Got question? Talk to us</H4>
               </Box>
               <Box mt={5} mb={5} display="flex" alignItems="center">
                 <CardPayNow

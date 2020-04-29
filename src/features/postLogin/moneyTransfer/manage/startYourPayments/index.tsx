@@ -57,7 +57,10 @@ const StartPayments = (props: StartPaymentsProps) => {
       transfer.hasOwnProperty("fromAccount") &&
       transfer.hasOwnProperty("toAccount")
     ) {
-      if (!(transfer.fromAccount.availableBalance <= 0) && transfer.fromAccount.accountNumber !== transfer.toAccount.accountNumber) {
+      if (
+        !(transfer.fromAccount.availableBalance <= 0) &&
+        transfer.fromAccount.accountNumber !== transfer.toAccount.accountNumber
+      ) {
         setTransferButton(true);
       } else {
         setTransferButton(false);
@@ -80,7 +83,10 @@ const StartPayments = (props: StartPaymentsProps) => {
       transfer.hasOwnProperty("fromAccount") &&
       transfer.hasOwnProperty("toAccount")
     ) {
-      if (!(transfer.fromAccount.availableBalance <= 0) && transfer.fromAccount.accountNumber !== transfer.toAccount.accountNumber) {
+      if (
+        !(transfer.fromAccount.availableBalance <= 0) &&
+        transfer.fromAccount.accountNumber !== transfer.toAccount.accountNumber
+      ) {
         setTransferButton(true);
       } else {
         setTransferButton(false);
@@ -93,7 +99,7 @@ const StartPayments = (props: StartPaymentsProps) => {
     if (type === withinMashreq) {
       dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest());
     }
-   
+
     //TODO: update this for on back to keep it selected option
     // else{
     //   if (transfer.fromAcount) {
@@ -131,7 +137,7 @@ const StartPayments = (props: StartPaymentsProps) => {
               }
               rightContent={
                 type === withinMashreq ? (
-                  benificiary && benificiary.length>0  ? (
+                  benificiary && benificiary.length > 0 ? (
                     <PayFromList
                       selectOptions={true}
                       heading="To this account"
@@ -139,8 +145,7 @@ const StartPayments = (props: StartPaymentsProps) => {
                       onChangeList={onChangeToAcount}
                     />
                   ) : (
-                    <EmtyList heading="No Benificiary detucted"/>
-
+                    <EmtyList heading="No Benificiary detucted" />
                   )
                 ) : payCardListData.hasOwnProperty("destination") &&
                   payCardListData.destination.accounts.length > 0 ? (
@@ -167,15 +172,16 @@ const StartPayments = (props: StartPaymentsProps) => {
       }
       bottom={
         <Box display="flex" justifyContent="flex-end">
-          <Button
-            variant="contained"
-            color="primary"
-            disabled={!transferButton}
-            onClick={onSubmitPayment}
-            size="large"
-          >
-            Set Transfer Amount
-          </Button>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  disabled={!transferButton}
+                  onClick={onSubmitPayment}
+                  size="large"
+                >
+                  Set Transfer Amount
+                </Button>
+             
         </Box>
       }
     />

@@ -111,8 +111,8 @@ let transaction = useSelector(
             serviceType={serviceType}
             onHandleBack={() =>
               updateStep({
-                step: "Start Your Payment",
-                stepInit: "Start Your Payment",
+                step: "Start Your Transfer",
+                stepInit: "Start Your Transfer",
               })
             }
             onNextStep={onSubmitSetTransfer}
@@ -132,7 +132,7 @@ let transaction = useSelector(
               )}
               subTitle={
                 !success
-                  ? "Your transaction with fallowing errror " + transaction.error
+                  ? "oops! somthing went wrong"
                   : successMessage
               }
               onDoneCallback={() => successFailureCallback()}

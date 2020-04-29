@@ -47,10 +47,12 @@ export function* workerMoneyTransferInitiateSaga(action: any) {
       yield put(
         Actions.moneyTransferInitiateTransferFailure(response.data.errorMessage)
       );
-    } else {
+    } else if (response.data.data) {
       yield put(
         Actions.moneyTransferInitiateTransferSuccess(response.data.data)
       );
+    } else {
+      Actions.moneyTransferInitiateTransferFailure(response.data.errorMessage);
     }
   } catch (error) {
     console.log("ERROR --", error);
