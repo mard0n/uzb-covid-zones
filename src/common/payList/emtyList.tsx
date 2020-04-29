@@ -6,6 +6,7 @@ import {
   Theme,
   Body1,
 } from "@mashreq-digital/ui";
+import { Plus } from '@mashreq-digital/webassets';
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -45,6 +46,7 @@ const EmtyList = (props: any) => {
           Get one in 4 steps
         </Button>
       )}
+
     </ListItem>
   );
 };

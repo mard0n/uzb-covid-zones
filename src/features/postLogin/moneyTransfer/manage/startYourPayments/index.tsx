@@ -4,8 +4,10 @@ import {
   UnderlineText,
   H2,
   Button,
+  makeStyles,
   SectionSplitter,
   CircularProgress,
+  SvgIcon,
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
 import CardPayList from "../../../../../common/cardPayList/index";
@@ -18,6 +20,7 @@ import CardPayNow from "../../../../../common/card/CardPayNow";
 import getBeneficiariesAvatar from "../../../../../util/getBeneficiariesAvatar";
 import { withinMashreq } from "../../../../../util/constants";
 import EmtyList from "../../../../../common/payList/emtyList";
+import { Plus } from '@mashreq-digital/webassets';
 
 type StartPaymentsProps = {
   type: string | any;
@@ -25,10 +28,22 @@ type StartPaymentsProps = {
   data?: any;
   onSubmitPayment?: any;
 };
+const useStyles = makeStyles((theme:any)=>({
+  NoBeniStyle: {
+    background: "rgb(255, 94, 0)",
+    borderRadius: "50%",
+    padding: `${theme.spacing(1.3)}px`,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center"
+  }
+}));
 
 const StartPayments = (props: StartPaymentsProps) => {
   const { type, data, onHandleBack, onSubmitPayment } = props;
   const [transferButton, setTransferButton] = useState(false);
+  const {NoBeniStyle} = useStyles();
+
   const dispatch = useDispatch();
   const payCardListData = Object.assign(
     useSelector((state: any) => state.moneyTransfer.other.payListData)
@@ -135,9 +150,10 @@ const StartPayments = (props: StartPaymentsProps) => {
                   <EmtyList heading="You dont seems to have account" />
                 )
               }
+              // benificiary && benificiary.length > 0 
               rightContent={
                 type === withinMashreq ? (
-                  benificiary && benificiary.length > 0 ? (
+                  false? (
                     <PayFromList
                       selectOptions={true}
                       heading="To this account"
@@ -145,7 +161,15 @@ const StartPayments = (props: StartPaymentsProps) => {
                       onChangeList={onChangeToAcount}
                     />
                   ) : (
-                    <EmtyList heading="No Benificiary detucted" />
+                    <CardPayNow
+                    fullWidth
+                    icon={<Box component="span" className={NoBeniStyle}><SvgIcon htmlColor="#fff" component={Plus} /></Box>}
+                    style={{ justifyContent: "space-around" }}
+                    arrow={true}
+                    heading="No Benificiary detucted"
+                    subheading="You can add one right now"
+                  />
+
                   )
                 ) : payCardListData.hasOwnProperty("destination") &&
                   payCardListData.destination.accounts.length > 0 ? (

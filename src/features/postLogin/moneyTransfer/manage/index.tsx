@@ -10,6 +10,8 @@ import SetTransferAmount from "./setTransferAmount";
 import PickTime from "./pickTime";
 import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
+import * as PayListActions from "../../../../redux/actions/moneyTransfer/payListActions";
+
 import { withinMashreq } from "../../../../util/constants";
 const ManageMoneyTransferModal = (props: any) => {
   const {
@@ -62,6 +64,7 @@ let transaction = useSelector(
 
 
   const successFailureCallback = () => {
+    dispatch(PayListActions.setTransferObject({}));
     if (finalCallback && typeof finalCallback === "function") {
       finalCallback();
     }
