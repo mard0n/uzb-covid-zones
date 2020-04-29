@@ -27,6 +27,7 @@ export const getPayListFormattedData = (obj: any, type: string) => {
     const { 
       accountNumber,
       nickname,
+      status,
       serviceTypeCode,
       beneficiaryCurrency,
       } = obj;
@@ -34,6 +35,7 @@ export const getPayListFormattedData = (obj: any, type: string) => {
     data["accNo"] = "Account Number | " +accountNumber;
     data["currency"] = beneficiaryCurrency;
     data["type"] = serviceTypeCode;
+    data["status"] = status;
   }
   else if(type === "deposits") {
     const { 
