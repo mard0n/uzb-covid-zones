@@ -111,7 +111,7 @@ const SetTransferAmount = (props: any) => {
       (event.target.value / parseFloat(exchangeRate)).toFixed(2)
     );
 
-    if (event.target.value < srcAmount && event.target.value >0) {
+    if (event.target.value <= srcAmount && event.target.value >0) {
       setEnableButton(false);
     } else {
       setEnableButton(true);
@@ -125,7 +125,7 @@ const SetTransferAmount = (props: any) => {
     setDestinationAmount(event.target.value);
     setsourceAmount((event.target.value * parseFloat(exchangeRate)).toFixed(2));
     if (
-      event.target.value > 0 &&  event.target.value <
+      event.target.value > 0 &&  event.target.value <=
       (currenciesAreDifferent ? Math.floor(maxAmounts["to"]) : srcAmount)
     ) {
       setEnableButton(false);
