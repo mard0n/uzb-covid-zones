@@ -166,7 +166,7 @@ const StartPayments = (props: StartPaymentsProps) => {
                     icon={<Box component="span" className={NoBeniStyle}><SvgIcon htmlColor="#fff" component={Plus} /></Box>}
                     style={{ justifyContent: "space-around" }}
                     arrow={true}
-                    heading="No Benificiary detucted"
+                    heading="No beneficiaries detected"
                     subheading="You can add one right now"
                   />
 
