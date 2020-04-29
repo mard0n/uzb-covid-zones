@@ -23,20 +23,12 @@ import useCurrencyConverter from "../../../../redux/hooks/useCurrencyConverter";
 import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
 import { withinMashreq } from "../../../../util/constants";
 
-
-
-
-
-
 const useStyles = makeStyles((theme: any) => ({
   inputNumber: {
     "-webkit-appearance": "none",
-    "margin": 0
+    margin: 0,
   },
 }));
-
-
-
 
 const SetTransferAmount = (props: any) => {
   let transfer = useSelector(
@@ -44,24 +36,25 @@ const SetTransferAmount = (props: any) => {
   );
   const dispatch = useDispatch();
 
-  const {inputNumber} = useStyles();
-
+  const { inputNumber } = useStyles();
 
   const [exchangeRate, setExchangeRate] = useState("");
   const [enableButton, setEnableButton] = useState(true);
   const [maxAmounts, setMaxAmounts]: any = useState({});
   const { onHandleBack, serviceType, onNextStep } = props;
-  const [sourceAmount, setsourceAmount]: any = useState();
-  const [destinationAmount, setDestinationAmount]: any = useState();
+  const [sourceAmount, setsourceAmount]: any = useState("");
+  const [destinationAmount, setDestinationAmount]: any = useState("");
   const [fromTouched, setFromTouched] = useState(false);
   const [toTouched, setToTouched] = useState(false);
   let srcAmount = transfer.fromAccount.availableBalance;
   let dstAmount = transfer.toAccount.availableBalance;
+  const re = /^[0-9\b]+$/;
 
   let srcCurrency = transfer.fromAccount.currency;
+  let destCurrency = serviceType.code === withinMashreq ? transfer.toAccount.beneficiaryCurrency : transfer.toAccount.currency;
 
-  let destCurrency = transfer.toAccount.currency;
-  const currenciesAreDifferent = srcCurrency !== destCurrency;
+  const currenciesAreDifferent =  srcCurrency !== destCurrency;
+
   const {
     currencyConverterLoading,
     currencyConverterResponse,
@@ -89,7 +82,6 @@ const SetTransferAmount = (props: any) => {
 
   useEffect(() => {
     setMaxAmounts({ ...maxAmounts, from: srcAmount });
-    if (serviceType.code !== withinMashreq) {
       if (currenciesAreDifferent) {
         const data: any = {
           accountNumber: transfer.fromAccount.accountNumber,
@@ -99,38 +91,41 @@ const SetTransferAmount = (props: any) => {
         };
         fetchCurrencyRate(data);
       }
-    }
     /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
     We should add onChangeList as dependency then source api will get triggered infinitely */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onChangeOfReciveAmount = (event: any) => {
-    setsourceAmount(event.target.value);
-    setDestinationAmount(
-      (event.target.value / parseFloat(exchangeRate)).toFixed(2)
-    );
+    if (event.target.value === "" || re.test(event.target.value)) {
+      setsourceAmount(event.target.value);
+      setDestinationAmount(
+        (event.target.value / parseFloat(exchangeRate)).toFixed(2)
+      );
 
-    if (event.target.value <= srcAmount && event.target.value >0) {
-      setEnableButton(false);
-    } else {
-      setEnableButton(true);
+      if (event.target.value <= srcAmount && event.target.value > 0) {
+        setEnableButton(false);
+      } else {
+        setEnableButton(true);
+      }
     }
-
-
-
-
   };
   const onChangeOfTransferAmount = (event: any) => {
-    setDestinationAmount(event.target.value);
-    setsourceAmount((event.target.value * parseFloat(exchangeRate)).toFixed(2));
-    if (
-      event.target.value > 0 &&  event.target.value <=
-      (currenciesAreDifferent ? Math.floor(maxAmounts["to"]) : srcAmount)
-    ) {
-      setEnableButton(false);
-    } else {
-      setEnableButton(true);
+    if (event.target.value === "" || re.test(event.target.value)) {
+      setDestinationAmount(event.target.value);
+      setsourceAmount(
+        (event.target.value * parseFloat(exchangeRate)).toFixed(2)
+      );
+
+      if (
+        event.target.value > 0 &&
+        event.target.value <=
+          (currenciesAreDifferent ? Math.floor(maxAmounts["to"]) : srcAmount)
+      ) {
+        setEnableButton(false);
+      } else {
+        setEnableButton(true);
+      }
     }
   };
 
@@ -145,46 +140,7 @@ const SetTransferAmount = (props: any) => {
           </UnderlineText>
           <Grid container>
             <Grid item xs={6}>
-              {serviceType.code === withinMashreq ? (
-                <Box mt={10}>
-                  <H5>The receiving account will get</H5>
-                  <TextField
-                    fullWidth
-                    error={sourceAmount > srcAmount}
-                    type="number"
-                    label="Receiving Amount"
-                    className={inputNumber}
-                    value={sourceAmount}
-                    id="recievingAmount"
-                    onFocus={() => {
-                      setToTouched(false);
-                      setFromTouched(true);
-                    }}
-                    onChange={onChangeOfReciveAmount}
-                    variant="filled"
-                    inputProps={{
-                      "aria-label": "Receiving amount input box",
-                    }}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          {srcCurrency}
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  {sourceAmount && fromTouched && (
-                    <Box pt={3}>
-                      <SuggestionBox
-                        activeStep={sourceAmount}
-                        currency={srcCurrency}
-                        maxPrice={srcAmount}
-                      />
-                    </Box>
-                  )}
-                </Box>
-              ) : (
+              {
                 <>
                   <Box mt={10}>
                     <H5>The Receiving account will get</H5>
@@ -192,7 +148,6 @@ const SetTransferAmount = (props: any) => {
                       fullWidth
                       label="Receiving Amount"
                       id="transferAmount"
-                      type="number"
                       variant="filled"
                       error={
                         destinationAmount >
@@ -204,7 +159,7 @@ const SetTransferAmount = (props: any) => {
                         setFromTouched(false);
                         setToTouched(true);
                       }}
-                      value={destinationAmount}
+                      value={destinationAmount || ""}
                       onChange={onChangeOfTransferAmount}
                       inputProps={{
                         "aria-label": "Transfer amount input box",
@@ -238,9 +193,8 @@ const SetTransferAmount = (props: any) => {
                       <H5>You will be debited</H5>
                       <TextField
                         fullWidth
-                        type="number"
                         label="Transfer amount"
-                        value={sourceAmount}
+                        value={sourceAmount || ""}
                         error={sourceAmount > Math.floor(maxAmounts["from"])}
                         id="recievingAmount"
                         onFocus={() => {
@@ -275,14 +229,14 @@ const SetTransferAmount = (props: any) => {
                       </Caption>
                     </Box>
                   ) : null}
-                </>
-              )}
+                </>            
+            }
             </Grid>
 
             <Grid item xs={2} />
             <Grid item xs={4}>
               <>
-                {serviceType.code !== withinMashreq ? (
+                {
                   currenciesAreDifferent ? (
                     <Box width={"300px"}>
                       <InfoCard
@@ -317,7 +271,8 @@ const SetTransferAmount = (props: any) => {
                       />
                     </Box>
                   ) : null
-                ) : null}
+               
+                }
               </>
             </Grid>
           </Grid>

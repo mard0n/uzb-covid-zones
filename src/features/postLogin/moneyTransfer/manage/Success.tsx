@@ -99,7 +99,7 @@ const Success = (props: SuccessProps) => {
 
           {subTitle && (
             <Box mt={6} mb={6}>
-              <Caption>{subTitle}</Caption>
+              <Caption>{success? "Your transaction with reference number " + subTitle:subTitle}</Caption>
             </Box>
           )}
 

@@ -10,6 +10,8 @@ import SetTransferAmount from "./setTransferAmount";
 import PickTime from "./pickTime";
 import { useDispatch, useSelector } from 'react-redux';
 import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
+import * as PayListActions from "../../../../redux/actions/moneyTransfer/payListActions";
+
 import { withinMashreq } from "../../../../util/constants";
 const ManageMoneyTransferModal = (props: any) => {
   const {
@@ -55,13 +57,14 @@ let transaction = useSelector(
     if(transaction.error){
       setSuccess(false);
     }else{
-      setSuccessMessage("Your transaction with reference number " +  transaction && transaction.response && transaction.response.mwReferenceNo  + " Please check the Transaction Queue tab to follow up on the status of the transaction.");
+      setSuccessMessage(" " + transaction && transaction.response && transaction.response.mwReferenceNo  + " Please check the Transaction Queue tab to follow up on the status of the transaction.");
       setSuccess(true);
     }
   }, [transaction]);
 
 
   const successFailureCallback = () => {
+    dispatch(PayListActions.setTransferObject({}));
     if (finalCallback && typeof finalCallback === "function") {
       finalCallback();
     }
