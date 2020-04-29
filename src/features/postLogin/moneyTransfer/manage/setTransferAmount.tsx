@@ -22,6 +22,7 @@ import { useSelector, useDispatch } from "react-redux";
 import useCurrencyConverter from "../../../../redux/hooks/useCurrencyConverter";
 import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
 import { withinMashreq } from "../../../../util/constants";
+import { isValidFloatNumber } from "../../../../util/validations/ValidationUtils";
 
 const useStyles = makeStyles((theme: any) => ({
   inputNumber: {
@@ -51,9 +52,12 @@ const SetTransferAmount = (props: any) => {
   const re = /^[0-9\b]+$/;
 
   let srcCurrency = transfer.fromAccount.currency;
-  let destCurrency = serviceType.code === withinMashreq ? transfer.toAccount.beneficiaryCurrency : transfer.toAccount.currency;
+  let destCurrency =
+    serviceType.code === withinMashreq
+      ? transfer.toAccount.beneficiaryCurrency
+      : transfer.toAccount.currency;
 
-  const currenciesAreDifferent =  srcCurrency !== destCurrency;
+  const currenciesAreDifferent = srcCurrency !== destCurrency;
 
   const {
     currencyConverterLoading,
@@ -82,28 +86,32 @@ const SetTransferAmount = (props: any) => {
 
   useEffect(() => {
     setMaxAmounts({ ...maxAmounts, from: srcAmount });
-      if (currenciesAreDifferent) {
-        const data: any = {
-          accountNumber: transfer.fromAccount.accountNumber,
-          accountCurrency: srcCurrency,
-          accountCurrencyAmount: transfer.fromAccount.availableBalance,
-          transactionCurrency: destCurrency, //TransferType.LOCAL == transferTypeCode ? 'AED' :
-        };
-        fetchCurrencyRate(data);
-      }
+    if (currenciesAreDifferent) {
+      const data: any = {
+        accountNumber: transfer.fromAccount.accountNumber,
+        accountCurrency: srcCurrency,
+        accountCurrencyAmount: transfer.fromAccount.availableBalance,
+        transactionCurrency: destCurrency, //TransferType.LOCAL == transferTypeCode ? 'AED' :
+      };
+      fetchCurrencyRate(data);
+    }
     /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
     We should add onChangeList as dependency then source api will get triggered infinitely */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const onChangeOfReciveAmount = (event: any) => {
-    if (event.target.value === "" || re.test(event.target.value)) {
-      setsourceAmount(event.target.value);
+    let value = event.target.value;
+    console.log("onChangeOfReciveAmount -> value", value)
+    console.log("!isNaN(value) ",!isNaN(value));
+    console.log("onChangeOfReciveAmount -> !isNaN(value)", !isNaN(value))
+    if (value === "" || isValidFloatNumber(value) ){
+      setsourceAmount(value);
       setDestinationAmount(
-        (event.target.value / parseFloat(exchangeRate)).toFixed(2)
+        (value / parseFloat(exchangeRate)).toFixed(2)
       );
 
-      if (event.target.value <= srcAmount && event.target.value > 0) {
+      if (value <= srcAmount && value > 0) {
         setEnableButton(false);
       } else {
         setEnableButton(true);
@@ -111,15 +119,16 @@ const SetTransferAmount = (props: any) => {
     }
   };
   const onChangeOfTransferAmount = (event: any) => {
-    if (event.target.value === "" || re.test(event.target.value)) {
-      setDestinationAmount(event.target.value);
+      let value = event.target.value;
+    if (value === "" || isValidFloatNumber(value)) {
+      setDestinationAmount(value);
       setsourceAmount(
-        (event.target.value * parseFloat(exchangeRate)).toFixed(2)
+        (value * parseFloat(exchangeRate)).toFixed(2)
       );
 
       if (
-        event.target.value > 0 &&
-        event.target.value <=
+        value > 0 &&
+        value <=
           (currenciesAreDifferent ? Math.floor(maxAmounts["to"]) : srcAmount)
       ) {
         setEnableButton(false);
@@ -229,50 +238,47 @@ const SetTransferAmount = (props: any) => {
                       </Caption>
                     </Box>
                   ) : null}
-                </>            
-            }
+                </>
+              }
             </Grid>
 
             <Grid item xs={2} />
             <Grid item xs={4}>
               <>
-                {
-                  currenciesAreDifferent ? (
-                    <Box width={"300px"}>
-                      <InfoCard
-                        icon={Rocket}
-                        fullWidth={true}
-                        title="Exchange Rate"
-                        content={
-                          <>
+                {currenciesAreDifferent ? (
+                  <Box width={"300px"}>
+                    <InfoCard
+                      icon={Rocket}
+                      fullWidth={true}
+                      title="Exchange Rate"
+                      content={
+                        <>
+                          <Caption>
+                            Your exchange rate is calculated on the following
+                            values
+                          </Caption>
+                          <Box mt={4}>
+                            <H4>
+                              {srcCurrency} 1.00 ={" "}
+                              {destCurrency +
+                                " " +
+                                (1 / parseFloat(exchangeRate)).toFixed(2)}
+                            </H4>
                             <Caption>
-                              Your exchange rate is calculated on the following
-                              values
+                              (
+                              {srcCurrency +
+                                " " +
+                                (100000.0 * parseFloat(exchangeRate)).toFixed(
+                                  2
+                                )}{" "}
+                              = {destCurrency} 100,000.00)
                             </Caption>
-                            <Box mt={4}>
-                              <H4>
-                                {srcCurrency} 1.00 ={" "}
-                                {destCurrency +
-                                  " " +
-                                  (1 / parseFloat(exchangeRate)).toFixed(2)}
-                              </H4>
-                              <Caption>
-                                (
-                                {srcCurrency +
-                                  " " +
-                                  (100000.0 * parseFloat(exchangeRate)).toFixed(
-                                    2
-                                  )}{" "}
-                                = {destCurrency} 100,000.00)
-                              </Caption>
-                            </Box>
-                          </>
-                        }
-                      />
-                    </Box>
-                  ) : null
-               
-                }
+                          </Box>
+                        </>
+                      }
+                    />
+                  </Box>
+                ) : null}
               </>
             </Grid>
           </Grid>

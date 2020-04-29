@@ -57,7 +57,7 @@ let transaction = useSelector(
     if(transaction.error){
       setSuccess(false);
     }else{
-      setSuccessMessage(" " + transaction && transaction.response && transaction.response.mwReferenceNo  + " Please check the Transaction Queue tab to follow up on the status of the transaction.");
+      setSuccessMessage(transaction && transaction.response && transaction.response.mwReferenceNo );
       setSuccess(true);
     }
   }, [transaction]);
