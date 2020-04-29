@@ -150,10 +150,10 @@ const StartPayments = (props: StartPaymentsProps) => {
                   <EmtyList heading="You dont seems to have account" />
                 )
               }
-              // benificiary && benificiary.length > 0 
+
               rightContent={
                 type === withinMashreq ? (
-                  false? (
+                  benificiary && benificiary.length > 0 ? (
                     <PayFromList
                       selectOptions={true}
                       heading="To this account"
