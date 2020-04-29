@@ -43,15 +43,20 @@ const StartPayments = (props: StartPaymentsProps) => {
   const { type, data, onHandleBack, onSubmitPayment } = props;
   const [transferButton, setTransferButton] = useState(false);
   const {NoBeniStyle} = useStyles();
-
   const dispatch = useDispatch();
-  const payCardListData = Object.assign(
-    useSelector((state: any) => state.moneyTransfer.other.payListData)
-  );
 
   let transfer = useSelector(
     (state: any) => state.moneyTransfer.other.transfer
   );
+  const payCardListData = Object.assign(
+    useSelector((state: any) => state.moneyTransfer.other.payListData)
+  );
+
+
+  // if( payCardListData && payCardListData.destination && transfer.hasOwnProperty("fromAccount"))
+  // {
+  //   payCardListData.destination  =   payCardListData.destination.accounts.filter((each:any)=>each.accountNumber !== transfer.fromAccount.accountNumber)
+  // }
 
   let benificiary = useSelector(
     (state: any) => state.moneyTransfer.mtBeni.beneficiaries
@@ -153,7 +158,8 @@ const StartPayments = (props: StartPaymentsProps) => {
 
               rightContent={
                 type === withinMashreq ? (
-                  benificiary && benificiary.length > 0 ? (
+                  !benificiary.loading?
+                  (benificiary && benificiary.length > 0 ? (
                     <PayFromList
                       selectOptions={true}
                       heading="To this account"
@@ -168,15 +174,19 @@ const StartPayments = (props: StartPaymentsProps) => {
                     arrow={true}
                     heading="No beneficiaries detected"
                     subheading="You can add one right now"
-                  />
-
-                  )
+                  />))
+                  : 
+                  <Box display="flex" mt={12} alignItems="baseline">
+                  <CircularProgress />
+                    </Box>
                 ) : payCardListData.hasOwnProperty("destination") &&
                   payCardListData.destination.accounts.length > 0 ? (
                   <PayFromList
                     selectOptions={true}
                     heading="To this account"
-                    payListData={payCardListData.destination}
+                    payListData={
+                      payCardListData.destination                    
+                    }
                     onChangeList={onChangeToAcount}
                   />
                 ) : (

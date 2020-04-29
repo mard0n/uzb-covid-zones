@@ -14,6 +14,7 @@ import {
   H4,
   TextField,
   InputAdornment,
+  CircularProgress,
 } from "@mashreq-digital/ui";
 import BackButton from "../../../../common/backButton";
 import { Rocket } from "@mashreq-digital/webassets";
@@ -49,8 +50,6 @@ const SetTransferAmount = (props: any) => {
   const [toTouched, setToTouched] = useState(false);
   let srcAmount = transfer.fromAccount.availableBalance;
   let dstAmount = transfer.toAccount.availableBalance;
-  const re = /^[0-9\b]+$/;
-
   let srcCurrency = transfer.fromAccount.currency;
   let destCurrency =
     serviceType.code === withinMashreq
@@ -102,14 +101,12 @@ const SetTransferAmount = (props: any) => {
 
   const onChangeOfReciveAmount = (event: any) => {
     let value = event.target.value;
-    console.log("onChangeOfReciveAmount -> value", value)
-    console.log("!isNaN(value) ",!isNaN(value));
-    console.log("onChangeOfReciveAmount -> !isNaN(value)", !isNaN(value))
-    if (value === "" || isValidFloatNumber(value) ){
+    console.log("onChangeOfReciveAmount -> value", value);
+    console.log("!isNaN(value) ", !isNaN(value));
+    console.log("onChangeOfReciveAmount -> !isNaN(value)", !isNaN(value));
+    if (value === "" || isValidFloatNumber(value)) {
       setsourceAmount(value);
-      setDestinationAmount(
-        (value / parseFloat(exchangeRate)).toFixed(2)
-      );
+      setDestinationAmount((value / parseFloat(exchangeRate)).toFixed(2));
 
       if (value <= srcAmount && value > 0) {
         setEnableButton(false);
@@ -119,12 +116,10 @@ const SetTransferAmount = (props: any) => {
     }
   };
   const onChangeOfTransferAmount = (event: any) => {
-      let value = event.target.value;
+    let value = event.target.value;
     if (value === "" || isValidFloatNumber(value)) {
       setDestinationAmount(value);
-      setsourceAmount(
-        (value * parseFloat(exchangeRate)).toFixed(2)
-      );
+      setsourceAmount((value * parseFloat(exchangeRate)).toFixed(2));
 
       if (
         value > 0 &&
@@ -143,147 +138,157 @@ const SetTransferAmount = (props: any) => {
     <SectionSplitter
       height={"calc(100vh - 400px)"}
       top={
-        <>
+          <>
           <UnderlineText color="primary">
             <H2>What amount would you like to transfer?</H2>
           </UnderlineText>
-          <Grid container>
-            <Grid item xs={6}>
-              {
-                <>
-                  <Box mt={10}>
-                    <H5>The Receiving account will get</H5>
-                    <TextField
-                      fullWidth
-                      label="Receiving Amount"
-                      id="transferAmount"
-                      variant="filled"
-                      error={
-                        destinationAmount >
-                        (currenciesAreDifferent
-                          ? Math.floor(maxAmounts["to"])
-                          : srcAmount)
-                      }
-                      onFocus={() => {
-                        setFromTouched(false);
-                        setToTouched(true);
-                      }}
-                      value={destinationAmount || ""}
-                      onChange={onChangeOfTransferAmount}
-                      inputProps={{
-                        "aria-label": "Transfer amount input box",
-                      }}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position="start">
-                            {destCurrency}
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-
-                    {destinationAmount && toTouched && (
-                      <Box pt={3}>
-                        <SuggestionBox
-                          activeStep={destinationAmount}
-                          currency={destCurrency}
-                          maxPrice={
-                            currenciesAreDifferent
-                              ? Math.floor(maxAmounts["to"])
-                              : srcAmount
-                          }
-                        />
-                      </Box>
-                    )}
-                  </Box>
-
-                  {currenciesAreDifferent ? (
+          {currencyConverterLoading ? (
+            <Box display="flex" mt={12} alignItems="baseline">
+              <CircularProgress />
+            </Box>
+          ) : 
+            <Grid container>
+              <Grid item xs={6}>
+                {
+                  <>
                     <Box mt={10}>
-                      <H5>You will be debited</H5>
+                      <H5>The Receiving account will get</H5>
                       <TextField
                         fullWidth
-                        label="Transfer amount"
-                        value={sourceAmount || ""}
-                        error={sourceAmount > Math.floor(maxAmounts["from"])}
-                        id="recievingAmount"
-                        onFocus={() => {
-                          setToTouched(false);
-                          setFromTouched(true);
-                        }}
-                        onChange={onChangeOfReciveAmount}
+                        label="Receiving Amount"
+                        id="transferAmount"
                         variant="filled"
+                        error={
+                          destinationAmount >
+                          (currenciesAreDifferent
+                            ? Math.floor(maxAmounts["to"])
+                            : srcAmount)
+                        }
+                        onFocus={() => {
+                          setFromTouched(false);
+                          setToTouched(true);
+                        }}
+                        value={destinationAmount || ""}
+                        onChange={onChangeOfTransferAmount}
                         inputProps={{
-                          "aria-label": "Reciving amount input box",
+                          "aria-label": "Transfer amount input box",
                         }}
                         InputProps={{
                           startAdornment: (
                             <InputAdornment position="start">
-                              {srcCurrency}
+                              {destCurrency}
                             </InputAdornment>
                           ),
                         }}
                       />
 
-                      {sourceAmount && fromTouched && (
+                      {destinationAmount && toTouched && (
                         <Box pt={3}>
                           <SuggestionBox
-                            activeStep={sourceAmount}
-                            currency={srcCurrency}
-                            maxPrice={Math.floor(maxAmounts["from"])}
+                            activeStep={destinationAmount}
+                            currency={destCurrency}
+                            maxPrice={
+                              currenciesAreDifferent
+                                ? maxAmounts["to"]
+                                : srcAmount
+                            }
                           />
                         </Box>
                       )}
-                      <Caption>
-                        At an exchange rate of <b>{exchangeRate}</b>
-                      </Caption>
+                    </Box>
+
+                    {currenciesAreDifferent ? (
+                      <Box mt={10}>
+                        <H5>You will be debited</H5>
+                        <TextField
+                          fullWidth
+                          label="Transfer amount"
+                          value={sourceAmount || ""}
+                          error={sourceAmount > Math.floor(maxAmounts["from"])}
+                          id="recievingAmount"
+                          onFocus={() => {
+                            setToTouched(false);
+                            setFromTouched(true);
+                          }}
+                          onChange={onChangeOfReciveAmount}
+                          variant="filled"
+                          inputProps={{
+                            "aria-label": "Reciving amount input box",
+                          }}
+                          InputProps={{
+                            startAdornment: (
+                              <InputAdornment position="start">
+                                {srcCurrency}
+                              </InputAdornment>
+                            ),
+                          }}
+                        />
+
+                        {sourceAmount && fromTouched && (
+                          <Box pt={3}>
+                            <SuggestionBox
+                              activeStep={sourceAmount}
+                              currency={srcCurrency}
+                              maxPrice={maxAmounts["from"]}
+                            />
+                          </Box>
+                        )}
+                        <Caption>
+                          At an exchange rate of <b>{exchangeRate}</b>
+                        </Caption>
+                      </Box>
+                    ) : null
+                  }
+                  </>
+                }
+                
+              </Grid>
+
+              <Grid item xs={2} />
+              <Grid item xs={4}>
+                <>
+                  {currenciesAreDifferent ? (
+                    <Box width={"300px"}>
+                      <InfoCard
+                        icon={Rocket}
+                        fullWidth={true}
+                        title="Exchange Rate"
+                        content={
+                          <>
+                            <Caption>
+                              Your exchange rate is calculated on the following
+                              values
+                            </Caption>
+                            <Box mt={4}>
+                              <H4>
+                                {srcCurrency} 1.00 ={" "}
+                                {destCurrency +
+                                  " " +
+                                  (1 / parseFloat(exchangeRate)).toFixed(2)}
+                              </H4>
+                              <Caption>
+                                (
+                                {srcCurrency +
+                                  " " +
+                                  (100000.0 * parseFloat(exchangeRate)).toFixed(
+                                    2
+                                  )}{" "}
+                                = {destCurrency} 100,000.00)
+                              </Caption>
+                            </Box>
+                          </>
+                        }
+                      />
                     </Box>
                   ) : null}
                 </>
-              }
+              </Grid>
             </Grid>
 
-            <Grid item xs={2} />
-            <Grid item xs={4}>
-              <>
-                {currenciesAreDifferent ? (
-                  <Box width={"300px"}>
-                    <InfoCard
-                      icon={Rocket}
-                      fullWidth={true}
-                      title="Exchange Rate"
-                      content={
-                        <>
-                          <Caption>
-                            Your exchange rate is calculated on the following
-                            values
-                          </Caption>
-                          <Box mt={4}>
-                            <H4>
-                              {srcCurrency} 1.00 ={" "}
-                              {destCurrency +
-                                " " +
-                                (1 / parseFloat(exchangeRate)).toFixed(2)}
-                            </H4>
-                            <Caption>
-                              (
-                              {srcCurrency +
-                                " " +
-                                (100000.0 * parseFloat(exchangeRate)).toFixed(
-                                  2
-                                )}{" "}
-                              = {destCurrency} 100,000.00)
-                            </Caption>
-                          </Box>
-                        </>
-                      }
-                    />
-                  </Box>
-                ) : null}
-              </>
-            </Grid>
-          </Grid>
-        </>
-      }
+
+           }
+            </>
+        } 
       bottom={
         <Box display="flex" justifyContent="space-between" mt={10}>
           <BackButton

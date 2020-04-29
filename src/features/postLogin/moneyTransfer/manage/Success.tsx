@@ -22,8 +22,8 @@ import CardPayNow from "../../../../common/card/CardPayNow";
 import PaymentReceipt from "../../../../common/paymentReceipt/index";
 import CardDash from "../../../../common/cardDash";
 import { getPayListFormattedData } from "../../../../util/getPayListFormattedData";
-import PayListItem from "../../../../common/payList/index";
 import { withinMashreq } from "../../../../util/constants";
+import PayListItem from '../../../../components/billpayment/review/payList/index';
 
 type SuccessProps = {
   success: boolean;
@@ -112,7 +112,7 @@ const Success = (props: SuccessProps) => {
                         <SvgIcon height="1rem" width="1rem" component={Check} />
                       </Box>
                     }
-                    heading={<Body1>You are Transfering</Body1>}
+                    heading={<Body1>You have transferred</Body1>}
                     subheading={
                       <H5>
                         {transfer.amount.type} {Math.abs(transfer.amount.total)}
@@ -121,11 +121,9 @@ const Success = (props: SuccessProps) => {
                   />
                 }
                 rightContent={
-                   
                   <PayListItem
                     active={false}
-                    noTag={true}
-                    data={getPayListFormattedData(destAcount, type === withinMashreq?"benificiary":"accounts")}
+                    data={getPayListFormattedData(destAcount,type === withinMashreq?"benificiary":"accounts")}
                   />
                 }
 
