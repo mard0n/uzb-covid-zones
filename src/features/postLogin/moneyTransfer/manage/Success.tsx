@@ -23,6 +23,7 @@ import PaymentReceipt from "../../../../common/paymentReceipt/index";
 import CardDash from "../../../../common/cardDash";
 import { getPayListFormattedData } from "../../../../util/getPayListFormattedData";
 import PayListItem from "../../../../common/payList/index";
+import { withinMashreq } from "../../../../util/constants";
 
 type SuccessProps = {
   success: boolean;
@@ -99,7 +100,8 @@ const Success = (props: SuccessProps) => {
 
           {subTitle && (
             <Box mt={6} mb={6}>
-              <Caption>{success? "Your transaction with reference number " + subTitle:subTitle}</Caption>
+              <Caption>{success? "Your transaction with reference number ":null} <b> {subTitle} </b></Caption> <br/>
+              <Caption>Please check the Transaction Queue tab to follow up on the status of the transaction.</Caption>
             </Box>
           )}
 
@@ -127,10 +129,14 @@ const Success = (props: SuccessProps) => {
                   />
                 }
                 rightContent={
+                   
                   <PayListItem
-                    data={getPayListFormattedData(destAcount, "accounts")}
+                    active={false}
+                    noTag={true}
+                    data={getPayListFormattedData(destAcount, type === withinMashreq?"benificiary":"accounts")}
                   />
                 }
+
               />
 
               <Box mt={10} mb={10} display="flex" alignItems="center">

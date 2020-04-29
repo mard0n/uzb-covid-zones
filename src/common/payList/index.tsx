@@ -89,6 +89,7 @@ interface CustomListItemProps {
   avatarImage?: string | undefined;
   disabled?: boolean;
   select?: boolean;
+  noTag?:boolean;
   active?: boolean;
   data?: object | any;
   color?: string | undefined;
@@ -104,6 +105,7 @@ const PayListItem = (props: CustomListItemProps) => {
     isDefault,
     select,
     active,
+    noTag,
     onClickCallback,
     data,
   } = props;
@@ -177,12 +179,12 @@ const PayListItem = (props: CustomListItemProps) => {
                       {accNo}
                     </Body1>
                   </Box>
-                  {type && !isCard && (
+                  {type && !isCard && !noTag && (
                     <>
                       <Box display="inline-block">
                         <Body1>|</Body1>
                       </Box>
-                      <Box pl={1} display="inline-block">
+                      <Box pl={1} display="inline-block">                      
                         <Body1 className={statusStyle}>
                           {capitalizeFirstLetter(status)}
                         </Body1>
