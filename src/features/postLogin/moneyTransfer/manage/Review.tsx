@@ -126,13 +126,14 @@ const Review = (props: any) => {
             if(transfer.toAccount.serviceTypeCode === "within-mashreq")
              { let beniData= {
                 "amount": transfer.amount.total,
-                "beneficiaryId": transfer.toAccount.id,
-                "currency": transfer.toAccount.beneficiaryCurrency,
+                "currency": transfer.amount.type,
                 "dealNumber": "",
                 "finTxnNo": financialTxnNumber,
                 "fromAccount": transfer.fromAccount.accountNumber,
                 "purposeCode": "",
                 "serviceType": type,
+                "beneficiaryId": transfer.toAccount.id,
+
                 "toAccount": transfer.toAccount.accountNumber
               }
               onSubmit(beniData)}else{
