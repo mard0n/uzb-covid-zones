@@ -8,6 +8,7 @@ import PasswordScreen from "../features/createAccount/PasswordScreen";
 import * as RoutePath from "./config";
 import PostLogin from "../features/postLogin/";
 import MoneyTransfer from '../features/postLogin/moneyTransfer/index';
+import Kyc from "../features/kyc/Kyc";
 const NoMatchPage = () => {
   return <h3>404 - Not found</h3>;
 };
@@ -32,6 +33,10 @@ const routes = [
   {
     path: RoutePath.CREATE_ACCOUNT,
     component: PersonalInformation
+  },
+  {
+    path: RoutePath.KYC,
+    component: Kyc
   },
   // {
   //   path: RoutePath.TEST,
