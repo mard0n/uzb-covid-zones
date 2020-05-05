@@ -16,6 +16,8 @@ export function* watchProductSummarySaga() {
   );
   yield takeLatest(Actions.PRODUCT_SUMMARY_CARD_REQUEST, workerCard);
   yield takeLatest(Actions.PRODUCT_SUMMARY_REWARDS_REQUEST, workerSalaamRewardCard);
+  yield takeLatest(Actions.PRODUCT_SUMMARY_INSURANCE_REQUEST, workerInsurance);
+  yield takeLatest(Actions.PRODUCT_SUMMARY_MM_REQUEST, workerMM);
 }
 
 /**
@@ -44,6 +46,47 @@ export function* workerAccLoanDep(action: any) {
 /**
  * @func getCards
  */
+export function getMM() {
+  const url = Endpoints.PRODUCT_MM_ENDPOINT;
+  return API.get(url);
+}
+
+/**
+ * @func Worker workerMM
+ */
+export function* workerMM(action: any) {
+  try {
+    const response = yield call(getMM);
+    yield put(Actions.requestMMSuccess(response.data.data));
+  } catch (error) {
+    yield put(Actions.requestMMFailure(error));
+  }
+}
+
+
+/**
+ * @func getCards
+ */
+export function getInsurance() {
+  const url = Endpoints.PRODUCT_INSURANCE_ENDPOINT;
+  return API.get(url);
+}
+
+/**
+ * @func Worker workerInsurance
+ */
+export function* workerInsurance(action: any) {
+  try {
+    const response = yield call(getInsurance);
+    yield put(Actions.requestInsuranceSuccess(response.data.data));
+  } catch (error) {
+    yield put(Actions.requestInsuranceFailure(error));
+  }
+}
+
+/**
+ * @func getCards
+ */
 export function getCards() {
   const url = Endpoints.PRODUCT_SUMMARY_CARD_ENDPOINT;
   return API.get(url);
@@ -55,7 +98,6 @@ export function getCards() {
 export function* workerCard(action: any) {
   try {
     const response = yield call(getCards);
-    console.log('workerCard', response);
     yield put(Actions.requestCardsSuccess(response.data.data));
   } catch (error) {
     yield put(Actions.requestCardsFailure(error));

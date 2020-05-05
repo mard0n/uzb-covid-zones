@@ -21,8 +21,6 @@ export function* watchPayListSaga() {
  * @description fetch Money Transfer for PayList Own Acount
  */
 export function fetchPayList(action: any) {
-console.log("fetchPayList -> action", action);
-
   const {payload: {type = ''} = {}} = action;
   const url = Endpoints.PAY_LIST_OWN_ACOUNT.replace('type', type);
   return API.get(url);
@@ -40,7 +38,6 @@ export function* workerPayListSaga(action: any) {
       fetchPayList,
       action
     );
-    console.log("function*workerPayListSaga -> payListData", payListData);
     if (payListData && payListData.data) {
       yield put(Actions.fetchPayListSuccess(payListData.data));
     }
