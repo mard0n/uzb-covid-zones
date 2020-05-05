@@ -7,6 +7,8 @@ export const TEST = "/test";
 export const PRODUCT_SUMMARY_ACC_LOAN_DEP_ENDPOINT = '/mob-dashboard/v1/summary/account-loan-deposit';
 export const PRODUCT_SUMMARY_CARD_ENDPOINT = '/mob-dashboard/v1/summary/cards';
 export const PRODUCT_SUMMARY_REWARDS_ENDPOINT ='/mob-dashboard/v1/summary/rewards';
+export const PRODUCT_INSURANCE_ENDPOINT = '/mob-dashboard/v1/summary/insurance';
+export const PRODUCT_MM_ENDPOINT = '/mob-dashboard/v1/summary/mmc';
 
 /* MANAGE BENEFICIARY */
 /* Beneficiary */

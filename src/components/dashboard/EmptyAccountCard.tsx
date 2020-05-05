@@ -1,17 +1,18 @@
 import React from 'react';
 import { IconText, Box, makeStyles, SvgIcon } from '@mashreq-digital/ui';
 import { Plus } from '@mashreq-digital/webassets';
+import getProductColor from '../../util/getProductColor';
 
 type EmptyAccountCardprops = {
   icon: any,
-  color: string,
+  type: string;
   title: string,
   desc: string
 }
 
 const useStyles = makeStyles((theme)=>({
   root: (props: any) => ({
-    border: `2px dashed ${props && props.color ? props.color : "#fff"}`,
+    border: `2px solid ${props && props.type ? getProductColor(props.type) : "#fff"}`,
     borderRadius: "6px",
     padding: `${theme.spacing(2.1)}px ${theme.spacing(2.8)}px`,
     position: "relative",
@@ -23,7 +24,7 @@ const useStyles = makeStyles((theme)=>({
     width: "30px"
   },
   plusIconStyle: (props: any) => ({
-    backgroundColor: props && props.color ? props.color : "#fff",
+    backgroundColor: props && props.type ? getProductColor(props.type) : "#fff",
     display: "flex",
     borderRadius: "50%",
     padding: theme.spacing(1.4),
@@ -39,7 +40,7 @@ const useStyles = makeStyles((theme)=>({
 }))
 
 const EmptyAccountCard = (props: EmptyAccountCardprops) => {
-  const { icon, title, color, desc } = props;
+  const { icon, title, type, desc } = props;
   const { root, iconStyle, plusIconStyle } = useStyles(props);  
   return (
     <Box className={root}>
@@ -49,12 +50,16 @@ const EmptyAccountCard = (props: EmptyAccountCardprops) => {
         secondaryText={desc}
         iconProps={{
           className: iconStyle,
-          htmlColor: color
+          htmlColor: getProductColor(type)
         }}
       />
       <Box className={plusIconStyle}><SvgIcon htmlColor="#fff" component={Plus}/></Box>
     </Box>
   )
+}
+
+EmptyAccountCard.defaultProps = {
+  type: "accounts"
 }
 
 export default EmptyAccountCard;

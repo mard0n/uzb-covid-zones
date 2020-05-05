@@ -175,8 +175,33 @@
           "desc" : "Make your money work for you"
         }
       },
+      "insurances" : {
+        "title": "Insurances",
+        "availableBalance" : "Total Premium",
+        "currentBalance" : "Monthly Premium",
+        "seeAll" : "See All Insurances",
+        "empty": {
+          "title" : "Insurances",
+          "desc" : "Make your money work for you"
+        }
+      },
+      "mm" : {
+        "title": "Mashreq Millionaire Cert.",
+        "availableBalance" : "Total Investments",
+        "seeAll" : "See All Mashreq Millionaire",
+        "payList": {
+          "title" : "Next Draw Date"
+        },
+        "empty": {
+          "title" : "Mashreq Millionaire",
+          "desc" : "Lorem ipsum dolor sit amet consectetur"
+        }
+      },
       "salaam" : {
         "title": "Salaam Rewards",
+        "payList": {
+          "title" : "Points"
+        },
         "empty": {
           "title" : "Salaam Rewards",
           "desc" : "Lorem ipsum dolor sit amet consectetur"

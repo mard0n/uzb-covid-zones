@@ -18,6 +18,7 @@ import {
 import CardIcon from "../../../../common/cardIcon";
 import { capitalizeFirstLetter } from "../../../../util/helper";
 import { MoneyPouch, getMashreqLogo } from "@mashreq-digital/webassets";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -141,6 +142,8 @@ const PayListItem = (props: CustomListItemProps) => {
   } = props;
 
   const { name, accNo, status, currency, balance, type } = data;
+
+  const {t} = useTranslation();
   
   const isCard = type && type === "cards",
     isAccountCard = isCard || type === "accounts";
@@ -200,12 +203,12 @@ const PayListItem = (props: CustomListItemProps) => {
         </ListItemAvatar>
       )}
 
-      {type && type === "salaam" && balance ? (
+      {type && (type === "salaam" || type === "mm") && balance ? (
         <Box display="flex">
           <Box ml={2.6}>
             <H4>{balance}</H4>
           </Box>
-          <Box ml={1.3}><Caption>Points</Caption></Box>
+          <Box ml={1.3}><Caption>{t(`dashboard.productSummary.${type}.payList.title`)}</Caption></Box>
         </Box>
       ): type === "within-mashreq"? 
       (

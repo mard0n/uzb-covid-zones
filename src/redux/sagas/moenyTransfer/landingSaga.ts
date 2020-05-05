@@ -36,8 +36,6 @@ export function* workerMoneyTransferLandingSaga(action: any) {
       fetchMoneyTransferLanding,
       action
     );
-    console.log("function*workerMoneyTransferLandingSaga -> moneyTransferData", moneyTransferData);
-
     if (moneyTransferData && moneyTransferData.data) {
       const serviceTypes = moneyTransferData.data[0].serviceTypes;
 
