@@ -154,7 +154,7 @@ const BillPaymentLanding = (props: any) => {
         </Grid>
       </Box>
 
-   {switchValue === "Money Transfer" ?   <Box>
+      {switchValue === "Money Transfer" ?   <Box>
         {MONEY_TRANSFER_BENI_FILTER.map((each: any) => {
           return(
             <Box ml={3} display="inline">
@@ -173,10 +173,6 @@ const BillPaymentLanding = (props: any) => {
 
 
       <Box>
-        {
-          // TODO: SEND SERVICE TYPE AFTER CHECKING FILTER OPTIONS
-        }
-
         <ListServiceTypes
           addServiceType={addServiceType}
           category={switchValue}

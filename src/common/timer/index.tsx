@@ -10,11 +10,17 @@ const Timer = (props: any) => {
   if (startDate <= endDate) {
     timeDiff = Math.abs(endDate.getTime() - startDate.getTime()); // in miliseconds
   }
-  let sec = Math.ceil(timeDiff / 1000);
-  const [minutes, setMinutes] = useState(Math.ceil((timeDiff / 60000) % 60));
-  const [seconds, setSeconds] = useState(Math.ceil((timeDiff / 1000) % 60));
-  const [hours, setHours] = useState(Math.ceil((timeDiff / 3.6e6) % 60));
+  const [minutes, setMinutes] = useState(Math.floor((timeDiff / 60000) % 60));
+  const [seconds, setSeconds] = useState(Math.floor((timeDiff / 1000) % 60));
+  const [hours, setHours] = useState(Math.floor(Math.abs(timeDiff) / (1000 * 60 * 60) % 24));
+  
+  
+  console.log("Timer -> hours", hours)
+  console.log("Timer -> minutes", minutes);
+  console.log("Timer -> seconds", seconds)
 
+
+  
   useEffect(() => {
     let myInterval = setInterval(() => {
       if (seconds > 0) {
@@ -34,9 +40,11 @@ const Timer = (props: any) => {
       }
 
       if (minutes === 0) {
-        if (hours === 0) {
-            setMinutes(59);
-        } else {
+        if (hours === 0 && seconds === 0) {
+          clearInterval(myInterval);
+      }else if (hours === 0){
+        
+      } else {
           setHours(hours - 1);
           setMinutes(59);
         }
@@ -50,7 +58,7 @@ const Timer = (props: any) => {
   return (
       <>
       { timeDiff <=0 || hours<=0 && minutes <= 0 && seconds <= 0 ? null : (
-      <>  <span style={{color:"rgb(250, 100, 0)"}}> {hours < 10 ? `0${hours}` : hours}:{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds} </span>  <b>To Activation</b></>
+      <> <b> <span style={{color:"rgb(250, 100, 0)"}}> {hours < 10 ? `0${hours}` : hours}:{minutes < 10 ? `0${minutes}` : minutes}:{seconds < 10 ? `0${seconds}` : seconds} </span> To Activation</b></>
       )}
       </>
   );

@@ -24,6 +24,7 @@ import DeletePrompt from "../../../../../components/deletePrompt";
 import AddUpdateDialog from "../manage/addUpdate";
 import EditPrompt from "../../../../../components/editPrompt/index";
 import { editBeneficiaryRequest } from "../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
+import { bills } from '../../../../../util/mock/mockedBills';
 
 type ListServiceTypesProps = {
   addServiceType: boolean;
@@ -53,10 +54,13 @@ const ListServiceTypes = (props: any) => {
     (state: any) => state?.beneficiary?.billPayment
   );
   const { loading,myBills, errorCode } = billPaymentState;
+  
+  // let myBills = bills; // Mocked data 
+
+
   let [filteredBills, setFilteredBills] =  useState(myBills);
   let [hasFilterData, setHasFilterData] =  useState(true);
 
-  
 
   useEffect(() => {
     const copiedMyBills = myBills.map((a: any) => ({ ...a }));
@@ -77,9 +81,14 @@ const ListServiceTypes = (props: any) => {
         }
     }
       setFilteredBills(fundTransfer);
-    } else {
-      setFilteredBills(copiedMyBills);
+      console.log("ListServiceTypes -> fundTransfer yele", fundTransfer)
+    }else {
+      const fundTransfer = copiedMyBills.filter(
+        (each: any) => each.sectionLabel !== "Fund Transfer"
+      );
+      setFilteredBills(fundTransfer);
     }
+
   }, [myBills, category, selectedServiceType]);
 
 
@@ -165,6 +174,7 @@ const ListServiceTypes = (props: any) => {
       accountNumber,
       status,
     } = item;
+  
     const toLink: any = replaceStr(
       BENIFICIARY_BILL_PAYMENT_DETAILED,
       ":service/:id",
@@ -185,6 +195,8 @@ const ListServiceTypes = (props: any) => {
       };
     }
 
+    let today =new Date().getTime();
+    let activeDay = new Date(activeAfter).getTime();
     return (
       <Link to={toLink}>
         <CustomListItem
@@ -208,7 +220,7 @@ const ListServiceTypes = (props: any) => {
             ).toLowerCase()
           )}
           avatarName={nickname}
-          activeAfter={activeAfter}
+          activeAfter={activeDay>today?activeAfter:""}
           nickname={nickname}
           accountNumber={
             category === "Telecom"
@@ -282,9 +294,9 @@ const ListServiceTypes = (props: any) => {
               onSubmitEdit={(val: any) => onSubmitEdit(val)}
             />
           )}
-
           {filteredBills.map((bill: any, i: number) => {
             const { sectionLabel, data } = bill;
+
             return (
               <List key={i}>
                

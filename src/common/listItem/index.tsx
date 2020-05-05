@@ -162,7 +162,7 @@ const CustomListItem = (props: CustomListItemProps) => {
               <Caption>
                 {" "}
                 {accountNumber}{" "}
-                {activeAfter && <Timer activeAfter={activeAfter} />}{" "}
+                {activeAfter !== "" && activeAfter && <Timer activeAfter={activeAfter} />}{" "}
               </Caption>
             }
           />
