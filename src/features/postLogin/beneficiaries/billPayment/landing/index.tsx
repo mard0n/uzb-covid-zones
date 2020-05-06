@@ -62,8 +62,10 @@ const BillPaymentLanding = (props: any) => {
   });
 
   const [openErrorToast, setOpenErrorToast] = useState(true);
-  // console.log("BillPaymentLanding -> errorCode", errorCode);
 
+
+
+  // console.log("BillPaymentLanding -> errorCode", errorCode);
   // useEffect(() => {
   //   if(!errorCode){
   //     console.log("BillPaymentLanding -> errorCode", errorCode)
@@ -112,9 +114,6 @@ const BillPaymentLanding = (props: any) => {
         </UnderlineText>
       </Box>
 
-      {
-        // TODO: CHANGE TITLE
-      }
 
       <Box mb={5}>
         {tabs && tabs.length > 0 && (
@@ -130,16 +129,36 @@ const BillPaymentLanding = (props: any) => {
           </Box>
         )}
 
-        {
-          // TODO: UPDATE SELECTION WITH MONEY TRANSFER
-        }
-
         <Grid container justify="space-between" alignItems="center">
           <Grid item xl={8} lg={8} md={8} sm={8} xs={8}>
-            <InputSearch
-              placeholder={t("beneficiary.landing.searchPlaceholder")}
+
+
+          {switchValue === "Money Transfer" ?   <Box>
+          {MONEY_TRANSFER_BENI_FILTER.map((each: any) => {
+            return(
+              <Box ml={3} display="inline">
+            <Chip
+              label={each.label}
+              variant="outlined"
+              onClick={() => {
+                setSelectedServiceType(each.serviceTypeCode);
+              }}
+              className={each.serviceTypeCode === selectedServiceType?activeChip:normalChip}
             />
+              </Box>
+            );
+          })}
+        </Box> : 
+        <InputSearch
+        placeholder={t("beneficiary.landing.searchPlaceholder")}
+      />      
+      }
+   
+
+
           </Grid>
+
+
           <Grid item xl={4} lg={4} md={4} sm={4} xs={4}>
             <Box display="flex" justifyContent="flex-end">
               <Button
@@ -154,22 +173,6 @@ const BillPaymentLanding = (props: any) => {
         </Grid>
       </Box>
 
-      {switchValue === "Money Transfer" ?   <Box>
-        {MONEY_TRANSFER_BENI_FILTER.map((each: any) => {
-          return(
-            <Box ml={3} display="inline">
-          <Chip
-            label={each.label}
-            variant="outlined"
-            onClick={() => {
-              setSelectedServiceType(each.serviceTypeCode);
-            }}
-            className={each.serviceTypeCode === selectedServiceType?activeChip:normalChip}
-          />
-            </Box>
-          );
-        })}
-      </Box> : ""}
 
 
       <Box>
