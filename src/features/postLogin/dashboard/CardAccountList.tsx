@@ -6,6 +6,7 @@ import { ChartUpward, Umbrella } from "@mashreq-digital/webassets";
 import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { getPayListFormattedData } from "../../../util/getPayListFormattedData";
+import { formatCurrency } from "../../../util/helper";
 import NoBeneficiaryFound from "../../../components/beneficiary/billPayment/NoBeneficiaryFound";
 
 const useStyles = makeStyles(() => ({
@@ -47,11 +48,13 @@ const CardAccountList = () => {
         productList[objName].length > 0
       ) {
         let dataObj = productList[objName];
-        if(type === "insurances" && dataObj[0] && dataObj[0]["motor"] && dataObj[0]["life"]) {
-          dataObj = [...dataObj[0]['life'], ...dataObj[0]['motor']];
-        }
         let splicedList = dataObj.slice(0, 2);
-        splicedList = splicedList.map((splList: any)=> getPayListFormattedData(splList, type));
+        //pick 1 from motor and pick one from life
+          if(type === "insurances" && dataObj[0] && dataObj[0]["motor"] && dataObj[0]["life"]) {
+            splicedList = [...dataObj[0]['life'].slice(0, 1), ...dataObj[0]['motor'].slice(0, 1)];
+            dataObj = [...dataObj[0]['life'], ...dataObj[0]['motor']];
+          }
+        splicedList = splicedList.length > 0 ? splicedList.map((splList: any)=> getPayListFormattedData(splList, type)) : [];
         returnObj["data"] = splicedList;
         returnObj["orgData"] = dataObj;
       } else {
@@ -100,6 +103,8 @@ const CardAccountList = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accountLoading, cardLoading, rewardLoading, insuranceLoading, mmLoading]);
+
+  console.log(renderData)
 
   return (
     <>
@@ -151,14 +156,14 @@ const CardAccountList = () => {
                       }
                       btnLabel={type && orgData && orgData.length > 2 && type !== 'salaam' ? t(`dashboard.productSummary.${type}.seeAll`) : ''}
                       data={data}
-                      balanceAmount={balanceAmount}
-                      balance={!salamPointsInAed ? t(
+                      balanceAmount={formatCurrency(balanceAmount)}
+                      balance={t(
                         `dashboard.productSummary.${type}.availableBalance`
-                      ) : ''}
+                      )}
                       currentBalance={t(
                         `dashboard.productSummary.${type}.currentBalance`
                       )}
-                      currentBalanceAmount={remainingBalance}
+                      currentBalanceAmount={formatCurrency(remainingBalance)}
                     />
                   </Grid>
                 );

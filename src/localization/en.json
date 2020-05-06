@@ -141,8 +141,8 @@
         "currentBalance" : "Current Balance",
         "seeAll" : "See All Accounts",
         "empty": {
-          "title" : "Accounts",
-          "desc" : "Lorem ipsum dolor sit amet consectetur"
+          "title" : "Start an account",
+          "desc" : "It's instant, and paperless"
         }
       },
       "cards" : {
@@ -152,7 +152,7 @@
         "seeAll" : "See All Cards",
         "empty": {
           "title" : "Credit Cards",
-          "desc" : "Lorem ipsum dolor sit amet consectetur"
+          "desc" : "Lorem ipsum dolor sit amet"
         }
       },
       "loans" : {
@@ -161,8 +161,8 @@
         "currentBalance" : "Current Spender",
         "seeAll" : "See All Loans",
         "empty": {
-          "title" : "Protect everything",
-          "desc" : "Insurance is easy, and safe"
+          "title" : "Realise Every Dream",
+          "desc" : "Loans at low rate of interests"
         }
       },
       "deposits" : {
@@ -171,8 +171,8 @@
         "currentBalance" : "Principle Deposits",
         "seeAll" : "See All Deposits",
         "empty": {
-          "title" : "Invest smartly",
-          "desc" : "Make your money work for you"
+          "title" : "Deposit Your Dream",
+          "desc" : "Get an instant Deposit Now"
         }
       },
       "insurances" : {
@@ -181,8 +181,8 @@
         "currentBalance" : "Monthly Premium",
         "seeAll" : "See All Insurances",
         "empty": {
-          "title" : "Insurances",
-          "desc" : "Make your money work for you"
+          "title" : "Protect everything",
+          "desc" : "Insurance is easy, and safe"
         }
       },
       "mm" : {
@@ -194,17 +194,18 @@
         },
         "empty": {
           "title" : "Mashreq Millionaire",
-          "desc" : "Lorem ipsum dolor sit amet consectetur"
+          "desc" : "Make the smart choice"
         }
       },
       "salaam" : {
         "title": "Salaam Rewards",
+        "availableBalance" : "AED Value",
         "payList": {
-          "title" : "Points"
+          "title" : "Points Value"
         },
         "empty": {
           "title" : "Salaam Rewards",
-          "desc" : "Lorem ipsum dolor sit amet consectetur"
+          "desc" : "Lorem ipsum dolor sit amet"
         }
       }
     }

@@ -17,9 +17,9 @@ type AccountCardProps = {
   balance?: string;
   currency?: string;
   data?: Array<any>;
-  balanceAmount?: number;
+  balanceAmount?: string | undefined;
   currentBalance?: string;
-  currentBalanceAmount?: number;
+  currentBalanceAmount?: string | undefined;
   btnLabel?: string;
   onClickAllList?: any;
 };
@@ -85,14 +85,14 @@ const AccountCard = (props: AccountCardProps) => {
               <Body1 noWrap> {title}</Body1>
               <Box className={aedStyle}>{currency ? currency : "AED"}</Box>
             </Box>
-            {typeof balanceAmount === "number" && 
+            {balanceAmount && 
               <>
                 <H3>{balanceAmount}</H3>
                 {balance && <Caption>{balance}</Caption>}
               </>
             }
             <Box mt={2.6}>
-            {typeof currentBalanceAmount === "number" && (
+            {currentBalanceAmount && (
                 <>
                 <Body1 fontWeight={600} display="inline">
                   {currentBalanceAmount}
