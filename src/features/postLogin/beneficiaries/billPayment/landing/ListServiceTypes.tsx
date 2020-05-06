@@ -63,7 +63,9 @@ const ListServiceTypes = (props: any) => {
 
 
   useEffect(() => {
+    
     const copiedMyBills = myBills.map((a: any) => ({ ...a }));
+
     if ( copiedMyBills.length!== 0 && category === "Money Transfer") {
       const fundTransfer = copiedMyBills.filter(
         (each: any) => each.sectionLabel === "Fund Transfer"
