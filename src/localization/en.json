@@ -24,6 +24,7 @@
       "back": "Back",
       "change": "Change",
       "cancel": "Cancel",
+      "applyNow": "Apply Now",
       "payNow": "Pay Now",
       "gotit":"Got It",
       "pay": "Pay",
@@ -57,6 +58,9 @@
     "title": "Oops!",
     "somethingWrong" : "Something went wrong",
     "desc": "Sorry it seems like you’ve made a mistake"
+  },
+  "notFound": {
+    "title": "No Records Found"
   },
   "login": {
     "title": "Welcome to Mashreq Online Banking",
@@ -117,6 +121,93 @@
     "success": {
       "title": "Success",
       "action": "Start Demo again"
+    }
+  },
+  "dashboard": {
+    "welcomeNote": "Welcome back!",
+    "payYourBill" : {
+      "title": "Pay your Bills",
+      "buttonLinkLabel": "View All Billers"
+    },
+    "sendMoney" : {
+      "title": "Send money to",
+      "buttonLabel": "View All Your Beneficiaries",
+      "buttonLinkLabel": "Start A New Transfer"
+    },
+    "productSummary" : {
+      "accounts" : {
+        "title": "Accounts",
+        "availableBalance" : "Available Balance",
+        "currentBalance" : "Current Balance",
+        "seeAll" : "See All Accounts",
+        "empty": {
+          "title" : "Start an account",
+          "desc" : "It's instant, and paperless"
+        }
+      },
+      "cards" : {
+        "title": "Credit Card",
+        "availableBalance" : "Available Balance",
+        "currentBalance" : "Current Spender",
+        "seeAll" : "See All Cards",
+        "empty": {
+          "title" : "Credit Cards",
+          "desc" : "Lorem ipsum dolor sit amet"
+        }
+      },
+      "loans" : {
+        "title": "Loan",
+        "availableBalance" : "Total Outstanding",
+        "currentBalance" : "Current Spender",
+        "seeAll" : "See All Loans",
+        "empty": {
+          "title" : "Realise Every Dream",
+          "desc" : "Loans at low rate of interests"
+        }
+      },
+      "deposits" : {
+        "title": "Deposits",
+        "availableBalance" : "Maturity Amount",
+        "currentBalance" : "Principle Deposits",
+        "seeAll" : "See All Deposits",
+        "empty": {
+          "title" : "Deposit Your Dream",
+          "desc" : "Get an instant Deposit Now"
+        }
+      },
+      "insurances" : {
+        "title": "Insurances",
+        "availableBalance" : "Total Premium",
+        "currentBalance" : "Monthly Premium",
+        "seeAll" : "See All Insurances",
+        "empty": {
+          "title" : "Protect everything",
+          "desc" : "Insurance is easy, and safe"
+        }
+      },
+      "mm" : {
+        "title": "Mashreq Millionaire Cert.",
+        "availableBalance" : "Total Investments",
+        "seeAll" : "See All Mashreq Millionaire",
+        "payList": {
+          "title" : "Next Draw Date"
+        },
+        "empty": {
+          "title" : "Mashreq Millionaire",
+          "desc" : "Make the smart choice"
+        }
+      },
+      "salaam" : {
+        "title": "Salaam Rewards",
+        "availableBalance" : "AED Value",
+        "payList": {
+          "title" : "Points Value"
+        },
+        "empty": {
+          "title" : "Salaam Rewards",
+          "desc" : "Lorem ipsum dolor sit amet"
+        }
+      }
     }
   },
   "beneficiary" : {

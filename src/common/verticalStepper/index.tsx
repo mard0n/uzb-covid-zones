@@ -39,7 +39,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   
   activeStyle : {
-    fontFamily: "GilroyBold",
+    fontFamily: "Gilroy",
+    fontWeight: "bold",
     "& .MuiTypography-caption" : {
       color: "#313131"
     },  

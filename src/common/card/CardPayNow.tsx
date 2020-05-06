@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import {
-  H4,
+  H5,
   Caption,
   Avatar,
   Card,
@@ -9,6 +9,7 @@ import {
   SvgIcon,
   makeStyles,
   createStyles,
+  Body2,
 } from "@mashreq-digital/ui";
 
 import { ChevronRight } from "@mashreq-digital/webassets";
@@ -20,13 +21,20 @@ const useStyles = makeStyles((theme: any) =>
     card: (props: any) => ({
       display: "flex",
       paddingRight: theme.spacing(0.5),
-      width: props && props.TIcon ? "408px" : "327px",
+      width: props && props.fullWidth ? "100%" : props && props.TIcon ? "408px" : "327px",
       borderRadius: "8px",
       alignItems: "center",
       justifyContent: "flex-start",
+      boxShadow: props && props.boxShadow ? "0px 8px 12px 0px rgba(0, 0, 0, 0.06)" : "none",
       padding: `0 ${theme.spacing(4)}px`,
-      cursor: props && props.link ? "pointer" : "default",
+      cursor: props && props.link ? "pointer" : "default"
     }),
+    headingStyle: {
+      fontWeight: 600
+    },
+    activeStyle: {
+      borderColor: "rgb(49, 49, 49)",
+    },
     iconStyle: {
       display: "flex",
       justifyContent: "left",
@@ -52,9 +60,12 @@ type CardPayNowProps = {
   heading?: ReactNode | string | undefined;
   subheading?: ReactNode | string | undefined;
   callback?: any;
+  fullWidth?: boolean;
+  boxShadow?: boolean;
   cardCallBack?: any;
   buttonLable?: string;
   arrow?: boolean;
+  active?:boolean;
   icon?: any;
   image?: string;
   TIcon?: any;
@@ -68,22 +79,25 @@ const CardPayNow = (props: CardPayNowProps) => {
     heading,
     arrow,
     icon,
+    active,
     subheading,
     TIcon,
     logo,
     style = {},
     buttonLable,
     image,
-    link,
+    // link,
     cardCallBack,
     callback,
   } = props;
 
-  const { card, button, arrowStyle, iconStyle, avt } = useStyles(props);
+  const { card, button, headingStyle, arrowStyle, iconStyle, avt,activeStyle } = useStyles(props);
+
+  let myStyle = active?activeStyle:style;
   return (
     <Card
       className={card}
-      style={style}
+      style={myStyle}
       onClick={(e: any) => {
         if (cardCallBack && typeof cardCallBack === "function") {
           cardCallBack(e);
@@ -106,7 +120,7 @@ const CardPayNow = (props: CardPayNowProps) => {
         </div>
       )}
       <CardContent>
-        <H4 gutterBottom> {heading} </H4>
+        <Body2 gutterBottom className={headingStyle}> {heading} </Body2>
         <Caption>{subheading}</Caption>
       </CardContent>
       {buttonLable && (
@@ -127,5 +141,9 @@ const CardPayNow = (props: CardPayNowProps) => {
     </Card>
   );
 };
+
+CardPayNow.defaultProps = {
+  boxShadow: true
+}
 
 export default CardPayNow;

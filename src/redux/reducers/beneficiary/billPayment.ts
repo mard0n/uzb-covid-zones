@@ -8,6 +8,7 @@ export const initialState: any = {
   serviceTypes: [],
   myBills: [],
   addEditModal:false,
+  createNew: '',
   addNew: {},
   errorCode : '',
   errorMessage : ''
@@ -56,6 +57,17 @@ export default function(state = initialState, action: any) {
         ...state,
         loading: false,
         errorCode: action.payload,
+      };
+      case LandingActions.CREATE_NEW_BILL_PAYMENT_BENEFICIARIES_REQUEST:
+      return {
+        ...state,
+        createNew: action.payload,
+        addEditModal: true
+      };
+      case LandingActions.CREATE_NEW_BILL_PAYMENT_BENEFICIARIES_CLEAR:
+      return {
+        ...state,
+        createNew: '',
       };
       case AddBillActions.UPDATE_BENEFICIARY_STATUS:
         return {

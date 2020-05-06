@@ -34,8 +34,8 @@ const headerIcons = [
     icon: SingleNeutral
   },
   {
-    title:"lagout",
-    icon:Logout
+    title: "logout",
+    icon: Logout
   }
 ];
 
@@ -102,8 +102,8 @@ const MOLHeader = (props: any) => {
             {props.hasSidebar && headerIcons.map((item:any, i:number)=>{
               const { icon } = item;
               return (
-                <IconButton className={svgIconButton} aria-label="upload picture" component="span"> 
-                  <SvgIcon key={i+"headerIcons"} htmlColor="#313131" component={icon} />
+                <IconButton key={i+"headerIcons"} className={svgIconButton} aria-label="upload picture" component="span"> 
+                  <SvgIcon htmlColor="#313131" component={icon} />
                 </IconButton>
               )
             })}

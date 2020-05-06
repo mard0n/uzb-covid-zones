@@ -6,7 +6,9 @@ type ImageWithTextProps = {
   name: string;
   className?: any;
   iconType?: any;
+  logo?: any;
   onClick?: any;
+  description?: any;
   data?: any;
 };
 
@@ -23,8 +25,12 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 
 const ImageWithText = (props: ImageWithTextProps) => {
-  const { name, data, className, onClick, iconType } = props;
+  const { name, data, className, onClick, description, iconType, logo } = props;
   const { captionStyle, avt } = useStyles();
+  let NotIcon = getBeneficiariesAvatar(
+    data && data.code ? data.code.toLowerCase() : name.toLowerCase()
+  );
+
   return (
     <Box
       display="inline-flex"
@@ -47,16 +53,24 @@ const ImageWithText = (props: ImageWithTextProps) => {
         </Box>
       ) : (
         <Box mr={2.5}>
-          <img
-            src={getBeneficiariesAvatar(
-              data && data.code ? data.code.toLowerCase() : name.toLowerCase()
-            )}
-            alt={name}
-          />
+          {logo ? (
+            <Avatar className={avt}>
+              <NotIcon width="50" height="50" />
+            </Avatar>
+          ) : (
+            <img
+              src={getBeneficiariesAvatar(
+                data && data.code ? data.code.toLowerCase() : name.toLowerCase()
+              )}
+              alt={name}
+            />
+          )}
         </Box>
       )}
 
-      <Caption className={captionStyle}>{name}</Caption>
+      <Caption className={captionStyle}>
+        {description ? description : name}
+      </Caption>
     </Box>
   );
 };

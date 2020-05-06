@@ -1,11 +1,11 @@
 import MockAdapter from "axios-mock-adapter";
 import { API } from "../network";
-// import * as Endpoints from "../network/Endpoints";
-// import { mockServiceTypes } from "./mockData/beneficiary/billPayment/mockServiceTypes";
-// import { mockMyBillPaymentBeneficiaries } from "./mockData/beneficiary/billPayment/mockMyBillPaymentBeneficiaries";
-// import { mockPaymentSource } from "./mockData/billPayment/mockPaymentSource";
-// import { mockPaymentBill } from "./mockData/billPayment/mockPaymentBill";
-// import { mockPaymentEnquiry } from "./mockData/billPayment/mockPaymentEnquiry";
+import * as Endpoints from "../network/Endpoints";
+import { mockServiceTypes } from "./mockData/beneficiary/billPayment/mockServiceTypes";
+import { mockMyBillPaymentBeneficiaries } from "./mockData/beneficiary/billPayment/mockMyBillPaymentBeneficiaries";
+import { mockPaymentSource } from "./mockData/billPayment/mockPaymentSource";
+import { mockPaymentBill } from "./mockData/billPayment/mockPaymentBill";
+import { mockPaymentEnquiry } from "./mockData/billPayment/mockPaymentEnquiry";
 
 const startMocking = (isMockingRequired: boolean = false) => {
   if (isMockingRequired) {
@@ -19,14 +19,14 @@ const startMocking = (isMockingRequired: boolean = false) => {
     // );
 
     mock
-      //   .onPost(Endpoints.BILL_PAYMENT_PAY_BILL_ENDPOINT)
-      //   .reply(200, mockPaymentBill)
-      //   .onPost(Endpoints.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT)
-      //   .reply(200, mockPaymentSource)
-      //   .onPost(Endpoints.BILL_PAYMENT_ENQUIRY)
-      //   .reply(200, mockPaymentEnquiry)
-      // .onGet(Endpoints.BENEFICIARY_SERVICE_TYPES_ENDPOINT)
-      // .reply(200, mockServiceTypes)
+        .onPost(Endpoints.BILL_PAYMENT_PAY_BILL_ENDPOINT)
+        .reply(200, mockPaymentBill)
+        .onPost(Endpoints.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT)
+        .reply(200, mockPaymentSource)
+        .onPost(Endpoints.BILL_PAYMENT_ENQUIRY)
+        .reply(200, mockPaymentEnquiry)
+      .onGet(Endpoints.BENEFICIARY_SERVICE_TYPES_ENDPOINT)
+      .reply(200, mockServiceTypes)
       // .onGet(Endpoints.MY_BILL_PAYMENT_BENEFICIARES_ENDPOINT)
       // .reply(200, mockMyBillPaymentBeneficiaries)
       //   .onGet(Endpoints.WIDGETS_SUMMARY_OWE_ENDPOINT)

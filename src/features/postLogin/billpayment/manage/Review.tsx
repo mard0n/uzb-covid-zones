@@ -40,7 +40,9 @@ const Review = (props: any) => {
           )}
 
           <Grid item xl={12} lg={6} md={5} sm={12} xs={12}>
-            <PayFromList onChangeList={onChangeList} />
+            <Box mt={5}>
+              <PayFromList onChangeList={onChangeList} />
+            </Box>
           </Grid>
         </>
       }

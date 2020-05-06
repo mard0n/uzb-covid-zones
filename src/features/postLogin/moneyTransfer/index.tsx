@@ -8,12 +8,13 @@ import {
   CashPinMap,
   LoveHeartHandsHold3,
   NetworkArrowSync
-
 } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
 import CardPayNow from "../../../common/card/CardPayNow";
 import { useDispatch } from "react-redux";
 import * as Action from "../../../redux/actions/moneyTransfer/landingActions";
+import * as PayListActions from "../../../redux/actions/moneyTransfer/payListActions";
+
 import { useSelector } from "react-redux";
 import ManageMoneyTransferModal from './manage/index';
 
@@ -35,6 +36,7 @@ const MoneyTransfer = (props: any) => {
 
   const closeDialogModal = () => {
     setaddEditModal(false);
+    dispatch(PayListActions.fetchPayListClear());
   };
 
   const onSuccessCallback = () => {
@@ -70,7 +72,7 @@ const MoneyTransfer = (props: any) => {
                   Icon={prop?.icon}
                   logo={prop?.logo}
                   callbak={() => {
-                    setAddServiceType(eachServiceType.code);
+                    setAddServiceType(eachServiceType);
                     setaddEditModal(true)
                     console.log("MoneyTransfer -> console");
                   }}

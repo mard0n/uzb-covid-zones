@@ -16,7 +16,8 @@ import {
 const useStyles = makeStyles((theme: any) => ({
   root: {
     "& h5":{
-    fontFamily: "GilroyMedium",
+      fontFamily: "Gilroy",
+      fontWeight: 500,
   },
   "& .MuiButton-text" : {
     padding: `${theme.spacing(2.5)}px`,
@@ -55,7 +56,8 @@ const useStyles = makeStyles((theme: any) => ({
       fill: "#313131"
     },
     "& h5":{
-      fontFamily: "GilroyBold",
+      fontFamily: "Gilroy",
+      fontWeight: "bold",
     }
   }
 }));

@@ -8,6 +8,7 @@ export const MOBILEINFO = `/mobileinfo`;
 export const BENEFICIARY = "/beneficiaries/";
 export const MONEYTRANSFER = "/moneytransfer/";
 export const JOURNEY = "/journey/";
+export const DASHBOARD = "/dashboard/";
 
 export const BENIFICIARY_BILL_PAYMENT = `${BENEFICIARY}/billpayment`;
 export const BENIFICIARY_BILL_PAYMENT_LANDING = `${BENEFICIARY}/billpayment/landing`;
