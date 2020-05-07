@@ -1,111 +1,119 @@
-import {initialCondition} from './routingConditions';
+import {initialCondition} from './conditions';
 import DummyComponent from '../DummyComponent';
 import { TRouteConfig } from '../interface';
-import Kyc from '../Kyc';
+import Kyc from '..';
 
-const routeConfigs: TRouteConfig = {
-  '/kyc' : {
-    component: Kyc,
+const routeConfigs: TRouteConfig = [
+{
+    component: DummyComponent,
     path: '/kyc',
     routes: [
-      { // this should be equivalent to current profile page and default route
-        path: '/profile',
+      {
+        path: '/kyc/login',
         ...initialCondition,
-        component: DummyComponent
+        exact: true,
+        component: DummyComponent,
+        nextRoute: '/kyc/profile'
+      },
+      { // this should be equivalent to current profile page and default route
+        path: '/kyc/profile',
+        exact: true,
+        ...initialCondition,
+        component: DummyComponent,
+        nextRoute: '/kyc/entity/verify'      
       },
       {
-        path: '/employment',
+        path: '/kyc/employment',
         component: DummyComponent,
         routes: [
           {
-            path: '/verify',
+            path: '/kyc/employment/verify',
             component: DummyComponent,
-            nextRoute: '/entity/verify'      
+            nextRoute: '/kyc/entity/verify'      
           }
         ],
       },
       {
-        path: '/entity',
+        path: '/kyc/entity',
         component: DummyComponent,
         routes: [
           {
-            path: '/verify',
+            path: '/kyc/entity/verify',
             component: DummyComponent,
-            nextRoute: '/entity/verify'      
+            nextRoute: '/kyc/income/verify'      
           }
         ],
       },
       {
-        path: '/income',
+        path: '/kyc/income',
         component: DummyComponent,
         routes: [
           {
-            path: '/employement',
+            path: '/kyc/income/employementIncome',
             component: DummyComponent,
-            nextRoute: '/updateNotAvailable'      
+            nextRoute: '/kyc/income/updateNotAvailable'      
           },
           {
-            path: '/updateNotAvailable',
+            path: '/kyc/income/updateNotAvailable',
             component: DummyComponent,
           },
           {
-            path: '/selfEmployed',
+            path: '/kyc/income//selfEmployedIncome',
             component: DummyComponent,
           },
         ],
       },
       {
-        path: '/business',
+        path: '/kyc/business',
         component: DummyComponent,
         routes: [
           {
-            path: '/verifyIndustry',
+            path: '/kyc/business/verifyIndustry',
             component: DummyComponent
           }
         ],
       },  
       {  // this flow is hardcoded
-        path: '/wealth',
+        path: '/kyc/wealth',
         component: DummyComponent,
         routes: [
           {
-            path: '/netWorth',
+            path: '/kyc/wealth/netWorth',
             component: DummyComponent
           },
           {
-            path: '/assetDeclaration',
+            path: '/kyc/wealth/assetDeclaration',
             component: DummyComponent
           },
           {
-            path: '/incomeSource',
+            path: '/kyc/wealth/incomeSource',
             component: DummyComponent
           }
         ],
       },  
       {
-        path: '/document',
+        path: '/kyc/document',
         component: DummyComponent,
         routes: [
           {
-            path: '/verifyResidency',
+            path: '/kyc/document/verifyResidency',
             component: DummyComponent
           },
           {
-            path: '/passport',
+            path: '/kyc/document/passport',
             component: DummyComponent
           },
           {
-            path: '/eid',
+            path: '/kyc/document/eid',
             component: DummyComponent
           },
           {
-            path: '/updateAddress', // not part of wealth
+            path: '/kyc/document/updateAddress', // not part of wealth
             component: DummyComponent
           },
         ],
       },
       ]
-    }
   }
-
+]
 export default routeConfigs;

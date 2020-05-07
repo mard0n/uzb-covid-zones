@@ -79,7 +79,6 @@ const Dashboard = () => {
             </Box>
           </Grid>
           <Grid item xs={4} sm={4} md={4}>
-          {/* @ts-ignore */}
           <InfoCard
             minHeight={false}
             fullWidth
