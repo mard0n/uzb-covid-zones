@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { useRouteMatch, RouteComponentProps, RouteProps, Switch } from "react-router-dom"
-import { IRouteConfigObject, RoutableComponentProps } from './interface';
-import RouteConfig from './routes/RouteConfig';
+import { useRouteMatch, Switch } from "react-router-dom"
+// import RouteConfig from './routes/RouteConfig';
 import { renderRoutes, matchRoutes } from "react-router-config";
 import routeConfigs from './routes/config';
+import { RoutableComponentProps } from './types';
 
 // type Props = RoutableComponentProps;
 

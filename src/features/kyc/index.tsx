@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
-import { useRouteMatch, RouteComponentProps, Switch, useLocation } from 'react-router-dom';
-import RouteConfig from './routes/RouteConfig';
+import React, { useEffect, useReducer } from 'react';
+import { useRouteMatch, RouteComponentProps, Switch, useLocation, useHistory } from 'react-router-dom';
+// import RouteConfig from './routes/RouteConfig';
 import routeConfigs from './routes/config';
-import { RoutableComponentProps } from './interface';
 import { transformInitialState } from './helpers';
 import { renderRoutes, matchRoutes } from 'react-router-config';
+import { RoutableComponentProps, UPDATE_INITIAL_STATE } from './types';
+import { combinedReducers, combinedState, DispatchContext, StateContext } from './store/context';
+// import useKycDispatch from './store/hooks/useKycDispatch';
+import useExecuteDecision from './store/hooks/useExecuteDecision';
+import { PRE_PROFILE_PAGE_CONDITION } from './routes/conditions';
 
-const Kyc: React.FC<RoutableComponentProps> = ({history, location}) => {
-    const {url} = useRouteMatch();
-    // const {location} = useLocation();
+const KycView: React.FC<RoutableComponentProps> = ({history}) => {
+    // const { history } = useHistory();
+    // const dispatch = useKycDispatch();
+    const { dispatch, outcome } = useExecuteDecision("customerName", PRE_PROFILE_PAGE_CONDITION);
 
-    /* TODO: remove this once API integration is done */
+    /* TODO: Make /profile call here */
     useEffect(() => {
         const initialState = {
             customerName: 'TEST_CUSTOMER_010777766',
@@ -31,9 +36,14 @@ const Kyc: React.FC<RoutableComponentProps> = ({history, location}) => {
             id: 0,
             jointProfiles: null,
         };
-        transformInitialState(initialState);
-    },[])
+        // transformInitialState(initialState);
+        dispatch({type: UPDATE_INITIAL_STATE, payload: transformInitialState(initialState)})
+    },[dispatch])
 
+    useEffect(() => {
+        console.log("im am the outcome",outcome,history)
+        outcome && history!.push(outcome)
+    },[history, outcome])
 
     return (
     <> 
@@ -42,6 +52,15 @@ const Kyc: React.FC<RoutableComponentProps> = ({history, location}) => {
         {/* <RouteConfig routes={routeConfigs[url].routes} /> */}
     </>
     )
+}
+
+const Kyc: React.FC<RoutableComponentProps> = (props) => {
+    const [state, dispatch] = useReducer(combinedReducers, combinedState);
+    return (<DispatchContext.Provider value={dispatch}>
+      <StateContext.Provider value={state}>
+          <KycView {...props} />
+      </StateContext.Provider>
+    </DispatchContext.Provider>)
 }
 
 export default Kyc;

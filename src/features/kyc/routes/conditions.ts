@@ -1,16 +1,22 @@
 import { IDecisionTree } from "../../../common/decisionTree/interface";
-import { RISK_LEVEL } from "../interface";
+import { RISK_LEVEL, IKycState } from "../types";
 
-const initialCondition: IDecisionTree = {
-    assert: (data: any) => data.country === 'africa',
+const PRE_PROFILE_PAGE_CONDITION: IDecisionTree = {
+    assert: (data: IKycState) => data.jointAccount,
     if: {
       true: {
-        assert: (data: any) => 'something',
+        return: {
+          pathname: '/kyc/profile',
+          state: { titleKey: 'kyc.message.jointFutureDate' },
+        }
+      },
+      false: {
+        assert: (data: IKycState) => !!'akshay',
         if: {
           true: {
             return: {
-              nextRoute: '/income/updateNotAvailable',
-              riskLevel: RISK_LEVEL.L3
+              pathname: '/kyc/profile',
+              state: { titleKey: 'kyc.message.jointFutureDate' },
             }
           },
           false: {
@@ -19,11 +25,6 @@ const initialCondition: IDecisionTree = {
             }
           }
         }
-      },
-      false: {
-        return: {
-          nextRoute: ""
-        },
       },
       default: {
         return: {
@@ -34,5 +35,5 @@ const initialCondition: IDecisionTree = {
   };
 
 export {
-    initialCondition
+  PRE_PROFILE_PAGE_CONDITION
 }

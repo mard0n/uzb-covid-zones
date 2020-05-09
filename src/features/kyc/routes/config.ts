@@ -1,26 +1,24 @@
-import {initialCondition} from './conditions';
+// import {initialCondition} from './conditions';
 import DummyComponent from '../DummyComponent';
-import { TRouteConfig } from '../interface';
-import Kyc from '..';
+import Kyc from '../';
+import { routeConfigType } from '../types';
 
-const routeConfigs: TRouteConfig = [
+const routeConfigs: routeConfigType = [
 {
-    component: DummyComponent,
-    path: '/kyc',
+    component: Kyc,
+    path: '/kyc/start',
+    exact: true,
     routes: [
       {
         path: '/kyc/login',
-        ...initialCondition,
         exact: true,
-        component: DummyComponent,
-        nextRoute: '/kyc/profile'
+        component: Kyc,
       },
       { // this should be equivalent to current profile page and default route
         path: '/kyc/profile',
         exact: true,
-        ...initialCondition,
         component: DummyComponent,
-        nextRoute: '/kyc/entity/verify'      
+        condition: () => ({nextRoute: '/kyc/entity/verify'} )     
       },
       {
         path: '/kyc/employment',
@@ -29,7 +27,7 @@ const routeConfigs: TRouteConfig = [
           {
             path: '/kyc/employment/verify',
             component: DummyComponent,
-            nextRoute: '/kyc/entity/verify'      
+            condition: () => ({nextRoute: '/kyc/entity/verify'})      
           }
         ],
       },
@@ -40,7 +38,7 @@ const routeConfigs: TRouteConfig = [
           {
             path: '/kyc/entity/verify',
             component: DummyComponent,
-            nextRoute: '/kyc/income/verify'      
+            condition: () => ({nextRoute: '/kyc/entity/verify'})      
           }
         ],
       },

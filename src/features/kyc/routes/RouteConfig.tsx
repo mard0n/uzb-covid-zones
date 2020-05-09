@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps, useRouteMatch, Route, Switch } from 'react-router-dom';
-import { IRouteConfigObject } from '../interface';
+import { IRouteConfigObject } from '../types';
 // import routeConfigs from './routeConfig';
 
 type Props = {
