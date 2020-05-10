@@ -7,20 +7,13 @@ import {
   makeStyles,
   SectionSplitter,
   CircularProgress,
-  SvgIcon,
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
-import CardPayList from "../../../../common/cardPayList/index";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
 import CardDash from "../../../../common/cardDash/index";
 import PayFromList from "../../../../components/billpayment/review/PayFromList";
-import * as ActionBeni from "../../../../redux/actions/moneyTransfer/fetchBeni";
-import CardPayNow from "../../../../common/card/CardPayNow";
-import getBeneficiariesAvatar from "../../../../util/getBeneficiariesAvatar";
-import { withinMashreq } from "../../../../util/constants";
 import EmtyList from "../../../../common/payList/emtyList";
-import { Plus } from "@mashreq-digital/webassets";
 import { useHistory } from "react-router-dom";
 import { MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_AMOUNT } from "../../../../router/config";
 
@@ -38,7 +31,6 @@ const useStyles = makeStyles((theme: any) => ({
 const StartPayments = (props:any) => {
   const [transferButton, setTransferButton] = useState(false);
   const {serviceType,setStep} = props;
-  const { NoBeniStyle } = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -55,10 +47,6 @@ const StartPayments = (props:any) => {
   );
   const payCardListData = Object.assign(
     useSelector((state: any) => state.moneyTransfer.other.payListData)
-  );
-
-  let benificiary = useSelector(
-    (state: any) => state.moneyTransfer.mtBeni.beneficiaries
   );
 
   const { t } = useTranslation();

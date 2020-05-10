@@ -7,7 +7,6 @@ import {
   Button,
   Grid,
   H5,
-  colors,
   makeStyles,
   SvgIcon,
   Body1,
@@ -93,7 +92,11 @@ const Review = (props: any) => {
     }
     gotoConfirmation();
   }
-  }, [gotoConfirmation, transaction]);
+
+      /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
+    We should add onChangeList as dependency then source api will get triggered infinitely */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [transaction]);
 
 
 const gotoConfirmation = () => {

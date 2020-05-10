@@ -8,7 +8,6 @@ import {
   Grid,
   H5,
   Caption,
-  makeStyles,
   InfoCard,
   H4,
   TextField,
@@ -21,7 +20,6 @@ import SuggestionBox from "../../../../common/suggetionBox/index";
 import { useSelector, useDispatch } from "react-redux";
 import useCurrencyConverter from "../../../../redux/hooks/useCurrencyConverter";
 import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
-import { withinMashreq } from "../../../../util/constants";
 import { isValidFloatNumber } from "../../../../util/validations/ValidationUtils";
 import { useHistory } from 'react-router-dom';
 import {  MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_REVIEW, MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START } from '../../../../router/config';
