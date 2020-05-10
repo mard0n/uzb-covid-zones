@@ -98,8 +98,7 @@ const Review = (props: any) => {
   /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
     We should add onChangeList as dependency then source api will get triggered infinitely */
     // eslint-disable-next-line react-hooks/exhaustive-deps
-
-  }, [gotoConfirmation, transaction]);
+  }, [transaction]);
 
 
 const gotoConfirmation = () => {
