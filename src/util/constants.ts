@@ -45,3 +45,20 @@ export const MONEY_TRANSFER_BENI_FILTER = [
     serviceTypeCode: "international",
   },
 ];
+
+
+export const MONEY_TRANSFER_LOCAL_STEPS = [
+  "Start Your Transfer",
+  "Set transfer amount",
+  "Purpose and charges",
+  "Review",
+  "Authorisation",
+  "Confirmation"
+];
+
+export const MONEY_TRANSFER_WITHIN_MASHREQ_STEPS =[
+  "Start Your Transfer",
+  "Set transfer amount",
+  "Review",
+  "Confirmation",
+];

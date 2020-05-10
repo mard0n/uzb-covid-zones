@@ -5,7 +5,6 @@ import {
   SectionSplitter,
   Button,
   Box,
-  SubMain,
   Grid,
   H5,
   Caption,
@@ -24,26 +23,21 @@ import useCurrencyConverter from "../../../../redux/hooks/useCurrencyConverter";
 import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
 import { withinMashreq } from "../../../../util/constants";
 import { isValidFloatNumber } from "../../../../util/validations/ValidationUtils";
+import { useHistory } from 'react-router-dom';
+import { MONEY_TRANSFER_JOURNEY_WITHIN_REVIEW, MONEY_TRANSFER_JOURNEY_WITHIN_START } from '../../../../router/config';
 
-const useStyles = makeStyles((theme: any) => ({
-  inputNumber: {
-    "-webkit-appearance": "none",
-    margin: 0,
-  },
-}));
 
 const SetTransferAmount = (props: any) => {
+
+  const {  serviceType ,setStep} = props;
+
+  const dispatch = useDispatch();
   let transfer = useSelector(
     (state: any) => state.moneyTransfer.other.transfer
   );
-  const dispatch = useDispatch();
-
-  const { inputNumber } = useStyles();
-
   const [exchangeRate, setExchangeRate] = useState("");
   const [enableButton, setEnableButton] = useState(true);
   const [maxAmounts, setMaxAmounts]: any = useState({});
-  const { onHandleBack, serviceType, onNextStep } = props;
   const [sourceAmount, setsourceAmount]: any = useState("");
   const [destinationAmount, setDestinationAmount]: any = useState("");
   const [fromTouched, setFromTouched] = useState(false);
@@ -57,6 +51,9 @@ const SetTransferAmount = (props: any) => {
       : transfer.toAccount.currency;
 
   const currenciesAreDifferent = srcCurrency !== destCurrency;
+  console.log("SetTransferAmount -> serviceType yeye inside ", serviceType);
+
+  const history = useHistory();
 
   const {
     currencyConverterLoading,
@@ -66,6 +63,36 @@ const SetTransferAmount = (props: any) => {
     fetchCurrencyRate,
     clearCurrencyRateState,
   } = useCurrencyConverter();
+
+  const onNextStep = () => {
+    console.log("onNextStep -> onNextStepc pyr");
+    transfer = {
+      ...transfer,
+      amount: {
+        total: currenciesAreDifferent
+          ? sourceAmount
+          : destinationAmount,
+        type: srcCurrency,
+      },
+    };
+    dispatch(Actions.setTransferObject(transfer));
+
+    history.replace({
+      pathname: MONEY_TRANSFER_JOURNEY_WITHIN_REVIEW,
+      state: {serviceType:serviceType}
+    });
+    setStep(2);
+
+  };
+
+  const onHandleBack = () => {
+    history.replace({
+      pathname: MONEY_TRANSFER_JOURNEY_WITHIN_START,
+      state: {serviceType:serviceType}
+    });
+    setStep(0);
+  };
+
 
   useEffect(() => {
     console.log("currencyConverterResponse", currencyConverterResponse);
@@ -301,22 +328,10 @@ const SetTransferAmount = (props: any) => {
             variant="contained"
             color="primary"
             disabled={enableButton}
-            onClick={() => {
-              transfer = {
-                ...transfer,
-                amount: {
-                  total: currenciesAreDifferent
-                    ? sourceAmount
-                    : destinationAmount,
-                  type: srcCurrency,
-                },
-              };
-              dispatch(Actions.setTransferObject(transfer));
-              onNextStep();
-            }}
+            onClick={() => onNextStep()}
             size="large"
           >
-            Pick a Time
+            Review
           </Button>
         </Box>
       }

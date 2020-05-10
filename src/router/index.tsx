@@ -4,60 +4,57 @@ import Login from "../features/authentication/Login";
 import PersonalInformation from "../features/createAccount";
 import MobileNumber from "../features/createAccount/MobileNumber";
 import PasswordScreen from "../features/createAccount/PasswordScreen";
-// import Test from "../pages/test";
 import * as RoutePath from "./config";
 import PostLogin from "../features/postLogin/";
-import MoneyTransfer from '../features/postLogin/moneyTransfer/index';
-const NoMatchPage = () => {
-  return <h3>404 - Not found</h3>;
-};
+import Journey from "../features/journey/index";
+import ProtectedRoute from "./ProtectedRoute";
 
+// POSTLOGIN ==>
 const routes = [
   {
     path: RoutePath.LOGINPAGE,
-    component: Login
-  },
-  {
-    path: RoutePath.ROOT,
-    component: PostLogin
+    component: Login,
   },
   {
     path: RoutePath.PASSCODE,
-    component: PasswordScreen
+    component: PasswordScreen,
   },
   {
     path: RoutePath.MOBILEINFO,
-    component: MobileNumber
+    component: MobileNumber,
   },
   {
     path: RoutePath.CREATE_ACCOUNT,
-    component: PersonalInformation
+    component: PersonalInformation,
   },
-  // {
-  //   path: RoutePath.TEST,
-  //   component: Test
-  // },
-  {
-    path: RoutePath.OTHER_ROUTES,
-    component: NoMatchPage
-  }
 ];
-
-export const RouteConfig = (route: any) => {
-  return (
-    <Route path={route.path} render={props => <route.component {...props} />} />
-  );
-};
 
 const Routes: FunctionComponent = (): JSX.Element => {
   return (
+
     <Switch>
-      <Redirect exact from='/' to={RoutePath.LOGINPAGE}/>
-      {routes.map((route, i) => {
-        return <RouteConfig key={i} {...route} />;
+    
+    <ProtectedRoute path={RoutePath.JOURNEY} component={Journey} />
+    <ProtectedRoute path={RoutePath.POSTLOGIN} component={PostLogin} />
+
+    
+    {routes.map((route, i) => {
+        return (
+          <Route path={route.path}>
+            <route.component />
+          </Route>
+        );
       })}
-    </Switch>
+  { //   <ProtectedRoute path={RoutePath.ROOT} component={PostLogin} />
+
+} 
+
+      <Redirect from="*" to={RoutePath.ROOT} />
+    
+  </Switch>
   );
 };
 
 export default Routes;
+
+

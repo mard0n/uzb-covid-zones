@@ -23,7 +23,9 @@ import PaymentReceipt from "../../../../common/paymentReceipt/index";
 import CardDash from "../../../../common/cardDash";
 import { getPayListFormattedData } from "../../../../util/getPayListFormattedData";
 import { withinMashreq } from "../../../../util/constants";
-import PayListItem from '../../../../components/billpayment/review/payList/index';
+import PayListItem from "../../../../components/billpayment/review/payList/index";
+import { useHistory } from "react-router-dom";
+import { MONEY_TRANSFER_LANDING } from "../../../../network/Endpoints";
 
 type SuccessProps = {
   success: boolean;
@@ -46,9 +48,7 @@ const useStyles = makeStyles(() => ({
 const Success = (props: SuccessProps) => {
   // const { capitalize, cardPay } = useStyles();
   const {
-    type,
     data,
-    onDoneCallback,
     onReceiptCallback,
     title,
     success,
@@ -63,13 +63,19 @@ const Success = (props: SuccessProps) => {
   );
   let srcAcount = transfer.fromAccount;
   let destAcount = transfer.toAccount;
-
+  let history = useHistory();
   const beneficiaryItemForEdit: any = {
     accountNumber: data.accountNumber,
     nickname: "",
     serviceTypeCode: data.serviceTypeCode,
   };
 
+  const onDoneCallback = () => {
+    history.replace({
+      pathname: MONEY_TRANSFER_LANDING,
+    });
+  };
+  
   let payreceptData = {
     "Paid To": "Etisalat",
     "Etisalat Mobile Number": data.accountNumber,
@@ -92,8 +98,15 @@ const Success = (props: SuccessProps) => {
 
           {subTitle && (
             <Box mt={6} mb={6}>
-              <Caption>{success? "Your transaction with reference number ":null} <b> {subTitle} </b></Caption> <br/>
-              <Caption>Please check the Transaction Queue tab to follow up on the status of the transaction.</Caption>
+              <Caption>
+                {success ? "Your transaction with reference number " : null}{" "}
+                <b> {subTitle} </b>
+              </Caption>{" "}
+              <br />
+              <Caption>
+                Please check the Transaction Queue tab to follow up on the
+                status of the transaction.
+              </Caption>
             </Box>
           )}
 
@@ -123,10 +136,12 @@ const Success = (props: SuccessProps) => {
                 rightContent={
                   <PayListItem
                     active={false}
-                    data={getPayListFormattedData(destAcount,type === withinMashreq?"benificiary":"accounts")}
+                    data={getPayListFormattedData(
+                      destAcount,
+                      "accounts"
+                    )}
                   />
                 }
-
               />
 
               <Box mt={10} mb={10} display="flex" alignItems="center">

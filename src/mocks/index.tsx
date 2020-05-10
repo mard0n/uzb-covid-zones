@@ -6,6 +6,9 @@ import { mockMyBillPaymentBeneficiaries } from "./mockData/beneficiary/billPayme
 import { mockPaymentSource } from "./mockData/billPayment/mockPaymentSource";
 import { mockPaymentBill } from "./mockData/billPayment/mockPaymentBill";
 import { mockPaymentEnquiry } from "./mockData/billPayment/mockPaymentEnquiry";
+import { landingMocked } from './mockData/moneyTransfer/landingMocked';
+import { payListOwnAccount } from './mockData/moneyTransfer/payListOwnAccount';
+import { payListBeni } from './mockData/moneyTransfer/payListBeni';
 
 const startMocking = (isMockingRequired: boolean = false) => {
   if (isMockingRequired) {
@@ -27,6 +30,12 @@ const startMocking = (isMockingRequired: boolean = false) => {
         .reply(200, mockPaymentEnquiry)
       .onGet(Endpoints.BENEFICIARY_SERVICE_TYPES_ENDPOINT)
       .reply(200, mockServiceTypes)
+      .onGet(Endpoints.MONEY_TRANSFER_LANDING)
+      .reply(200, landingMocked)
+      .onGet("mob-common-service/v1/payment-options/own-account")
+      .reply(200, payListOwnAccount)
+      .onGet(Endpoints.MONEY_TRANSFER_BENEFICIARIES_ENDPOINT_Static)
+      .reply(200, payListBeni)
       // .onGet(Endpoints.MY_BILL_PAYMENT_BENEFICIARES_ENDPOINT)
       // .reply(200, mockMyBillPaymentBeneficiaries)
       //   .onGet(Endpoints.WIDGETS_SUMMARY_OWE_ENDPOINT)

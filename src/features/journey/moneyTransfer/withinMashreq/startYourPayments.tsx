@@ -10,40 +10,45 @@ import {
   SvgIcon,
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
-import CardPayList from "../../../../../common/cardPayList/index";
+import CardPayList from "../../../../common/cardPayList/index";
 import { useDispatch, useSelector } from "react-redux";
-import * as Actions from "../../../../../redux/actions/moneyTransfer/payListActions";
-import CardDash from "../../../../../common/cardDash/index";
-import PayFromList from "../../../../../components/billpayment/review/PayFromList";
-import * as ActionBeni from "../../../../../redux/actions/moneyTransfer/fetchBeni";
-import CardPayNow from "../../../../../common/card/CardPayNow";
-import getBeneficiariesAvatar from "../../../../../util/getBeneficiariesAvatar";
-import { withinMashreq } from "../../../../../util/constants";
-import EmtyList from "../../../../../common/payList/emtyList";
-import { Plus } from '@mashreq-digital/webassets';
+import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
+import CardDash from "../../../../common/cardDash/index";
+import PayFromList from "../../../../components/billpayment/review/PayFromList";
+import * as ActionBeni from "../../../../redux/actions/moneyTransfer/fetchBeni";
+import CardPayNow from "../../../../common/card/CardPayNow";
+import getBeneficiariesAvatar from "../../../../util/getBeneficiariesAvatar";
+import { withinMashreq } from "../../../../util/constants";
+import EmtyList from "../../../../common/payList/emtyList";
+import { Plus } from "@mashreq-digital/webassets";
+import { useHistory } from "react-router-dom";
+import { MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT } from "../../../../router/config";
 
-type StartPaymentsProps = {
-  type: string | any;
-  onHandleBack?: any;
-  data?: any;
-  onSubmitPayment?: any;
-};
-const useStyles = makeStyles((theme:any)=>({
+const useStyles = makeStyles((theme: any) => ({
   NoBeniStyle: {
     background: "rgb(255, 94, 0)",
     borderRadius: "50%",
     padding: `${theme.spacing(1.3)}px`,
     display: "flex",
     justifyContent: "center",
-    alignItems: "center"
-  }
+    alignItems: "center",
+  },
 }));
 
-const StartPayments = (props: StartPaymentsProps) => {
-  const { type, data, onHandleBack, onSubmitPayment } = props;
+const StartPayments = (props:any) => {
   const [transferButton, setTransferButton] = useState(false);
-  const {NoBeniStyle} = useStyles();
+  const {serviceType,setStep} = props;
+  const { NoBeniStyle } = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  const onSubmitPayment = () => {
+    history.replace({
+      pathname: MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT,
+      state: {serviceType:serviceType}
+    });
+    setStep(1);
+  };
 
   let transfer = useSelector(
     (state: any) => state.moneyTransfer.other.transfer
@@ -51,12 +56,6 @@ const StartPayments = (props: StartPaymentsProps) => {
   const payCardListData = Object.assign(
     useSelector((state: any) => state.moneyTransfer.other.payListData)
   );
-
-
-  // if( payCardListData && payCardListData.destination && transfer.hasOwnProperty("fromAccount"))
-  // {
-  //   payCardListData.destination  =   payCardListData.destination.accounts.filter((each:any)=>each.accountNumber !== transfer.fromAccount.accountNumber)
-  // }
 
   let benificiary = useSelector(
     (state: any) => state.moneyTransfer.mtBeni.beneficiaries
@@ -67,10 +66,8 @@ const StartPayments = (props: StartPaymentsProps) => {
   const onChangeFromAcount = (item: any) => {
     transfer = { ...transfer, fromAccount: item };
     dispatch(Actions.setTransferObject(transfer));
-    if (type !== withinMashreq) {
-      if (payCardListData) {
-        payCardListData.source["suggestedAccount"] = item;
-      }
+    if (payCardListData) {
+      payCardListData.source["suggestedAccount"] = item;
     }
 
     if (
@@ -90,14 +87,13 @@ const StartPayments = (props: StartPaymentsProps) => {
 
   const onChangeToAcount = (item: any) => {
     transfer = { ...transfer, toAccount: item };
-    if (type !== withinMashreq) {
-      if (payCardListData) {
-        payCardListData.destination = {
-          ...payCardListData.destination,
-          suggestedAccount: item,
-        };
-      }
+    if (payCardListData) {
+      payCardListData.destination = {
+        ...payCardListData.destination,
+        suggestedAccount: item,
+      };
     }
+
     dispatch(Actions.setTransferObject(transfer));
     if (
       transfer.hasOwnProperty("fromAccount") &&
@@ -115,17 +111,8 @@ const StartPayments = (props: StartPaymentsProps) => {
   };
 
   useEffect(() => {
-    dispatch(Actions.fetchPayListRequest({ type: type }));
-    if (type === withinMashreq) {
-      dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest());
-    }
-
-    //TODO: update this for on back to keep it selected option
-    // else{
-    //   if (transfer.fromAcount) {
-    //     payCardListData.source["suggestedAccount"] = item;
-    //   }
-    // }
+    dispatch(Actions.fetchPayListRequest({ type: withinMashreq }));
+    dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest());
 
     /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
     We should add onChangeList as dependency then source api will get triggered infinitely */
@@ -155,11 +142,9 @@ const StartPayments = (props: StartPaymentsProps) => {
                   <EmtyList heading="You dont seems to have account" />
                 )
               }
-
               rightContent={
-                type === withinMashreq ? (
-                  !benificiary.loading?
-                  (benificiary && benificiary.length > 0 ? (
+                !benificiary.loading ? (
+                  benificiary && benificiary.length > 0 ? (
                     <PayFromList
                       selectOptions={true}
                       heading="To this account"
@@ -168,32 +153,22 @@ const StartPayments = (props: StartPaymentsProps) => {
                     />
                   ) : (
                     <CardPayNow
-                    fullWidth
-                    icon={<Box component="span" className={NoBeniStyle}><SvgIcon htmlColor="#fff" component={Plus} /></Box>}
-                    style={{ justifyContent: "space-around" }}
-                    arrow={true}
-                    heading="No beneficiaries detected"
-                    subheading="You can add one right now"
-                  />))
-                  : 
-                  <Box display="flex" mt={12} alignItems="baseline">
-                  <CircularProgress />
-                    </Box>
-                ) : payCardListData.hasOwnProperty("destination") &&
-                  payCardListData.destination.accounts.length > 0 ? (
-                  <PayFromList
-                    selectOptions={true}
-                    heading="To this account"
-                    payListData={
-                      payCardListData.destination                    
-                    }
-                    onChangeList={onChangeToAcount}
-                  />
+                      fullWidth
+                      icon={
+                        <Box component="span" className={NoBeniStyle}>
+                          <SvgIcon htmlColor="#fff" component={Plus} />
+                        </Box>
+                      }
+                      style={{ justifyContent: "space-around" }}
+                      arrow={true}
+                      heading="No beneficiaries detected"
+                      subheading="You can add one right now"
+                    />
+                  )
                 ) : (
-                  <EmtyList
-                    button={true}
-                    heading="You dont seems to have another account"
-                  />
+                  <Box display="flex" mt={12} alignItems="baseline">
+                    <CircularProgress />
+                  </Box>
                 )
               }
             />
@@ -206,16 +181,15 @@ const StartPayments = (props: StartPaymentsProps) => {
       }
       bottom={
         <Box display="flex" justifyContent="flex-end">
-                <Button
-                  variant="contained"
-                  color="primary"
-                  disabled={!transferButton}
-                  onClick={onSubmitPayment}
-                  size="large"
-                >
-                  Set Transfer Amount
-                </Button>
-             
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={!transferButton}
+            onClick={onSubmitPayment}
+            size="large"
+          >
+            Set Transfer Amount
+          </Button>
         </Box>
       }
     />
