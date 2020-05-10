@@ -14,6 +14,8 @@ export const BENIFICIARY_BILL_PAYMENT = `${BENEFICIARY}/billpayment`;
 export const BENIFICIARY_BILL_PAYMENT_LANDING = `${BENEFICIARY}/billpayment/landing`;
 export const BENIFICIARY_BILL_PAYMENT_DETAILED = `${BENEFICIARY}/billpayment/detailed/:service/:id`;
 
+/* KYC */
+export const KYC = "/kyc"
 
 /* Beneficiary money transfer */
 export const BENIFICIARY_MONEY_TRANSFER = `${BENEFICIARY}/moneytransfer`; //default route and landing route
