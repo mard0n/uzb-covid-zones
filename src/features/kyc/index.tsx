@@ -3,8 +3,8 @@ import { useRouteMatch, RouteComponentProps, Switch, useLocation, useHistory } f
 // import RouteConfig from './routes/RouteConfig';
 import routeConfigs from './routes/config';
 import { transformInitialState } from './helpers';
-import { renderRoutes, matchRoutes } from 'react-router-config';
-import { RoutableComponentProps, UPDATE_INITIAL_STATE } from './types';
+import { renderRoutes } from 'react-router-config';
+import { RoutableComponentProps, UPDATE_INITIAL_STATE, SET_ACTIVE_PROFILE } from './types';
 import { combinedReducers, combinedState, DispatchContext, StateContext } from './store/context';
 // import useKycDispatch from './store/hooks/useKycDispatch';
 import useExecuteDecision from './store/hooks/useExecuteDecision';
@@ -37,17 +37,19 @@ const KycView: React.FC<RoutableComponentProps> = ({history}) => {
             jointProfiles: null,
         };
         // transformInitialState(initialState);
-        dispatch({type: UPDATE_INITIAL_STATE, payload: transformInitialState(initialState)})
+        const profiles = transformInitialState(initialState)
+        dispatch({type: UPDATE_INITIAL_STATE, payload: profiles})
+        dispatch({type: SET_ACTIVE_PROFILE, payload: profiles[0]})
     },[dispatch])
 
     useEffect(() => {
         console.log("im am the outcome",outcome,history)
-        outcome && history!.push(outcome)
+        // outcome && history!.push(outcome)
     },[history, outcome])
 
     return (
     <> 
-        <button onClick={() => history && history.push('/kyc/profile')}>profile</button>
+        {/* <button onClick={() => history && history.push('/kyc/profile')}>profile</button> */}
         {renderRoutes(routeConfigs)}
         {/* <RouteConfig routes={routeConfigs[url].routes} /> */}
     </>
@@ -56,11 +58,14 @@ const KycView: React.FC<RoutableComponentProps> = ({history}) => {
 
 const Kyc: React.FC<RoutableComponentProps> = (props) => {
     const [state, dispatch] = useReducer(combinedReducers, combinedState);
-    return (<DispatchContext.Provider value={dispatch}>
-      <StateContext.Provider value={state}>
-          <KycView {...props} />
-      </StateContext.Provider>
-    </DispatchContext.Provider>)
+    return (
+        // <ErrorBoundry></ErrorBoundry>
+        <DispatchContext.Provider value={dispatch}>
+        <StateContext.Provider value={state}>
+            <KycView {...props} />
+        </StateContext.Provider>
+        </DispatchContext.Provider>
+    )
 }
 
 export default Kyc;

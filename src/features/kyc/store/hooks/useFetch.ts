@@ -2,11 +2,14 @@ import React from "react";
 import axios from "axios";
 import { DispatchContext } from "../context";
 import { ERROR, RESET_ERROR } from "../../types";
+import { createInstance } from "@mashreq-digital/network";
+import * as Config from '../../../../network/constants';
 
 const CancelToken = axios.CancelToken;
 // let cancel: any;
 let pending: any = {};
 
+export const API = createInstance({ BASE_URL: Config.BASE_URL,  TIMEOUT: 20000 });
 
 const delay = async () => new Promise(resolve => setTimeout(resolve,Math.floor((Math.random() * 3000) + 1)))  
 
@@ -26,7 +29,7 @@ export const useFetch = (url: string, options: object = {}) => {
         delete pending[url];
       }
       const wait = await delay();
-      const res = await axios(url, {
+      const res = await API(url, {
         ...options,
         cancelToken: new CancelToken(async (c) => {
           // cancel = c;
@@ -41,7 +44,7 @@ export const useFetch = (url: string, options: object = {}) => {
       setResponse(data);
     } catch (error) {
       setLoading(false);
-      if (axios.isCancel(error)) {
+      if (API.isCancel(error)) {
         // console.log("request was cancelled", pending);
         // TODO: If needed we can handle the cancelled request for any use
       }

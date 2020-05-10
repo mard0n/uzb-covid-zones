@@ -1,10 +1,13 @@
 import React from "react";
 
-import profileReducer from "./reducers/profileReducer";
+import profilesReducer from "./reducers/profilesReducer";
 import errorReducer from "./reducers/errorReducer";
+import activeProfileReducer from './reducers/activeProfileReducer';
 
 import errorState from "./states/errorState";
-import profileState from "./states/kycState";
+import profilesState from "./states/profilesState";
+import activeProfileState from "./states/activeProfileState";
+
 import { useCombineReducers } from "./hooks/useCombineReducers";
 
 export const StateContext = React.createContext<any>(null);
@@ -13,7 +16,8 @@ export const DispatchContext = React.createContext((() => {}) as any);
 /** EDITABLE CONTENT */
 
 export const [combinedReducers, combinedState] = useCombineReducers({
-  profile: [profileReducer, profileState],
+  profiles: [profilesReducer, profilesState],
+  active: [activeProfileReducer,activeProfileState],
   errorState: [errorReducer, errorState],
 });
 

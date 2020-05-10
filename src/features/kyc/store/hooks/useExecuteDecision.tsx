@@ -7,14 +7,14 @@ import useKycState from "./useKycState";
 const useExecuteDecision = (tracker: string, condition: IDecisionTree) =>  {
 
     const dispatch = useKycDispatch()
-    const {profile : {[tracker] : stateKey},profile} = useKycState()
-    const {execute, outcome} = useDecision(profile, condition)
+    const {active : {[tracker] : stateKey},active} = useKycState()
+    const {execute, outcome} = useDecision(active, condition)
 
-    console.log("tracker", tracker, stateKey, profile);
 
     useEffect(() => {
+        console.log("tracker", tracker, stateKey, active);
         stateKey && execute()
-    },[execute, stateKey])
+    },[active, execute, stateKey, tracker])
 
     return {
         dispatch,

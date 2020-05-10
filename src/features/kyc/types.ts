@@ -1,16 +1,19 @@
 import { RouteConfig, RouteConfigComponentProps } from "react-router-config";
 import { conditionType } from "../../common/decisionTree/interface";
 
-    /**
-     * Profile Types
-     */
+/**
+ * Profile Types
+ */
 
-    export const UPDATE_INITIAL_STATE = "UPDATE_INITIAL_STATE";
-    export const SET_ACTIVE_PROFILE = "SET_ACTIVE_PROFILE";
-    export const SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
-    export const UPDATE_LOGIN_TYPE = "UPDATE_LOGIN_TYPE";
+export const UPDATE_INITIAL_STATE = "UPDATE_INITIAL_STATE";
+export const SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
+export const UPDATE_LOGIN_TYPE = "UPDATE_LOGIN_TYPE";
 
 
+/** 
+ * Active Profiles
+ */
+export const SET_ACTIVE_PROFILE = "SET_ACTIVE_PROFILE";
 
 
 /**
@@ -42,7 +45,7 @@ export interface IProfileResponse {
     newRecord: boolean,
     gcc: boolean,
     id: number,
-    jointProfiles: null | IProfileResponse,
+    jointProfiles: null | [IProfileResponse],
 };
 
 export interface IKycState extends IProfileResponse {
@@ -59,7 +62,8 @@ export interface IKycState extends IProfileResponse {
     newSalary: string,
     newAnnualIncome: number,
     country: string | null,
-    jointAccount: boolean
+    jointAccount: boolean,
+    primaryProfile: boolean
 }
 
 export enum RISK_LEVEL {
