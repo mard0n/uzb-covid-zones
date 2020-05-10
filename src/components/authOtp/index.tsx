@@ -146,7 +146,7 @@ const LeftContent = (props: any) => {
                 />
                 {enableResend && (
                   <ResendOTP
-                    renderButton={() => {}}
+                    // renderButton={() => {}}
                     renderTime={renderTime}
                     onResendClick={onResendClick}
                     maxTime={5}

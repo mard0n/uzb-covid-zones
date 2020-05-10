@@ -9,22 +9,24 @@ import {
   Button,
 } from "@mashreq-digital/ui";
 import PayListItem from "../billpayment/review/payList";
+import getProductColor from "../../util/getProductColor";
 
 type AccountCardProps = {
-  color: string;
+  type: string;
   title: string;
   balance?: string;
+  currency?: string;
   data?: Array<any>;
-  balanceAmount?: number;
+  balanceAmount?: string | undefined;
   currentBalance?: string;
-  currentBalanceAmount?: number;
+  currentBalanceAmount?: string | undefined;
   btnLabel?: string;
   onClickAllList?: any;
 };
 
 const useStyles = makeStyles((theme) => ({
   root: (props: any) => ({
-    backgroundColor: props && props.color ? props.color : "#fff",
+    backgroundColor: props && props.type ? getProductColor(props.type) : "#fff",
     borderRadius: "6px",
   }),
   aedStyle: (props: any) => ({
@@ -35,8 +37,9 @@ const useStyles = makeStyles((theme) => ({
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px ${theme.spacing(
       0.5
     )}px`,
-    backgroundColor: "#fff",
-    color: props && props.color ? props.color : "#000",
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    // color: props && props.type ? getProductColor(props.type) : "#000",
+    color: "#fff",
   }),
   leftContent: {
     "& .MuiTypography-root": {
@@ -55,7 +58,9 @@ const useStyles = makeStyles((theme) => ({
 
 const AccountCard = (props: AccountCardProps) => {
   const {
+    type,
     title,
+    currency,
     balance,
     balanceAmount,
     currentBalance,
@@ -77,17 +82,17 @@ const AccountCard = (props: AccountCardProps) => {
         <Grid item xs={5} sm={5} md={5}>
           <Box mr={4} className={leftContent}>
             <Box mb={1} display="flex" justifyContent="space-between">
-              <Body1> {title}</Body1>
-              <Box className={aedStyle}>AED</Box>
+              <Body1 noWrap> {title}</Body1>
+              <Box className={aedStyle}>{currency ? currency : "AED"}</Box>
             </Box>
-            {typeof balanceAmount === "number" && 
+            {balanceAmount && 
               <>
                 <H3>{balanceAmount}</H3>
                 {balance && <Caption>{balance}</Caption>}
               </>
             }
             <Box mt={2.6}>
-            {typeof currentBalanceAmount === "number" && (
+            {currentBalanceAmount && (
                 <>
                 <Body1 fontWeight={600} display="inline">
                   {currentBalanceAmount}
@@ -102,9 +107,11 @@ const AccountCard = (props: AccountCardProps) => {
           </Box>
         </Grid>
         <Grid item xs={7} sm={7} md={7}>
-          {data && data.length > 0 && data.map((item: any, i: number)=>{
+          {type === "mm" ? <PayListItem isDefault data={{balance: "12 Apr 2020", type: type}} />: 
+          <>{data && data.length > 0 && data.map((item: any, i: number)=>{
             return <PayListItem isDefault key={i} data={item} />
-          })}
+          })}</>
+          }
           {/* <PayListItem data={{}} />
           <PayListItem data={{}} /> */}
         </Grid>

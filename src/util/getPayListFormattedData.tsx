@@ -54,7 +54,6 @@ export const getPayListFormattedData = (obj: any, type: string) => {
     const { 
       accountDescription,
       loanAccountNumber,
-      status,
       currency,
       totalOutstanding} = obj;
     data["name"] = accountDescription;
@@ -76,6 +75,19 @@ export const getPayListFormattedData = (obj: any, type: string) => {
       data["status"] = cardStatus;
       data["currency"] = currency;
       data["balance"] = typeof currentBalance === "number" ? currentBalance : 0 || availableCreditLimit;
+
+  }else if (type === "insurances") {
+    const { 
+      policyIssuer,
+      policyNumber,
+      policyStatus,
+      premiumCurrency,
+      insuranceCover } = obj;
+      data["name"] = policyIssuer;
+      data["accNo"] = policyNumber;
+      data["status"] = policyStatus;
+      data["currency"] = premiumCurrency;
+      data["balance"] = insuranceCover;
 
   }else if (type === "salaam") {
     const { salamPoints } = obj;

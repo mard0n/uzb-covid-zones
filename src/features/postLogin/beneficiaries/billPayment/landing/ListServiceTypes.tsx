@@ -10,7 +10,11 @@ import { BENIFICIARY_BILL_PAYMENT_DETAILED } from "../../../../../router/config"
 // import * as Actions from "../../../../redux/actions/beneficiary/billPayment/landingActions";
 // import Loader from "../../../../common/loader";
 import NoBeneficiaryFound from "../../../../../components/beneficiary/billPayment/NoBeneficiaryFound";
-import { replaceStr, trimLowerCaseStr, getServiceTypes } from "../../../../../util/helper";
+import {
+  replaceStr,
+  trimLowerCaseStr,
+  getServiceTypes,
+} from "../../../../../util/helper";
 import { useTranslation } from "react-i18next";
 // import PromptTemplate from "../../../../common/promptTemplate";
 import * as Actions from "../../../../../redux/actions/beneficiary/billPayment/deleteBillPaymentActions";
@@ -20,13 +24,19 @@ import DeletePrompt from "../../../../../components/deletePrompt";
 import AddUpdateDialog from "../manage/addUpdate";
 import EditPrompt from "../../../../../components/editPrompt/index";
 import { editBeneficiaryRequest } from "../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
+import { bills } from '../../../../../util/mock/mockedBills';
 
 type ListServiceTypesProps = {
   addServiceType: boolean;
 };
 
 const ListServiceTypes = (props: any) => {
-  const { addServiceType, onCloseDialog } = props;
+  const {
+    addServiceType,
+    onCloseDialog,
+    category,
+    selectedServiceType,
+  } = props;
   // const history = useHistory();
   const dispatch = useDispatch();
   const { t } = useTranslation();
@@ -39,17 +49,52 @@ const ListServiceTypes = (props: any) => {
   const [editModal, setEditModal] = useState(false);
   const [isAddDialog, setIsAddDialog] = useState(false);
   const [resumeData, setResumeData] = useState({});
-  const [billType, setBillType] = useState('');
-
+  const [billType, setBillType] = useState("");
   const billPaymentState = useSelector(
     (state: any) => state?.beneficiary?.billPayment
   );
+  const { loading,myBills, errorCode } = billPaymentState;
+  
+  // let myBills = bills; // Mocked data 
 
-  const { loading, myBills, errorCode } = billPaymentState;
 
-  // useEffect(() => {
-  //   dispatch(Actions.fetchBillPaymentBeneficiariesRequest());
-  // }, []);
+  let [filteredBills, setFilteredBills] =  useState(myBills);
+  let [hasFilterData, setHasFilterData] =  useState(true);
+
+
+  useEffect(() => {
+    
+    const copiedMyBills = myBills.map((a: any) => ({ ...a }));
+
+    if ( copiedMyBills.length!== 0 && category === "Money Transfer") {
+      const fundTransfer = copiedMyBills.filter(
+        (each: any) => each.sectionLabel === "Fund Transfer"
+      );
+      if (selectedServiceType !== "all") {
+        fundTransfer[0].data = fundTransfer[0].data.filter(
+          (eachListItem: any) =>
+            eachListItem.serviceTypeCode === selectedServiceType
+        );
+
+        if(fundTransfer[0].data.length===0){
+          setHasFilterData(false);
+        }else{
+          setHasFilterData(true);
+        }
+    }
+      setFilteredBills(fundTransfer);
+      console.log("ListServiceTypes -> fundTransfer yele", fundTransfer)
+    }else {
+      const fundTransfer = copiedMyBills.filter(
+        (each: any) => each.sectionLabel !== "Fund Transfer"
+      );
+      setFilteredBills(fundTransfer);
+    }
+
+  }, [myBills, category, selectedServiceType]);
+
+
+
 
   useEffect(() => {
     if (addServiceType) {
@@ -66,15 +111,15 @@ const ListServiceTypes = (props: any) => {
   };
 
   const onSubmitEdit = (formData: any) => {
-    let editData:any = {
+    let editData: any = {
       id: beneficiaryItemForEdit.id.toString(),
       nickname: formData.nickName,
       serviceTypeCode: beneficiaryItemForEdit.serviceTypeCode,
-      accountNumber: beneficiaryItemForEdit.accountNumber
+      accountNumber: beneficiaryItemForEdit.accountNumber,
     };
-    if(beneficiaryItemForEdit.serviceTypeCode === "Salik"){
-     editData["salikPinCode"]="NDIxOQ==";
-     editData["savePinCode"]=false;
+    if (beneficiaryItemForEdit.serviceTypeCode === "Salik") {
+      editData["salikPinCode"] = "NDIxOQ==";
+      editData["savePinCode"] = false;
     }
 
     dispatch(editBeneficiaryRequest({ data: editData }));
@@ -100,7 +145,7 @@ const ListServiceTypes = (props: any) => {
   const closeDialogModal = () => {
     setAddEditModal(false);
     setResumeData({});
-    setBillType('');
+    setBillType("");
     dispatch(ManageActions.clearBeneficiaryAddNew());
     dispatch(LandingActions.fetchBillPaymentBeneficiariesRequest());
     if (onCloseDialog && typeof onCloseDialog === "function") {
@@ -125,11 +170,13 @@ const ListServiceTypes = (props: any) => {
       serviceType,
       category,
       nickname,
+      activeAfter,
       serviceTypeCode,
       serviceTypeCodeTel,
       accountNumber,
-      status
+      status,
     } = item;
+  
     const toLink: any = replaceStr(
       BENIFICIARY_BILL_PAYMENT_DETAILED,
       ":service/:id",
@@ -144,9 +191,14 @@ const ListServiceTypes = (props: any) => {
     // console.log("listEachBenificiary -> status", nickname, status)
     if (status && status === "DRAFT") {
       listItemProps["onResumeLabel"] = t("common.action.resume");
-      listItemProps["onResumeCallback"] = (e: any) => {e.preventDefault(); onResumeCallback(item)};
+      listItemProps["onResumeCallback"] = (e: any) => {
+        e.preventDefault();
+        onResumeCallback(item);
+      };
     }
 
+    let today =new Date().getTime();
+    let activeDay = new Date(activeAfter).getTime();
     return (
       <Link to={toLink}>
         <CustomListItem
@@ -169,7 +221,8 @@ const ListServiceTypes = (props: any) => {
               : serviceTypeCode
             ).toLowerCase()
           )}
-          avatarName={serviceType}
+          avatarName={nickname}
+          activeAfter={activeDay>today?activeAfter:""}
           nickname={nickname}
           accountNumber={
             category === "Telecom"
@@ -192,7 +245,6 @@ const ListServiceTypes = (props: any) => {
     );
   }
 
-
   // if (!loading) {
   return (
     <>
@@ -206,7 +258,7 @@ const ListServiceTypes = (props: any) => {
           finalCallback={() => onSuccessCallback()}
         />
       )}
-      {myBills && myBills.length > 0 ? (
+      {filteredBills && filteredBills.length > 0  && hasFilterData ? (
         <>
           {deleteModal && deleteNickName && (
             <DeletePrompt
@@ -225,7 +277,7 @@ const ListServiceTypes = (props: any) => {
               buttonProps={{
                 onClick: () => {
                   onConfirmedDelete();
-                }
+                },
               }}
             />
           )}
@@ -241,17 +293,19 @@ const ListServiceTypes = (props: any) => {
                 // dispatch(ManageActions.clearBeneficiaryAddNew());
                 setEditModal(false);
               }}
-              onSubmitEdit={(val: any)=>onSubmitEdit(val)}
+              onSubmitEdit={(val: any) => onSubmitEdit(val)}
             />
           )}
-
-          {myBills.map((bill: any, i: number) => {
+          {filteredBills.map((bill: any, i: number) => {
             const { sectionLabel, data } = bill;
+
             return (
               <List key={i}>
+               
                 <Box mb={3}>
-                  <H4> {sectionLabel} </H4>
+                 { category !== "Money Transfer"? <H4> {sectionLabel} </H4> :null}
                 </Box>
+
                 {data &&
                   data.length > 0 &&
                   data.map((item: any, j: number) => {

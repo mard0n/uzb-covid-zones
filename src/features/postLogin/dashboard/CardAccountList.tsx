@@ -4,9 +4,9 @@ import AccountCard from "../../../components/dashboard/AccountCard";
 import EmptyAccountCard from "../../../components/dashboard/EmptyAccountCard";
 import { ChartUpward, Umbrella } from "@mashreq-digital/webassets";
 import { useSelector } from "react-redux";
-import getProductColor from "../../../util/getProductColor";
 import { useTranslation } from "react-i18next";
 import { getPayListFormattedData } from "../../../util/getPayListFormattedData";
+import { formatCurrency } from "../../../util/helper";
 import NoBeneficiaryFound from "../../../components/beneficiary/billPayment/NoBeneficiaryFound";
 
 const useStyles = makeStyles(() => ({
@@ -24,11 +24,15 @@ const CardAccountList = () => {
     accountLoanDeposit: state?.products?.accountLoanDeposit?.response,
     card: state?.products?.card?.response,
     reward: state?.products?.rewards?.response,
+    insurance: state?.products?.insurance?.response,
+    mmc: state?.products?.mm?.response
   }));
-  const { accountLoading, cardLoading, rewardLoading }: any = useSelector((state: any) => ({
+  const { accountLoading, cardLoading, rewardLoading, insuranceLoading, mmLoading }: any = useSelector((state: any) => ({
     accountLoading: state?.products?.accountLoanDeposit?.loading,
     cardLoading: state?.products?.card?.loading,
     rewardLoading: state?.products?.rewards?.loading,
+    insuranceLoading: state?.products?.insurance?.loading,
+    mmLoading: state?.products?.mm?.loading
   }));
 
   useEffect(() => {
@@ -43,9 +47,16 @@ const CardAccountList = () => {
         productList[objName] &&
         productList[objName].length > 0
       ) {
-        let splicedList = productList[objName].slice(0, 2);
-        splicedList = splicedList.map((splList: any)=> getPayListFormattedData(splList, type));
+        let dataObj = productList[objName];
+        let splicedList = dataObj.slice(0, 2);
+        //pick 1 from motor and pick one from life
+          if(type === "insurances" && dataObj[0] && dataObj[0]["motor"] && dataObj[0]["life"]) {
+            splicedList = [...dataObj[0]['life'].slice(0, 1), ...dataObj[0]['motor'].slice(0, 1)];
+            dataObj = [...dataObj[0]['life'], ...dataObj[0]['motor']];
+          }
+        splicedList = splicedList.length > 0 ? splicedList.map((splList: any)=> getPayListFormattedData(splList, type)) : [];
         returnObj["data"] = splicedList;
+        returnObj["orgData"] = dataObj;
       } else {
         returnObj["data"] = [];
       }
@@ -73,10 +84,14 @@ const CardAccountList = () => {
               listItems.push(generateRenderObj("accounts", "acc", prodList));
               listItems.push(generateRenderObj("deposits", "dep", prodList));
               listItems.push(generateRenderObj("loans", "lon", prodList));
+            } else if (list === "insurance") {
+              listItems.push(generateRenderObj("insurances", "ins", prodList));
             } else if (list === "card") {
               listItems.push(generateRenderObj("cards", "crd", prodList));
             } else if (list === "reward") {
               listItems.push(generateRenderObj("salaam", "slm", prodList));
+            } else if (list === "mmc") {
+              listItems.push(generateRenderObj("mm", "mml", prodList));
             }
           }
           setRenderData(listItems);
@@ -87,7 +102,9 @@ const CardAccountList = () => {
       generateRenderData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [accountLoading, cardLoading, rewardLoading]);
+  }, [accountLoading, cardLoading, rewardLoading, insuranceLoading, mmLoading]);
+
+  console.log(renderData)
 
   return (
     <>
@@ -102,30 +119,51 @@ const CardAccountList = () => {
                 availableBalance,
                 currency,
                 totalOutstanding,
+                insuranceCount,
+                totalInsuranceCover,
+                totalMonthlyPremium,
                 salamPointsInAed,
                 currentBalance,
+                totalAmount,
                 data,
+                orgData
               } = listItem;
+              let totalCount: any = count, balanceAmount = currentBalance, remainingBalance = availableBalance;
+
+              if(type === "insurances") {
+                totalCount = insuranceCount;
+                balanceAmount = Number(totalInsuranceCover);
+                remainingBalance = Number(totalMonthlyPremium);
+              } else if (type === "salaam") {
+                totalCount = '';
+                balanceAmount = salamPointsInAed;
+              } else if ( type === "loans" ) {
+                balanceAmount = totalOutstanding;
+              } else if ( type === "mm" ) {
+                balanceAmount = totalAmount;
+              }
+              
               if (data && data.length > 0) {
                 return (
                   <Grid item xs={12} key={i}>
                     <AccountCard
-                      color={getProductColor(type)}
+                      type={type}
+                      currency={currency}
                       title={
-                        (count ? count : '') +
+                        (totalCount) +
                         " " +
                         t(`dashboard.productSummary.${type}.title`)
                       }
-                      btnLabel={type  && data.length > 2 && type !== 'salaam' ? t(`dashboard.productSummary.${type}.seeAll`) : ''}
+                      btnLabel={type && orgData && orgData.length > 2 && type !== 'salaam' ? t(`dashboard.productSummary.${type}.seeAll`) : ''}
                       data={data}
-                      balanceAmount={totalOutstanding || salamPointsInAed || currentBalance}
-                      balance={!salamPointsInAed ? t(
+                      balanceAmount={formatCurrency(balanceAmount)}
+                      balance={t(
                         `dashboard.productSummary.${type}.availableBalance`
-                      ) : ''}
+                      )}
                       currentBalance={t(
                         `dashboard.productSummary.${type}.currentBalance`
                       )}
-                      currentBalanceAmount={availableBalance}
+                      currentBalanceAmount={formatCurrency(remainingBalance)}
                     />
                   </Grid>
                 );
@@ -133,7 +171,7 @@ const CardAccountList = () => {
                 return (
                   <Grid key={i} item xs={6} className={emptyAcctStyle}>
                     <EmptyAccountCard
-                      color={getProductColor(type)}
+                     type={type}
                       title={t(`dashboard.productSummary.${type}.empty.title`)}
                       desc={t(`dashboard.productSummary.${type}.empty.desc`)}
                       icon={Umbrella}

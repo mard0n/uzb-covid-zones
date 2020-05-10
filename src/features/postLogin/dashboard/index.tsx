@@ -57,7 +57,9 @@ const Dashboard = () => {
   useEffect(() => {
     dispatch(ActionsProductSummary.requestAccLoanDep());
     dispatch(ActionsProductSummary.requestCards());
+    dispatch(ActionsProductSummary.requestInsurance());
     dispatch(ActionsProductSummary.requestReward());
+    dispatch(ActionsProductSummary.requestMM());
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   

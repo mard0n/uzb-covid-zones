@@ -141,8 +141,8 @@
         "currentBalance" : "Current Balance",
         "seeAll" : "See All Accounts",
         "empty": {
-          "title" : "Accounts",
-          "desc" : "Lorem ipsum dolor sit amet consectetur"
+          "title" : "Start an account",
+          "desc" : "It's instant, and paperless"
         }
       },
       "cards" : {
@@ -151,8 +151,8 @@
         "currentBalance" : "Current Spender",
         "seeAll" : "See All Cards",
         "empty": {
-          "title" : "Credit Cards",
-          "desc" : "Lorem ipsum dolor sit amet consectetur"
+          "title" : "Apply for a card now",
+          "desc" : "It's instant, and paperless"
         }
       },
       "loans" : {
@@ -161,8 +161,8 @@
         "currentBalance" : "Current Spender",
         "seeAll" : "See All Loans",
         "empty": {
-          "title" : "Protect everything",
-          "desc" : "Insurance is easy, and safe"
+          "title" : "Realise Every Dream",
+          "desc" : "Loans at low rate of interests"
         }
       },
       "deposits" : {
@@ -171,22 +171,48 @@
         "currentBalance" : "Principle Deposits",
         "seeAll" : "See All Deposits",
         "empty": {
-          "title" : "Invest smartly",
-          "desc" : "Make your money work for you"
+          "title" : "Deposit Your Dream",
+          "desc" : "Get an instant Deposit Now"
+        }
+      },
+      "insurances" : {
+        "title": "Insurances",
+        "availableBalance" : "Total Cover",
+        "currentBalance" : "Monthly Premium",
+        "seeAll" : "See All Insurances",
+        "empty": {
+          "title" : "Protect everything",
+          "desc" : "Insurance is easy, and safe"
+        }
+      },
+      "mm" : {
+        "title": "Mashreq Millionaire Cert.",
+        "availableBalance" : "Total Investments",
+        "seeAll" : "See All Mashreq Millionaire",
+        "payList": {
+          "title" : "Next Draw Date"
+        },
+        "empty": {
+          "title" : "Mashreq Millionaire",
+          "desc" : "Make the smart choice"
         }
       },
       "salaam" : {
         "title": "Salaam Rewards",
+        "availableBalance" : "AED Value",
+        "payList": {
+          "title" : "Points Value"
+        },
         "empty": {
           "title" : "Salaam Rewards",
-          "desc" : "Lorem ipsum dolor sit amet consectetur"
+          "desc" : "Earn your salam points"
         }
       }
     }
   },
   "beneficiary" : {
     "landing" : {
-      "title" : "Beneficiaries",
+      "title" : "Manage your beneficiaries",
       "tabs": ["Bill Payments", "Money Transfer"],
       "searchPlaceholder" : "Search for billers",
       "addButtonLabel" : "Add New Beneficiary",

@@ -16,8 +16,9 @@ import {
   H4,
 } from "@mashreq-digital/ui";
 import CardIcon from "../../../../common/cardIcon";
-import { capitalizeFirstLetter } from "../../../../util/helper";
+import { capitalizeFirstLetter, formatCurrency } from "../../../../util/helper";
 import { MoneyPouch, getMashreqLogo } from "@mashreq-digital/webassets";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
@@ -141,6 +142,8 @@ const PayListItem = (props: CustomListItemProps) => {
   } = props;
 
   const { name, accNo, status, currency, balance, type } = data;
+
+  const {t} = useTranslation();
   
   const isCard = type && type === "cards",
     isAccountCard = isCard || type === "accounts";
@@ -200,12 +203,12 @@ const PayListItem = (props: CustomListItemProps) => {
         </ListItemAvatar>
       )}
 
-      {type && type === "salaam" && balance ? (
+      {type && (type === "salaam" || type === "mm") && balance ? (
         <Box display="flex">
           <Box ml={2.6}>
-            <H4>{balance}</H4>
+            <H4>{formatCurrency(balance)}</H4>
           </Box>
-          <Box ml={1.3}><Caption>Points</Caption></Box>
+          <Box ml={1.3}><Caption>{t(`dashboard.productSummary.${type}.payList.title`)}</Caption></Box>
         </Box>
       ): type === "within-mashreq"? 
       (
@@ -216,6 +219,8 @@ const PayListItem = (props: CustomListItemProps) => {
         >
           <Box width="calc(100% - 120px)">
             <ListItemText
+            disableTypography={true}
+            primaryTypographyProps={{noWrap: true}}
               primary={
                 <Caption className={descStyle} noWrap>
                   {name}
@@ -281,7 +286,7 @@ const PayListItem = (props: CustomListItemProps) => {
                     <Box display="flex" alignItems="center">
                       <Caption className={currencyStyle}>{currency}</Caption>
                       <Box ml={1}>
-                        <H4>{balance}</H4>
+                        <H4>{formatCurrency(balance)}</H4>
                       </Box>
                     </Box>
                   }

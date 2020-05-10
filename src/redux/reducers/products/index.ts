@@ -15,6 +15,16 @@ const ProductSummary = combineReducers({
     success: Actions.PRODUCT_SUMMARY_CARD_SUCCESS,
     failure: Actions.PRODUCT_SUMMARY_CARD_FAILURE
   }),
+  insurance: getBasicReducer({
+    request: Actions.PRODUCT_SUMMARY_INSURANCE_REQUEST,
+    success: Actions.PRODUCT_SUMMARY_INSURANCE_SUCCESS,
+    failure: Actions.PRODUCT_SUMMARY_INSURANCE_FAILURE
+  }),
+  mm: getBasicReducer({
+    request: Actions.PRODUCT_SUMMARY_MM_REQUEST,
+    success: Actions.PRODUCT_SUMMARY_MM_SUCCESS,
+    failure: Actions.PRODUCT_SUMMARY_MM_FAILURE
+  }),
   rewards: getBasicReducer({
     request: Actions.PRODUCT_SUMMARY_REWARDS_REQUEST,
     success: Actions.PRODUCT_SUMMARY_REWARDS_SUCCESS,
