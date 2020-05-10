@@ -23,6 +23,7 @@ import EmtyList from "../../../../common/payList/emtyList";
 import { Plus } from "@mashreq-digital/webassets";
 import { useHistory } from "react-router-dom";
 import { MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT } from "../../../../router/config";
+import ImageWithText from '../../../../common/imageWithText/index';
 
 const useStyles = makeStyles((theme: any) => ({
   NoBeniStyle: {
@@ -124,6 +125,15 @@ const StartPayments = (props:any) => {
       height={"calc(100vh - 400px)"}
       top={
         <>
+        <Box mb={6}>
+        <ImageWithText
+          description={serviceType.name}
+          name={serviceType.code}
+          iconType={false}
+          logo={true}
+        />
+      </Box>
+
           <UnderlineText color="primary">
             <H2>Start your transfer</H2>
           </UnderlineText>

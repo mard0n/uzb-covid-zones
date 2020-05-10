@@ -23,6 +23,7 @@ import { MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_SUCCES, MONEY_TRANSFER_JOURNEY_OWN_AC
 import { useHistory } from 'react-router-dom';
 import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
 import Loader from '../../../../common/loader/index';
+import ImageWithText from '../../../../common/imageWithText/index';
 
 
 
@@ -134,6 +135,14 @@ const gotoConfirmation = () => {
       height={"calc(100vh - 400px)"}
       top={
         <>
+        <Box mb={6}>
+        <ImageWithText
+          description={serviceType.name}
+          name={serviceType.code}
+          iconType={false}
+          logo={false}
+        />
+      </Box>
           <UnderlineText color="primary">
             <H2>Review your transfer</H2>
           </UnderlineText>

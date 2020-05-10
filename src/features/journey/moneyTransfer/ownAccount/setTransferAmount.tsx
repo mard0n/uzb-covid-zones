@@ -23,6 +23,7 @@ import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions
 import { isValidFloatNumber } from "../../../../util/validations/ValidationUtils";
 import { useHistory } from 'react-router-dom';
 import {  MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_REVIEW, MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START } from '../../../../router/config';
+import ImageWithText from '../../../../common/imageWithText/index';
 
 
 const SetTransferAmount = (props: any) => {
@@ -161,6 +162,15 @@ const SetTransferAmount = (props: any) => {
       height={"calc(100vh - 400px)"}
       top={
           <>
+          <Box mb={6}>
+          <ImageWithText
+            description={serviceType.name}
+            name={serviceType.code}
+            iconType={false}
+            logo={false}
+          />
+        </Box>
+
           <UnderlineText color="primary">
             <H2>What amount would you like to transfer?</H2>
           </UnderlineText>

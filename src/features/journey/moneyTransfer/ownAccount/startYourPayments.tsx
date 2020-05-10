@@ -16,6 +16,7 @@ import PayFromList from "../../../../components/billpayment/review/PayFromList";
 import EmtyList from "../../../../common/payList/emtyList";
 import { useHistory } from "react-router-dom";
 import { MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_AMOUNT } from "../../../../router/config";
+import ImageWithText from '../../../../common/imageWithText/index';
 
 const useStyles = makeStyles((theme: any) => ({
   NoBeniStyle: {
@@ -100,6 +101,15 @@ const StartPayments = (props:any) => {
       height={"calc(100vh - 400px)"}
       top={
         <>
+        <Box mb={6}>
+        <ImageWithText
+          description={serviceType.name}
+          name={serviceType.code}
+          iconType={true}
+          logo={false}
+        />
+      </Box>
+
           <UnderlineText color="primary">
             <H2>Start your transfer</H2>
           </UnderlineText>

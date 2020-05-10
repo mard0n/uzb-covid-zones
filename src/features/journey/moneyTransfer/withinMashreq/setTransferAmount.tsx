@@ -25,6 +25,7 @@ import { withinMashreq } from "../../../../util/constants";
 import { isValidFloatNumber } from "../../../../util/validations/ValidationUtils";
 import { useHistory } from 'react-router-dom';
 import { MONEY_TRANSFER_JOURNEY_WITHIN_REVIEW, MONEY_TRANSFER_JOURNEY_WITHIN_START } from '../../../../router/config';
+import ImageWithText from '../../../../common/imageWithText/index';
 
 
 const SetTransferAmount = (props: any) => {
@@ -166,6 +167,15 @@ const SetTransferAmount = (props: any) => {
       height={"calc(100vh - 400px)"}
       top={
           <>
+          <Box mb={6}>
+          <ImageWithText
+            description={serviceType.name}
+            name={serviceType.code}
+            iconType={false}
+            logo={true}
+          />
+        </Box>
+
           <UnderlineText color="primary">
             <H2>What amount would you like to transfer?</H2>
           </UnderlineText>

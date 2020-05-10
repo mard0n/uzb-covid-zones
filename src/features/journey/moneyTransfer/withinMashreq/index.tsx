@@ -9,6 +9,7 @@ import Review from "./Review";
 import Success from "./Success";
 import JourneySidebar from "../../../../components/JourneySidebar/index";
 import { MONEY_TRANSFER_WITHIN_MASHREQ_STEPS } from "../../../../util/constants";
+import ImageWithText from '../../../../common/imageWithText/index';
 const { postLogin, sidebarWidth, defaultGutter } = globalStyle;
 const routes: any = [
   {
@@ -60,11 +61,17 @@ const MoneyTransferJourneyWithinMashreq = () => {
         {routes.map((route: any, i: number) => {
           return (
             <Route exact key={i} path={route.path}>
-              <route.component serviceType={serviceType} setStep={(st:any)=>setStep(st)} {...state} />
+              <route.component
+                serviceType={serviceType}
+                setStep={(st: any) => setStep(st)}
+                {...state}
+              />
             </Route>
           );
         })}
       </Box>
+
+
     </Box>
   );
 };
