@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React , {useState, useReducer} from "react";
 import { Switch, Route, Redirect, useLocation } from "react-router-dom";
 import * as RoutePath from "../../../../router/config";
 import { Box, makeStyles } from "@mashreq-digital/ui";
@@ -9,6 +9,9 @@ import Review from "./Review";
 import Success from "./Success";
 import JourneySidebar from "../../../../components/JourneySidebar/index";
 import { MONEY_TRANSFER_WITHIN_MASHREQ_STEPS } from "../../../../util/constants";
+import transfer from "../../../../redux/reducers/moneyTransfer/transfer";
+import { DispatchContext, StateContext } from "../../../../redux/context";
+
 const { postLogin, sidebarWidth, defaultGutter } = globalStyle;
 const routes: any = [
   {
@@ -48,11 +51,17 @@ const MoneyTransferJourneyOwnAccount = () => {
   const state = location.state;
   let serviceType = (state as any)?.serviceType;
   const [step, setStep] = useState(0);
+  const [transferState, transferDispatch] = useReducer(transfer, {
+    transfer: {},
+  });
 
 
   return (
     <Box display="flex" height={postLogin.height} mt={`${postLogin.top}px`}>
-      <JourneySidebar
+    <DispatchContext.Provider value={transferDispatch}>
+    <StateContext.Provider value={transferState}>
+
+    <JourneySidebar
         steps={MONEY_TRANSFER_WITHIN_MASHREQ_STEPS}
         currentStep={step}
       />
@@ -65,6 +74,8 @@ const MoneyTransferJourneyOwnAccount = () => {
           );
         })}
       </Box>
+      </StateContext.Provider>
+      </DispatchContext.Provider>
     </Box>
   );
 };

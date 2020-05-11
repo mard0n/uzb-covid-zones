@@ -8,16 +8,20 @@ import {
   makeStyles,
   SvgIcon,
   IconButton,
-  Theme
+  Theme,
+  H5,
+  Button
 } from "@mashreq-digital/ui";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { getMashreqLogo, Search, AlarmBell, SingleNeutral, Logout } from "@mashreq-digital/webassets";
+import { getMashreqLogo, Search, AlarmBell, SingleNeutral, Logout ,Cross} from "@mashreq-digital/webassets";
 import { stepsID } from "../../redux/reducers/createAcountReducer";
 import i18n from "../../config/i18n";
 import { changeLocalization } from "../../redux/actions/globalSetupAction";
 import { globalStyle } from "../../util/constants";
-
+import * as PayListActions from "../../redux/actions/moneyTransfer/payListActions";
+import { useHistory } from 'react-router-dom';
+import { MONEY_TRANSFER } from "../../router/config";
 const { header, logo, defaultGutter } = globalStyle;
 
 const headerIcons = [
@@ -59,6 +63,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 
+
 const MOLHeader = (props: any) => {
   const { root, sidebarHeader, svgIconButton } = useStyles();
   const { t } = useTranslation();
@@ -67,7 +72,8 @@ const MOLHeader = (props: any) => {
     activeStep: state?.createAccount?.activeStep
   }));
   const dispatch = useDispatch();
-
+  const history = useHistory();
+  
   const handleLanguageChange = (event: any) => {
     let newlang = event.target.value,
       dir = newlang && newlang === "ar" ? "rtl" : "ltr";
@@ -75,21 +81,32 @@ const MOLHeader = (props: any) => {
     dispatch(changeLocalization(dir));
     document.body.setAttribute("dir", dir);
   };
+  
+  const onReturnClick = ()=>{
+    dispatch(PayListActions.setTransferObject({}));
+    dispatch(PayListActions.fetchPayListClear());
+    history.push({
+      pathname: MONEY_TRANSFER,
+    });
+  };
 
   //update regex for any other path
   const exludePath = new RegExp("account");
+  const includeReturn = new RegExp("journey");
+
+
 
   const MashreqLogo = getMashreqLogo();
 
   return (
-    <Box className={`${root} ${props.hasSidebar ? sidebarHeader : ""}`}> 
+    <Box className={`${root} ${props.hasSidebar ? sidebarHeader : ""}`}>
       <Header
         position="fixed"
         left={
           <Box display="flex" alignItems="center">
             {/* {!props.hasSidebar && */}
             <MashreqLogo width={logo.width} height={logo.height} />
-          {/* } */}
+            {/* } */}
             {!exludePath.test(props?.match?.url) ? null : (
               <Box ml={2.5}>
                 <Caption>{steps[activeStep]}</Caption>
@@ -99,19 +116,35 @@ const MOLHeader = (props: any) => {
         }
         right={
           <Box>
-            {props.hasSidebar && headerIcons.map((item:any, i:number)=>{
-              const { icon } = item;
-              return (
-                <IconButton key={i+"headerIcons"} className={svgIconButton} aria-label="upload picture" component="span"> 
-                  <SvgIcon htmlColor="#313131" component={icon} />
-                </IconButton>
-              )
-            })}
+            {props.hasSidebar &&
+              headerIcons.map((item: any, i: number) => {
+                const { icon } = item;
+                return (
+                  <IconButton
+                    key={i + "headerIcons"}
+                    className={svgIconButton}
+                    aria-label="upload picture"
+                    component="span"
+                  >
+                    <SvgIcon htmlColor="#313131" component={icon} />
+                  </IconButton>
+                );
+              })}
+
             {!exludePath.test(props?.match?.url) ? (
-              <Select native onChange={handleLanguageChange}>
-                <option value="er">{t("common.language.english")}</option>
-                <option value="ar">{t("common.language.arabic")}</option>
-              </Select>
+              includeReturn.test(props?.match?.url) ? (
+                <Box component={Button} display="flex" alignContent="center" onClick={()=>onReturnClick()}>
+                <SvgIcon component={Cross} color="primary" style={{marginRight:"10px"}}/>
+                <H5 color="primary">
+                  {t("common.links.returnToMoneyTransfer")}
+                </H5>
+                </Box>
+              ) : (
+                <Select native onChange={handleLanguageChange}>
+                  <option value="er">{t("common.language.english")}</option>
+                  <option value="ar">{t("common.language.arabic")}</option>
+                </Select>
+              )
             ) : (
               <Caption>{t("common.links.needHelp")}</Caption>
             )}

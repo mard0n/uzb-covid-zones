@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import {
   UnderlineText,
   Button,
@@ -25,10 +25,10 @@ import { getPayListFormattedData } from "../../../../util/getPayListFormattedDat
 import { withinMashreq } from "../../../../util/constants";
 import PayListItem from "../../../../components/billpayment/review/payList/index";
 import { useHistory } from "react-router-dom";
-import { StateContext, DispatchContext } from "../../../../redux/context";
-import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
+import { MONEY_TRANSFER_LANDING } from "../../../../network/Endpoints";
 import { MONEY_TRANSFER } from "../../../../router/config";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
+import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
 import * as Transaction from "../../../../redux/actions/moneyTransfer/transaction";
 
 type SuccessProps = {
@@ -62,16 +62,11 @@ const Success = (props: SuccessProps) => {
   const { t } = useTranslation();
   const { successIconStyle } = useStyles();
   const [payRecieptModal, setPayRecieptModal] = useState(false);
-
-  // let transfer = useSelector(
-  //   (state: any) => state.moneyTransfer.other.transfer
-  // );
   const dispatch = useDispatch();
 
-  const transferDispatch = useContext(DispatchContext);
-  const transferState = useContext(StateContext);
-  let { transfer } = transferState;
-  
+  let transfer = useSelector(
+    (state: any) => state.moneyTransfer.other.transfer
+  );
   let srcAcount = transfer.fromAccount;
   let destAcount = transfer.toAccount;
   let history = useHistory();
@@ -82,15 +77,13 @@ const Success = (props: SuccessProps) => {
   };
 
   const onDoneCallback = () => {
-    transferDispatch(TransferActions.setTransferObject({}));
+    // transferDispatch(TransferActions.setTransferObject({}));
     dispatch(Actions.fetchPayListClear());
     dispatch(Transaction.moneyTransferInitiateTransferClear());
-
     history.push({
       pathname: MONEY_TRANSFER,
     });
   };
-
   let payreceptData = {
     "Paid To": "Etisalat",
     "Etisalat Mobile Number": data.accountNumber,

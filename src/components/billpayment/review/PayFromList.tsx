@@ -20,6 +20,7 @@ type PayFromListProps = {
   heading?: any;
   type?: any;
   stype?: any;
+  activeItem?:any;
   selectOptions?: boolean;
   payListData?: any;
 };
@@ -42,6 +43,7 @@ const PayFromList = (props: PayFromListProps) => {
     heading,
     payListData,
     selectOptions,
+    activeItem,
     type,
     stype,
   } = props;

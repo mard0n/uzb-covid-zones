@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Box,
   UnderlineText,
@@ -24,6 +24,8 @@ import { Plus } from "@mashreq-digital/webassets";
 import { useHistory } from "react-router-dom";
 import { MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT } from "../../../../router/config";
 import ImageWithText from '../../../../common/imageWithText/index';
+import { DispatchContext, StateContext } from "../../../../redux/context";
+import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
 
 const useStyles = makeStyles((theme: any) => ({
   NoBeniStyle: {
@@ -38,22 +40,18 @@ const useStyles = makeStyles((theme: any) => ({
 
 const StartPayments = (props:any) => {
   const [transferButton, setTransferButton] = useState(false);
-  const {serviceType,setStep} = props;
+  const {serviceType,setStep,resumeFileds} = props;
   const { NoBeniStyle } = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const transferDispatch = useContext(DispatchContext);
+  const transferState = useContext(StateContext);
+  let { transfer } = transferState;
 
-  const onSubmitPayment = () => {
-    history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT,
-      state: {serviceType:serviceType}
-    });
-    setStep(1);
-  };
+  // let transfer = useSelector(
+  //   (state: any) => state.moneyTransfer.other.transfer
+  // );
 
-  let transfer = useSelector(
-    (state: any) => state.moneyTransfer.other.transfer
-  );
   const payCardListData = Object.assign(
     useSelector((state: any) => state.moneyTransfer.other.payListData)
   );
@@ -64,9 +62,18 @@ const StartPayments = (props:any) => {
 
   const { t } = useTranslation();
 
+  const onSubmitPayment = () => {
+    history.replace({
+      pathname: MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT,
+      state: {serviceType:serviceType,
+      resumeFileds:transfer
+      }
+    });
+    setStep(1);
+  };
   const onChangeFromAcount = (item: any) => {
     transfer = { ...transfer, fromAccount: item };
-    dispatch(Actions.setTransferObject(transfer));
+    transferDispatch(TransferActions.setTransferObject(transfer));
     if (payCardListData) {
       payCardListData.source["suggestedAccount"] = item;
     }
@@ -95,7 +102,7 @@ const StartPayments = (props:any) => {
       };
     }
 
-    dispatch(Actions.setTransferObject(transfer));
+    transferDispatch(TransferActions.setTransferObject(transfer));
     if (
       transfer.hasOwnProperty("fromAccount") &&
       transfer.hasOwnProperty("toAccount")
@@ -114,6 +121,11 @@ const StartPayments = (props:any) => {
   useEffect(() => {
     dispatch(Actions.fetchPayListRequest({ type: withinMashreq }));
     dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest());
+    
+    // console.log("StartPayments -> resumeFileds", resumeFileds);
+    // if(!resumeFileds){
+    //   transfer = resumeFileds;
+    // }
 
     /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
     We should add onChangeList as dependency then source api will get triggered infinitely */
@@ -135,7 +147,7 @@ const StartPayments = (props:any) => {
       </Box>
 
           <UnderlineText color="primary">
-            <H2>Start your transfer</H2>
+            <H2>{t("moneytransfer.startYourPayment.title")}</H2>
           </UnderlineText>
 
           {Object.keys(payCardListData).length !== 0 ? (
@@ -144,20 +156,20 @@ const StartPayments = (props:any) => {
                 payCardListData.hasOwnProperty("source") &&
                 payCardListData.source.accounts.length > 0 ? (
                   <PayFromList
-                    heading="I want to send money from"
-                    payListData={payCardListData.source}
+                  heading={t("moneytransfer.startYourPayment.payfrom")}
+                  payListData={payCardListData.source}
                     onChangeList={onChangeFromAcount}
                   />
                 ) : (
-                  <EmtyList heading="You dont seems to have account" />
+                  <EmtyList heading={t("moneytransfer.noAccount")} />
                 )
               }
               rightContent={
-                !benificiary.loading ? (
+                benificiary && !benificiary.loading ? (
                   benificiary && benificiary.length > 0 ? (
                     <PayFromList
                       selectOptions={true}
-                      heading="To this account"
+                      heading={t("moneytransfer.startYourPayment.to")}
                       payListData={{ benificiary: benificiary }}
                       onChangeList={onChangeToAcount}
                     />

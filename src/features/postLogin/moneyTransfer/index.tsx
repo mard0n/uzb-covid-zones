@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 import * as Action from "../../../redux/actions/moneyTransfer/landingActions";
 import { useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom';
-import { MONEY_TRANSFER_JOURNEY_WITHIN_START, MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START } from "../../../router/config";
+import { MONEY_TRANSFER_JOURNEY_WITHIN_START, MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START, MONEY_TRANSFER_JOURNEY_LOCAL_START } from "../../../router/config";
 import { withinMashreq } from "../../../util/constants";
 
 let serviceTypeCode = [
@@ -57,6 +57,12 @@ const MoneyTransfer = (props: any) => {
       case "own-account":
         history.push({
           pathname: MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START,
+          state: { serviceType: eachServiceType },
+        });
+        break;
+      case "local":
+        history.push({
+          pathname: MONEY_TRANSFER_JOURNEY_LOCAL_START,
           state: { serviceType: eachServiceType },
         });
     }

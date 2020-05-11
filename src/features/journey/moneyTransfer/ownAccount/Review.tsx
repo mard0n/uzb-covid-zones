@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect, useContext } from "react";
 import {
   Box,
   UnderlineText,
@@ -24,6 +24,7 @@ import { useHistory } from 'react-router-dom';
 import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
 import Loader from '../../../../common/loader/index';
 import ImageWithText from '../../../../common/imageWithText/index';
+import { StateContext } from "../../../../redux/context";
 
 
 
@@ -41,14 +42,14 @@ const Review = (props: any) => {
   const { serviceType,setStep } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
   const [startPayentData, setStartPaymentData] = useState({});
 
   const { iconStyle } = useStyles();
-  let transfer = useSelector(
-    (state: any) => state.moneyTransfer.other.transfer
-  );
+
+  const transferState = useContext(StateContext);
+  let { transfer } = transferState;
+
   const financialTxnNumber = useSelector(
     (state: any) => state.moneyTransfer.other.payListData.financialTxnNumber
   );
@@ -58,6 +59,8 @@ const Review = (props: any) => {
   let transaction = useSelector(
     (state: any) => state.moneyTransfer.makeTransfer
   );
+
+
   console.log("Review -> transaction pyr", transaction)
   
   const onSubmit = () => {
@@ -81,17 +84,23 @@ const Review = (props: any) => {
     console.log("Review -> transaction pyr", transaction)
     if(transaction && transaction.error || transaction.response)
    { 
-    if (transaction.error) {
-      setSuccess(false);
-    } else {
-      setSuccessMessage(
-        transaction &&
-          transaction.response &&
-          transaction.response.mwReferenceNo
-      );
-      setSuccess(true);
+    console.log("Review -> transaction pyr", !transaction.error);
+    if (!transaction.error) {
+      if( transaction &&
+        transaction.response &&
+        transaction.response.mwReferenceNo){
+        setSuccessMessage(
+          transaction &&
+            transaction.response &&
+            transaction.response.mwReferenceNo
+        );
+        gotoConfirmation(true);
+
+      }
+    } else{
+      console.log("Review -> transaction else cnodition !!!!!!!!!!!!! pyr");
+      gotoConfirmation(false);
     }
-    gotoConfirmation();
   }
 
       /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
@@ -100,16 +109,18 @@ const Review = (props: any) => {
   }, [transaction]);
 
 
-const gotoConfirmation = () => {
+const gotoConfirmation = (confirmation:boolean) => {
+console.log("gotoConfirmation -> confirmation pyr", confirmation);
+
   history.replace({
     pathname: MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_SUCCES,
     state: {
       serviceType:serviceType,
-      success:success,
+      success:confirmation,
       data:startPayentData,
       type:serviceType.code,
-      title:t(`billPayments.steps.confirmation.${success ? "success" : "failure"}.title`),
-      subTitle:!success ? "oops! somthing went wrong" : successMessage
+      title:t(`billPayments.steps.confirmation.${confirmation ? "success" : "failure"}.title`),
+      subTitle:!confirmation ? "oops! somthing went wrong" : successMessage
     }
   });
   setStep(3);

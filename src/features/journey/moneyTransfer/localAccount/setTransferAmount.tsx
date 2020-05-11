@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   UnderlineText,
   H2,
@@ -17,23 +17,24 @@ import {
 import BackButton from "../../../../common/backButton";
 import { Rocket } from "@mashreq-digital/webassets";
 import SuggestionBox from "../../../../common/suggetionBox/index";
+import { useSelector, useDispatch } from "react-redux";
 import useCurrencyConverter from "../../../../redux/hooks/useCurrencyConverter";
 import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
+import { withinMashreq } from "../../../../util/constants";
 import { isValidFloatNumber } from "../../../../util/validations/ValidationUtils";
 import { useHistory } from 'react-router-dom';
-import {  MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_REVIEW, MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START } from '../../../../router/config';
+import { MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW, MONEY_TRANSFER_JOURNEY_LOCAL_START } from '../../../../router/config';
 import ImageWithText from '../../../../common/imageWithText/index';
-import { DispatchContext, StateContext } from "../../../../redux/context";
-import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
+
 
 const SetTransferAmount = (props: any) => {
 
   const {  serviceType ,setStep} = props;
 
-  const transferDispatch = useContext(DispatchContext);
-  const transferState = useContext(StateContext);
-  let { transfer } = transferState;
-  
+  const dispatch = useDispatch();
+  let transfer = useSelector(
+    (state: any) => state.moneyTransfer.other.transfer
+  );
   const [exchangeRate, setExchangeRate] = useState("");
   const [enableButton, setEnableButton] = useState(true);
   const [maxAmounts, setMaxAmounts]: any = useState({});
@@ -44,7 +45,10 @@ const SetTransferAmount = (props: any) => {
   let srcAmount = transfer.fromAccount.availableBalance;
   let dstAmount = transfer.toAccount.availableBalance;
   let srcCurrency = transfer.fromAccount.currency;
-  let destCurrency = transfer.toAccount.currency;
+  let destCurrency =
+    serviceType.code === withinMashreq
+      ? transfer.toAccount.beneficiaryCurrency
+      : transfer.toAccount.currency;
 
   const currenciesAreDifferent = srcCurrency !== destCurrency;
   console.log("SetTransferAmount -> serviceType yeye inside ", serviceType);
@@ -65,26 +69,26 @@ const SetTransferAmount = (props: any) => {
     transfer = {
       ...transfer,
       amount: {
-        total: currenciesAreDifferent ? sourceAmount : destinationAmount,
+        total: currenciesAreDifferent
+          ? sourceAmount
+          : destinationAmount,
         type: srcCurrency,
       },
     };
-    transferDispatch(TransferActions.setTransferObject(transfer));
+    dispatch(Actions.setTransferObject(transfer));
 
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_REVIEW,
-      state: { serviceType: serviceType },
+      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW,
+      state: {serviceType:serviceType}
     });
     setStep(2);
+
   };
-
-
-  
 
   const onHandleBack = () => {
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START,
-      state: {serviceType:serviceType, resumeFileds:{transfer}}
+      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_START,
+      state: {serviceType:serviceType}
     });
     setStep(0);
   };
@@ -167,7 +171,7 @@ const SetTransferAmount = (props: any) => {
             description={serviceType.name}
             name={serviceType.code}
             iconType={false}
-            logo={false}
+            logo={true}
           />
         </Box>
 

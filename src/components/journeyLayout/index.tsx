@@ -64,7 +64,6 @@ const JourneyPage = (props: journeyPageProps) => {
             <VerticalStepper options={stepperOptions} init={stepInit}/>
           }
           </Box>
-          
         </Grid>
 
         <Grid item xs={9} className={rightStyle}>

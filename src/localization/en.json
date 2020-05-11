@@ -44,7 +44,8 @@
     "links": {
       "forgetUsername": "Forgot your Username?",
       "forgetPassword": "Forgot your Password?",
-      "needHelp": "Need Help ?"
+      "needHelp": "Need Help ?",
+      "returnToMoneyTransfer": "Return to Money Transfer"
     },
     "dbErrors": {
       "NO_ESB_ENQUIRY_DETAILS" : "Please enter a valid number",
@@ -305,7 +306,16 @@
     "toAnother":"To Another Mashreq Account",
     "local":"To a Local UAE Account",
     "international":"To An International Account "
-    }
+  },
+  "startYourPayment":{
+    "title":"Start your transfer",
+    "payfrom":"I want to send money from",
+    "to":"To this account",
+    "setAmountButton":"Set Transfer Amount"
+   },
+   "noAccount":"You dont seems to have account",
+   "nobeni":"No beneficiaries detected",
+   "addbeni":"You can add one right now"
   },
   "billPayments": {
     "landing" : {

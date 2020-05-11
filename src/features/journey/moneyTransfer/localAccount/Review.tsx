@@ -1,4 +1,4 @@
-import React, { useState,useEffect, useContext } from "react";
+import React, { useState,useEffect } from "react";
 import {
   Box,
   UnderlineText,
@@ -20,12 +20,11 @@ import PayListItem from "../../../../components/billpayment/review/payList/index
 import { ArrowDown } from "@mashreq-digital/webassets";
 import CardPayNow from "../../../../common/card/CardPayNow";
 import { getPayListFormattedData } from '../../../../util/getPayListFormattedData';
-import { MONEY_TRANSFER_JOURNEY_WITHIN_SUCCES, MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT } from "../../../../router/config";
+import { MONEY_TRANSFER_JOURNEY_LOCAL_SUCCES, MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT } from "../../../../router/config";
 import { useHistory } from 'react-router-dom';
 import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
 import Loader from '../../../../common/loader/index';
 import ImageWithText from '../../../../common/imageWithText/index';
-import { DispatchContext, StateContext } from "../../../../redux/context";
 
 
 
@@ -43,15 +42,14 @@ const Review = (props: any) => {
   const { serviceType,setStep } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(true);
   const [successMessage, setSuccessMessage] = useState("");
   const [startPayentData, setStartPaymentData] = useState({});
 
   const { iconStyle } = useStyles();
-  const transferState = useContext(StateContext);
-  let { transfer } = transferState;
-
-
-
+  let transfer = useSelector(
+    (state: any) => state.moneyTransfer.other.transfer
+  );
   const financialTxnNumber = useSelector(
     (state: any) => state.moneyTransfer.other.payListData.financialTxnNumber
   );
@@ -86,14 +84,16 @@ const Review = (props: any) => {
     if(transaction && transaction.error || transaction.response)
    { 
     if (transaction.error) {
-      gotoConfirmation(false);
+      setSuccess(false);
+      gotoConfirmation();
     } else {
       setSuccessMessage(
         transaction &&
           transaction.response &&
           transaction.response.mwReferenceNo
       );
-      gotoConfirmation(true);
+      setSuccess(true);
+      gotoConfirmation();
     }
   }
     
@@ -103,16 +103,16 @@ const Review = (props: any) => {
   }, [transaction]);
 
 
-const gotoConfirmation = (confirmation:boolean) => {
+const gotoConfirmation = () => {
   history.replace({
-    pathname: MONEY_TRANSFER_JOURNEY_WITHIN_SUCCES,
+    pathname: MONEY_TRANSFER_JOURNEY_LOCAL_SUCCES,
     state: {
       serviceType:serviceType,
-      success:confirmation,
+      success:success,
       data:startPayentData,
       type:serviceType.code,
-      title:t(`billPayments.steps.confirmation.${confirmation ? "success" : "failure"}.title`),
-      subTitle:!confirmation ? "oops! somthing went wrong" : successMessage
+      title:t(`billPayments.steps.confirmation.${success ? "success" : "failure"}.title`),
+      subTitle:!success ? "oops! somthing went wrong" : successMessage
     }
   });
   setStep(3);
@@ -121,7 +121,7 @@ const gotoConfirmation = (confirmation:boolean) => {
 
   const onHandleBack = () => {
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT,
+      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT,
       state: {serviceType:serviceType}
     });
     setStep(1);
@@ -172,9 +172,13 @@ const gotoConfirmation = (confirmation:boolean) => {
 
             }
             rightContent={
-              <PayListItem data={
+              transfer.toAccount.serviceTypeCode === "within-mashreq"? <PayListItem data={
                 getPayListFormattedData(destAcount, "benificiary")            
-              } /> 
+              } /> :
+              <PayListItem data={
+              getPayListFormattedData(destAcount, "accounts")            
+            } />
+          
           }
           />
 

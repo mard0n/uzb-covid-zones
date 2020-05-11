@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   UnderlineText,
   Button,
@@ -13,19 +13,22 @@ import {
   Body1,
   H5,
 } from "@mashreq-digital/ui";
-import { useSelector } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Check, Phone24, ArrowDown, User } from "@mashreq-digital/webassets";
+import { Check, Phone24, User } from "@mashreq-digital/webassets";
 // import getBeneficiariesAvatar from "../../../../util/getBeneficiariesAvatar";
 import SucessFailureIcon from "../../../../common/successFailureIcon";
 import CardPayNow from "../../../../common/card/CardPayNow";
 import PaymentReceipt from "../../../../common/paymentReceipt/index";
 import CardDash from "../../../../common/cardDash";
 import { getPayListFormattedData } from "../../../../util/getPayListFormattedData";
-import { withinMashreq } from "../../../../util/constants";
 import PayListItem from "../../../../components/billpayment/review/payList/index";
 import { useHistory } from "react-router-dom";
-import { MONEY_TRANSFER_LANDING } from "../../../../network/Endpoints";
+import { MONEY_TRANSFER } from "../../../../router/config";
+import { DispatchContext, StateContext } from "../../../../redux/context";
+import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
+import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
+import * as Transaction from "../../../../redux/actions/moneyTransfer/transaction";
 
 type SuccessProps = {
   success: boolean;
@@ -47,20 +50,18 @@ const useStyles = makeStyles(() => ({
 
 const Success = (props: SuccessProps) => {
   // const { capitalize, cardPay } = useStyles();
-  const {
-    data,
-    onReceiptCallback,
-    title,
-    success,
-    subTitle,
-  } = props;
+  const { data, onReceiptCallback, title, success, subTitle } = props;
+  console.log("Success -> props pyr", props);
+  
   const { t } = useTranslation();
   const { successIconStyle } = useStyles();
   const [payRecieptModal, setPayRecieptModal] = useState(false);
 
-  let transfer = useSelector(
-    (state: any) => state.moneyTransfer.other.transfer
-  );
+  const transferDispatch = useContext(DispatchContext);
+  const transferState = useContext(StateContext);
+  let { transfer } = transferState;
+  let dispatch = useDispatch();
+
   let srcAcount = transfer.fromAccount;
   let destAcount = transfer.toAccount;
   let history = useHistory();
@@ -71,11 +72,14 @@ const Success = (props: SuccessProps) => {
   };
 
   const onDoneCallback = () => {
-    history.replace({
-      pathname: MONEY_TRANSFER_LANDING,
+    transferDispatch(TransferActions.setTransferObject({}));
+    dispatch(Actions.fetchPayListClear());
+    dispatch(Transaction.moneyTransferInitiateTransferClear());
+    history.push({
+      pathname: MONEY_TRANSFER,
     });
   };
-  
+
   let payreceptData = {
     "Paid To": "Etisalat",
     "Etisalat Mobile Number": data.accountNumber,
@@ -136,10 +140,7 @@ const Success = (props: SuccessProps) => {
                 rightContent={
                   <PayListItem
                     active={false}
-                    data={getPayListFormattedData(
-                      destAcount,
-                      "accounts"
-                    )}
+                    data={getPayListFormattedData(destAcount, "accounts")}
                   />
                 }
               />

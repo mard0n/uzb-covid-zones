@@ -8,25 +8,24 @@ import SetTransferAmount from "./setTransferAmount";
 import Review from "./Review";
 import Success from "./Success";
 import JourneySidebar from "../../../../components/JourneySidebar/index";
-import { MONEY_TRANSFER_WITHIN_MASHREQ_STEPS } from "../../../../util/constants";
+import { MONEY_TRANSFER_LOCAL_STEPS } from "../../../../util/constants";
 import transfer from "../../../../redux/reducers/moneyTransfer/transfer";
-import { DispatchContext, StateContext } from "../../../../redux/context";
 const { postLogin, sidebarWidth, defaultGutter } = globalStyle;
 const routes: any = [
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_WITHIN_START,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_LOCAL_START,
     component: StartPayments,
   },
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT,
     component: SetTransferAmount,
   },
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_WITHIN_REVIEW,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW,
     component: Review,
   },
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_WITHIN_SUCCES,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_LOCAL_SUCCES,
     component: Success,
   },
 ];
@@ -41,15 +40,18 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-const MoneyTransferJourneyWithinMashreq = () => {
+const StateContext = React.createContext<any>(null);
+const DispatchContext = React.createContext((() => {}) as any);
+
+const MoneyTransferJourneyLocal = () => {
   console.log(
-    " routerSwitch MoneyTransferJourneyWithinMashreq -> MoneyTransferJourneyWithinMashreq"
+    " routerSwitch MoneyTransferJourneyLocal -> MoneyTransferJourneyLocal"
   );
   const { mainLayout } = useStyles();
   const location = useLocation();
-  const state = location.state;
-  let serviceType = (state as any)?.serviceType;
-  let resumeFileds = (state as any)?.resumeFileds;
+  const historyState = location.state;
+  let serviceType = (historyState as any)?.serviceType;
+  let resumeFileds = (historyState as any)?.resumeFileds;
   const [step, setStep] = useState(0);
   const [transferState, transferDispatch] = useReducer(transfer, {
     transfer: {},
@@ -60,7 +62,7 @@ const MoneyTransferJourneyWithinMashreq = () => {
       <DispatchContext.Provider value={transferDispatch}>
         <StateContext.Provider value={transferState}>
           <JourneySidebar
-            steps={MONEY_TRANSFER_WITHIN_MASHREQ_STEPS}
+            steps={MONEY_TRANSFER_LOCAL_STEPS}
             currentStep={step}
           />
           <Box className={mainLayout}>
@@ -71,7 +73,7 @@ const MoneyTransferJourneyWithinMashreq = () => {
                     serviceType={serviceType}
                     setStep={(st: any) => setStep(st)}
                     resumeFileds={resumeFileds}
-                    {...state}
+                    {...historyState}
                   />
                 </Route>
               );
@@ -83,4 +85,4 @@ const MoneyTransferJourneyWithinMashreq = () => {
   );
 };
 
-export default MoneyTransferJourneyWithinMashreq;
+export default MoneyTransferJourneyLocal;

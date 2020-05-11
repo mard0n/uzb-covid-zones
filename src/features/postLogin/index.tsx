@@ -57,7 +57,6 @@ const PostLogin = () => {
             );
           })}
         </Switch>
-        <Redirect from="*" to={RoutePath.DASHBOARD} />
       </Box>
     </Box>
   );
@@ -67,3 +66,4 @@ export default PostLogin;
 
 
 // dashboard  =====>  /  
+// <Redirect from="*" to={RoutePath.DASHBOARD} />

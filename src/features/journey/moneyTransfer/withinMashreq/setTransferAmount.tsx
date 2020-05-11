@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   UnderlineText,
   H2,
@@ -26,16 +26,23 @@ import { isValidFloatNumber } from "../../../../util/validations/ValidationUtils
 import { useHistory } from 'react-router-dom';
 import { MONEY_TRANSFER_JOURNEY_WITHIN_REVIEW, MONEY_TRANSFER_JOURNEY_WITHIN_START } from '../../../../router/config';
 import ImageWithText from '../../../../common/imageWithText/index';
+import { DispatchContext, StateContext } from "../../../../redux/context";
+import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
 
 
 const SetTransferAmount = (props: any) => {
 
-  const {  serviceType ,setStep} = props;
+  const {  serviceType ,setStep} = props;  
+  const transferDispatch = useContext(DispatchContext);
+  const transferState = useContext(StateContext);
+  let { transfer } = transferState;
 
-  const dispatch = useDispatch();
-  let transfer = useSelector(
-    (state: any) => state.moneyTransfer.other.transfer
-  );
+
+  // let transfer = useSelector(
+  //   (state: any) => state.moneyTransfer.other.transfer
+  // );
+
+
   const [exchangeRate, setExchangeRate] = useState("");
   const [enableButton, setEnableButton] = useState(true);
   const [maxAmounts, setMaxAmounts]: any = useState({});
@@ -76,8 +83,9 @@ const SetTransferAmount = (props: any) => {
         type: srcCurrency,
       },
     };
-    dispatch(Actions.setTransferObject(transfer));
+    transferDispatch(TransferActions.setTransferObject(transfer));
 
+    console.log("onNextStep -> transfer kaka", transfer)
     history.replace({
       pathname: MONEY_TRANSFER_JOURNEY_WITHIN_REVIEW,
       state: {serviceType:serviceType}
