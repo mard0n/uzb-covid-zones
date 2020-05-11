@@ -44,7 +44,7 @@ const KycView: React.FC<RoutableComponentProps> = ({history}) => {
 
     useEffect(() => {
         console.log("im am the outcome",outcome,history)
-        // outcome && history!.push(outcome)
+         outcome && history!.push(outcome)
     },[history, outcome])
 
     return (
