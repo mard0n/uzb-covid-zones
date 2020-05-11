@@ -36,7 +36,7 @@ export interface IProfileResponse {
   company: string | null;
   annualIncome: number;
   kycNextReviewDate: string;
-  customerIdentifier: string;
+  customerIdentifier: string | null;
   customerSegment: string;
   highRiskCountryNational: boolean;
   firstName: string;
@@ -112,8 +112,8 @@ export type RoutableComponentProps = Partial<
 >;
 
 export interface IRouteConfigObject extends RouteConfig {
-  path: string;
-  component: React.FC<RoutableComponentProps>;
+  path?: string;
+  component?: React.FC<RoutableComponentProps>;
   routes?: Array<IRouteConfigObject>;
   // nextRoute?: string
   // if?: IIfCondition

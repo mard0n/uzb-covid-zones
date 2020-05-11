@@ -17,8 +17,8 @@ const transformInitialState = (initialState: IProfileResponse) : Array<IKycState
             const match =  profile.riskLevel.match(/(\d+)/)
             defaultRiskLevel = match ? parseInt(match[0]) : defaultRiskLevel;
         }
-
-        const riskLevelForCustomerIdentifier: CUSTOMER_IDENTIFIER_MAPPING = parseInt((<any>CUSTOMER_IDENTIFIER_MAPPING)[profile.customerIdentifier])
+        //TODO: Change as necessary
+        const riskLevelForCustomerIdentifier: CUSTOMER_IDENTIFIER_MAPPING = profile.customerIdentifier ? parseInt((<any>CUSTOMER_IDENTIFIER_MAPPING)[profile.customerIdentifier]) : 1;
         let customerSegment = SEGMENT.RETAIL;
         if(profile.customerSegment === "CUSTGOLD" 
             || profile.customerSegment === "CUSTPVT" ) {

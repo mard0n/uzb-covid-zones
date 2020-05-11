@@ -4,7 +4,7 @@ import { Switch, useRouteMatch } from 'react-router-dom';
 import { RoutableComponentProps } from '../types';
 import { useTranslation } from "react-i18next";
 
-const EmploymentView : React.FC<RoutableComponentProps> = ({route, location}) => {
+const SalariedEmploymentView : React.FC<RoutableComponentProps> = ({route, location}) => {
     let { url } = useRouteMatch();
     const { t } = useTranslation();
     const state = location && location.state ? location.state : {};
@@ -16,6 +16,7 @@ const EmploymentView : React.FC<RoutableComponentProps> = ({route, location}) =>
     return (
         <>
             <h2>{url}</h2>
+            <h2>Salaried </h2>
 
             <Switch>
                 {route && renderRoutes(route.routes)}
@@ -25,4 +26,4 @@ const EmploymentView : React.FC<RoutableComponentProps> = ({route, location}) =>
     )
 }
 
-export default EmploymentView;
+export default SalariedEmploymentView;

@@ -1,9 +1,12 @@
 // import {initialCondition} from './conditions';
 import DummyComponent from "../DummyComponent";
 import Profile from "../profile/index";
-import Employment from "../employment/index";
+import SalariedEmployment from "../employment/SalariedEmployment";
  //import Kyc from '../';
 import { routeConfigType } from "../types";
+import UnknownEmploymentView from "../employment/UnknownEmployment";
+import SelfEmploymentView from "../employment/SelfEmployment";
+import NoEmploymentView from "../employment/NoEmployment";
 
 const routeConfigs: routeConfigType = [
   {
@@ -20,11 +23,31 @@ const routeConfigs: routeConfigType = [
   },
   {
     path: "/kyc/employment",
-    component: Employment,
+    component: DummyComponent,
     routes: [
       {
         path: "/kyc/employment/verify",
         component: DummyComponent,
+        condition: () => ({ nextRoute: "/kyc/entity/verify" })
+      },
+      {
+        path: "/kyc/employment/salaried",
+        component: SalariedEmployment,
+        condition: () => ({ nextRoute: "/kyc/entity/verify" })
+      },
+      {
+        path: "/kyc/employment/selfEmployed",
+        component: SelfEmploymentView,
+        condition: () => ({ nextRoute: "/kyc/entity/verify" })
+      },
+      {
+        path: "/kyc/employment/unemployed",
+        component: NoEmploymentView,
+        condition: () => ({ nextRoute: "/kyc/entity/verify" })
+      },
+      {
+        path: "/kyc/employment/unknown",
+        component: UnknownEmploymentView,
         condition: () => ({ nextRoute: "/kyc/entity/verify" })
       }
     ]
