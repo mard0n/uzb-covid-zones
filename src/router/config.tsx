@@ -3,6 +3,7 @@ export const LOGINPAGE = `/login`;
 export const TEST = `/test`;
 export const PASSCODE = `/passcode`;
 export const MOBILEINFO = `/mobileinfo`;
+export const CIF = `/cif`;
 export const POSTLOGIN = `/`;
 
 

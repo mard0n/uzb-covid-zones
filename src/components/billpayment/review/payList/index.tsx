@@ -206,7 +206,7 @@ const PayListItem = (props: CustomListItemProps) => {
       {type && (type === "salaam" || type === "mm") && balance ? (
         <Box display="flex">
           <Box ml={2.6}>
-            <H4>{formatCurrency(balance)}</H4>
+            <H4>{type === "mm" ? "12 Apr 2020" : formatCurrency(balance)}</H4>
           </Box>
           <Box ml={1.3}><Caption>{t(`dashboard.productSummary.${type}.payList.title`)}</Caption></Box>
         </Box>
