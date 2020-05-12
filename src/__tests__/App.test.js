@@ -1,20 +1,11 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from "react-redux";
+import React from "react";
 import { render, cleanup } from "@testing-library/react";
-import App from '../App';
-import rootReducers from '../redux/reducers';
-import { createStore, combineReducers } from 'redux';
-
-const rootReducer = combineReducers({
-  rootReducers
-});
-
-const store = createStore( rootReducer );
+import DummyTest from '../common/test/index';
 
 afterEach(cleanup);
 
-it("matches snapshot", () => {
-  const { asFragment } = render( <Provider store={store}><Router><App/></Router> </Provider>);
+it("should take a snapshot", () => {
+  const { asFragment } = render(<DummyTest />);
+
   expect(asFragment()).toMatchSnapshot();
 });

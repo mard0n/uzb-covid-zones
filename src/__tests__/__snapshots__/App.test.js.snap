@@ -483,3 +483,14 @@ exports[`matches snapshot 1`] = `
    
 </DocumentFragment>
 `;
+
+exports[`should take a snapshot 1`] = `
+<DocumentFragment>
+  <div>
+    <h1>
+      Hello Dummy Test
+    </h1>
+    &gt; 
+  </div>
+</DocumentFragment>
+`;
