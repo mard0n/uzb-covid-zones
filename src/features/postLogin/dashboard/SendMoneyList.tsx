@@ -72,7 +72,7 @@ const SendMoneyList = () => {
                     variant="text"
                     color="primary"
                     onClick={() =>
-                      history.push(RoutePath.MONEYTRANSFER)
+                      history.push(RoutePath.MONEY_TRANSFER)
                     }
                   >
                     {t("dashboard.sendMoney.buttonLinkLabel")}

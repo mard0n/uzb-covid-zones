@@ -13,10 +13,10 @@ import { useTranslation } from "react-i18next";
 import CardPayNow from "../../../common/card/CardPayNow";
 import { useDispatch } from "react-redux";
 import * as Action from "../../../redux/actions/moneyTransfer/landingActions";
-import * as PayListActions from "../../../redux/actions/moneyTransfer/payListActions";
-
 import { useSelector } from "react-redux";
-import ManageMoneyTransferModal from './manage/index';
+import { useHistory } from 'react-router-dom';
+import { MONEY_TRANSFER_JOURNEY_WITHIN_START, MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START, MONEY_TRANSFER_JOURNEY_LOCAL_START } from "../../../router/config";
+import { withinMashreq } from "../../../util/constants";
 
 let serviceTypeCode = [
   { type: "local", icon: CashPinMap, logo: false },
@@ -27,28 +27,50 @@ let serviceTypeCode = [
 
 const MoneyTransfer = (props: any) => {
   const { t } = useTranslation();
-  const [addServiceType, setAddServiceType] = useState("");
-  const [addEditModal, setaddEditModal] =  useState(false);
+  const [serviceType, setServiceType] = useState("");
+  let history = useHistory();
+  // const [addEditModal, setaddEditModal] =  useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Action.fetchMoneyTransferLandingRequest());
   }, [dispatch]);
 
-  const closeDialogModal = () => {
-    setaddEditModal(false);
-    dispatch(PayListActions.fetchPayListClear());
-  };
+  // const closeDialogModal = () => {
+  //   setaddEditModal(false);
+  //   dispatch(PayListActions.fetchPayListClear());
+  // };
 
-  const onSuccessCallback = () => {
-        setaddEditModal(false)
-  };
+  // const onSuccessCallback = () => {
+  //       setaddEditModal(false)
+  // };
 
+  const onTransferSelection = (eachServiceType: any) => {
+    console.log("onTransferSelection -> bla eachServiceType", eachServiceType);
+
+    switch (eachServiceType.code) {
+      case withinMashreq:
+        history.push({
+          pathname: MONEY_TRANSFER_JOURNEY_WITHIN_START,
+          state: { serviceType: eachServiceType },
+        });
+        break;
+      case "own-account":
+        history.push({
+          pathname: MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START,
+          state: { serviceType: eachServiceType },
+        });
+        break;
+      case "local":
+        history.push({
+          pathname: MONEY_TRANSFER_JOURNEY_LOCAL_START,
+          state: { serviceType: eachServiceType },
+        });
+    }
+  };
   
   const serviceTypes = useSelector(
     (state: any) => state?.moneyTransfer?.landing?.serviceTypesFT
   );
-  console.log("MoneyTransfer -> serviceTypes", serviceTypes);
-
   return (
     <>
       <Box mb={10}>
@@ -71,11 +93,7 @@ const MoneyTransfer = (props: any) => {
                 <TransferTypeCard
                   Icon={prop?.icon}
                   logo={prop?.logo}
-                  callbak={() => {
-                    setAddServiceType(eachServiceType);
-                    setaddEditModal(true)
-                    console.log("MoneyTransfer -> console");
-                  }}
+                  callbak={()=>onTransferSelection(eachServiceType)}
                   title={eachServiceType.name}
                 />
               </Grid>
@@ -110,17 +128,6 @@ const MoneyTransfer = (props: any) => {
         </Grid>
       </Grid>
       </Grid>
-
-      
-      {addEditModal && (
-        <ManageMoneyTransferModal
-          serviceType={addServiceType}
-          iconType = {true}
-          open={addEditModal}
-          onCloseCallback={() => closeDialogModal()}
-          finalCallback={() => onSuccessCallback()}
-        />
-      )}
 
     </>
   );

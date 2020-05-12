@@ -39,9 +39,10 @@ export function fetchMoneyTransferInitiate(action: any) {
  */
 export function* workerMoneyTransferInitiateSaga(action: any) {
   try {
-    console.log("Money transfer called.... ", action);
+    console.log("Money transfer called.... pyr ", action);
     const response = yield call(fetchMoneyTransferInitiate, action);
-    console.log("Money response.... ", response.data);
+    console.log("Money response.... pyr ", response.data);
+    
     if (response.data.hasError) {
       console.log("ERROR --", response.data.errorMessage);
       yield put(
@@ -54,6 +55,8 @@ export function* workerMoneyTransferInitiateSaga(action: any) {
     } else {
       Actions.moneyTransferInitiateTransferFailure(response.data.errorMessage);
     }
+
+
   } catch (error) {
     console.log("ERROR --", error);
     yield put(Actions.moneyTransferInitiateTransferFailure(error));

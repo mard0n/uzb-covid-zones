@@ -38,5 +38,6 @@ export const getServiceTypes = (value: string) => {
 }
 
 export const formatCurrency = (value: number) => {
-  return value ? value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : '';
+console.log("formatCurrency -> value idu", value);
+  return !isNaN(value) ? value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : '';
 };

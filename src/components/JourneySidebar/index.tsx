@@ -1,11 +1,8 @@
 import React from "react";
-import { Box, Drawer, createStyles, makeStyles, Theme } from "@mashreq-digital/ui";
-import SidebarNav from "./SidebarNav";
-import { pages } from "./pages";
-// import { getMashreqLogo } from "@mashreq-digital/webassets";
+import { Drawer, createStyles, makeStyles, Theme } from "@mashreq-digital/ui";
 import { useLocation } from "react-router-dom";
 import { globalStyle } from "../../util/constants";
-import JourneyPage from '../journeyLayout/index';
+import VerticalStepper2 from './VerticalStepper2';
 
 // const MashreqLogo = getMashreqLogo();
 const { postLogin, sidebarWidth, defaultGutter } = globalStyle;
@@ -29,6 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
       }
     },
     drawerPaper: {
+      background:"rgb(248, 249, 251)",
       top: drawerTop,
       width: drawerWidth,
       height: drawerHeight,
@@ -37,32 +35,9 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-let SideDrawer = () => {
+let JourneySidebar = (props:any) => {
   const { drawer, drawerPaper } = useStyles();
-  const location = useLocation();
-  const currentUrl = location && location.pathname ? location.pathname : "";
-
-
-  let sidebarCondition = [
-      "dashboard",
-      "beneficiaries",
-      "billpayment",
-      "moneytransfer",
-    ],
-    splitUrl = currentUrl.indexOf("/") > -1 ? currentUrl.split("/") : [],
-    enableSidebar =
-      splitUrl && splitUrl.length > 0
-        ?sidebarCondition.indexOf(splitUrl[1]) > -1
-        : false;
-
-        // enableSidebar =
-        // splitUrl && splitUrl.length > 0
-        //   ?!(sidebarExcept.indexOf(splitUrl[2]) > -1)
-        //   : false;  
-
-  if (!enableSidebar) {
-    return <></>;
-  } else {
+  const {steps, currentStep} = props;
     return (
       <Drawer
         open={true}
@@ -73,14 +48,10 @@ let SideDrawer = () => {
         }}
         anchor="left"
       >
-        <Box display="flex" alignItems="center">
-          {/* <MashreqLogo width="80px" height="40px" /> */}
-        </Box>
-
-        <SidebarNav pages={pages} />
+        <VerticalStepper2 steps={steps} currentStep={currentStep} />
       </Drawer>
     );
   }
-};
 
-export default SideDrawer;
+
+export default JourneySidebar;

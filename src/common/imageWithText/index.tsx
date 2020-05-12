@@ -7,6 +7,8 @@ type ImageWithTextProps = {
   className?: any;
   iconType?: any;
   logo?: any;
+  avtHight?:any;
+  avtWidth?:any;
   onClick?: any;
   description?: any;
   data?: any;
@@ -16,17 +18,17 @@ const useStyles = makeStyles((theme: any) => ({
   captionStyle: {
     textTransform: "capitalize",
   },
-  avt: {
-    minHeight: "64px",
-    minWidth: "64px",
+  avt: (props: any) =>( {
+    minHeight:props.avtHight,
+    minWidth: props.avtWidth,
     color: theme.palette.getContrastText("rgba(255, 94, 0, 0.14)"),
     backgroundColor: "rgba(255, 94, 0, 0.14)",
-  },
+  }),
 }));
 
 const ImageWithText = (props: ImageWithTextProps) => {
-  const { name, data, className, onClick, description, iconType, logo } = props;
-  const { captionStyle, avt } = useStyles();
+  const { name, data, className, onClick, description, iconType, logo , avtHight="64px", avtWidth="64px"} = props;
+  const { captionStyle, avt } = useStyles({avtHight,avtWidth});
   let NotIcon = getBeneficiariesAvatar(
     data && data.code ? data.code.toLowerCase() : name.toLowerCase()
   );

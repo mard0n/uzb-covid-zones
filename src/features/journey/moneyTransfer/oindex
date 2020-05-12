@@ -1,0 +1,219 @@
+// import React, { useState, useEffect } from "react";
+// import AuthOtp from "../../../components/authOtp";
+// import StepperDialogModal from "../../../components/stepperDialog/stepperDialogModal";
+// import Review from "./Review";
+// import { useTranslation } from "react-i18next";
+// import Success from "./Success";
+// import StartPayments from "./startYourPayments";
+// import Loader from "../../../common/loader";
+// import SetTransferAmount from "./setTransferAmount";
+// import PickTime from "./pickTime";
+// import { useDispatch, useSelector } from "react-redux";
+// import * as Actions from "../../../redux/actions/moneyTransfer/transaction";
+// import * as PayListActions from "../../../redux/actions/moneyTransfer/payListActions";
+// import { withinMashreq } from "../../../util/constants";
+// import { useLocation, useParams } from "react-router-dom";
+// import JourneyLayout from "../../../components/journeyLayout/journeyLayout";
+// import { useRouter } from "../../../util/useRouter";
+// import { MONEY_TRANSFER_JOURNEY, MONEY_TRANSFER } from "../../../router/config";
+// const ManageMoneyTransferJourney = (props: any) => {
+//   const { children, finalCallback, onCloseCallback, ...rest } = props;
+
+//   // useEffect(() => {
+//   //   console.log(location.pathname); // result: '/secondpage'
+//   //   const state = location.state;
+//   //   serviceType = (state as any)?.serviceType;
+
+//   //   console.log("ManageMoneyTransferJourney -> serviceType bla", serviceType);
+
+//   // }, [location]);
+
+//   const leftSideOptions = [
+//     "Start Your Transfer",
+//     "Set transfer amount",
+//     "Pick a time",
+//     "Review",
+//     "Confirmation",
+//   ];
+//   const [options, setOptions] = useState(leftSideOptions);
+//   const [step, setStep] = useState("");
+//   const [startPayentData, setStartPaymentData] = useState({});
+//   const [success, setSuccess] = useState(true);
+//   const [successMessage, setSuccessMessage] = useState(
+//     "Congradulations Your transaction was succesfull"
+//   );
+//   const [loading, setLoading] = useState(false);
+//   const [stepInit, setStepInit] = useState("Start Your Transfer");
+//   const { t } = useTranslation();
+//   const dispatch = useDispatch();
+
+//   const router = useRouter();
+//   const state = router.location.state;
+//   let serviceType = (state as any)?.serviceType;
+
+//   console.log("ManageMoneyTransferJourney -> params ", router.query);
+//   console.log("ManageMoneyTransferJourney -> serviceType ", serviceType);
+
+//   let transaction = useSelector(
+//     (state: any) => state.moneyTransfer.makeTransfer
+//   );
+//   const onSubmitReview = (item: any) => {
+//     dispatch(Actions.moneyTransferInitiateTransfer(item));
+
+//     updateStep({ step: "confirmation", stepInit: "Confirmation" });
+//     router.history.push({
+//       pathname: MONEY_TRANSFER_JOURNEY + "/5",
+//       state: { serviceType: serviceType },
+//     });
+//     setStartPaymentData(item);
+//   };
+
+//   useEffect(() => {
+//     setLoading(transaction.loading);
+//     if (transaction.error) {
+//       setSuccess(false);
+//     } else {
+//       setSuccessMessage(
+//         transaction &&
+//           transaction.response &&
+//           transaction.response.mwReferenceNo
+//       );
+//       setSuccess(true);
+//     }
+//   }, [transaction]);
+
+//   const successFailureCallback = () => {
+//     dispatch(PayListActions.setTransferObject({}));
+//     dispatch(PayListActions.fetchPayListClear());
+//     // if (finalCallback && typeof finalCallback === "function") {
+//     //   finalCallback();
+//     // }
+
+//     router.history.push({
+//       pathname: MONEY_TRANSFER,
+//     });
+//   };
+
+//   const onHandleBack = () => {
+//     setOptions(leftSideOptions);
+//   };
+
+//   const updateStep = (data: any) => {
+//     setStep(data.step);
+//     setStepInit(data.stepInit);
+//   };
+
+//   const onSubmitPayment = (data: any) => {
+//     updateStep({
+//       step: "Set transfer amount",
+//       stepInit: "Set transfer amount",
+//     });
+//     router.history.push({
+//       pathname: MONEY_TRANSFER_JOURNEY + "/2",
+//       state: { serviceType: serviceType },
+//     });
+//   };
+
+//   const onSubmitSetTransfer = (data: any) => {
+//     updateStep({ step: "Pick a time", stepInit: "Pick a time" });
+//     router.history.push({
+//       pathname: MONEY_TRANSFER_JOURNEY + "/3",
+//       state: { serviceType: serviceType },
+//     });
+//   };
+
+//   const onSubmitPickTime = (data: any) => {
+//     updateStep({ step: "Review", stepInit: "Review" });
+//     router.history.push({
+//       pathname: MONEY_TRANSFER_JOURNEY + "/4",
+//       state: { serviceType: serviceType },
+//     });
+//   };
+
+//   const switchComponent = (query: any) => {
+//     switch (query.step) {
+//       //case 1 will be default
+//       case "2":
+//         return (
+//           <SetTransferAmount
+//             serviceType={serviceType}
+//             onHandleBack={() =>
+//               updateStep({
+//                 step: "Start Your Transfer",
+//                 stepInit: "Start Your Transfer",
+//               })
+//             }
+//             onNextStep={onSubmitSetTransfer}
+//           />
+//         );
+//       case "3":
+//         return (
+//           <PickTime
+//             onHandleBack={() =>
+//               updateStep({
+//                 step: "Set transfer amount",
+//                 stepInit: "Set transfer amount",
+//               })
+//             }
+//             onNextStep={onSubmitPickTime}
+//           />
+//         );
+//       case "4":
+//         return (
+//           <Review
+//             data={startPayentData}
+//             type={serviceType.code}
+//             onHandleBack={() =>
+//               updateStep({ step: "Pick a time", stepInit: "Pick a time" })
+//             }
+//             onSubmit={onSubmitReview}
+//           />
+//         );
+//       case "5":
+//         if (!loading) {
+//           return (
+//             <Success
+//               success={success}
+//               data={startPayentData}
+//               type={serviceType.code}
+//               title={t(
+//                 `billPayments.steps.confirmation.${
+//                   success ? "success" : "failure"
+//                 }.title`
+//               )}
+//               subTitle={!success ? "oops! somthing went wrong" : successMessage}
+//               onDoneCallback={() => successFailureCallback()}
+//             />
+//           );
+//         } else {
+//           return <Loader enable={true} />;
+//         }
+//       default:
+//         return (
+//           <StartPayments
+//             data={startPayentData}
+//             type={serviceType.code}
+//             onSubmitPayment={onSubmitPayment}
+//             onHandleBack={() => onHandleBack()}
+//           />
+//         );
+//     }
+//   };
+
+//   return (
+//     <JourneyLayout
+//       {...rest}
+//       iconType={serviceType.code !== withinMashreq}
+//       logo={serviceType.code === withinMashreq}
+//       stepperOptions={options}
+//       stepperInit={stepInit}
+//       step={step}
+//       type={serviceType.code}
+//       description={serviceType.name}
+//       onCloseCallback={() => onCloseCallback()}
+//       content={switchComponent(router.query)}
+//     />
+//   );
+// };
+
+// export default ManageMoneyTransferJourney;
