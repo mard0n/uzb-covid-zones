@@ -143,6 +143,8 @@ const StartPayments = (props:any) => {
           name={serviceType.code}
           iconType={false}
           logo={true}
+          avtHight="40px"
+          avtWidth="40px"
         />
       </Box>
 

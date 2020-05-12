@@ -12,7 +12,7 @@ const useStyle = makeStyles((theme: Theme) => ({
     position: "relative",
     height: (props: any) => {
       const calcFont = 18 * props.steps.length;
-      const calcMargin = 13 * (props.steps.length - 1);
+      const calcMargin = 24 * (props.steps.length - 1);
       return `${calcFont + calcMargin}px`;
     },
     background: "#dde0e9",
@@ -39,7 +39,7 @@ const useStyle = makeStyles((theme: Theme) => ({
   },
 
   stepText: {
-    marginBottom: theme.spacing(2.1666666667),
+    marginBottom: theme.spacing(4),
     color: "#313131",
     fontWeight: 500,
     lineHeight: theme.typography.pxToRem(18),

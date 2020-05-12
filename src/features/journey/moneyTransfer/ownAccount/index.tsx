@@ -60,7 +60,6 @@ const MoneyTransferJourneyOwnAccount = () => {
     <Box display="flex" height={postLogin.height} mt={`${postLogin.top}px`}>
     <DispatchContext.Provider value={transferDispatch}>
     <StateContext.Provider value={transferState}>
-
     <JourneySidebar
         steps={MONEY_TRANSFER_WITHIN_MASHREQ_STEPS}
         currentStep={step}
