@@ -1,4 +1,4 @@
-FROM nginx:stable-alpine
+FROM mashrequae.azurecr.io/nginx:stable-alpine
 
 # Create and run as non-privileged user
 RUN addgroup -S appgroup && adduser -S appuser -G appgroup && \
