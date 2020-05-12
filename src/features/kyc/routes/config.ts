@@ -36,12 +36,12 @@ const routeConfigs: routeConfigType = [
         component: SalariedEmployment,
         routes : [
           {
-            path: "/kyc/entity/verify",
+            path: "/kyc/employment/salaried/verify",
             component: DummyComponent,
             condition: () => ({ nextRoute: "/kyc/entity/verify" })
           },
           {
-            path: "/kyc/income/employmentIncome",
+            path: "/kyc/employment/salaried/employmentIncome",
             component: DummyComponent,
             condition: () => ({ nextRoute: "/kyc/entity/verify" })
           }

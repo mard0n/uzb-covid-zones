@@ -5,24 +5,17 @@ import { RoutableComponentProps, TRIGGER_EMPLOYMENT_CHANGE } from '../types';
 import { useTranslation } from "react-i18next";
 import { Button } from '@material-ui/core';
 import useExecuteDecision from '../store/hooks/useExecuteDecision';
-import { EMPLOYMENT_INCOME } from '../routes/conditions';
 
 const SalariedEmploymentView : React.FC<RoutableComponentProps> = ({route, location, history}) => {
     let { url } = useRouteMatch();
     const { t } = useTranslation();
-    const state = location && location.state ? location.state : {};
-    const { dispatch, outcome } = useExecuteDecision("employmentStatusChange", EMPLOYMENT_INCOME);
-
-    useEffect(() => {
-        console.log("Salaries page",outcome,history)
-         outcome && history!.push(outcome)
-    },[history, outcome])
+    const state = location && location.state ? location.state : {}
 
     const goToYes = () => {
-        dispatch({type: TRIGGER_EMPLOYMENT_CHANGE, payload: {employmentStatusChange: false} })
+        history!.push("/kyc/employment/salaried/employmentIncome")
     }
     const goToNo = () => {
-        dispatch({type: TRIGGER_EMPLOYMENT_CHANGE, payload: {employmentStatusChange: true} })
+        history!.push("/kyc/employment/salaried/verify")
     }
     
     return (

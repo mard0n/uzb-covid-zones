@@ -76,7 +76,6 @@ const transformInitialState = (initialState: IProfileResponse) : Array<IKycState
                 nationalIdExpiryDays: differenceInDays(parseISO(profile.nationalIdExpiry), Date.now()), //calculatedValue
                 kycExpiredDays: differenceInDays(parseISO(profile.kycNextReviewDate), Date.now()),
                 currentStatus: profile.customerIdentifier ? (<any>CUSTOMER_RETURN_TYPE)[profile.customerIdentifier].currentStatus : EMPLOYMENT_STATUS.UNKNOWN ,
-                employmentStatusChange: false,
                 newStatus: EMPLOYMENT_STATUS.EMPLOYED,
                 newemployerName: profile.employerName,
                 newCompany: profile.company,

@@ -7,11 +7,6 @@ export default (state: any, action: any) => {
         ...state,
         ...action.payload,
       };
-    case TRIGGER_EMPLOYMENT_CHANGE:
-      return {
-        ...state,
-        ...action.payload,
-      };
     case UPDATE_LOGIN_TYPE:
       return {
         ...state,

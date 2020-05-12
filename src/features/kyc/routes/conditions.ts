@@ -119,33 +119,4 @@ const EMPLOYMENT_CONDITION: IDecisionTree = {
   }
 };
 
-const EMPLOYMENT_INCOME: IDecisionTree = {
-  //Salaried and no status change
-  assert: (data: IKycState) =>
-    data.currentStatus === EMPLOYMENT_STATUS.EMPLOYED &&
-    !data.employmentStatusChange,
-  if: {
-    true: {
-      return: {
-        pathname: "/kyc/employment/salaried",
-        state: { titleKey: "kyc.message.futureExpiryUBO" }
-      }
-    },
-    false: {
-      assert: (data: IKycState) =>
-        data.currentStatus === EMPLOYMENT_STATUS.EMPLOYED &&
-        data.employmentStatusChange,
-      if: {
-        true: {
-          return: {
-            pathname: "/kyc/employment/verify",
-            state: { titleKey: "kyc.message.futureExpiryUBO" }
-          }
-        },
-        false: {}
-      }
-    }
-  }
-};
-
-export { PRE_PROFILE_PAGE_CONDITION, EMPLOYMENT_CONDITION, EMPLOYMENT_INCOME };
+export { PRE_PROFILE_PAGE_CONDITION, EMPLOYMENT_CONDITION };
