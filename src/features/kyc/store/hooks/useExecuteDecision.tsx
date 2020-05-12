@@ -10,11 +10,10 @@ const useExecuteDecision = (tracker: string, condition: IDecisionTree) =>  {
     const {active : {[tracker] : stateKey},active} = useKycState()
     const {execute, outcome} = useDecision(active, condition)
 
-
     useEffect(() => {
         console.log("tracker", tracker, stateKey, active);
         stateKey && execute()
-    },[active, execute, stateKey, tracker])
+    },[stateKey])
 
     return {
         dispatch,
