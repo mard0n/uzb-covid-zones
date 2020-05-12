@@ -8,12 +8,25 @@ import * as RoutePath from "./config";
 import PostLogin from "../features/postLogin/";
 import Journey from "../features/journey/index";
 import ProtectedRoute from "./ProtectedRoute";
+import MoneyTransfer from '../features/postLogin/moneyTransfer/index';
+import Kyc from "../features/kyc";
+const NoMatchPage = () => {
+  return <h3>404 - Not found</h3>;
+};
 
 // POSTLOGIN ==>
 const routes = [
   {
     path: RoutePath.LOGINPAGE,
-    component: Login,
+    component: Login
+    },
+  {
+    path: RoutePath.KYC,
+    component: Kyc
+  },
+  {
+    path: RoutePath.ROOT,
+    component: PostLogin
   },
   {
     path: RoutePath.PASSCODE,
@@ -27,6 +40,15 @@ const routes = [
     path: RoutePath.CREATE_ACCOUNT,
     component: PersonalInformation,
   },
+
+  // {
+  //   path: RoutePath.TEST,
+  //   component: Test
+  // },
+  {
+    path: RoutePath.OTHER_ROUTES,
+    component: NoMatchPage
+  }
 ];
 
 const Routes: FunctionComponent = (): JSX.Element => {

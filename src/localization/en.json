@@ -152,8 +152,8 @@
         "currentBalance" : "Current Spender",
         "seeAll" : "See All Cards",
         "empty": {
-          "title" : "Credit Cards",
-          "desc" : "Lorem ipsum dolor sit amet"
+          "title" : "Apply for a card now",
+          "desc" : "It's instant, and paperless"
         }
       },
       "loans" : {
@@ -178,7 +178,7 @@
       },
       "insurances" : {
         "title": "Insurances",
-        "availableBalance" : "Total Premium",
+        "availableBalance" : "Total Cover",
         "currentBalance" : "Monthly Premium",
         "seeAll" : "See All Insurances",
         "empty": {
@@ -206,7 +206,7 @@
         },
         "empty": {
           "title" : "Salaam Rewards",
-          "desc" : "Lorem ipsum dolor sit amet"
+          "desc" : "Earn your salam points"
         }
       }
     }
@@ -375,5 +375,15 @@
   "footer": {
     "copy": "Copyright Mashreq 2020. All rights reserved.",
     "links": ["Disclaimer", "Teram & Conditions", "Sitemap"]
+  },
+  "kyc": {
+    "message": {
+      "jointFutureDate": "Please complete this process so that you continue to have unrestricted access to your account.",
+      "futureExpiryUBO": "Please update and verify your account details at the earliest to have unrestricted access to your account.",
+      "futureExpiry": "Your Profile information is currently up-to-date. However, you can still continue and update any other information.",
+      "expiredBeyondFreeze": "Your account activity may have already been restricted. Please complete this process so that you have unrestricted access to your account.",
+      "expiredMoreThan30": "Please update and verify your account details at the earliest to have unrestricted access to your account.",
+      "expiredLessThan30": "We will need to update some of your details to comply with regulations. You only have to ensure your account activity is not restricted"
+    }
   }
 }
