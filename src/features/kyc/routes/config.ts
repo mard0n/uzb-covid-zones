@@ -1,6 +1,7 @@
 // import {initialCondition} from './conditions';
 import DummyComponent from "../DummyComponent";
 import Profile from "../profile/index";
+import Login from "../login/Login";
 import SalariedEmployment from "../employment/SalariedEmployment";
  //import Kyc from '../';
 import { routeConfigType } from "../types";
@@ -12,7 +13,7 @@ const routeConfigs: routeConfigType = [
   {
     path: "/kyc/login",
     exact: true,
-    component: DummyComponent,
+    component: Login,
   },
   {
     // this should be equivalent to current profile page and default route
