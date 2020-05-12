@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Header,
   LinearProgressBar,
@@ -22,6 +22,11 @@ import { globalStyle } from "../../util/constants";
 import * as PayListActions from "../../redux/actions/moneyTransfer/payListActions";
 import { useHistory } from 'react-router-dom';
 import { MONEY_TRANSFER } from "../../router/config";
+import * as TransferActions from "../../redux/actions/moneyTransfer/transferAction";
+import * as Transaction from "../../redux/actions/moneyTransfer/transaction";
+import { DispatchContext } from "../../redux/context";
+
+
 const { header, logo, defaultGutter } = globalStyle;
 
 const headerIcons = [
@@ -73,7 +78,8 @@ const MOLHeader = (props: any) => {
   }));
   const dispatch = useDispatch();
   const history = useHistory();
-  
+  const transferDispatch = useContext(DispatchContext);
+
   const handleLanguageChange = (event: any) => {
     let newlang = event.target.value,
       dir = newlang && newlang === "ar" ? "rtl" : "ltr";
@@ -83,8 +89,10 @@ const MOLHeader = (props: any) => {
   };
   
   const onReturnClick = ()=>{
-    dispatch(PayListActions.setTransferObject({}));
+    transferDispatch(TransferActions.setTransferObject({}));
     dispatch(PayListActions.fetchPayListClear());
+    dispatch(Transaction.moneyTransferInitiateTransferClear());
+
     history.push({
       pathname: MONEY_TRANSFER,
     });

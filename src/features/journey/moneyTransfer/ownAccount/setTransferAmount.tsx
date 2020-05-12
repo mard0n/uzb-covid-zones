@@ -166,7 +166,7 @@ const SetTransferAmount = (props: any) => {
           <ImageWithText
             description={serviceType.name}
             name={serviceType.code}
-            iconType={false}
+            iconType={true}
             logo={false}
           />
         </Box>

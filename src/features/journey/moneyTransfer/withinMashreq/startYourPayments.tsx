@@ -121,7 +121,7 @@ const StartPayments = (props:any) => {
   useEffect(() => {
     dispatch(Actions.fetchPayListRequest({ type: withinMashreq }));
     dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest());
-    
+
     // console.log("StartPayments -> resumeFileds", resumeFileds);
     // if(!resumeFileds){
     //   transfer = resumeFileds;

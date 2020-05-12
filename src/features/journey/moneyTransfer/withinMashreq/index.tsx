@@ -56,6 +56,7 @@ const MoneyTransferJourneyWithinMashreq = () => {
   });
 
   return (
+  
     <Box display="flex" height={postLogin.height} mt={`${postLogin.top}px`}>
       <DispatchContext.Provider value={transferDispatch}>
         <StateContext.Provider value={transferState}>
@@ -80,6 +81,7 @@ const MoneyTransferJourneyWithinMashreq = () => {
         </StateContext.Provider>
       </DispatchContext.Provider>
     </Box>
+    
   );
 };
 

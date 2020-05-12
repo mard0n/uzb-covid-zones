@@ -150,7 +150,7 @@ console.log("gotoConfirmation -> confirmation pyr", confirmation);
         <ImageWithText
           description={serviceType.name}
           name={serviceType.code}
-          iconType={false}
+          iconType={true}
           logo={false}
         />
       </Box>
