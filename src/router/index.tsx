@@ -25,7 +25,11 @@ const routes = [
     component: Kyc
   },
   {
-    path: RoutePath.ROOT,
+    path: RoutePath.JOURNEY,
+    component: Journey
+  },
+  {
+    path: RoutePath.POSTLOGIN,
     component: PostLogin
   },
   {
@@ -55,6 +59,9 @@ const Routes: FunctionComponent = (): JSX.Element => {
   return (
 
     <Switch>
+    <Route key={"login"} exact path={RoutePath.ROOT}>
+      <Login/>
+    </Route>
 
     {routes.map((route, i) => {
         return (
@@ -65,12 +72,8 @@ const Routes: FunctionComponent = (): JSX.Element => {
       })}
 
   { 
-
-      
   // <ProtectedRoute path={RoutePath.JOURNEY} component={Journey} />
-  // <ProtectedRoute path={RoutePath.POSTLOGIN} component={PostLogin} />
-
-  
+  // <ProtectedRoute path={RoutePath.POSTLOGIN} component={PostLogin} />  
 } 
 
       <Redirect from="*" to={RoutePath.ROOT} />
