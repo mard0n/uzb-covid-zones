@@ -16,10 +16,10 @@ const SelfEmploymentView : React.FC<RoutableComponentProps> = ({route, location,
     // console.log('matchRoutes',branch)
 
     const goToYes = () => {
-        history!.push("/kyc/employment/salaried/employmentIncome")
+        history!.push("/kyc/employment/selfEmployed/income")
     }
     const goToNo = () => {
-        history!.push("/kyc/employment/salaried/verify")
+        history!.push("/kyc/employment/selfEmployed/verify")
     }
 
     return (

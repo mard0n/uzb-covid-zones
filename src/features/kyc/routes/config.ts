@@ -8,6 +8,7 @@ import { routeConfigType } from "../types";
 import UnknownEmploymentView from "../employment/UnknownEmployment";
 import SelfEmploymentView from "../employment/SelfEmployment";
 import NoEmploymentView from "../employment/NoEmployment";
+import EmploymentIncome from "../income/EmploymentIncome";
 
 const routeConfigs: routeConfigType = [
   {
@@ -41,8 +42,8 @@ const routeConfigs: routeConfigType = [
             condition: () => ({ nextRoute: "/kyc/entity/verify" })
           },
           {
-            path: "/kyc/employment/salaried/employmentIncome",
-            component: DummyComponent,
+            path: "/kyc/employment/salaried/income",
+            component: EmploymentIncome,
             condition: () => ({ nextRoute: "/kyc/entity/verify" })
           }
         ]
@@ -50,17 +51,50 @@ const routeConfigs: routeConfigType = [
       {
         path: "/kyc/employment/selfEmployed",
         component: SelfEmploymentView,
-        condition: () => ({ nextRoute: "/kyc/entity/verify" })
+        routes : [
+          {
+            path: "/kyc/employment/selfEmployed/verify",
+            component: DummyComponent,
+            condition: () => ({ nextRoute: "/kyc/entity/verify" })
+          },
+          {
+            path: "/kyc/employment/selfEmployed/income",
+            component: DummyComponent,
+            condition: () => ({ nextRoute: "/kyc/entity/verify" })
+          }
+        ]
       },
       {
         path: "/kyc/employment/unemployed",
         component: NoEmploymentView,
-        condition: () => ({ nextRoute: "/kyc/entity/verify" })
+        routes : [
+          {
+            path: "/kyc/employment/unemployed/verify",
+            component: DummyComponent,
+            condition: () => ({ nextRoute: "/kyc/entity/verify" })
+          },
+          {
+            path: "/kyc/employment/unemployed/income",
+            component: DummyComponent,
+            condition: () => ({ nextRoute: "/kyc/entity/verify" })
+          }
+        ]  
       },
       {
         path: "/kyc/employment/unknown",
         component: UnknownEmploymentView,
-        condition: () => ({ nextRoute: "/kyc/entity/verify" })
+        routes : [
+          {
+            path: "/kyc/employment/unknown/verify",
+            component: DummyComponent,
+            condition: () => ({ nextRoute: "/kyc/entity/verify" })
+          },
+          {
+            path: "/kyc/employment/unknown/income",
+            component: DummyComponent,
+            condition: () => ({ nextRoute: "/kyc/entity/verify" })
+          }
+        ] 
       }
     ]
   },
@@ -75,25 +109,26 @@ const routeConfigs: routeConfigType = [
       }
     ]
   },
-  {
-    path: "/kyc/income",
-    component: DummyComponent,
-    routes: [
-      {
-        path: "/kyc/income/employementIncome",
-        component: DummyComponent,
-        nextRoute: "/kyc/income/updateNotAvailable"
-      },
-      {
-        path: "/kyc/income/updateNotAvailable",
-        component: DummyComponent
-      },
-      {
-        path: "/kyc/income/selfEmployedIncome",
-        component: DummyComponent
-      }
-    ]
-  },
+  // TODO: Can be removed 
+  //{ 
+  //   path: "/kyc/income",
+  //   component: DummyComponent,
+  //   routes: [
+  //     {
+  //       path: "/kyc/income/employementIncome",
+  //       component: DummyComponent,
+  //       nextRoute: "/kyc/income/updateNotAvailable"
+  //     },
+  //     {
+  //       path: "/kyc/income/updateNotAvailable",
+  //       component: DummyComponent
+  //     },
+  //     {
+  //       path: "/kyc/income/selfEmployedIncome",
+  //       component: DummyComponent
+  //     }
+  //   ]
+  // },
   {
     path: "/kyc/business",
     component: DummyComponent,

@@ -1,5 +1,5 @@
 import { IDecisionTree } from "../../../common/decisionTree/interface";
-import { IKycState, EMPLOYMENT_STATUS } from "../types";
+import { IKycState, EMPLOYMENT_STATUS, SEGMENT } from "../types";
 
 const RISK_LEVEL_FREEZE: { [key: string]: number } = {
   Level1: 180,
@@ -119,4 +119,63 @@ const EMPLOYMENT_CONDITION: IDecisionTree = {
   }
 };
 
-export { PRE_PROFILE_PAGE_CONDITION, EMPLOYMENT_CONDITION };
+const POST_EMPLOYMENT_CHECK: IDecisionTree = {
+  assert: (data: IKycState) =>
+    data.currentStatus === EMPLOYMENT_STATUS.EMPLOYED,
+  if: {
+    true: {
+      assert: (data: IKycState) => data.customerSegment === SEGMENT.WEALTH,
+      if: {
+        true: {
+          return: {
+            pathname: "/kyc/wealth"
+          }
+        },
+        false : {
+          return: {
+            pathname: "/kyc/document"
+          }
+        }
+      }
+    },
+    false: {
+      assert: (data: IKycState) =>
+      data.currentStatus === EMPLOYMENT_STATUS.SELF_EMPLOYED,
+      if: {
+        true: {
+          return: {
+            pathname: "/kyc/business"
+          }
+        },
+        false : {
+          assert: (data: IKycState) =>
+           data.currentStatus === EMPLOYMENT_STATUS.NOT_EMPLOYED,
+           if: {
+             true: {
+              assert: (data: IKycState) => data.customerSegment === SEGMENT.WEALTH,
+              if: {
+                true: {
+                  return: {
+                    pathname: "/kyc/wealth"
+                  }
+                },
+                false : {
+                  return: {
+                    pathname: "/kyc/document"
+                  }
+                }
+              }
+             }
+             //Default value??
+           }
+        }
+      }
+    }
+  }
+};
+
+export {
+  PRE_PROFILE_PAGE_CONDITION,
+  EMPLOYMENT_CONDITION,
+  POST_EMPLOYMENT_CHECK
+};

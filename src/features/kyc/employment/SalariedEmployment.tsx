@@ -1,18 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import { renderRoutes, matchRoutes } from 'react-router-config';
 import { Switch, useRouteMatch } from 'react-router-dom';
-import { RoutableComponentProps, TRIGGER_EMPLOYMENT_CHANGE } from '../types';
+import { RoutableComponentProps } from '../types';
 import { useTranslation } from "react-i18next";
 import { Button } from '@material-ui/core';
-import useExecuteDecision from '../store/hooks/useExecuteDecision';
+import useKycState from '../store/hooks/useKycState';
 
 const SalariedEmploymentView : React.FC<RoutableComponentProps> = ({route, location, history}) => {
     let { url } = useRouteMatch();
     const { t } = useTranslation();
     const state = location && location.state ? location.state : {}
+    const { active } = useKycState();
 
     const goToYes = () => {
-        history!.push("/kyc/employment/salaried/employmentIncome")
+        history!.push("/kyc/employment/salaried/income")
     }
     const goToNo = () => {
         history!.push("/kyc/employment/salaried/verify")
@@ -22,7 +23,7 @@ const SalariedEmploymentView : React.FC<RoutableComponentProps> = ({route, locat
         <>
             <h2>{url}</h2>
             <h2>Salaried </h2>
-
+            <h3>Do you still work at {active.employerName}</h3>
             <Button  variant="contained" color="primary" onClick={goToYes } size="medium">Yes</Button>
             <Button  variant="contained" color="primary" onClick={goToNo} size="medium">No</Button>
             <Switch>

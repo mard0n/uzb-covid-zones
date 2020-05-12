@@ -5,23 +5,19 @@ import { RoutableComponentProps } from '../types';
 import { useTranslation } from "react-i18next";
 import { Button } from '@material-ui/core';
 
-const NoEmploymentView : React.FC<RoutableComponentProps> = ({route, location, history}) => {
+const UnemploymentIncome : React.FC<RoutableComponentProps> = ({route, location}) => {
     let { url } = useRouteMatch();
     const { t } = useTranslation();
     const state = location && location.state ? location.state : {};
 
-    const goToYes = () => {
-        history!.push("/kyc/employment/unemployed/income")
-    }
-    const goToNo = () => {
-        history!.push("/kyc/employment/unemployed/verify")
-    }
+    console.log('props.routes', route)
+    console.log('props.location', location)
+    // const branch = matchRoutes(routeConfigs, "/kyc/profile");
+    // console.log('matchRoutes',branch)
     return (
         <>
             <h2>{url}</h2>
-            <h2>No Employment</h2>
-            <Button  variant="contained" color="primary" onClick={ goToYes } size="medium">Yes</Button>
-            <Button  variant="contained" color="primary" onClick={ goToNo} size="medium">No</Button>
+            <h2>Employment Income </h2>
 
             <Switch>
                 {route && renderRoutes(route.routes)}
@@ -31,4 +27,4 @@ const NoEmploymentView : React.FC<RoutableComponentProps> = ({route, location, h
     )
 }
 
-export default NoEmploymentView;
+export default UnemploymentIncome;

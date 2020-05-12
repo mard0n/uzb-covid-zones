@@ -12,7 +12,7 @@ const ProfileView : React.FC<RoutableComponentProps> = ({route, location, histor
     let { url } = useRouteMatch();
     const { t } = useTranslation();
     const state = location && location.state ? location.state : {};
-    const { active} = useKycState()
+    const { active } = useKycState()
     const {execute, outcome} = useDecision(active, EMPLOYMENT_CONDITION)
 
     const [title, setTitle] = useState("");
