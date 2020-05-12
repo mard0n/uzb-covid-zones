@@ -5,7 +5,7 @@ import isAuthenticated from '../util/isAuthenticated';
 
 const ProtectedRoute = ({ component: Component, path }: RouteProps) => {
   if (!isAuthenticated()) {
-    return <Redirect to={RoutePath.LOGINPAGE} />;
+    return <Redirect  to={RoutePath.LOGINPAGE} />;
   }
   return <Route component={Component} path={path} />;
 };

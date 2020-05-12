@@ -19,7 +19,7 @@ const routes = [
   {
     path: RoutePath.LOGINPAGE,
     component: Login
-    },
+  },
   {
     path: RoutePath.KYC,
     component: Kyc
@@ -55,20 +55,22 @@ const Routes: FunctionComponent = (): JSX.Element => {
   return (
 
     <Switch>
-    
-    <ProtectedRoute path={RoutePath.JOURNEY} component={Journey} />
-    <ProtectedRoute path={RoutePath.POSTLOGIN} component={PostLogin} />
 
-    
     {routes.map((route, i) => {
         return (
-          <Route path={route.path}>
+          <Route key={i} path={route.path} >
             <route.component />
           </Route>
         );
       })}
-  { //   <ProtectedRoute path={RoutePath.ROOT} component={PostLogin} />
 
+  { 
+
+      
+  // <ProtectedRoute path={RoutePath.JOURNEY} component={Journey} />
+  // <ProtectedRoute path={RoutePath.POSTLOGIN} component={PostLogin} />
+
+  
 } 
 
       <Redirect from="*" to={RoutePath.ROOT} />
