@@ -34,7 +34,18 @@ const routeConfigs: routeConfigType = [
       {
         path: "/kyc/employment/salaried",
         component: SalariedEmployment,
-        condition: () => ({ nextRoute: "/kyc/entity/verify" })
+        routes : [
+          {
+            path: "/kyc/entity/verify",
+            component: DummyComponent,
+            condition: () => ({ nextRoute: "/kyc/entity/verify" })
+          },
+          {
+            path: "/kyc/income/employmentIncome",
+            component: DummyComponent,
+            condition: () => ({ nextRoute: "/kyc/entity/verify" })
+          }
+        ]
       },
       {
         path: "/kyc/employment/selfEmployed",
@@ -78,7 +89,7 @@ const routeConfigs: routeConfigType = [
         component: DummyComponent
       },
       {
-        path: "/kyc/income//selfEmployedIncome",
+        path: "/kyc/income/selfEmployedIncome",
         component: DummyComponent
       }
     ]

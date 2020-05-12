@@ -8,6 +8,7 @@ import { conditionType } from "../../common/decisionTree/interface";
 export const UPDATE_INITIAL_STATE = "UPDATE_INITIAL_STATE";
 export const SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
 export const UPDATE_LOGIN_TYPE = "UPDATE_LOGIN_TYPE";
+export const TRIGGER_EMPLOYMENT_CHANGE = "TRIGGER_EMPLOYMENT_CHANGE";
 
 /**
  * Active Profiles
@@ -54,6 +55,7 @@ export interface IKycState extends IProfileResponse {
   customerSegment: SEGMENT;
   loginUser: LOGIN_USER_TYPE;
   currentStatus: EMPLOYMENT_STATUS;
+  employmentStatusChange: boolean | null;
   newStatus: EMPLOYMENT_STATUS;
   newemployerName: string;
   newCompany: string | null;

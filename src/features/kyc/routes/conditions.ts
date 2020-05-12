@@ -77,37 +77,39 @@ const PRE_PROFILE_PAGE_CONDITION: IDecisionTree = {
 };
 
 const EMPLOYMENT_CONDITION: IDecisionTree = {
-  assert: (data: IKycState) => data.currentStatus === EMPLOYMENT_STATUS.EMPLOYED,
-  if : {
-    true : {
+  assert: (data: IKycState) =>
+    data.currentStatus === EMPLOYMENT_STATUS.EMPLOYED,
+  if: {
+    true: {
       return: {
         pathname: "/kyc/employment/salaried",
         state: { titleKey: "kyc.message.futureExpiryUBO" }
       }
     },
-      false : {
-        assert: (data: IKycState) => data.currentStatus === EMPLOYMENT_STATUS.SELF_EMPLOYED,
-        if : {
-          true : {
-            return: {
-              pathname: "/kyc/employment/selfEmployed",
-              state: { titleKey: "kyc.message.futureExpiryUBO" }
-            }
-          }, 
-          false : {
-            assert: (data: IKycState) => data.currentStatus === EMPLOYMENT_STATUS.NOT_EMPLOYED,
-            if : {
-              true : {
-                return: {
-                  pathname: "/kyc/employment/unemployed",
-                  state: { titleKey: "kyc.message.futureExpiryUBO" }
-                }
-              }, 
-              false : {
-                return: {
-                  pathname: "/kyc/employment/unknown",
-                  state: { titleKey: "kyc.message.futureExpiryUBO" }
-                }
+    false: {
+      assert: (data: IKycState) =>
+        data.currentStatus === EMPLOYMENT_STATUS.SELF_EMPLOYED,
+      if: {
+        true: {
+          return: {
+            pathname: "/kyc/employment/selfEmployed",
+            state: { titleKey: "kyc.message.futureExpiryUBO" }
+          }
+        },
+        false: {
+          assert: (data: IKycState) =>
+            data.currentStatus === EMPLOYMENT_STATUS.NOT_EMPLOYED,
+          if: {
+            true: {
+              return: {
+                pathname: "/kyc/employment/unemployed",
+                state: { titleKey: "kyc.message.futureExpiryUBO" }
+              }
+            },
+            false: {
+              return: {
+                pathname: "/kyc/employment/unknown",
+                state: { titleKey: "kyc.message.futureExpiryUBO" }
               }
             }
           }
@@ -115,5 +117,35 @@ const EMPLOYMENT_CONDITION: IDecisionTree = {
       }
     }
   }
+};
 
-export { PRE_PROFILE_PAGE_CONDITION, EMPLOYMENT_CONDITION };
+const EMPLOYMENT_INCOME: IDecisionTree = {
+  //Salaried and no status change
+  assert: (data: IKycState) =>
+    data.currentStatus === EMPLOYMENT_STATUS.EMPLOYED &&
+    !data.employmentStatusChange,
+  if: {
+    true: {
+      return: {
+        pathname: "/kyc/employment/salaried",
+        state: { titleKey: "kyc.message.futureExpiryUBO" }
+      }
+    },
+    false: {
+      assert: (data: IKycState) =>
+        data.currentStatus === EMPLOYMENT_STATUS.EMPLOYED &&
+        data.employmentStatusChange,
+      if: {
+        true: {
+          return: {
+            pathname: "/kyc/employment/verify",
+            state: { titleKey: "kyc.message.futureExpiryUBO" }
+          }
+        },
+        false: {}
+      }
+    }
+  }
+};
+
+export { PRE_PROFILE_PAGE_CONDITION, EMPLOYMENT_CONDITION, EMPLOYMENT_INCOME };

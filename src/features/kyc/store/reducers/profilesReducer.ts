@@ -1,8 +1,13 @@
-import { UPDATE_INITIAL_STATE, UPDATE_LOGIN_TYPE } from "../../types";
+import { UPDATE_INITIAL_STATE, UPDATE_LOGIN_TYPE, TRIGGER_EMPLOYMENT_CHANGE } from "../../types";
 
 export default (state: any, action: any) => {
   switch (action.type) {
     case UPDATE_INITIAL_STATE:
+      return {
+        ...state,
+        ...action.payload,
+      };
+    case TRIGGER_EMPLOYMENT_CHANGE:
       return {
         ...state,
         ...action.payload,
