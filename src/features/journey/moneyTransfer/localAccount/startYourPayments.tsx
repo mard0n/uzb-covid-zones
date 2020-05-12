@@ -8,6 +8,7 @@ import {
   SectionSplitter,
   CircularProgress,
   SvgIcon,
+
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
@@ -132,8 +133,10 @@ const StartPayments = (props:any) => {
         <ImageWithText
           description={serviceType.name}
           name={serviceType.code}
-          iconType={false}
-          logo={true}
+          iconType={true}
+          logo={false}
+          avtHight="40px"
+          avtWidth="40px"
         />
       </Box>
 
@@ -146,18 +149,20 @@ const StartPayments = (props:any) => {
               leftContent={
                 payCardListData.hasOwnProperty("source") &&
                 payCardListData.source.accounts.length > 0 ? (
+
                   <PayFromList
                     heading={t("moneytransfer.startYourPayment.payfrom")}
                     payListData={payCardListData.source}
                     onChangeList={onChangeFromAcount}
                   />
+
                 ) : (
                   <EmtyList heading={t("moneytransfer.noAccount")} />
                 )
               }
               rightContent={
-                benificiary && !benificiary.loading ? (
-                  benificiary && benificiary.length > 0 ? (
+               benificiary && !benificiary.loading ? (
+                 benificiary && benificiary.length > 0 ? (
                     <PayFromList
                       selectOptions={true}
                       heading={t("moneytransfer.startYourPayment.to")}
@@ -191,6 +196,7 @@ const StartPayments = (props:any) => {
               <CircularProgress />
             </Box>
           )}
+
         </>
       }
       bottom={

@@ -142,8 +142,10 @@ const gotoConfirmation = () => {
         <ImageWithText
           description={serviceType.name}
           name={serviceType.code}
-          iconType={false}
-          logo={true}
+          iconType={true}
+          logo={false}
+          avtHight="40px"
+          avtWidth="40px"
         />
       </Box>
 
@@ -172,10 +174,12 @@ const gotoConfirmation = () => {
 
             }
             rightContent={
-              transfer.toAccount.serviceTypeCode === "within-mashreq"? <PayListItem data={
+              transfer.toAccount.serviceTypeCode === "within-mashreq"? <PayListItem               activeSelected={true}
+              data={
                 getPayListFormattedData(destAcount, "benificiary")            
               } /> :
-              <PayListItem data={
+              <PayListItem                activeSelected={true}
+              data={
               getPayListFormattedData(destAcount, "accounts")            
             } />
           
@@ -185,7 +189,8 @@ const gotoConfirmation = () => {
           <H5>Paying from</H5>
 
           <Grid item xl={12} lg={6} md={5} sm={12} xs={12}>
-            <PayListItem data={
+            <PayListItem               activeSelected={true}
+            data={
               getPayListFormattedData(srcAcount, "accounts")            
             } />
           </Grid>
