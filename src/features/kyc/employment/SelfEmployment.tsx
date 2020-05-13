@@ -9,9 +9,7 @@ const SelfEmploymentView : React.FC<RoutableComponentProps> = ({route, location,
     let { url } = useRouteMatch();
     const { t } = useTranslation();
     const state = location && location.state ? location.state : {};
-
-    console.log('props.routes', route)
-    console.log('props.location', location)
+    
     // const branch = matchRoutes(routeConfigs, "/kyc/profile");
     // console.log('matchRoutes',branch)
 

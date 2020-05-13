@@ -119,6 +119,40 @@ const EMPLOYMENT_CONDITION: IDecisionTree = {
   }
 };
 
+const INCOME_CONDITION_UNKNOWN_EMPLOYMENT: IDecisionTree = {
+  assert: (data: IKycState) =>
+    data.currentStatus === EMPLOYMENT_STATUS.EMPLOYED,
+  if: {
+    true: {
+      return: {
+        pathname: "/kyc/employment/salaried/income",
+      }
+    },
+    false: {
+      assert: (data: IKycState) =>
+        data.currentStatus === EMPLOYMENT_STATUS.SELF_EMPLOYED,
+      if: {
+        true: {
+          return: {
+            pathname: "/kyc/employment/selfEmployed/income",
+          }
+        },
+        false: {
+          assert: (data: IKycState) =>
+            data.currentStatus === EMPLOYMENT_STATUS.NOT_EMPLOYED,
+          if: {
+            true: {
+              return: {
+                pathname: "/kyc/employment/unemployed/income",
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};
+
 const POST_EMPLOYMENT_CHECK: IDecisionTree = {
   assert: (data: IKycState) =>
     data.currentStatus === EMPLOYMENT_STATUS.EMPLOYED,
@@ -177,5 +211,6 @@ const POST_EMPLOYMENT_CHECK: IDecisionTree = {
 export {
   PRE_PROFILE_PAGE_CONDITION,
   EMPLOYMENT_CONDITION,
-  POST_EMPLOYMENT_CHECK
+  POST_EMPLOYMENT_CHECK,
+  INCOME_CONDITION_UNKNOWN_EMPLOYMENT
 };

@@ -23,8 +23,6 @@ const ProfileView : React.FC<RoutableComponentProps> = ({route, location, histor
        }
     }, [state])
 
-    console.log('props.routes', route)
-    console.log('props.location', location)
     // const branch = matchRoutes(routeConfigs, "/kyc/profile");
     // console.log('matchRoutes',branch)
 

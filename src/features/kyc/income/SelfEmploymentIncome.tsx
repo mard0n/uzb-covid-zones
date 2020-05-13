@@ -10,8 +10,6 @@ const SelfEmploymentIncome : React.FC<RoutableComponentProps> = ({route, locatio
     const { t } = useTranslation();
     const state = location && location.state ? location.state : {};
 
-    console.log('props.routes', route)
-    console.log('props.location', location)
     // const branch = matchRoutes(routeConfigs, "/kyc/profile");
     // console.log('matchRoutes',branch)
     return (

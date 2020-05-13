@@ -29,7 +29,7 @@ const routeConfigs: routeConfigType = [
     routes: [
       {
         path: "/kyc/employment/verify",
-        component: DummyComponent,
+        component: UnknownEmploymentView,
         condition: () => ({ nextRoute: "/kyc/entity/verify" })
       },
       {
@@ -38,7 +38,7 @@ const routeConfigs: routeConfigType = [
         routes : [
           {
             path: "/kyc/employment/salaried/verify",
-            component: DummyComponent,
+            component: UnknownEmploymentView,
             condition: () => ({ nextRoute: "/kyc/entity/verify" })
           },
           {
@@ -54,7 +54,7 @@ const routeConfigs: routeConfigType = [
         routes : [
           {
             path: "/kyc/employment/selfEmployed/verify",
-            component: DummyComponent,
+            component: UnknownEmploymentView,
             condition: () => ({ nextRoute: "/kyc/entity/verify" })
           },
           {
@@ -70,7 +70,7 @@ const routeConfigs: routeConfigType = [
         routes : [
           {
             path: "/kyc/employment/unemployed/verify",
-            component: DummyComponent,
+            component: UnknownEmploymentView,
             condition: () => ({ nextRoute: "/kyc/entity/verify" })
           },
           {
