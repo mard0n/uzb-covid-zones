@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { renderRoutes, matchRoutes } from "react-router-config";
 import { Switch, useRouteMatch } from "react-router-dom";
-import { RoutableComponentProps } from "../types";
+import { RoutableComponentProps, UPDATE_ACTIVE_PROFILE } from "../types";
 import { useTranslation } from "react-i18next";
-import {
-  Button
-} from "@material-ui/core";
+import { Button } from "@material-ui/core";
 import useKycState from "../store/hooks/useKycState";
 import { POST_EMPLOYMENT_CHECK } from "../routes/conditions";
 import useExecuteDecision from "../store/hooks/useExecuteDecision";
@@ -17,33 +15,39 @@ const EmploymentIncome: React.FC<RoutableComponentProps> = ({
 }) => {
   const { t } = useTranslation();
   const state = location && location.state ? location.state : {};
-  const { active } = useKycState(); 
-  const { dispatch, outcome } = useExecuteDecision("salary", POST_EMPLOYMENT_CHECK );
+  const { active } = useKycState();
+  const { dispatch, outcome } = useExecuteDecision(
+    "salary",
+    POST_EMPLOYMENT_CHECK
+  );
 
   const [salary, setSalary] = useState(active.salary);
 
-  const updateSalary = (e : any) => {
-      let inputValue = e.target.value;
+  const updateSalary = (e: any) => {
+    let inputValue = e.target.value;
     setSalary(inputValue);
   };
 
-  console.log("props.routes", route);
-  console.log("props.location", location);
-
-//   useEffect(() => {
-//     outcome &&  history!.push(outcome);
-// },[history, outcome])
+  useEffect(() => {
+      debugger;
+    outcome && history!.push(outcome);
+  }, [outcome]);
 
   return (
     <>
       <h2>Employment Salary </h2>
-        <input 
-             id="salary"
-             value={salary}
-             onChange={updateSalary}
-        />
+      <input id="salary" value={salary} onChange={updateSalary} />
 
-      <Button  variant="contained" color="primary" onClick={() => dispatch({payload: { salary : salary }})} size="medium">Continue</Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() =>
+          dispatch({ type: UPDATE_ACTIVE_PROFILE, payload: { salary: salary } })
+        }
+        size="medium"
+      >
+        Continue
+      </Button>
 
       <Switch>{route && renderRoutes(route.routes)}</Switch>
       {/* <RouteConfig routes={props.routes || []}/> */}

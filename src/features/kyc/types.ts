@@ -8,7 +8,7 @@ import { conditionType } from "../../common/decisionTree/interface";
 export const UPDATE_INITIAL_STATE = "UPDATE_INITIAL_STATE";
 export const SET_PROFILE_STATUS = "SET_PROFILE_STATUS";
 export const UPDATE_LOGIN_TYPE = "UPDATE_LOGIN_TYPE";
-export const POST_EMPLOYMENT_CHECK = "POST_EMPLOYMENT_CHECK";
+export const UPDATE_ACTIVE_PROFILE = "UPDATE_ACTIVE_PROFILE";
 
 /**
  * Active Profiles

@@ -30,7 +30,7 @@ const ProfileView : React.FC<RoutableComponentProps> = ({route, location, histor
 
     useEffect(() => {
         outcome &&  history!.push(outcome);
-    }, [history, outcome])
+    }, [outcome])
 
     return (
         <>

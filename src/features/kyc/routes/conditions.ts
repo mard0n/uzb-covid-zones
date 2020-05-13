@@ -156,7 +156,7 @@ const POST_EMPLOYMENT_CHECK: IDecisionTree = {
               if: {
                 true: {
                   return: {
-                    pathname: "/kyc/wealth"
+                    pathname: "/kyc/wealth",
                   }
                 },
                 false : {
