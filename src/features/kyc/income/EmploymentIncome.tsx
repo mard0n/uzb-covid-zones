@@ -27,10 +27,10 @@ const EmploymentIncome: React.FC<RoutableComponentProps> = ({
     setSalary(inputValue);
   };
 
-  useEffect(() => {
-      console.log('outcome in employment', outcome);
-    outcome && history!.push(outcome);
-  }, [outcome]);
+  // useEffect(() => {
+  //     console.log('outcome in employment', outcome);
+  //   outcome && history!.push(outcome);
+  // }, [outcome]);
 
   return (
     <>

@@ -16,11 +16,14 @@ const UnknownEmploymentView : React.FC<RoutableComponentProps> = ({route, locati
   );
   const [payload, setPayload] = useState({});
 
-    // useEffect(() => {
-    //     debugger;
-    //     console.log('outcome in unknown employment', outcome);
-    // outcome && history!.push(outcome);
-    // }, [outcome]);
+    useEffect(() => {
+        debugger;
+        console.log('outcome in unknown employment', outcome);
+        outcome && console.log('outcome risk level', outcome.riskLevel);
+
+       outcome && dispatch({type: UPDATE_ACTIVE_PROFILE, payload: {newRiskLevel: outcome.riskLevel}})
+    outcome && history!.push(outcome.location);
+    }, [outcome]);
 
     const continueToNext = () => {
         console.log("payload", payload);
@@ -67,7 +70,7 @@ const UnknownEmploymentView : React.FC<RoutableComponentProps> = ({route, locati
                 I currently do not have a job
             </label>
             </div>
-            <Button  variant="contained" color="primary" onClick={continueToNext} size="medium">No</Button>
+            <Button  variant="contained" color="primary" onClick={continueToNext} size="medium">Continue</Button>
 
             <Switch>
                 {route && renderRoutes(route.routes)}

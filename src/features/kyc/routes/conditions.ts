@@ -1,5 +1,5 @@
 import { IDecisionTree } from "../../../common/decisionTree/interface";
-import { IKycState, EMPLOYMENT_STATUS, SEGMENT } from "../types";
+import { IKycState, EMPLOYMENT_STATUS, SEGMENT, RISK_LEVEL } from "../types";
 
 const RISK_LEVEL_FREEZE: { [key: string]: number } = {
   Level1: 180,
@@ -82,8 +82,10 @@ const EMPLOYMENT_CONDITION: IDecisionTree = {
   if: {
     true: {
       return: {
-        pathname: "/kyc/employment/salaried",
-        state: { titleKey: "kyc.message.futureExpiryUBO" }
+        location: {
+          pathname: "/kyc/employment/salaried",
+          state: { titleKey: "kyc.message.futureExpiryUBO" }
+        }
       }
     },
     false: {
@@ -92,8 +94,9 @@ const EMPLOYMENT_CONDITION: IDecisionTree = {
       if: {
         true: {
           return: {
-            pathname: "/kyc/employment/selfEmployed",
-            state: { titleKey: "kyc.message.futureExpiryUBO" }
+            location: {
+              pathname: "/kyc/employment/selfEmployed"
+            }
           }
         },
         false: {
@@ -102,14 +105,16 @@ const EMPLOYMENT_CONDITION: IDecisionTree = {
           if: {
             true: {
               return: {
-                pathname: "/kyc/employment/unemployed",
-                state: { titleKey: "kyc.message.futureExpiryUBO" }
+                location: {
+                  pathname: "/kyc/employment/unemployed"
+                }
               }
             },
             false: {
               return: {
-                pathname: "/kyc/employment/unknown",
-                state: { titleKey: "kyc.message.futureExpiryUBO" }
+                location: {
+                  pathname: "/kyc/employment/unknown"
+                }
               }
             }
           }
@@ -124,8 +129,24 @@ const INCOME_CONDITION_UNKNOWN_EMPLOYMENT: IDecisionTree = {
     data.currentStatus === EMPLOYMENT_STATUS.EMPLOYED,
   if: {
     true: {
-      return: {
-        pathname: "/kyc/employment/salaried/income",
+      assert: (data: IKycState) => data.newRiskLevel === RISK_LEVEL.L3,
+      if: {
+        true: {
+          return: {
+            location: {
+              pathname: "/kyc/employment/salaried/income"
+            },
+            riskLevel: RISK_LEVEL.L3
+          }
+        },
+        false: {
+          return: {
+            location: {
+              pathname: "/kyc/employment/salaried/income"
+            },
+            riskLevel: RISK_LEVEL.L1
+          }
+        }
       }
     },
     false: {
@@ -133,8 +154,20 @@ const INCOME_CONDITION_UNKNOWN_EMPLOYMENT: IDecisionTree = {
         data.currentStatus === EMPLOYMENT_STATUS.SELF_EMPLOYED,
       if: {
         true: {
-          return: {
-            pathname: "/kyc/employment/selfEmployed/income",
+          assert: (data: IKycState) => data.newRiskLevel === RISK_LEVEL.L3,
+          if: {
+            true: {
+              return: {
+                location: { pathname: "/kyc/employment/selfEmployed/income" },
+                riskLevel: RISK_LEVEL.L3
+              }
+            },
+            false: {
+              return: {
+                location: { pathname: "/kyc/employment/selfEmployed/income" },
+                riskLevel: RISK_LEVEL.L2
+              }
+            }
           }
         },
         false: {
@@ -142,8 +175,20 @@ const INCOME_CONDITION_UNKNOWN_EMPLOYMENT: IDecisionTree = {
             data.currentStatus === EMPLOYMENT_STATUS.NOT_EMPLOYED,
           if: {
             true: {
-              return: {
-                pathname: "/kyc/employment/unemployed/income",
+              assert: (data: IKycState) => data.newRiskLevel === RISK_LEVEL.L3,
+              if: {
+                true: {
+                  return: {
+                    location: { pathname: "/kyc/employment/unemployed/income" },
+                    riskLevel: RISK_LEVEL.L3
+                  }
+                },
+                false: {
+                  return: {
+                    location: { pathname: "/kyc/employment/unemployed/income" },
+                    riskLevel: RISK_LEVEL.L2
+                  }
+                }
               }
             }
           }
@@ -165,7 +210,7 @@ const POST_EMPLOYMENT_CHECK: IDecisionTree = {
             pathname: "/kyc/wealth"
           }
         },
-        false : {
+        false: {
           return: {
             pathname: "/kyc/document"
           }
@@ -174,34 +219,35 @@ const POST_EMPLOYMENT_CHECK: IDecisionTree = {
     },
     false: {
       assert: (data: IKycState) =>
-      data.currentStatus === EMPLOYMENT_STATUS.SELF_EMPLOYED,
+        data.currentStatus === EMPLOYMENT_STATUS.SELF_EMPLOYED,
       if: {
         true: {
           return: {
             pathname: "/kyc/business"
           }
         },
-        false : {
+        false: {
           assert: (data: IKycState) =>
-           data.currentStatus === EMPLOYMENT_STATUS.NOT_EMPLOYED,
-           if: {
-             true: {
-              assert: (data: IKycState) => data.customerSegment === SEGMENT.WEALTH,
+            data.currentStatus === EMPLOYMENT_STATUS.NOT_EMPLOYED,
+          if: {
+            true: {
+              assert: (data: IKycState) =>
+                data.customerSegment === SEGMENT.WEALTH,
               if: {
                 true: {
                   return: {
-                    pathname: "/kyc/wealth",
+                    pathname: "/kyc/wealth"
                   }
                 },
-                false : {
+                false: {
                   return: {
                     pathname: "/kyc/document"
                   }
                 }
               }
-             }
-             //Default value??
-           }
+            }
+            //Default value??
+          }
         }
       }
     }

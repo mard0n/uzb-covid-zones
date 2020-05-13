@@ -27,7 +27,7 @@ const ProfileView : React.FC<RoutableComponentProps> = ({route, location, histor
     // console.log('matchRoutes',branch)
 
     useEffect(() => {
-        outcome &&  history!.push(outcome);
+        outcome &&  history!.push(outcome.location);
     }, [outcome])
 
     return (
