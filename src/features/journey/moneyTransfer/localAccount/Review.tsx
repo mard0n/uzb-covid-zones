@@ -20,7 +20,7 @@ import PayListItem from "../../../../components/billpayment/review/payList/index
 import { ArrowDown } from "@mashreq-digital/webassets";
 import CardPayNow from "../../../../common/card/CardPayNow";
 import { getPayListFormattedData } from '../../../../util/getPayListFormattedData';
-import { MONEY_TRANSFER_JOURNEY_LOCAL_SUCCES, MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT } from "../../../../router/config";
+import { MONEY_TRANSFER_JOURNEY_LOCAL_SUCCES, MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT, MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE } from "../../../../router/config";
 import { useHistory } from 'react-router-dom';
 import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
 import Loader from '../../../../common/loader/index';
@@ -115,16 +115,16 @@ const gotoConfirmation = () => {
       subTitle:!success ? "oops! somthing went wrong" : successMessage
     }
   });
-  setStep(3);
+  setStep(4);
 }
  
 
   const onHandleBack = () => {
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT,
+      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE,
       state: {serviceType:serviceType}
     });
-    setStep(1);
+    setStep(2);
   };
   
 

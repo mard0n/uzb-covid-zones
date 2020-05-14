@@ -23,7 +23,7 @@ import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions
 import { withinMashreq } from "../../../../util/constants";
 import { isValidFloatNumber } from "../../../../util/validations/ValidationUtils";
 import { useHistory } from 'react-router-dom';
-import { MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW, MONEY_TRANSFER_JOURNEY_LOCAL_START } from '../../../../router/config';
+import { MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW, MONEY_TRANSFER_JOURNEY_LOCAL_START, MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE } from '../../../../router/config';
 import ImageWithText from '../../../../common/imageWithText/index';
 
 
@@ -78,7 +78,7 @@ const SetTransferAmount = (props: any) => {
     dispatch(Actions.setTransferObject(transfer));
 
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW,
+      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE,
       state: {serviceType:serviceType}
     });
     setStep(2);

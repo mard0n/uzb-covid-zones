@@ -10,6 +10,7 @@ import Success from "./Success";
 import JourneySidebar from "../../../../components/JourneySidebar/index";
 import { MONEY_TRANSFER_LOCAL_STEPS } from "../../../../util/constants";
 import transfer from "../../../../redux/reducers/moneyTransfer/transfer";
+import Purpose from './purpose';
 const { postLogin, sidebarWidth, defaultGutter } = globalStyle;
 const routes: any = [
   {
@@ -19,6 +20,10 @@ const routes: any = [
   {
     path: RoutePath.MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT,
     component: SetTransferAmount,
+  },
+  {
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE,
+    component: Purpose,
   },
   {
     path: RoutePath.MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW,

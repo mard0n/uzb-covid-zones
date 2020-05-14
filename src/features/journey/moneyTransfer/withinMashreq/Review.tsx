@@ -7,7 +7,6 @@ import {
   Button,
   Grid,
   H5,
-  colors,
   makeStyles,
   SvgIcon,
   Body1,
@@ -28,7 +27,7 @@ import { useHistory } from "react-router-dom";
 import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
 import Loader from "../../../../common/loader/index";
 import ImageWithText from "../../../../common/imageWithText/index";
-import { DispatchContext, StateContext } from "../../../../redux/context";
+import { StateContext } from "../../../../redux/context";
 
 const useStyles = makeStyles(() => ({
   iconStyle: {
@@ -41,7 +40,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Review = (props: any) => {
-  const { serviceType, setStep } = props;
+  const {  setStep } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -49,7 +48,7 @@ const Review = (props: any) => {
 
   const { iconStyle } = useStyles();
   const transferState = useContext(StateContext);
-  let { transfer } = transferState;
+  let { transfer,serviceType } = transferState;
 
   const financialTxnNumber = useSelector(
     (state: any) => state.moneyTransfer.other.payListData.financialTxnNumber
@@ -60,10 +59,7 @@ const Review = (props: any) => {
   let transaction = useSelector(
     (state: any) => state.moneyTransfer.makeTransfer
   );
-  console.log("Review -> transaction pyr", transaction);
-
   const onSubmit = () => {
-    console.log("onSubmit -> item majama");
     let beniData = {
       amount: transfer.amount.total,
       currency: transfer.amount.type,
@@ -81,7 +77,6 @@ const Review = (props: any) => {
 
   useEffect(() => {
     setLoading(transaction.loading);
-    console.log("Review -> transaction pyr", transaction);
     if ((transaction && transaction.error) || transaction.response) {
       if (transaction.error) {
         gotoConfirmation(false);
@@ -148,7 +143,7 @@ const Review = (props: any) => {
             </Box>
 
             <UnderlineText color="primary">
-              <H2>Review your transfer</H2>
+              <H2>{t("moneytransfer.review.title")}</H2>
             </UnderlineText>
 
             <CardDash
@@ -168,7 +163,9 @@ const Review = (props: any) => {
                       />
                     </Box>
                   }
-                  heading={<Body1>You are Transfering</Body1>}
+                  heading={
+                    <Body1> {t("moneytransfer.review.transfering")}</Body1>
+                  }
                   subheading={
                     <H5>
                       {transfer.amount.type} {Math.abs(transfer.amount.total)}
@@ -177,17 +174,14 @@ const Review = (props: any) => {
                 />
               }
               rightContent={
-
-            
                 <PayListItem
                   activeSelected={true}
                   data={getPayListFormattedData(destAcount, "benificiary")}
                 />
-
               }
             />
 
-            <H5>Paying from</H5>
+            <H5>{t("moneytransfer.review.payingFrom")}</H5>
 
             <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
               <PayListItem
@@ -225,4 +219,3 @@ const Review = (props: any) => {
 };
 
 export default Review;
-// {currency} {rechargeAmount}

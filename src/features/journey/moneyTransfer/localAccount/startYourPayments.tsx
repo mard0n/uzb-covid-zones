@@ -112,7 +112,7 @@ const StartPayments = (props:any) => {
 
   useEffect(() => {
     dispatch(Actions.fetchPayListRequest({ type: "local" }));
-    dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest());
+    dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest({ type: "local" }));
     
     // console.log("StartPayments -> resumeFileds", resumeFileds);
     // if(!resumeFileds){

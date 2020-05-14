@@ -1,5 +1,5 @@
 import React, { useState, useReducer } from "react";
-import { Switch, Route, useLocation } from "react-router-dom";
+import {Route, useLocation } from "react-router-dom";
 import * as RoutePath from "../../../../router/config";
 import { Box, makeStyles } from "@mashreq-digital/ui";
 import { globalStyle } from "../../../../util/constants";
@@ -42,9 +42,6 @@ const useStyles = makeStyles((theme: any) => ({
 }));
 
 const MoneyTransferJourneyWithinMashreq = () => {
-  console.log(
-    " routerSwitch MoneyTransferJourneyWithinMashreq -> MoneyTransferJourneyWithinMashreq"
-  );
   const { mainLayout } = useStyles();
   const location = useLocation();
   const state = location.state;
@@ -53,10 +50,10 @@ const MoneyTransferJourneyWithinMashreq = () => {
   const [step, setStep] = useState(0);
   const [transferState, transferDispatch] = useReducer(transfer, {
     transfer: {},
+    serviceType:serviceType
   });
 
   return (
-  
     <Box display="flex" height={postLogin.height} mt={`${postLogin.top}px`}>
       <DispatchContext.Provider value={transferDispatch}>
         <StateContext.Provider value={transferState}>
@@ -81,7 +78,6 @@ const MoneyTransferJourneyWithinMashreq = () => {
         </StateContext.Provider>
       </DispatchContext.Provider>
     </Box>
-    
   );
 };
 

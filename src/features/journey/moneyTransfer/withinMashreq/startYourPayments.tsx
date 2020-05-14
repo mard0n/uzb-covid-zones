@@ -10,14 +10,12 @@ import {
   SvgIcon,
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
-import CardPayList from "../../../../common/cardPayList/index";
 import { useDispatch, useSelector } from "react-redux";
 import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
 import CardDash from "../../../../common/cardDash/index";
 import PayFromList from "../../../../components/billpayment/review/PayFromList";
 import * as ActionBeni from "../../../../redux/actions/moneyTransfer/fetchBeni";
 import CardPayNow from "../../../../common/card/CardPayNow";
-import getBeneficiariesAvatar from "../../../../util/getBeneficiariesAvatar";
 import { withinMashreq } from "../../../../util/constants";
 import EmtyList from "../../../../common/payList/emtyList";
 import { Plus } from "@mashreq-digital/webassets";
@@ -40,17 +38,13 @@ const useStyles = makeStyles((theme: any) => ({
 
 const StartPayments = (props:any) => {
   const [transferButton, setTransferButton] = useState(false);
-  const {serviceType,setStep,resumeFileds} = props;
+  const {setStep} = props;
   const { NoBeniStyle } = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const transferDispatch = useContext(DispatchContext);
   const transferState = useContext(StateContext);
-  let { transfer } = transferState;
-
-  // let transfer = useSelector(
-  //   (state: any) => state.moneyTransfer.other.transfer
-  // );
+  let { transfer,serviceType } = transferState;
 
   const payCardListData = Object.assign(
     useSelector((state: any) => state.moneyTransfer.other.payListData)
@@ -71,6 +65,7 @@ const StartPayments = (props:any) => {
     });
     setStep(1);
   };
+
   const onChangeFromAcount = (item: any) => {
     transfer = { ...transfer, fromAccount: item };
     transferDispatch(TransferActions.setTransferObject(transfer));
@@ -103,6 +98,7 @@ const StartPayments = (props:any) => {
     }
 
     transferDispatch(TransferActions.setTransferObject(transfer));
+    
     if (
       transfer.hasOwnProperty("fromAccount") &&
       transfer.hasOwnProperty("toAccount")
@@ -120,15 +116,9 @@ const StartPayments = (props:any) => {
 
   useEffect(() => {
     dispatch(Actions.fetchPayListRequest({ type: withinMashreq }));
-    dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest());
+    dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest({ type: withinMashreq }));
 
-    // console.log("StartPayments -> resumeFileds", resumeFileds);
-    // if(!resumeFileds){
-    //   transfer = resumeFileds;
-    // }
-
-    /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
-    We should add onChangeList as dependency then source api will get triggered infinitely */
+    /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -185,8 +175,8 @@ const StartPayments = (props:any) => {
                       }
                       style={{ justifyContent: "space-around" }}
                       arrow={true}
-                      heading="No beneficiaries detected"
-                      subheading="You can add one right now"
+                      heading={t("moneytransfer.nobeni")}
+                      subheading={t("moneytransfer.addbeni")}
                     />
                   )
                 ) : (
@@ -212,7 +202,7 @@ const StartPayments = (props:any) => {
             onClick={onSubmitPayment}
             size="large"
           >
-            Set Transfer Amount
+            {t("moneytransfer.startYourPayment.setAmountButton")}
           </Button>
         </Box>
       }

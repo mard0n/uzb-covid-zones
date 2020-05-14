@@ -212,7 +212,7 @@ const PayListItem = (props: CustomListItemProps) => {
             display="inline-flex"
             borderRadius="50%"
           >
-          {type === "within-mashreq"? <BeniLogo width="20" height="20"/>:
+          {type === "within-mashreq" || type === "local" ? <BeniLogo width="20" height="20"/>:
             <SvgIcon
               height="14"
               width="16"
@@ -230,7 +230,7 @@ const PayListItem = (props: CustomListItemProps) => {
           </Box>
           <Box ml={1.3}><Caption>{t(`dashboard.productSummary.${type}.payList.title`)}</Caption></Box>
         </Box>
-      ): type === "within-mashreq"? 
+      ): type === "within-mashreq" || type === "local"? 
       (
         <Box
           display="flex"

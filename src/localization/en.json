@@ -307,11 +307,43 @@
     "local":"To a Local UAE Account",
     "international":"To An International Account "
   },
+  "stepStart":"Start Your Transfer",
+  "stepSet":"Set transfer amount",
+  "stepReview":"Review",
+  "stepConfirm":"Confirmation",
+  "stepPurpos":"Purpose and charges",
+  "stepAuth":"Authorisation",
+
   "startYourPayment":{
     "title":"Start your transfer",
     "payfrom":"I want to send money from",
     "to":"To this account",
     "setAmountButton":"Set Transfer Amount"
+   },
+   "review":{
+    "payingFrom":"Paying from",
+    "title":"Review your transfer",
+    "transfering":"You are Transfering"
+   },
+   "success":{
+     "fallowup":"Please check the Transaction Queue tab to follow up on the status of the transaction.",
+      "transferd":"You have transferred",
+      "withNumber":"Your transaction with reference number",
+      "frequent":"Frequent Payment?",
+      "setupInstruction":"Set up as standing instruction"
+
+    },
+   "setTransferAmount":{
+    "title":"What amount would you like to transfer?",
+    "recievingAmount":"The Receiving account will get",
+    "amountLabel":"Receiving Amount",
+    "amountLabelAria":"Transfer amount input box",
+    "debitedLabel":"Transfer amount",
+    "debitedLabelAria":"Transfer amount input box",
+    "debitedTitle":"You will be debited",
+    "atAnExchangeRate":"At an exchange rate of",
+    "calcValues":"Your exchange rate is calculated on the following values",
+    "review":"Review"
    },
    "noAccount":"You dont seems to have account",
    "nobeni":"No beneficiaries detected",

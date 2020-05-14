@@ -9,7 +9,7 @@ const CancelToken = axios.CancelToken;
 // let cancel: any;
 let pending: any = {};
 
-export const API = createInstance({ BASE_URL: Config.BASE_URL,  TIMEOUT: 20000 });
+export const API = createInstance({ baseURL: Config.BASE_URL,  timeout: 20000 });
 
 const delay = async () => new Promise(resolve => setTimeout(resolve,Math.floor((Math.random() * 3000) + 1)))  
 

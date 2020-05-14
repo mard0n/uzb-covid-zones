@@ -22,8 +22,8 @@ export function* watchMyMoneyTransfersBeneficiariesSaga() {
  * @description fetch my Money Transfer Beneficiaries
  */
 export function fetchMyMoneyTransfersBeneficiaries(action: any) {
-    const {payload: {type = '', count=1000} = {}} = action;
-    const url = replaceStr(Endpoints.MONEY_TRANSFER_BENEFICIARIES_ENDPOINT_Static, 'count', count);
+    const {payload: {type = '', status="ACTIVE", count=1000} = {}} = action;
+    const url = replaceStr(Endpoints.MONEY_TRANSFER_BENEFICIARIES_ENDPOINT.replace('type', type).replace("activationStatus",status), 'count', count);
     return API.get(url);
 }
 
