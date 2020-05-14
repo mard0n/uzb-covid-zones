@@ -59,7 +59,7 @@ const routeConfigs: routeConfigType = [
           },
           {
             path: "/kyc/employment/selfEmployed/income",
-            component: DummyComponent,
+            component: SelfEmploymentView,
             condition: () => ({ nextRoute: "/kyc/entity/verify" })
           }
         ]

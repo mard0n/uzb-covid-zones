@@ -84,7 +84,6 @@ const EMPLOYMENT_CONDITION: IDecisionTree = {
       return: {
         location: {
           pathname: "/kyc/employment/salaried",
-          state: { titleKey: "kyc.message.futureExpiryUBO" }
         }
       }
     },
