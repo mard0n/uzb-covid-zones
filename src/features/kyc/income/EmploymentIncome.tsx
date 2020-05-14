@@ -16,9 +16,7 @@ const EmploymentIncome: React.FC<RoutableComponentProps> = ({
   const { t } = useTranslation();
   const state = location && location.state ? location.state : {};
   const { active } = useKycState();
-  const { dispatch, outcome } = useExecuteDecision("salary",
-    POST_EMPLOYMENT_CHECK
-  );
+  const { dispatch, outcome } = useExecuteDecision("salary",POST_EMPLOYMENT_CHECK);
 
   const [salary, setSalary] = useState(active.salary);
 
