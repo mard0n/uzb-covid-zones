@@ -6,27 +6,29 @@ import { useTranslation } from "react-i18next";
 import { Button } from '@material-ui/core';
 import useExecuteDecision from '../store/hooks/useExecuteDecision';
 import { INCOME_CONDITION_UNKNOWN_EMPLOYMENT } from '../routes/conditions';
+import useKycDispatch from '../store/hooks/useKycDispatch';
 
 const UnknownEmploymentView : React.FC<RoutableComponentProps> = ({route, location, history}) => {
     let { url } = useRouteMatch();
     const { t } = useTranslation();
     const state = location && location.state ? location.state : {};
-    const { dispatch, outcome } = useExecuteDecision("customerName",
+    const { dispatch , outcome  } = useExecuteDecision("newStatus",
     INCOME_CONDITION_UNKNOWN_EMPLOYMENT
   );
+  const  dispatchRiskLevel = useKycDispatch()
+
+
+
   const [payload, setPayload] = useState({});
 
     useEffect(() => {
-        debugger;
-        console.log('outcome in unknown employment', outcome);
         outcome && console.log('outcome risk level', outcome.riskLevel);
-
-       outcome && dispatch({type: UPDATE_ACTIVE_PROFILE, payload: {newRiskLevel: outcome.riskLevel}})
-    outcome && history!.push(outcome.location);
-    }, [outcome]);
+        outcome && dispatchRiskLevel({type: UPDATE_ACTIVE_PROFILE, payload: {newRiskLevel: outcome.riskLevel}})
+        outcome && history!.push(outcome.location);
+    }, [outcome])
 
     const continueToNext = () => {
-        console.log("payload", payload);
+        console.log("payload", payload)
         dispatch({type: UPDATE_ACTIVE_PROFILE, payload: payload})
     }
 

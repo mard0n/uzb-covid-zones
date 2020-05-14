@@ -22,7 +22,6 @@ const SelfEmploymentIncome : React.FC<RoutableComponentProps> = ({route, locatio
     let inputValue = e.target.value;
     setIncome(inputValue);
   };
-
    // useEffect(() => {
   //     console.log('outcome in employment', outcome);
   //   outcome && history!.push(outcome);

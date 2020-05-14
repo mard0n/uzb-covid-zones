@@ -18,6 +18,8 @@ const SalariedEmploymentView : React.FC<RoutableComponentProps> = ({route, locat
     const goToNo = () => {
         history!.push("/kyc/employment/salaried/verify")
     }
+
+    console.log("state", active);
     
     return (
         <>

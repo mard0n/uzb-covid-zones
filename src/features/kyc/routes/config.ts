@@ -9,6 +9,8 @@ import UnknownEmploymentView from "../employment/UnknownEmployment";
 import SelfEmploymentView from "../employment/SelfEmployment";
 import NoEmploymentView from "../employment/NoEmployment";
 import EmploymentIncome from "../income/EmploymentIncome";
+import SelfEmploymentIncome from "../income/SelfEmploymentIncome";
+import UnemploymentIncome from "../income/UnemploymentIncome";
 
 const routeConfigs: routeConfigType = [
   {
@@ -59,7 +61,7 @@ const routeConfigs: routeConfigType = [
           },
           {
             path: "/kyc/employment/selfEmployed/income",
-            component: SelfEmploymentView,
+            component: SelfEmploymentIncome,
             condition: () => ({ nextRoute: "/kyc/entity/verify" })
           }
         ]
@@ -75,7 +77,7 @@ const routeConfigs: routeConfigType = [
           },
           {
             path: "/kyc/employment/unemployed/income",
-            component: DummyComponent,
+            component: UnemploymentIncome,
             condition: () => ({ nextRoute: "/kyc/entity/verify" })
           }
         ]  

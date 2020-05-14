@@ -55,7 +55,7 @@ export interface IKycState extends IProfileResponse {
   customerSegment: SEGMENT;
   loginUser: LOGIN_USER_TYPE;
   currentStatus: EMPLOYMENT_STATUS;
-  newStatus: EMPLOYMENT_STATUS;
+  newStatus: EMPLOYMENT_STATUS | null;
   newemployerName: string;
   newCompany: string | null;
   newSalary: string;

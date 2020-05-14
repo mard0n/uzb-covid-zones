@@ -125,7 +125,7 @@ const EMPLOYMENT_CONDITION: IDecisionTree = {
 
 const INCOME_CONDITION_UNKNOWN_EMPLOYMENT: IDecisionTree = {
   assert: (data: IKycState) =>
-    data.currentStatus === EMPLOYMENT_STATUS.EMPLOYED,
+    data.newStatus === EMPLOYMENT_STATUS.EMPLOYED,
   if: {
     true: {
       assert: (data: IKycState) => data.newRiskLevel === RISK_LEVEL.L3,
@@ -150,7 +150,7 @@ const INCOME_CONDITION_UNKNOWN_EMPLOYMENT: IDecisionTree = {
     },
     false: {
       assert: (data: IKycState) =>
-        data.currentStatus === EMPLOYMENT_STATUS.SELF_EMPLOYED,
+        data.newStatus === EMPLOYMENT_STATUS.SELF_EMPLOYED,
       if: {
         true: {
           assert: (data: IKycState) => data.newRiskLevel === RISK_LEVEL.L3,
@@ -171,7 +171,7 @@ const INCOME_CONDITION_UNKNOWN_EMPLOYMENT: IDecisionTree = {
         },
         false: {
           assert: (data: IKycState) =>
-            data.currentStatus === EMPLOYMENT_STATUS.NOT_EMPLOYED,
+            data.newStatus === EMPLOYMENT_STATUS.NOT_EMPLOYED,
           if: {
             true: {
               assert: (data: IKycState) => data.newRiskLevel === RISK_LEVEL.L3,
