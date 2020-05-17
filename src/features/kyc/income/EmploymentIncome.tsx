@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { renderRoutes, matchRoutes } from "react-router-config";
-import { Switch, useRouteMatch } from "react-router-dom";
+import { Switch, useRouteMatch, useHistory } from "react-router-dom";
 import { RoutableComponentProps, UPDATE_ACTIVE_PROFILE } from "../types";
 import { useTranslation } from "react-i18next";
 import { Button } from "@material-ui/core";
@@ -10,14 +10,16 @@ import useExecuteDecision from "../store/hooks/useExecuteDecision";
 
 const EmploymentIncome: React.FC<RoutableComponentProps> = ({
   route,
-  location,
-  history
+  location
 }) => {
   const { t } = useTranslation();
   const state = location && location.state ? location.state : {};
   const { active } = useKycState();
-  const { dispatch, outcome } = useExecuteDecision("salary", POST_EMPLOYMENT_CHECK);
-
+  const { dispatch, outcome } = useExecuteDecision(
+    "salary",
+    POST_EMPLOYMENT_CHECK
+  );
+  const history = useHistory();
   const [salary, setSalary] = useState(active.salary);
 
   const updateSalary = (e: any) => {
@@ -26,7 +28,7 @@ const EmploymentIncome: React.FC<RoutableComponentProps> = ({
   };
 
   useEffect(() => {
-      console.log('outcome in employment', outcome);
+    console.log("outcome in employment", outcome);
     outcome && history!.push(outcome);
   }, [outcome]);
 
