@@ -17,12 +17,55 @@ const transformInitialState = (initialState: IProfileResponse) : Array<IKycState
             const match =  profile.riskLevel.match(/(\d+)/)
             defaultRiskLevel = match ? parseInt(match[0]) : defaultRiskLevel;
         }
-
-        const riskLevelForCustomerIdentifier: CUSTOMER_IDENTIFIER_MAPPING = parseInt((<any>CUSTOMER_IDENTIFIER_MAPPING)[profile.customerIdentifier])
+        //TODO: Change as necessary
+        const riskLevelForCustomerIdentifier: CUSTOMER_IDENTIFIER_MAPPING = profile.customerIdentifier ? parseInt((<any>CUSTOMER_IDENTIFIER_MAPPING)[profile.customerIdentifier]) : 1;
         let customerSegment = SEGMENT.RETAIL;
         if(profile.customerSegment === "CUSTGOLD" 
             || profile.customerSegment === "CUSTPVT" ) {
                 customerSegment = SEGMENT.WEALTH;
+        }
+
+
+        const CUSTOMER_RETURN_TYPE = {
+            IND_SAL_NORM: {
+                currentStatus: EMPLOYMENT_STATUS.EMPLOYED,       
+            },
+            IND_OTH_MINR: {
+                currentStatus: EMPLOYMENT_STATUS.NOT_EMPLOYED,  
+            },
+            IND_OTH_HWFE: {
+                currentStatus: profile.employerName ? EMPLOYMENT_STATUS.EMPLOYED : EMPLOYMENT_STATUS.NOT_EMPLOYED, 
+            },
+            IND_SAL_RESX : {
+                currentStatus: EMPLOYMENT_STATUS.EMPLOYED,
+            },
+            IND_OTH_NRNR : {
+                currentStatus: EMPLOYMENT_STATUS.SELF_EMPLOYED,
+            },
+            IND_SAL_NRNR : {
+                currentStatus: EMPLOYMENT_STATUS.EMPLOYED,
+            },
+            IND_OTH_PEPX: {
+                currentStatus: EMPLOYMENT_STATUS.SELF_EMPLOYED,
+            },
+            IND_SAL_PEPX: {
+                currentStatus: EMPLOYMENT_STATUS.EMPLOYED,
+            },
+            SLF_NOR_NORM: {
+                currentStatus: EMPLOYMENT_STATUS.SELF_EMPLOYED,
+            },
+            SLF_OTH_RESX: {
+                currentStatus: EMPLOYMENT_STATUS.SELF_EMPLOYED,
+            },
+            IND_EMP_UEMP: {
+                currentStatus: EMPLOYMENT_STATUS.NOT_EMPLOYED,  
+            },
+            IND_OTH_AMLX: {
+                currentStatus: EMPLOYMENT_STATUS.SELF_EMPLOYED,
+            }, 
+            IND_SAL_AMLX: {
+                currentStatus: EMPLOYMENT_STATUS.EMPLOYED,
+            }
         }
 
 
@@ -31,9 +74,9 @@ const transformInitialState = (initialState: IProfileResponse) : Array<IKycState
                 defaultRiskLevel,
                 newRiskLevel: Math.max(defaultRiskLevel, riskLevelForCustomerIdentifier),
                 nationalIdExpiryDays: differenceInDays(parseISO(profile.nationalIdExpiry), Date.now()), //calculatedValue
-                kycNextReviewDays: differenceInDays(parseISO(profile.kycNextReviewDate), Date.now()),
-                currentStatus: EMPLOYMENT_STATUS.EMPLOYED, // TODO - How to find this value
-                newStatus: EMPLOYMENT_STATUS.EMPLOYED,
+                kycExpiredDays: differenceInDays(parseISO(profile.kycNextReviewDate), Date.now()),
+                currentStatus: profile.customerIdentifier ? (<any>CUSTOMER_RETURN_TYPE)[profile.customerIdentifier].currentStatus : EMPLOYMENT_STATUS.UNKNOWN ,
+                newStatus: null,
                 newemployerName: profile.employerName,
                 newCompany: profile.company,
                 newSalary: profile.salary,

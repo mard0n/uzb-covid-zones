@@ -2,7 +2,7 @@ import React from 'react'
 import { Grid, Body2, colors, makeStyles, H2, Box, SvgIcon } from '@mashreq-digital/ui';
 import { useTranslation } from 'react-i18next';
 import CardPayNow from '../../../common/card/CardPayNow';
-import { Exclamation, getFlag } from '@mashreq-digital/webassets';
+import { Exclamation } from '@mashreq-digital/webassets';
 import AccountType from '../../../common/accountType';
 
 const useStyles = makeStyles((theme)=>({
@@ -35,7 +35,7 @@ const WelcomeUser = () => {
           height="14"
           width="16"
           htmlColor={colors.teal[800]}
-          component={getFlag("AE")}
+          // component={getFlag("AE")} 
         />
           </H2>
         </Box>

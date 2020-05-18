@@ -34,7 +34,7 @@ const useDecision = (data: any, condition: conditionType) => {
         const ret = typeof condition === 'function' 
             ? condition()
             : getDecision(data, condition)
-            console.log(ret);
+            console.log("decison", ret);
             setOutcome(ret)
     }
     

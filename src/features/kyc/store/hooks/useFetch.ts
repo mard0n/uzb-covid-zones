@@ -44,10 +44,12 @@ export const useFetch = (url: string, options: object = {}) => {
       setResponse(data);
     } catch (error) {
       setLoading(false);
-      if (API.isCancel(error)) {
+
+      // TODO: commenting  iscancel to align with new network changes ==> need updates in package
+      // if (API.isCancel(error)) {
         // console.log("request was cancelled", pending);
         // TODO: If needed we can handle the cancelled request for any use
-      }
+      // }
       if (error.response) {
         switch (error.response.status) {
           case 400:

@@ -409,6 +409,12 @@
     "links": ["Disclaimer", "Teram & Conditions", "Sitemap"]
   },
   "kyc": {
+    "title" : {
+      "loginTitle": "Login to renew your KYC online"
+    },
+    "placeholderText" : {
+      "loginPlaceholder": "Enter Debit card or CIF number"
+    },
     "message": {
       "jointFutureDate": "Please complete this process so that you continue to have unrestricted access to your account.",
       "futureExpiryUBO": "Please update and verify your account details at the earliest to have unrestricted access to your account.",
