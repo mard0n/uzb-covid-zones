@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   UnderlineText,
   H2,
@@ -17,24 +17,25 @@ import {
 import BackButton from "../../../../common/backButton";
 import { Rocket } from "@mashreq-digital/webassets";
 import SuggestionBox from "../../../../common/suggetionBox/index";
-import { useSelector, useDispatch } from "react-redux";
 import useCurrencyConverter from "../../../../redux/hooks/useCurrencyConverter";
-import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
 import { withinMashreq } from "../../../../util/constants";
 import { isValidFloatNumber } from "../../../../util/validations/ValidationUtils";
-import { useHistory } from 'react-router-dom';
-import { MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW, MONEY_TRANSFER_JOURNEY_LOCAL_START, MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE } from '../../../../router/config';
-import ImageWithText from '../../../../common/imageWithText/index';
-
+import { useHistory } from "react-router-dom";
+import {
+  MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE,
+  MONEY_TRANSFER_JOURNEY_LOCAL_START
+} from "../../../../router/config";
+import ImageWithText from "../../../../common/imageWithText/index";
+import { DispatchContext, StateContext } from "../../../../redux/context";
+import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
+import { useTranslation } from "react-i18next";
 
 const SetTransferAmount = (props: any) => {
-
-  const {  serviceType ,setStep} = props;
-
-  const dispatch = useDispatch();
-  let transfer = useSelector(
-    (state: any) => state.moneyTransfer.other.transfer
-  );
+  const { setStep } = props;
+  const transferDispatch = useContext(DispatchContext);
+  const transferState = useContext(StateContext);
+  let { transfer,serviceType } = transferState;
+  const { t } = useTranslation();
   const [exchangeRate, setExchangeRate] = useState("");
   const [enableButton, setEnableButton] = useState(true);
   const [maxAmounts, setMaxAmounts]: any = useState({});
@@ -42,16 +43,13 @@ const SetTransferAmount = (props: any) => {
   const [destinationAmount, setDestinationAmount]: any = useState("");
   const [fromTouched, setFromTouched] = useState(false);
   const [toTouched, setToTouched] = useState(false);
+  
   let srcAmount = transfer.fromAccount.availableBalance;
   let dstAmount = transfer.toAccount.availableBalance;
   let srcCurrency = transfer.fromAccount.currency;
-  let destCurrency =
-    serviceType.code === withinMashreq
-      ? transfer.toAccount.beneficiaryCurrency
-      : transfer.toAccount.currency;
+  let destCurrency =  transfer.fromAccount.currency;
 
   const currenciesAreDifferent = srcCurrency !== destCurrency;
-  console.log("SetTransferAmount -> serviceType yeye inside ", serviceType);
 
   const history = useHistory();
 
@@ -65,37 +63,31 @@ const SetTransferAmount = (props: any) => {
   } = useCurrencyConverter();
 
   const onNextStep = () => {
-    console.log("onNextStep -> onNextStepc pyr");
     transfer = {
       ...transfer,
       amount: {
-        total: currenciesAreDifferent
-          ? sourceAmount
-          : destinationAmount,
+        total: currenciesAreDifferent ? sourceAmount : destinationAmount,
         type: srcCurrency,
       },
     };
-    dispatch(Actions.setTransferObject(transfer));
+    transferDispatch(TransferActions.setTransferObject(transfer));
 
     history.replace({
       pathname: MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE,
-      state: {serviceType:serviceType}
+      state: { serviceType: serviceType },
     });
     setStep(2);
-
   };
 
   const onHandleBack = () => {
     history.replace({
       pathname: MONEY_TRANSFER_JOURNEY_LOCAL_START,
-      state: {serviceType:serviceType}
+      state: { serviceType: serviceType },
     });
     setStep(0);
   };
 
-
   useEffect(() => {
-    console.log("currencyConverterResponse", currencyConverterResponse);
     if (currencyConverterResponse) {
       const { exchangeRate = "" } = currencyConverterResponse;
       setExchangeRate(exchangeRate);
@@ -128,9 +120,6 @@ const SetTransferAmount = (props: any) => {
 
   const onChangeOfReciveAmount = (event: any) => {
     let value = event.target.value;
-    console.log("onChangeOfReciveAmount -> value", value);
-    console.log("!isNaN(value) ", !isNaN(value));
-    console.log("onChangeOfReciveAmount -> !isNaN(value)", !isNaN(value));
     if (value === "" || isValidFloatNumber(value)) {
       setsourceAmount(value);
       setDestinationAmount((value / parseFloat(exchangeRate)).toFixed(2));
@@ -160,40 +149,41 @@ const SetTransferAmount = (props: any) => {
     }
   };
 
-  console.log("SetTransferAmount -> serviceType", serviceType.maxAmount);
   return (
     <SectionSplitter
       height={"calc(100vh - 400px)"}
       top={
-          <>
+        <>
           <Box mb={6}>
-          <ImageWithText
-            description={serviceType.name}
-            name={serviceType.code}
-            iconType={true}
-            logo={false}
-            avtHight="40px"
-            avtWidth="40px"
-          />
-        </Box>
+            <ImageWithText
+              description={serviceType.name}
+              name={serviceType.code}
+              iconType={true}
+              logo={true}
+              avtHight="40px"
+              avtWidth="40px"
+            />
+          </Box>
 
           <UnderlineText color="primary">
-            <H2>What amount would you like to transfer?</H2>
+            <H2>{t("moneytransfer.setTransferAmount.title")}</H2>
           </UnderlineText>
           {currencyConverterLoading ? (
             <Box display="flex" mt={12} alignItems="baseline">
               <CircularProgress />
             </Box>
-          ) : 
+          ) : (
             <Grid container>
               <Grid item xs={6}>
                 {
                   <>
                     <Box mt={10}>
-                      <H5>The Receiving account will get</H5>
+                      <H5>
+                        {t("moneytransfer.setTransferAmount.recievingAmount")}
+                      </H5>
                       <TextField
                         fullWidth
-                        label="Receiving Amount"
+                        label={t("moneytransfer.setTransferAmount.amountLabel")}
                         id="transferAmount"
                         variant="filled"
                         error={
@@ -209,7 +199,9 @@ const SetTransferAmount = (props: any) => {
                         value={destinationAmount || ""}
                         onChange={onChangeOfTransferAmount}
                         inputProps={{
-                          "aria-label": "Transfer amount input box",
+                          "aria-label": t(
+                            "moneytransfer.setTransferAmount.amountLabelAria"
+                          ),
                         }}
                         InputProps={{
                           startAdornment: (
@@ -237,10 +229,14 @@ const SetTransferAmount = (props: any) => {
 
                     {currenciesAreDifferent ? (
                       <Box mt={10}>
-                        <H5>You will be debited</H5>
+                        <H5>
+                          {t("moneytransfer.setTransferAmount.debitedTitle")}
+                        </H5>
                         <TextField
                           fullWidth
-                          label="Transfer amount"
+                          label={t(
+                            "moneytransfer.setTransferAmount.debitedLabel"
+                          )}
                           value={sourceAmount || ""}
                           error={sourceAmount > Math.floor(maxAmounts["from"])}
                           id="recievingAmount"
@@ -251,7 +247,9 @@ const SetTransferAmount = (props: any) => {
                           onChange={onChangeOfReciveAmount}
                           variant="filled"
                           inputProps={{
-                            "aria-label": "Reciving amount input box",
+                            "aria-label": t(
+                              "moneytransfer.setTransferAmount.debitedLabelAria"
+                            ),
                           }}
                           InputProps={{
                             startAdornment: (
@@ -272,14 +270,15 @@ const SetTransferAmount = (props: any) => {
                           </Box>
                         )}
                         <Caption>
-                          At an exchange rate of <b>{exchangeRate}</b>
+                          {t(
+                            "moneytransfer.setTransferAmount.atAnExchangeRate"
+                          )}{" "}
+                          <b>{exchangeRate}</b>
                         </Caption>
                       </Box>
-                    ) : null
-                  }
+                    ) : null}
                   </>
                 }
-                
               </Grid>
 
               <Grid item xs={2} />
@@ -294,8 +293,7 @@ const SetTransferAmount = (props: any) => {
                         content={
                           <>
                             <Caption>
-                              Your exchange rate is calculated on the following
-                              values
+                              {t("moneytransfer.setTransferAmount.calcValues")}
                             </Caption>
                             <Box mt={4}>
                               <H4>
@@ -322,11 +320,9 @@ const SetTransferAmount = (props: any) => {
                 </>
               </Grid>
             </Grid>
-
-
-           }
-            </>
-        } 
+          )}
+        </>
+      }
       bottom={
         <Box display="flex" justifyContent="space-between" mt={10}>
           <BackButton
@@ -342,7 +338,7 @@ const SetTransferAmount = (props: any) => {
             onClick={() => onNextStep()}
             size="large"
           >
-            Review
+            Next
           </Button>
         </Box>
       }
@@ -350,6 +346,3 @@ const SetTransferAmount = (props: any) => {
   );
 };
 export default SetTransferAmount;
-
-//handle enabling button if value is less than max amount
-// && currenciesAreDifferent ? sourceAmount < Math.floor(maxAmounts["from"]):destinationAmount < Math.floor(maxAmounts["to"])

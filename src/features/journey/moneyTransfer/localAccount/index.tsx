@@ -1,5 +1,5 @@
 import React, { useState, useReducer } from "react";
-import { Switch, Route, useLocation } from "react-router-dom";
+import {Route, useLocation } from "react-router-dom";
 import * as RoutePath from "../../../../router/config";
 import { Box, makeStyles } from "@mashreq-digital/ui";
 import { globalStyle } from "../../../../util/constants";
@@ -7,10 +7,11 @@ import StartPayments from "./startYourPayments";
 import SetTransferAmount from "./setTransferAmount";
 import Review from "./Review";
 import Success from "./Success";
+import Purpose from "./purpose";
 import JourneySidebar from "../../../../components/JourneySidebar/index";
 import { MONEY_TRANSFER_LOCAL_STEPS } from "../../../../util/constants";
 import transfer from "../../../../redux/reducers/moneyTransfer/transfer";
-import Purpose from './purpose';
+import { DispatchContext, StateContext } from "../../../../redux/context";
 const { postLogin, sidebarWidth, defaultGutter } = globalStyle;
 const routes: any = [
   {
@@ -45,22 +46,17 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-const StateContext = React.createContext<any>(null);
-const DispatchContext = React.createContext((() => {}) as any);
-
 const MoneyTransferJourneyLocal = () => {
-  console.log(
-    " routerSwitch MoneyTransferJourneyLocal -> MoneyTransferJourneyLocal"
-  );
   const { mainLayout } = useStyles();
   const location = useLocation();
-  const historyState = location.state;
-  let serviceType = (historyState as any)?.serviceType;
-  let resumeFileds = (historyState as any)?.resumeFileds;
+  const state = location.state;
+  let serviceType = (state as any)?.serviceType;
+  let resumeFileds = (state as any)?.resumeFileds;
   const [step, setStep] = useState(0);
   const [transferState, transferDispatch] = useReducer(transfer, {
     transfer: {},
-  });
+    serviceType:serviceType
+  }); 
 
   return (
     <Box display="flex" height={postLogin.height} mt={`${postLogin.top}px`}>
@@ -78,7 +74,7 @@ const MoneyTransferJourneyLocal = () => {
                     serviceType={serviceType}
                     setStep={(st: any) => setStep(st)}
                     resumeFileds={resumeFileds}
-                    {...historyState}
+                    {...state}
                   />
                 </Route>
               );

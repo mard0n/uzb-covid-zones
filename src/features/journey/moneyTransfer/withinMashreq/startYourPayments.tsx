@@ -21,7 +21,7 @@ import EmtyList from "../../../../common/payList/emtyList";
 import { Plus } from "@mashreq-digital/webassets";
 import { useHistory } from "react-router-dom";
 import { MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT } from "../../../../router/config";
-import ImageWithText from '../../../../common/imageWithText/index';
+import ImageWithText from "../../../../common/imageWithText/index";
 import { DispatchContext, StateContext } from "../../../../redux/context";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
 
@@ -36,15 +36,17 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-const StartPayments = (props:any) => {
+const StartPayments = (props: any) => {
   const [transferButton, setTransferButton] = useState(false);
-  const {setStep} = props;
+  const { setStep } = props;
   const { NoBeniStyle } = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const transferDispatch = useContext(DispatchContext);
   const transferState = useContext(StateContext);
-  let { transfer,serviceType } = transferState;
+
+  let { transfer, serviceType } = transferState;
+  console.log("StartPayments -> transfer lvlv", transfer);
 
   const payCardListData = Object.assign(
     useSelector((state: any) => state.moneyTransfer.other.payListData)
@@ -59,9 +61,7 @@ const StartPayments = (props:any) => {
   const onSubmitPayment = () => {
     history.replace({
       pathname: MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT,
-      state: {serviceType:serviceType,
-      resumeFileds:transfer
-      }
+      state: { serviceType: serviceType, resumeFileds: transfer },
     });
     setStep(1);
   };
@@ -89,34 +89,40 @@ const StartPayments = (props:any) => {
   };
 
   const onChangeToAcount = (item: any) => {
-    transfer = { ...transfer, toAccount: item };
-    if (payCardListData) {
-      payCardListData.destination = {
-        ...payCardListData.destination,
-        suggestedAccount: item,
-      };
-    }
+    console.log("onChangeToAcount -> item dekho", item);
+    if (item.accountNumber) {
+      transfer = { ...transfer, toAccount: item };
+      if (payCardListData) {
+        payCardListData.destination = {
+          ...payCardListData.destination,
+          suggestedAccount: item,
+        };
+      }
 
-    transferDispatch(TransferActions.setTransferObject(transfer));
-    
-    if (
-      transfer.hasOwnProperty("fromAccount") &&
-      transfer.hasOwnProperty("toAccount")
-    ) {
+      transferDispatch(TransferActions.setTransferObject(transfer));
+
       if (
-        !(transfer.fromAccount.availableBalance <= 0) &&
-        transfer.fromAccount.accountNumber !== transfer.toAccount.accountNumber
+        transfer.hasOwnProperty("fromAccount") &&
+        transfer.hasOwnProperty("toAccount")
       ) {
-        setTransferButton(true);
-      } else {
-        setTransferButton(false);
+        if (
+          !(transfer.fromAccount.availableBalance <= 0) &&
+          transfer.fromAccount.accountNumber !==
+            transfer.toAccount.accountNumber
+        ) {
+          setTransferButton(true);
+        } else {
+          setTransferButton(false);
+        }
       }
     }
   };
 
   useEffect(() => {
     dispatch(Actions.fetchPayListRequest({ type: withinMashreq }));
-    dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest({ type: withinMashreq }));
+    dispatch(
+      ActionBeni.fetchMoneyTransferBeneficiariesRequest({ type: withinMashreq })
+    );
 
     /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. */
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -127,16 +133,16 @@ const StartPayments = (props:any) => {
       height={"calc(100vh - 400px)"}
       top={
         <>
-        <Box mb={6}>
-        <ImageWithText
-          description={serviceType.name}
-          name={serviceType.code}
-          iconType={false}
-          logo={true}
-          avtHight="40px"
-          avtWidth="40px"
-        />
-      </Box>
+          <Box mb={6}>
+            <ImageWithText
+              description={serviceType.name}
+              name={serviceType.code}
+              iconType={false}
+              logo={true}
+              avtHight="40px"
+              avtWidth="40px"
+            />
+          </Box>
 
           <UnderlineText color="primary">
             <H2>{t("moneytransfer.startYourPayment.title")}</H2>
@@ -148,8 +154,8 @@ const StartPayments = (props:any) => {
                 payCardListData.hasOwnProperty("source") &&
                 payCardListData.source.accounts.length > 0 ? (
                   <PayFromList
-                  heading={t("moneytransfer.startYourPayment.payfrom")}
-                  payListData={payCardListData.source}
+                    heading={t("moneytransfer.startYourPayment.payfrom")}
+                    payListData={payCardListData.source}
                     onChangeList={onChangeFromAcount}
                   />
                 ) : (
