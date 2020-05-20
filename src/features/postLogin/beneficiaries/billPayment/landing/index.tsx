@@ -21,6 +21,7 @@ import FilledCheckBox from "../../../../../common/filledCheckbox";
 import * as Actions from "../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import InputSearch from "../../../../../common/inputSearch";
 import { MONEY_TRANSFER_BENI_FILTER } from '../../../../../util/constants';
+import AddMoneyTransfer from './AddMoneyTransfer';
 import * as RoutePath from '../../../../../router/config';
 import { useHistory } from "react-router-dom";
 
@@ -134,6 +135,15 @@ const BillPaymentLanding = (props: any) => {
           handleClose={handleClose}
         />
       )}
+
+      {openMoneyTransferModal && (
+        <AddMoneyTransfer
+        openModal={openMoneyTransferModal}
+        handleClose={handleClose}
+      />
+      )}
+
+
       <Box>
         <UnderlineText color="primary">
           <H2>{t("beneficiary.landing.title")}</H2>
