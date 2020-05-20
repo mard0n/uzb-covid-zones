@@ -24,7 +24,7 @@ export function fetchMoneyTransferInitiate(action: any) {
   const url = Endpoints.MONEY_TRANSFER_INITIATE_TRANSFER_ENDPOINT;
 
   const config = {
-    method: "POST",
+    config: { method: "POST" },
     url,
     data: { ...payload },
     //headers: {'X-CIF-ID': CIF}, //TODO: CIF 010424127  010424124

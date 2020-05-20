@@ -50,9 +50,9 @@ const headerIcons = [
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    "& header > div": {
-      minHeight: header,
-      padding: `0 ${defaultGutter}px`,
+    "& header": {
+      // minHeight: header,
+      // padding: `0 ${defaultGutter}px`,
       borderBottom: "1px solid #ccc"
     }
   },
@@ -99,7 +99,7 @@ const MOLHeader = (props: any) => {
   };
 
   //update regex for any other path
-  const exludePath = new RegExp("account");
+  const exludePath = new RegExp("account/");
   const includeReturn = new RegExp("journey");
 
 

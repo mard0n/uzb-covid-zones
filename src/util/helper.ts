@@ -3,7 +3,11 @@ export const replaceStr = (
   matchString: any,
   replacebleString: any
 ) => {
-  if (originalStr && typeof matchString  !== "undefined" && typeof replacebleString !== "undefined") {
+  if (
+    originalStr &&
+    typeof matchString !== "undefined" &&
+    typeof replacebleString !== "undefined"
+  ) {
     return originalStr.replace(matchString, replacebleString);
   }
   return originalStr;
@@ -16,10 +20,20 @@ export const trimLowerCaseStr = (str: string) => {
   return str;
 };
 
+export const getLetterFromStr = (str: string) => {
+  if (str) {
+    return str
+      .split(/\s/)
+      .reduce((response: any, word: any) => (response += word.slice(0, 1)), "")
+      .slice(0, 2)
+      .toUpperCase();
+  }
+  return str;
+};
 
 export const capitalizeFirstLetter = (str: string) => {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
-}
+};
 
 /* pass serviceTypeCode and get the below values
   - etisalat => etisalat-landline, etisalat-prepaid, etisalat-postpaid
@@ -27,19 +41,15 @@ export const capitalizeFirstLetter = (str: string) => {
 */
 export const getServiceTypes = (value: string) => {
   switch (true) {
-    case (value.indexOf('etisalat') > -1) :
-      return 'etisalat';
-    case (value.indexOf('du') > -1 ):
-      return 'du';
-    default :
+    case value.indexOf("etisalat") > -1:
+      return "etisalat";
+    case value.indexOf("du") > -1:
+      return "du";
+    default:
       return value;
   }
- 
-}
+};
 
 export const formatCurrency = (value: number) => {
-console.log("formatCurrency -> value hansini", value);
-
-return !isNaN(value) && value !== undefined  ? value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : '';
-
+  return !isNaN(value) && value !== undefined  ? value.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') : '';
 };

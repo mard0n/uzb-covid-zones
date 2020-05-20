@@ -87,6 +87,7 @@
     "lint-staged": "^10.0.0-beta.14",
     "prettier": "^1.19.1",
     "pretty-quick": "^2.0.1",
+    "react-context-devtool": "^1.0.1",
     "redux-logger": "^3.0.6"
   },
   "husky": {

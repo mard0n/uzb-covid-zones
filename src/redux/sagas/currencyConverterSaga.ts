@@ -25,7 +25,7 @@ export function fetchCurrencyRate(action: any) {
   const {data = {}} = action.payload;
   const url = Endpoints.MONEY_TRANSFER_CURRENCY_EXCHANGE_ENDPOINT;
   const config = {
-    method: 'POST',
+    config: { method: "POST" },
     url,
     data,
   };

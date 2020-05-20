@@ -11,6 +11,9 @@ export const TELECOM_SERVICE_TYPE_CODE: any = {
 
 export const withinMashreq = "within-mashreq";
 
+/* Context API */
+export const RESET_ERROR = "RESET_ERROR";
+
 /* Layout Styles */
 const style = {
   header: 88, //minHeight
