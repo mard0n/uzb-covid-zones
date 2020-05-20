@@ -2,6 +2,7 @@ import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 import * as RoutePath from "../../router/config";
 import MoneyTransferJourney from "./moneyTransfer/index";
+import BeneficiaryJourney from "./beneficiary/";
 import BillPayments from '../postLogin/billpayment/index';
 
 const Journey = () => {
@@ -15,6 +16,10 @@ const Journey = () => {
 
         <Route path={RoutePath.BILL_PAYMENT_JOURNEY}>
           <BillPayments />
+        </Route>
+
+        <Route path={RoutePath.BENEFICIARY_JOURNEY}>
+          <BeneficiaryJourney />
         </Route>
 
         <Redirect from="*" to={RoutePath.DASHBOARD} />

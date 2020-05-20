@@ -9,6 +9,7 @@ import { mockPaymentEnquiry } from "./mockData/billPayment/mockPaymentEnquiry";
 import { landingMocked } from './mockData/moneyTransfer/landingMocked';
 import { payListOwnAccount } from './mockData/moneyTransfer/payListOwnAccount';
 import { payListBeni } from './mockData/moneyTransfer/payListBeni';
+// import { mockMTIbansearch } from './mockData/beneficiary/moneyTransfer/mockIBAN';
 
 const startMocking = (isMockingRequired: boolean = false) => {
   if (isMockingRequired) {
@@ -22,6 +23,8 @@ const startMocking = (isMockingRequired: boolean = false) => {
     // );
 
     mock
+        // .onPost(Endpoints.MONEY_TRANSFER_IBAN)
+        // .reply(200, mockMTIbansearch)
         .onPost(Endpoints.BILL_PAYMENT_PAY_BILL_ENDPOINT)
         .reply(200, mockPaymentBill)
         .onPost(Endpoints.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT)

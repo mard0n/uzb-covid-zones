@@ -111,7 +111,7 @@ const PayFromList = (props: PayFromListProps) => {
           suggestAccountOrCard: true,
         };
       const config = {
-        method: "POST",
+        config: { method: "POST" },
         url,
         data,
       };

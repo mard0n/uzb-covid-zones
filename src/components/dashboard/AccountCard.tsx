@@ -92,7 +92,7 @@ const AccountCard = (props: AccountCardProps) => {
               </>
             }
             <Box mt={2.6}>
-            {currentBalanceAmount && (
+            {type !== "salaam" && currentBalanceAmount && (
                 <>
                 <Body1 fontWeight={600} display="inline">
                   {currentBalanceAmount}

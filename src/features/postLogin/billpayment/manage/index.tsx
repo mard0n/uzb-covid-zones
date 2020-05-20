@@ -66,7 +66,7 @@ const {t} = useTranslation();
     }
     
       const config = {
-        method: "POST",
+        config: { method: "POST" },
         url,
         data,
       };
