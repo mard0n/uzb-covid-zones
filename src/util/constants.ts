@@ -55,9 +55,17 @@ export const MONEY_TRANSFER_LOCAL_STEPS = [
   i18n.t(`moneytransfer.stepSet`),
   i18n.t(`moneytransfer.stepPurpos`),
   i18n.t(`moneytransfer.stepReview`),
-  i18n.t(`moneytransfer.stepAuth`),
   i18n.t(`moneytransfer.stepConfirm`)
 ];
+// i18n.t(`moneytransfer.stepAuth`),
+export const MONEY_TRANSFER_INTERNATIONAL_STEPS = [
+  i18n.t(`moneytransfer.stepStart`),
+  i18n.t(`moneytransfer.stepSet`),
+  i18n.t(`moneytransfer.stepPurpos`),
+  i18n.t(`moneytransfer.stepReview`),
+  i18n.t(`moneytransfer.stepConfirm`)
+];
+
 
 export const MONEY_TRANSFER_WITHIN_MASHREQ_STEPS =[
   i18n.t(`moneytransfer.stepStart`),

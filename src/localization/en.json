@@ -313,7 +313,22 @@
   "stepConfirm":"Confirmation",
   "stepPurpos":"Purpose and charges",
   "stepAuth":"Authorisation",
-
+  "purpose":{
+    "title":"Let us know the purpose of payment and charges",
+    "payfor":"The Payments is for",
+    "select":"Select Purpose of Payment",
+    "whoPays":"Who pays the payment charges?",
+    "oreciever":"Only the receiver",
+    "receiverCharges":"The receiver pays the charges out of this transfer",
+    "oSender":"Only the sender",
+    "toCharges":"To pay the charges upfront",
+    "shared":"Shared between sender & receiver",
+    "both":"Both parties share the charges",
+    "payment":"Payment charges for locale UAE transfers",
+    "card":"Not expected from Praveen. Please note that the correspondent bank may deduct charges from remittance amount irrespective of the charge method selected.",
+    "selectPurpose":"Select Purpose of Payment",
+    "continue":"Continue"
+  },
   "startYourPayment":{
     "title":"Start your transfer",
     "payfrom":"I want to send money from",
@@ -323,7 +338,13 @@
    "review":{
     "payingFrom":"Paying from",
     "title":"Review your transfer",
-    "transfering":"You are Transfering"
+    "transfering":"You are Transfering",
+    "payCharge":"Payment Charges",
+    "ack":"By clicking on ’Submit’ button, I/We acknowledge and accept the",
+    "terms":"Terms and Conditions",
+    "appl":"applicable and available.",
+    "purp":"Purpose of Payment"
+
    },
    "success":{
      "fallowup":"Please check the Transaction Queue tab to follow up on the status of the transaction.",
@@ -331,7 +352,6 @@
       "withNumber":"Your transaction with reference number",
       "frequent":"Frequent Payment?",
       "setupInstruction":"Set up as standing instruction"
-
     },
    "setTransferAmount":{
     "title":"What amount would you like to transfer?",

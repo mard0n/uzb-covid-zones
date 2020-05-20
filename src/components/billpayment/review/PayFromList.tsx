@@ -226,7 +226,7 @@ const PayFromList = (props: PayFromListProps) => {
                 setDropList(!dropList)
                 setCheck(!selectOptions)}
             }
-              selectOptions={selectOptions}
+              selectOptions={check}
             />
           )}
 

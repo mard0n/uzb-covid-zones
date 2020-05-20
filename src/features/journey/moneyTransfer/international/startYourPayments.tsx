@@ -16,11 +16,10 @@ import CardDash from "../../../../common/cardDash/index";
 import PayFromList from "../../../../components/billpayment/review/PayFromList";
 import * as ActionBeni from "../../../../redux/actions/moneyTransfer/fetchBeni";
 import CardPayNow from "../../../../common/card/CardPayNow";
-import { withinMashreq } from "../../../../util/constants";
 import EmtyList from "../../../../common/payList/emtyList";
 import { Plus } from "@mashreq-digital/webassets";
 import { useHistory } from "react-router-dom";
-import { MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT } from "../../../../router/config";
+import { MONEY_TRANSFER_JOURNEY_INTERNATIONAL_AMOUNT } from "../../../../router/config";
 import ImageWithText from "../../../../common/imageWithText/index";
 import { DispatchContext, StateContext } from "../../../../redux/context";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
@@ -55,18 +54,21 @@ const StartPayments = (props: any) => {
   let benificiary = useSelector(
     (state: any) => state.moneyTransfer.mtBeni.beneficiaries
   );
+  console.log("StartPayments -> benificiary", benificiary);
 
   const { t } = useTranslation();
 
   const onSubmitPayment = () => {
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT,
+      pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_AMOUNT,
       state: { serviceType: serviceType, resumeFileds: transfer },
     });
     setStep(1);
   };
 
   const onChangeFromAcount = (item: any) => {
+    console.log("onChangeFromAcount -> item dekho", item);
+
     transfer = { ...transfer, fromAccount: item };
     transferDispatch(TransferActions.setTransferObject(transfer));
     if (payCardListData) {
@@ -89,7 +91,6 @@ const StartPayments = (props: any) => {
   };
 
   const onChangeToAcount = (item: any) => {
-    console.log("onChangeToAcount -> item dekho", item);
     if (item.accountNumber) {
       transfer = { ...transfer, toAccount: item };
       if (payCardListData) {
@@ -119,9 +120,9 @@ const StartPayments = (props: any) => {
   };
 
   useEffect(() => {
-    dispatch(Actions.fetchPayListRequest({ type: withinMashreq }));
+    dispatch(Actions.fetchPayListRequest({ type: "international" }));
     dispatch(
-      ActionBeni.fetchMoneyTransferBeneficiariesRequest({ type: withinMashreq })
+      ActionBeni.fetchMoneyTransferBeneficiariesRequest({ type: "international" })
     );
 
     /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. */
@@ -137,7 +138,7 @@ const StartPayments = (props: any) => {
             <ImageWithText
               description={serviceType.name}
               name={serviceType.code}
-              iconType={false}
+              iconType={true}
               logo={true}
               avtHight="40px"
               avtWidth="40px"

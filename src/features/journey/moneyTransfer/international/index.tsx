@@ -9,29 +9,29 @@ import Review from "./Review";
 import Success from "./Success";
 import Purpose from "./purpose";
 import JourneySidebar from "../../../../components/JourneySidebar/index";
-import { MONEY_TRANSFER_LOCAL_STEPS } from "../../../../util/constants";
+import { MONEY_TRANSFER_INTERNATIONAL_STEPS } from "../../../../util/constants";
 import transfer from "../../../../redux/reducers/moneyTransfer/transfer";
 import { DispatchContext, StateContext } from "../../../../redux/context";
 const { postLogin, sidebarWidth, defaultGutter } = globalStyle;
 const routes: any = [
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_LOCAL_START,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_INTERNATIONAL_START,
     component: StartPayments,
   },
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_INTERNATIONAL_AMOUNT,
     component: SetTransferAmount,
   },
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_INTERNATIONAL_PURPOSE,
     component: Purpose,
   },
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_INTERNATIONAL_REVIEW,
     component: Review,
   },
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_LOCAL_SUCCES,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_INTERNATIONAL_SUCCES,
     component: Success,
   },
 ];
@@ -46,7 +46,7 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-const MoneyTransferJourneyLocal = () => {
+const MoneyTransferJourneyInternational = () => {
   const { mainLayout } = useStyles();
   const location = useLocation();
   const state = location.state;
@@ -63,7 +63,7 @@ const MoneyTransferJourneyLocal = () => {
       <DispatchContext.Provider value={transferDispatch}>
         <StateContext.Provider value={transferState}>
           <JourneySidebar
-            steps={MONEY_TRANSFER_LOCAL_STEPS}
+            steps={MONEY_TRANSFER_INTERNATIONAL_STEPS}
             currentStep={step}
           />
           <Box className={mainLayout}>
@@ -86,4 +86,4 @@ const MoneyTransferJourneyLocal = () => {
   );
 };
 
-export default MoneyTransferJourneyLocal;
+export default MoneyTransferJourneyInternational;
