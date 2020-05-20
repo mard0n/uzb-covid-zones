@@ -7,6 +7,7 @@ import {
   makeStyles,
   Theme,
   CircularProgress,
+  Modals,
 } from "@mashreq-digital/ui";
 import { API } from "../../../network";
 import * as Endpoint from "../../../network/Endpoints";
@@ -20,7 +21,7 @@ type PayFromListProps = {
   heading?: any;
   type?: any;
   stype?: any;
-  activeItem?:any;
+  activeItem?: any;
   selectOptions?: boolean;
   payListData?: any;
 };
@@ -52,8 +53,9 @@ const PayFromList = (props: PayFromListProps) => {
   const [active, setActive] = useState<any>({});
   const [suggestionList, setSuggestionList] = useState<any>([]);
   const [dropList, setDropList] = useState(false);
-  const listItems = ["accounts", "cards","benificiary"];
+  const listItems = ["accounts", "cards", "benificiary"];
   const [noSuggetion, setNosuggestion] = useState(false);
+  const [check, setCheck] = useState(selectOptions);
 
   // const callOnChangeList = useCallback((activeAct: any, type: string) => {
   //   let acctData = convertCardAccounts(activeAct, type);
@@ -98,7 +100,7 @@ const PayFromList = (props: PayFromListProps) => {
       setSuggestionList({
         accounts: accounts && accounts.length > 0 ? accounts : [],
         cards: cards && cards.length > 0 ? cards : [],
-        benificiary: benificiary && benificiary.length > 0 ? benificiary : []
+        benificiary: benificiary && benificiary.length > 0 ? benificiary : [],
       });
     };
 
@@ -185,45 +187,58 @@ const PayFromList = (props: PayFromListProps) => {
       suggestionList.accounts.length > 0
         ? suggestionList.accounts
         : []),
-        ...(suggestionList &&
-          suggestionList.benificiary &&
-          suggestionList.benificiary.length > 0
-            ? suggestionList.benificiary
-            : []),
-
+      ...(suggestionList &&
+      suggestionList.benificiary &&
+      suggestionList.benificiary.length > 0
+        ? suggestionList.benificiary
+        : []),
     ],
     listHeight = allSuggestions && allSuggestions.length > 4 ? 75 * 3 : "auto";
 
   if ((active && active.currency) || noSuggetion) {
     return (
       <Box position="relative" minHeight="110px">
-        <Box display="flex" justifyContent="space-between">
+        
+      <Box display="flex" justifyContent="space-between">
           <H4>
             {heading ? heading : t("billPayments.steps.review.payingFrom")}
           </H4>
-          <Button
+         {check ? null: <Button
             onClick={() => {
               setDropList(!dropList);
             }}
             color="primary"
           >
-            {!dropList ? t("common.action.change") : t("common.action.cancel")}
+            {t("common.action.change")}
           </Button>
+        }
         </Box>
+
         <Box className={dropListStyle} height={dropList ? listHeight : "auto"}>
           {!dropList && active && active.currency ? (
-              <PayListItem isDefault data={active} />
-            
+            <PayListItem activeSelected={true} isDefault data={active} />
           ) : (
-
             <PayListItem
               isDefault
+              activeSelected={true}
               data={active}
-              selectOptions={selectOptions}
+              destinationSelect={()=>{
+                setDropList(!dropList)
+                setCheck(!selectOptions)}
+            }
+              selectOptions={check}
             />
           )}
 
-          {dropList && (
+          <Modals
+            heading={<H4>Select Account</H4>}
+            open={dropList}
+            onBackdropClick={(e) => {
+              console.log(e);
+            }}
+            onClose={() => {setDropList(!dropList)}}
+          >
+            
             <>
               {suggestionList && (
                 <>
@@ -237,18 +252,18 @@ const PayFromList = (props: PayFromListProps) => {
                           let data = getPayListFormattedData(item, list);
                           return (
                             <Fragment key={i + "PayListItem"}>
-                                <PayListItem
-                                  onClickCallback={() =>
-                                    onClickCallback(data, {
-                                      ...item,
-                                      balance: data.balance,
-                                      type: list,
-                                    })
-                                  }
-                                  active={data.accNo === active.accNo}
-                                  data={data}
-                                />
-                              
+                              <PayListItem
+                                onClickCallback={() =>
+                                  onClickCallback(data, {
+                                    ...item,
+                                    balance: data.balance,
+                                    type: list,
+                                  })
+                                }
+                                active={data.accNo === active.accNo}
+                                data={data}
+                              />
+                              <hr/>
                             </Fragment>
                           );
                         }
@@ -260,7 +275,8 @@ const PayFromList = (props: PayFromListProps) => {
                 </>
               )}
             </>
-          )}
+    
+          </Modals>
         </Box>
       </Box>
     );

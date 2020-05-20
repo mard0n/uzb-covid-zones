@@ -29,7 +29,7 @@ const useStyle = makeStyles((theme: Theme) => ({
           return 0;
         }
         const calcFont = (props.currentStep + 1) * 18;
-        const calcMargin = props.currentStep * 13;
+        const calcMargin = props.currentStep * 24;
         return `${calcFont + calcMargin}px`;
       },
       width: "8px",

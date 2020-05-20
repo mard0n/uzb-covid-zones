@@ -7,26 +7,31 @@ import StartPayments from "./startYourPayments";
 import SetTransferAmount from "./setTransferAmount";
 import Review from "./Review";
 import Success from "./Success";
+import Purpose from "./purpose";
 import JourneySidebar from "../../../../components/JourneySidebar/index";
-import { MONEY_TRANSFER_WITHIN_MASHREQ_STEPS } from "../../../../util/constants";
+import { MONEY_TRANSFER_INTERNATIONAL_STEPS } from "../../../../util/constants";
 import transfer from "../../../../redux/reducers/moneyTransfer/transfer";
 import { DispatchContext, StateContext } from "../../../../redux/context";
 const { postLogin, sidebarWidth, defaultGutter } = globalStyle;
 const routes: any = [
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_WITHIN_START,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_INTERNATIONAL_START,
     component: StartPayments,
   },
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_INTERNATIONAL_AMOUNT,
     component: SetTransferAmount,
   },
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_WITHIN_REVIEW,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_INTERNATIONAL_PURPOSE,
+    component: Purpose,
+  },
+  {
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_INTERNATIONAL_REVIEW,
     component: Review,
   },
   {
-    path: RoutePath.MONEY_TRANSFER_JOURNEY_WITHIN_SUCCES,
+    path: RoutePath.MONEY_TRANSFER_JOURNEY_INTERNATIONAL_SUCCES,
     component: Success,
   },
 ];
@@ -41,7 +46,7 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-const MoneyTransferJourneyWithinMashreq = () => {
+const MoneyTransferJourneyInternational = () => {
   const { mainLayout } = useStyles();
   const location = useLocation();
   const state = location.state;
@@ -51,14 +56,14 @@ const MoneyTransferJourneyWithinMashreq = () => {
   const [transferState, transferDispatch] = useReducer(transfer, {
     transfer: {},
     serviceType:serviceType
-  });
+  }); 
 
   return (
     <Box display="flex" height={postLogin.height} mt={`${postLogin.top}px`}>
       <DispatchContext.Provider value={transferDispatch}>
         <StateContext.Provider value={transferState}>
           <JourneySidebar
-            steps={MONEY_TRANSFER_WITHIN_MASHREQ_STEPS}
+            steps={MONEY_TRANSFER_INTERNATIONAL_STEPS}
             currentStep={step}
           />
           <Box className={mainLayout}>
@@ -81,4 +86,4 @@ const MoneyTransferJourneyWithinMashreq = () => {
   );
 };
 
-export default MoneyTransferJourneyWithinMashreq;
+export default MoneyTransferJourneyInternational;

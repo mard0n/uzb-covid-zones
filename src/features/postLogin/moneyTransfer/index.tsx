@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Grid, H2, Box, UnderlineText, H5,SvgIcon } from "@mashreq-digital/ui";
+import { Grid, H2, Box, UnderlineText, H5, SvgIcon } from "@mashreq-digital/ui";
 import TransferTypeCard from "../../../common/card/TransferTypeCard";
 import {
   getMashreqLogo,
@@ -7,15 +7,21 @@ import {
   Earth1,
   CashPinMap,
   LoveHeartHandsHold3,
-  NetworkArrowSync
+  NetworkArrowSync,
 } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
 import CardPayNow from "../../../common/card/CardPayNow";
 import { useDispatch } from "react-redux";
 import * as Action from "../../../redux/actions/moneyTransfer/landingActions";
 import { useSelector } from "react-redux";
-import { useHistory } from 'react-router-dom';
-import { MONEY_TRANSFER_JOURNEY_WITHIN_START, MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START, MONEY_TRANSFER_JOURNEY_LOCAL_START } from "../../../router/config";
+import { useHistory } from "react-router-dom";
+import {
+  MONEY_TRANSFER_JOURNEY_WITHIN_START,
+  MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START,
+  MONEY_TRANSFER_JOURNEY_LOCAL_START,
+  MONEY_TRANSFER_JOURNEY_INTERNATIONAL,
+  MONEY_TRANSFER_JOURNEY_INTERNATIONAL_START,
+} from "../../../router/config";
 import { withinMashreq } from "../../../util/constants";
 
 let serviceTypeCode = [
@@ -65,9 +71,15 @@ const MoneyTransfer = (props: any) => {
           pathname: MONEY_TRANSFER_JOURNEY_LOCAL_START,
           state: { serviceType: eachServiceType },
         });
+        break;
+      case "international":
+        history.push({
+          pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_START,
+          state: { serviceType: eachServiceType },
+        });
     }
   };
-  
+
   const serviceTypes = useSelector(
     (state: any) => state?.moneyTransfer?.landing?.serviceTypesFT
   );
@@ -80,61 +92,61 @@ const MoneyTransfer = (props: any) => {
       </Box>
       <Box mb={5}>
         <H5>{t("moneytransfer.landing.choose")}</H5>
-        </Box>
+      </Box>
       <Grid container xs={10} sm={10} lg={10} xl={10}>
-      <Grid container>
-        {serviceTypes &&
-          serviceTypes.filter((service:any)=>service.code !== "quick-remit").map((eachServiceType: any) => {
-            let prop = serviceTypeCode.find(
-              (el: any) => el.type === eachServiceType.code
-            );
-            return (
-              <Grid item xs={6} sm={6} lg={3} xl={3}>
-                <TransferTypeCard
-                  Icon={prop?.icon}
-                  logo={prop?.logo}
-                  callbak={()=>onTransferSelection(eachServiceType)}
-                  title={eachServiceType.name}
-                />
-              </Grid>
-            );
-          })}
-      </Grid>
-      <Box mb={40}></Box>
-
-      <Grid container>
-        <Grid item xs={12} sm={12} lg={6} xl={6}>
-          <CardPayNow
-            TIcon={LoveHeartHandsHold3}
-            cardCallBack={() => {
-              console.log("MoneyTransfer -> as");
-            }}
-            heading={"Every contribution counts"}
-            subheading={"Pay towards a charity lorem ipsum dolor sit amet"}
-          />
+        <Grid container>
+          {serviceTypes &&
+            serviceTypes
+              .filter((service: any) => service.code !== "quick-remit")
+              .map((eachServiceType: any) => {
+                let prop = serviceTypeCode.find(
+                  (el: any) => el.type === eachServiceType.code
+                );
+                return (
+                  <Grid item xs={6} sm={6} lg={3} xl={3}>
+                    <TransferTypeCard
+                      Icon={prop?.icon}
+                      logo={prop?.logo}
+                      callbak={() => onTransferSelection(eachServiceType)}
+                      title={eachServiceType.name}
+                    />
+                  </Grid>
+                );
+              })}
         </Grid>
+        <Box mb={40}></Box>
 
-        <Grid item xs={6} sm={6} lg={6} xl={6}>
-          <CardPayNow
-            TIcon={NetworkArrowSync}
-            cardCallBack={() => {
-              console.log("MoneyTransfer -> as");
-            }}
-            heading={"Quick Remit"}
-            subheading={
-              "A faster, cheaper and convenient way of sending money home"
-            }
-          />
+        <Grid container>
+          <Grid item xs={12} sm={12} lg={6} xl={6}>
+            <CardPayNow
+              TIcon={LoveHeartHandsHold3}
+              cardCallBack={() => {
+                console.log("MoneyTransfer -> as");
+              }}
+              heading={"Every contribution counts"}
+              subheading={"Pay towards a charity lorem ipsum dolor sit amet"}
+            />
+          </Grid>
+
+          <Grid item xs={6} sm={6} lg={6} xl={6}>
+            <CardPayNow
+              TIcon={NetworkArrowSync}
+              cardCallBack={() => {
+                console.log("MoneyTransfer -> as");
+              }}
+              heading={"Quick Remit"}
+              subheading={
+                "A faster, cheaper and convenient way of sending money home"
+              }
+            />
+          </Grid>
         </Grid>
       </Grid>
-      </Grid>
-
     </>
   );
 };
 
 export default MoneyTransfer;
-
 
 // "serviceTypes": [
 //     {

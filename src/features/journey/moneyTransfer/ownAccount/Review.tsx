@@ -181,7 +181,8 @@ console.log("gotoConfirmation -> confirmation pyr", confirmation);
 
             }
             rightContent={
-              <PayListItem data={
+              <PayListItem               activeSelected={true}
+              data={
               getPayListFormattedData(destAcount, "accounts")            
             } />
       
@@ -190,8 +191,9 @@ console.log("gotoConfirmation -> confirmation pyr", confirmation);
 
           <H5>Paying from</H5>
 
-          <Grid item xl={12} lg={6} md={5} sm={12} xs={12}>
-            <PayListItem data={
+          <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
+            <PayListItem               activeSelected={true}
+            data={
               getPayListFormattedData(srcAcount, "accounts")            
             } />
           </Grid>

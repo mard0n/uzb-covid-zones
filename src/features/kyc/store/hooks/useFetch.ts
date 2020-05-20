@@ -9,7 +9,7 @@ const CancelToken = axios.CancelToken;
 // let cancel: any;
 let pending: any = {};
 
-export const API = createInstance({ BASE_URL: Config.BASE_URL,  TIMEOUT: 20000 });
+export const API = createInstance({ baseURL: Config.BASE_URL,  timeout: 20000 });
 
 const delay = async () => new Promise(resolve => setTimeout(resolve,Math.floor((Math.random() * 3000) + 1)))  
 
@@ -44,10 +44,12 @@ export const useFetch = (url: string, options: object = {}) => {
       setResponse(data);
     } catch (error) {
       setLoading(false);
-      if (API.isCancel(error)) {
+
+      // TODO: commenting  iscancel to align with new network changes ==> need updates in package
+      // if (API.isCancel(error)) {
         // console.log("request was cancelled", pending);
         // TODO: If needed we can handle the cancelled request for any use
-      }
+      // }
       if (error.response) {
         switch (error.response.status) {
           case 400:

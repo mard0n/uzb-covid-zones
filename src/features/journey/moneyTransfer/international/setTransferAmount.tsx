@@ -22,8 +22,8 @@ import { withinMashreq } from "../../../../util/constants";
 import { isValidFloatNumber } from "../../../../util/validations/ValidationUtils";
 import { useHistory } from "react-router-dom";
 import {
-  MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE,
-  MONEY_TRANSFER_JOURNEY_LOCAL_START
+  MONEY_TRANSFER_JOURNEY_INTERNATIONAL_PURPOSE,
+  MONEY_TRANSFER_JOURNEY_INTERNATIONAL_START
 } from "../../../../router/config";
 import ImageWithText from "../../../../common/imageWithText/index";
 import { DispatchContext, StateContext } from "../../../../redux/context";
@@ -47,7 +47,7 @@ const SetTransferAmount = (props: any) => {
   let srcAmount = transfer.fromAccount.availableBalance;
   let dstAmount = transfer.toAccount.availableBalance;
   let srcCurrency = transfer.fromAccount.currency;
-  let destCurrency =  transfer.fromAccount.currency;
+  let destCurrency =  transfer.toAccount.beneficiaryCurrency;
 
   const currenciesAreDifferent = srcCurrency !== destCurrency;
 
@@ -73,7 +73,7 @@ const SetTransferAmount = (props: any) => {
     transferDispatch(TransferActions.setTransferObject(transfer));
 
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE,
+      pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_PURPOSE,
       state: { serviceType: serviceType },
     });
     setStep(2);
@@ -81,7 +81,7 @@ const SetTransferAmount = (props: any) => {
 
   const onHandleBack = () => {
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_START,
+      pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_START,
       state: { serviceType: serviceType },
     });
     setStep(0);
@@ -109,7 +109,7 @@ const SetTransferAmount = (props: any) => {
         accountNumber: transfer.fromAccount.accountNumber,
         accountCurrency: srcCurrency,
         accountCurrencyAmount: transfer.fromAccount.availableBalance,
-        transactionCurrency: destCurrency, //TransferType.LOCAL == transferTypeCode ? 'AED' :
+        transactionCurrency: destCurrency, //TransferType.international == transferTypeCode ? 'AED' :
       };
       fetchCurrencyRate(data);
     }

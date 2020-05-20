@@ -10,6 +10,9 @@ import {
   makeStyles,
   SvgIcon,
   Body1,
+  Caption,
+  H4,
+  Body2,
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
 import BackButton from "../../../../common/backButton/index";
@@ -20,8 +23,8 @@ import { ArrowDown } from "@mashreq-digital/webassets";
 import CardPayNow from "../../../../common/card/CardPayNow";
 import { getPayListFormattedData } from "../../../../util/getPayListFormattedData";
 import {
-  MONEY_TRANSFER_JOURNEY_WITHIN_SUCCES,
-  MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT,
+  MONEY_TRANSFER_JOURNEY_INTERNATIONAL_SUCCES,
+  MONEY_TRANSFER_JOURNEY_INTERNATIONAL_PURPOSE,
 } from "../../../../router/config";
 import { useHistory } from "react-router-dom";
 import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
@@ -40,7 +43,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Review = (props: any) => {
-  const {  setStep } = props;
+  const { setStep } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -48,7 +51,8 @@ const Review = (props: any) => {
 
   const { iconStyle } = useStyles();
   const transferState = useContext(StateContext);
-  let { transfer,serviceType } = transferState;
+  let { transfer, serviceType } = transferState;
+  console.log("Review -> transfer yedek", transfer);
 
   const financialTxnNumber = useSelector(
     (state: any) => state.moneyTransfer.other.payListData.financialTxnNumber
@@ -59,6 +63,20 @@ const Review = (props: any) => {
   let transaction = useSelector(
     (state: any) => state.moneyTransfer.makeTransfer
   );
+
+//   {
+//     "fromAccount": "019010000993",
+//     "toAccount": "24545451",
+//     "amount": "2.00",
+//     "serviceType": "international",
+//     "chargeBearer": "O",
+//     "purposeCode": "FAM",
+//     "purposeDesc": "Family Support",
+//     "dealNumber": "",
+//     "finTxnNo": "1234561188032790",
+//     "beneficiaryId": "121"
+// }
+
   const onSubmit = () => {
     let beniData = {
       amount: transfer.amount.total,
@@ -66,8 +84,10 @@ const Review = (props: any) => {
       dealNumber: "",
       finTxnNo: financialTxnNumber,
       fromAccount: transfer.fromAccount.accountNumber,
-      purposeCode: "",
-      serviceType: serviceType.code,
+      purposeCode: transfer.purpose.selected.purposeCode,
+      purposeDesc: transfer.purpose.selected.purposeDesc,
+      chargeBearer: transfer.purpose.chargeBearer,
+      serviceType: "international",
       beneficiaryId: transfer.toAccount.id,
       toAccount: transfer.toAccount.accountNumber,
     };
@@ -97,7 +117,7 @@ const Review = (props: any) => {
 
   const gotoConfirmation = (confirmation: boolean) => {
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_WITHIN_SUCCES,
+      pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_SUCCES,
       state: {
         serviceType: serviceType,
         success: confirmation,
@@ -111,15 +131,15 @@ const Review = (props: any) => {
         subTitle: !confirmation ? "oops! somthing went wrong" : successMessage,
       },
     });
-    setStep(3);
+    setStep(4);
   };
 
   const onHandleBack = () => {
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT,
+      pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_PURPOSE,
       state: { serviceType: serviceType },
     });
-    setStep(1);
+    setStep(2);
   };
 
   let srcAcount = transfer.fromAccount;
@@ -135,7 +155,7 @@ const Review = (props: any) => {
               <ImageWithText
                 description={serviceType.name}
                 name={serviceType.code}
-                iconType={false}
+                iconType={true}
                 logo={true}
                 avtHight="40px"
                 avtWidth="40px"
@@ -180,15 +200,53 @@ const Review = (props: any) => {
                 />
               }
             />
+            <hr />
+            <Box mt={5} mb={3} display="flex">
+              <Box mr={3}>
+                <H4>{t("moneytransfer.review.purp")} </H4>{" "}
+              </Box>
+              <Body2>
+                
+                <span style={{ color: "rgb(110, 110, 110)" }}>
+                  {transfer.purpose.selected.purposeDesc}
+                </span>
+              </Body2>
+            </Box>
 
-            <H5>{t("moneytransfer.review.payingFrom")}</H5>
+            <Box mt={3} mb={3} display="flex">
+              <Box mr={6}>
+                <H4>{t("moneytransfer.review.payCharge")}</H4>
+              </Box>
+              <Body2>
 
+                <span style={{ color: "rgb(110, 110, 110)" }}>
+                  {transfer.purpose.chargeBearerDesc}
+                </span>
+              </Body2>
+            </Box>
+
+            <hr />
+            <Box mt={4}>
+              <H5>{t("moneytransfer.review.payingFrom")}</H5>
+            </Box>
             <Grid item xl={4} lg={4} md={4} sm={12} xs={12}>
               <PayListItem
                 activeSelected={true}
                 data={getPayListFormattedData(srcAcount, "accounts")}
               />
             </Grid>
+
+            <Box mt={4}>
+              <Caption>
+                <span style={{ color: "rgb(173, 184, 191)" }}>
+                {t("moneytransfer.review.ack")} 
+                  <span style={{ color: "rgb(255, 94, 0)" }}>
+                  {t("moneytransfer.review.terms")}
+                  </span>
+                  {t("moneytransfer.review.appl")}
+                </span>
+              </Caption>
+            </Box>
           </>
         }
         bottom={

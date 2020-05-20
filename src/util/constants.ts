@@ -1,3 +1,5 @@
+import i18n from "i18next";
+
 export const TELECOM_SERVICE_TYPE_CODE: any = {
   "etisalat-prepaid": "Prepaid",
   "etisalat-postpaid": "Postpaid",
@@ -27,6 +29,7 @@ export const globalStyle: any = {
     width: 80,
   },
 };
+
 export const MONEY_TRANSFER_BENI_FILTER = [
   {
     label: "All",
@@ -48,17 +51,25 @@ export const MONEY_TRANSFER_BENI_FILTER = [
 
 
 export const MONEY_TRANSFER_LOCAL_STEPS = [
-  "Start Your Transfer",
-  "Set transfer amount",
-  "Purpose and charges",
-  "Review",
-  "Authorisation",
-  "Confirmation"
+  i18n.t(`moneytransfer.stepStart`),
+  i18n.t(`moneytransfer.stepSet`),
+  i18n.t(`moneytransfer.stepPurpos`),
+  i18n.t(`moneytransfer.stepReview`),
+  i18n.t(`moneytransfer.stepConfirm`)
+];
+// i18n.t(`moneytransfer.stepAuth`),
+export const MONEY_TRANSFER_INTERNATIONAL_STEPS = [
+  i18n.t(`moneytransfer.stepStart`),
+  i18n.t(`moneytransfer.stepSet`),
+  i18n.t(`moneytransfer.stepPurpos`),
+  i18n.t(`moneytransfer.stepReview`),
+  i18n.t(`moneytransfer.stepConfirm`)
 ];
 
+
 export const MONEY_TRANSFER_WITHIN_MASHREQ_STEPS =[
-  "Start Your Transfer",
-  "Set transfer amount",
-  "Review",
-  "Confirmation",
+  i18n.t(`moneytransfer.stepStart`),
+  i18n.t(`moneytransfer.stepSet`),
+  i18n.t(`moneytransfer.stepReview`),
+  i18n.t(`moneytransfer.stepConfirm`)
 ];
