@@ -53,8 +53,9 @@
       "BN-3001" : "Invalid number",
       "BN-4004" : "Beneficiary exists for given Account number",
       "BN-4003" : "Beneficiary with nickname already exists",
-      "BN-4011" : "Account length no valid",
+      "BN-4011" : "Account length is not valid",
       "BN-4012" : "Mashreq account is not allowed",
+      "BN-2001" : "Account number is invalid",
       "BN-1001" : "IBAN Account details not found"
     }
   },
@@ -353,6 +354,36 @@
             "success" : {
               "title" : "Beneficiary request created",
               "desc" : "You will now be able to transfer money to your beneficiary after 6 hours. For amounts greater than AED 10,000, please wait 6 hours for activation",
+              "activation" : "To Activation",
+              "viewAllButton" : "View all beneficiaries"
+            }
+          }
+        },
+        "within" : {
+          "title" : "Mashreq Bank",
+          "steps" : [
+            "Beneficiary details",
+            "Authorisation",
+            "Confirmation"
+          ],
+          "beneficiaryDetails" : {
+            "title" : "Let's get started with the beneficiary details",
+            "fieldTitle" : "Please enter details",
+            "accountNumber" : {
+              "label" : "Enter Account Number",
+              "helperText" : "Enter the 12 digit Mashreq account number",
+              "error" : ""
+            },
+            "nickName" : {
+              "label" : "Enter Nickname",
+              "helperText" : "Adding unique nicknames help you find your --br-- beneficiaries quicker!",
+              "error" : "This Nickname is already being used for a different beneficiary, please write a new one!"
+            }
+          },
+          "confirmation":{
+            "success" : {
+              "title" : "Beneficiary request created",
+              "desc" : "You will now be able to transfer money to your beneficiary after 6 hours.",
               "activation" : "To Activation",
               "viewAllButton" : "View all beneficiaries"
             }

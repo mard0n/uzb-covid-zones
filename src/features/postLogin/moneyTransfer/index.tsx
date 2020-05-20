@@ -39,7 +39,7 @@ const MoneyTransfer = (props: any) => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(Action.fetchMoneyTransferLandingRequest());
-  }, [dispatch]);
+  }, []);
 
   // const closeDialogModal = () => {
   //   setaddEditModal(false);
@@ -83,6 +83,10 @@ const MoneyTransfer = (props: any) => {
   const serviceTypes = useSelector(
     (state: any) => state?.moneyTransfer?.landing?.serviceTypesFT
   );
+
+  console.log("MoneyTransfer atest -> serviceTypes", serviceTypes);
+
+  
   return (
     <>
       <Box mb={10}>
