@@ -16,7 +16,6 @@ import {
 } from "@mashreq-digital/ui";
 import { useTranslation } from "react-i18next";
 import BackButton from "../../../../common/backButton/index";
-import { useSelector, useDispatch } from "react-redux";
 import {
   MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT,
   MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW,

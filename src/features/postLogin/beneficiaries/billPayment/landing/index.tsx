@@ -55,6 +55,8 @@ const BillPaymentLanding = (props: any) => {
   const [selectedServiceType, setSelectedServiceType] = useState("all");
 
   const [openModal, setOpenModal] = useState(false);
+  const [openMoneyTransferModal, setOpenMoneyTransferModal] = useState(false);
+
   const [addServiceType, setAddServiceType] = useState("");
   const { t } = useTranslation();
   const tabs: Array<string> = t("beneficiary.landing.tabs", {
@@ -78,7 +80,12 @@ const BillPaymentLanding = (props: any) => {
 
 
   const handleOpen = () => {
+    if(switchValue === "Money Transfer")
+    {
+    setOpenMoneyTransferModal(true);
+    }else{
     setOpenModal(true);
+ } 
   };
 
   const onCloseErrorSnackBar = (reason: any) => {
@@ -87,12 +94,23 @@ const BillPaymentLanding = (props: any) => {
   };
 
   const handleClose = () => {
+    if(switchValue === "Money Transfer")
+    {
+    setOpenMoneyTransferModal(false);
+    }else{
     setOpenModal(false);
+ } 
   };
 
   const onClickService = (name: any) => {
     setAddServiceType(name.toLowerCase());
+    if(switchValue === "Money Transfer")
+    {
+    setOpenMoneyTransferModal(false);
+    }else{
     setOpenModal(false);
+ }
+
   };
 
   const onCloseDialog = () => {
