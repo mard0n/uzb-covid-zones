@@ -23,8 +23,8 @@ import { ArrowDown } from "@mashreq-digital/webassets";
 import CardPayNow from "../../../../common/card/CardPayNow";
 import { getPayListFormattedData } from "../../../../util/getPayListFormattedData";
 import {
-  MONEY_TRANSFER_JOURNEY_LOCAL_SUCCES,
-  MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE,
+  MONEY_TRANSFER_JOURNEY_INTERNATIONAL_SUCCES,
+  MONEY_TRANSFER_JOURNEY_INTERNATIONAL_PURPOSE,
 } from "../../../../router/config";
 import { useHistory } from "react-router-dom";
 import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
@@ -64,18 +64,18 @@ const Review = (props: any) => {
     (state: any) => state.moneyTransfer.makeTransfer
   );
 
-  //   {
-  //     "fromAccount": "019010000993",
-  //     "toAccount": "AE120260001015673975601",
-  //     "amount": "11.00",
-  //     "serviceType": "local",
-  //     "chargeBearer": "O",
-  //     "purposeCode": "FAM",
-  //     "purposeDesc": "Family Support",
-  //     "dealNumber": "",
-  //     "finTxnNo": "12345612803699",
-  //     "beneficiaryId": "18"
-  // }
+//   {
+//     "fromAccount": "019010000993",
+//     "toAccount": "24545451",
+//     "amount": "2.00",
+//     "serviceType": "international",
+//     "chargeBearer": "O",
+//     "purposeCode": "FAM",
+//     "purposeDesc": "Family Support",
+//     "dealNumber": "",
+//     "finTxnNo": "1234561188032790",
+//     "beneficiaryId": "121"
+// }
 
   const onSubmit = () => {
     let beniData = {
@@ -87,7 +87,7 @@ const Review = (props: any) => {
       purposeCode: transfer.purpose.selected.purposeCode,
       purposeDesc: transfer.purpose.selected.purposeDesc,
       chargeBearer: transfer.purpose.chargeBearer,
-      serviceType: "local",
+      serviceType: "international",
       beneficiaryId: transfer.toAccount.id,
       toAccount: transfer.toAccount.accountNumber,
     };
@@ -117,7 +117,7 @@ const Review = (props: any) => {
 
   const gotoConfirmation = (confirmation: boolean) => {
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_SUCCES,
+      pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_SUCCES,
       state: {
         serviceType: serviceType,
         success: confirmation,
@@ -136,7 +136,7 @@ const Review = (props: any) => {
 
   const onHandleBack = () => {
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE,
+      pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_PURPOSE,
       state: { serviceType: serviceType },
     });
     setStep(2);

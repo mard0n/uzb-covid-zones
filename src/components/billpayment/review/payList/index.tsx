@@ -212,7 +212,7 @@ const PayListItem = (props: CustomListItemProps) => {
             display="inline-flex"
             borderRadius="50%"
           >
-          {type === "within-mashreq" || type === "local" ? <BeniLogo width="20" height="20"/>:
+          {type === "within-mashreq" || type === "local" || type === "international" ? <BeniLogo width="20" height="20"/>:
             <SvgIcon
               height="14"
               width="16"
@@ -222,6 +222,7 @@ const PayListItem = (props: CustomListItemProps) => {
           </Box>
         </ListItemAvatar>
       )}
+{      console.log("PayListItem -> balance hansini", balance)}
 
       {type && (type === "salaam" || type === "mm") && balance ? (
         <Box display="flex">
@@ -230,7 +231,7 @@ const PayListItem = (props: CustomListItemProps) => {
           </Box>
           <Box ml={1.3}><Caption>{t(`dashboard.productSummary.${type}.payList.title`)}</Caption></Box>
         </Box>
-      ): type === "within-mashreq" || type === "local"? 
+      ): type === "within-mashreq" || type === "local" || type === "international" ? 
       (
         <Box
           display="flex"

@@ -17,8 +17,8 @@ import {
 import { useTranslation } from "react-i18next";
 import BackButton from "../../../../common/backButton/index";
 import {
-  MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT,
-  MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW,
+  MONEY_TRANSFER_JOURNEY_INTERNATIONAL_AMOUNT,
+  MONEY_TRANSFER_JOURNEY_INTERNATIONAL_REVIEW,
 } from "../../../../router/config";
 import { useHistory } from "react-router-dom";
 import Loader from "../../../../common/loader/index";
@@ -74,7 +74,7 @@ const Purpose = (props: any) => {
     };
     transferDispatch(TransferActions.setTransferObject(transfer));
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW,
+      pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_REVIEW,
       state: { serviceType: serviceType },
     });
     setStep(3);
@@ -82,7 +82,7 @@ const Purpose = (props: any) => {
 
   const onHandleBack = () => {
     history.replace({
-      pathname: MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT,
+      pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_AMOUNT,
       state: { serviceType: serviceType },
     });
     setStep(1);
@@ -91,7 +91,7 @@ const Purpose = (props: any) => {
   useEffect(() => {
     const url = Endpoints.MONEY_TRANSFER_PURPOSE_OF_PAYMENT_ENDPOINT.replace(
       "transferType",
-      "local"
+      "international"
     )
       .replace("customerTypeParam", "I")
       .replace("qrTypeParam", "");
