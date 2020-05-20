@@ -5,13 +5,7 @@ import BeneficiaryList from "../../../../../components/beneficiary/billPayment/B
 import * as Action from "../../../../../redux/actions/moneyTransfer/landingActions";
 import Loader from "../../../../../common/loader";
 import { useTranslation } from "react-i18next";
-import {
-  MONEY_TRANSFER_JOURNEY_WITHIN_START,
-  MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START,
-  MONEY_TRANSFER_JOURNEY_LOCAL_START,
-  MONEY_TRANSFER_JOURNEY_INTERNATIONAL,
-  MONEY_TRANSFER_JOURNEY_INTERNATIONAL_START,
-} from "../../../../../router/config";
+import * as RoutePath from "../../../../../router/config";
 import { withinMashreq } from "../../../../../util/constants";
 import { useHistory } from "react-router-dom";
 import TransferTypeCard from '../../../../../common/card/TransferTypeCard';
@@ -53,16 +47,16 @@ export default function AddMoneyTransfer(props: any) {
         // });
         break;
       case "own-account":
-        // history.push({
-        //   pathname: MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START,
-        //   state: { serviceType: eachServiceType },
-        // });
+        history.push({
+          pathname: RoutePath.BENIFICIARY_MONEY_TRANSFER_JOURNEY_WITHIN_BENEFICIARYDETAILS
+          // state: { serviceType: eachServiceType },
+        });
         break;
       case "local":
-        // history.push({
-        //   pathname: MONEY_TRANSFER_JOURNEY_LOCAL_START,
-        //   state: { serviceType: eachServiceType },
-        // });
+        history.push({
+          pathname: RoutePath.BENIFICIARY_MONEY_TRANSFER_JOURNEY_LOCAL_ACCOUNTDETAILS
+          // state: { serviceType: eachServiceType },
+        });
         break;
       case "international":
         // history.push({
@@ -93,7 +87,7 @@ export default function AddMoneyTransfer(props: any) {
         >
           <>
 
-          <Grid container xs={12} sm={12} lg={12} xl={12}>
+          <Grid spacing={2} container>
           {serviceTypes &&
             serviceTypes
               .filter((service: any) => service.code !== "quick-remit")
