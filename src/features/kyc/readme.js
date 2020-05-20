@@ -1,0 +1,41 @@
+const jointAccountResponse = {
+  customerName: "TEST_CUSTOMER_010001712",
+  accountNumber: "010691330833",
+  nationalIdExpiry: "2018-05-09",
+  salary: "30000",
+  employerName: "TEST_CUSTOMER_010001712",
+  riskLevel: "Level1",
+  company: null,
+  annualIncome: 0,
+  kycNextReviewDate: "2019-11-21",
+  customerIdentifier: "IND_SAL_NORM",
+  customerSegment: "CUSTGOLD",
+  highRiskCountryNational: false,
+  firstName: "TEST_CUSTOMER_010001712",
+  newRecord: false,
+  gcc: false,
+  id: 0,
+  jointProfiles: [
+    {
+      customerName: "TEST_CUSTOMER_012328642",
+      accountNumber: null,
+      nationalIdExpiry: "2019-03-04",
+      salary: "0",
+      employerName: null,
+      riskLevel: "Level1",
+      company: null,
+      annualIncome: 0,
+      kycNextReviewDate: "2020-05-09",
+      customerIdentifier: null,
+      customerSegment: "CUSTGOLD",
+      highRiskCountryNational: false,
+      firstName: "TEST_CUSTOMER_012328642",
+      newRecord: true,
+      gcc: false,
+      id: 1,
+      jointProfiles: null,
+      type: "NOTGIVEN",
+      isPrimary: false
+    }
+  ]
+};

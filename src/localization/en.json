@@ -14,7 +14,8 @@
       "nickName": "Nick Name",
       "accountNumber": "Account Number",
       "payCustomAmount" : "Pay Custom Amount",
-      "enterMobileNo": "Enter your --type-- account number"
+      "enterMobileNo": "Enter your --type-- account number",
+      "enterCode": "Enter your --type-- code"
     },
     "hintText": {
       "mobileNumber" : "Enter your --No-- digit acount number"
@@ -23,6 +24,7 @@
       "back": "Back",
       "change": "Change",
       "cancel": "Cancel",
+      "applyNow": "Apply Now",
       "payNow": "Pay Now",
       "gotit":"Got It",
       "pay": "Pay",
@@ -42,18 +44,24 @@
     "links": {
       "forgetUsername": "Forgot your Username?",
       "forgetPassword": "Forgot your Password?",
-      "needHelp": "Need Help ?"
+      "needHelp": "Need Help ?",
+      "returnToMoneyTransfer": "Return to Money Transfer"
     },
     "dbErrors": {
       "NO_ESB_ENQUIRY_DETAILS" : "Please enter a valid number",
       "INTERFACE_ERROR_INVALID_PARAMETER_VALUES" : "Field should not be blank",
-      "BN-3001" : "Invalid number"
+      "BN-3001" : "Invalid number",
+      "BN-4004" : "Beneficiary exists for given Account number",
+      "BN-4003" : "Beneficiary exists for given Account number"
     }
   },
   "error": {
     "title": "Oops!",
     "somethingWrong" : "Something went wrong",
     "desc": "Sorry it seems like you’ve made a mistake"
+  },
+  "notFound": {
+    "title": "No Records Found"
   },
   "login": {
     "title": "Welcome to Mashreq Online Banking",
@@ -116,9 +124,96 @@
       "action": "Start Demo again"
     }
   },
+  "dashboard": {
+    "welcomeNote": "Welcome back!",
+    "payYourBill" : {
+      "title": "Pay your Bills",
+      "buttonLinkLabel": "View All Billers"
+    },
+    "sendMoney" : {
+      "title": "Send money to",
+      "buttonLabel": "View All Your Beneficiaries",
+      "buttonLinkLabel": "Start A New Transfer"
+    },
+    "productSummary" : {
+      "accounts" : {
+        "title": "Accounts",
+        "availableBalance" : "Available Balance",
+        "currentBalance" : "Current Balance",
+        "seeAll" : "See All Accounts",
+        "empty": {
+          "title" : "Start an account",
+          "desc" : "It's instant, and paperless"
+        }
+      },
+      "cards" : {
+        "title": "Credit Card",
+        "availableBalance" : "Available Balance",
+        "currentBalance" : "Current Spender",
+        "seeAll" : "See All Cards",
+        "empty": {
+          "title" : "Apply for a card now",
+          "desc" : "It's instant, and paperless"
+        }
+      },
+      "loans" : {
+        "title": "Loan",
+        "availableBalance" : "Total Outstanding",
+        "currentBalance" : "Current Spender",
+        "seeAll" : "See All Loans",
+        "empty": {
+          "title" : "Realise Every Dream",
+          "desc" : "Loans at low rate of interests"
+        }
+      },
+      "deposits" : {
+        "title": "Deposits",
+        "availableBalance" : "Maturity Amount",
+        "currentBalance" : "Principle Deposits",
+        "seeAll" : "See All Deposits",
+        "empty": {
+          "title" : "Deposit Your Dream",
+          "desc" : "Get an instant Deposit Now"
+        }
+      },
+      "insurances" : {
+        "title": "Insurances",
+        "availableBalance" : "Total Cover",
+        "currentBalance" : "Monthly Premium",
+        "seeAll" : "See All Insurances",
+        "empty": {
+          "title" : "Protect everything",
+          "desc" : "Insurance is easy, and safe"
+        }
+      },
+      "mm" : {
+        "title": "Mashreq Millionaire Cert.",
+        "availableBalance" : "Total Investments",
+        "seeAll" : "See All Mashreq Millionaire",
+        "payList": {
+          "title" : "Next Draw Date"
+        },
+        "empty": {
+          "title" : "Mashreq Millionaire",
+          "desc" : "Make the smart choice"
+        }
+      },
+      "salaam" : {
+        "title": "Salaam Rewards",
+        "availableBalance" : "AED Value",
+        "payList": {
+          "title" : "Points Value"
+        },
+        "empty": {
+          "title" : "Salaam Rewards",
+          "desc" : "Earn your salam points"
+        }
+      }
+    }
+  },
   "beneficiary" : {
     "landing" : {
-      "title" : "Beneficiaries",
+      "title" : "Manage your beneficiaries",
       "tabs": ["Bill Payments", "Money Transfer"],
       "searchPlaceholder" : "Search for billers",
       "addButtonLabel" : "Add New Beneficiary",
@@ -203,11 +298,36 @@
     }
    
   },
+  "moneytransfer":{
+    "landing":{
+    "title":"Money Transfers",
+    "choose":"Choose a Transfer Type",
+    "within":"Within your Mashreq Accounts",
+    "toAnother":"To Another Mashreq Account",
+    "local":"To a Local UAE Account",
+    "international":"To An International Account "
+  },
+  "startYourPayment":{
+    "title":"Start your transfer",
+    "payfrom":"I want to send money from",
+    "to":"To this account",
+    "setAmountButton":"Set Transfer Amount"
+   },
+   "noAccount":"You dont seems to have account",
+   "nobeni":"No beneficiaries detected",
+   "addbeni":"You can add one right now"
+  },
   "billPayments": {
     "landing" : {
       "title": "Recharges & Bill Payments",
       "searchTitle" : "Search for a Service Provider, Type or Beneficiary",
-      "searchPlaceholder" : "Search for a Service Provider or Bill payment type"
+      "searchPlaceholder" : "Search for a Service Provider or Bill payment type",
+      "search" : {
+        "notFound": {
+          "title" : "No search results",
+          "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
+        }
+      }
     },
     "steps" : {
       "startPayment" : {
@@ -253,7 +373,23 @@
     "message6": " We will send you a text message with a 6 digit code for authentication."
   },
   "footer": {
-    "copy": "2019 Mashreq",
-    "links": ["Requirements", "Security", "Privacy policy", "Service Terms"]
+    "copy": "Copyright Mashreq 2020. All rights reserved.",
+    "links": ["Disclaimer", "Teram & Conditions", "Sitemap"]
+  },
+  "kyc": {
+    "title" : {
+      "loginTitle": "Login to renew your KYC online"
+    },
+    "placeholderText" : {
+      "loginPlaceholder": "Enter Debit card or CIF number"
+    },
+    "message": {
+      "jointFutureDate": "Please complete this process so that you continue to have unrestricted access to your account.",
+      "futureExpiryUBO": "Please update and verify your account details at the earliest to have unrestricted access to your account.",
+      "futureExpiry": "Your Profile information is currently up-to-date. However, you can still continue and update any other information.",
+      "expiredBeyondFreeze": "Your account activity may have already been restricted. Please complete this process so that you have unrestricted access to your account.",
+      "expiredMoreThan30": "Please update and verify your account details at the earliest to have unrestricted access to your account.",
+      "expiredLessThan30": "We will need to update some of your details to comply with regulations. You only have to ensure your account activity is not restricted"
+    }
   }
 }

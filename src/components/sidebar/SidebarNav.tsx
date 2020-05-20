@@ -9,16 +9,18 @@ import {
   Collapse,
   makeStyles,
   H5,
-  colors
+  colors,
+  SvgIcon
 } from "@mashreq-digital/ui";
 
 const useStyles = makeStyles((theme: any) => ({
   root: {
     "& h5":{
-    fontFamily: "GilroyMedium",
+      fontFamily: "Gilroy",
+      fontWeight: 500,
   },
   "& .MuiButton-text" : {
-    padding: `${theme.spacing(1.8)}px`,
+    padding: `${theme.spacing(2.5)}px`,
   }
   },
   item: {
@@ -34,7 +36,7 @@ const useStyles = makeStyles((theme: any) => ({
     "& > svg" : {
       width: 24,
       height: 24,
-      fill: colors?.blueGrey[400]
+      fill: colors?.grey[700]
     }
   },
   active: {
@@ -54,7 +56,8 @@ const useStyles = makeStyles((theme: any) => ({
       fill: "#313131"
     },
     "& h5":{
-      fontFamily: "GilroyBold",
+      fontFamily: "Gilroy",
+      fontWeight: "bold",
     }
   }
 }));
@@ -94,7 +97,7 @@ const SidebarNav = (props: any) => {
                       component={CustomRouterLink}
                       to={subPage.href}
                     >
-                      <div className={classes.icon}>{subPage.icon}</div>
+                      <SvgIcon className={classes.icon}>{subPage.icon}</SvgIcon>
                       <H5>{subPage.title}</H5>
                     </Button>
                   </ListItem>

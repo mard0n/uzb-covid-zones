@@ -38,3 +38,14 @@ To Start Server:
 `yarn start / `npm start`
 To Visit App: `localhost:3000`
 
+To Build Docker Image 
+`yarn build --production && docker build -t mob-web-app .`
+
+To run Docker Image
+`docker run -d -p 8080:8080 mob-web-app`
+
+To list docker process
+`docker ps`
+
+To Stop docker process
+`docker stop <process_id>`

@@ -1,13 +1,13 @@
 import React from "react";
 import {
-  User,
-  Home,
-  MinusCircle,
-  DebitCard,
-  Umbrella,
-  MoneyPouch,
-  BriefcaseMoney,
-  Gear3
+  MultipleNeutral2,
+  LayoutDashboard,
+  CommonFileTextClock,
+  DataTransfer,
+  AccountingInvoiceHand,
+  CogHandGive,
+  PhoneActionsQuestion,
+  Cog
 } from "@mashreq-digital/webassets";
 import * as RoutePath from '../../router/config';
 
@@ -15,66 +15,45 @@ export const pages = [
   {
     title: "Dashboard",
     href: "/dashboard",
-    icon: <Home />,
-    mt: 7
+    icon: <LayoutDashboard />,
+    mt: 5
   },
   {
-    title: "Accounts",
-    href: "/accounts",
-    icon: <MinusCircle />,
-    mt: 7
-  },
-  {
-    title: "Credit Cards",
-    href: "/creditCards",
-    icon: <DebitCard />,
-    // subMenu: [
-    //   {
-    //     title: "Bill Payment Beneficiaries",
-    //     href: "/beneficiaries/billpayment"
-    //   },
-    //   {
-    //     title: "Money Transfer Beneficiaries",
-    //     href: "/beneficiaries/moneytransfer"
-    //   }
-    // ]
-  },
-  {
-    title: "Insurance",
-    href: "/insurance",
-    icon: <Umbrella />
-  },
-  {
-    title: "Mortgage & Loans",
-    href: "/mortage",
-    icon: <MoneyPouch />
-  },
-  {
-    title: "Investments",
-    href: "/investment",
-    icon: <BriefcaseMoney />
-  },
-  {
-    title: "Money Transfer",
+    title: "Money Transfers",
     href: "/moneytransfer",
-    icon: <MinusCircle />,
-    mt: 7
+    icon: <DataTransfer />,
+    mt: 5
   },
   {
     title: "Bill Payments",
     href: RoutePath.BILL_PAYMENTS,
-    icon: <MinusCircle />
+    icon: <AccountingInvoiceHand />
   },
   {
-    title: "Beneficiaries",
+    title: "Services",
+    href: "/services",
+    icon: <CogHandGive />
+  },
+  {
+    title: "Manage Beneficiary",
     href: RoutePath.BENIFICIARY_BILL_PAYMENT,
-    icon: <User />,
-    mt: 7
+    icon: <MultipleNeutral2 />,
+    mt: 5
   },
   {
-    title: "Settings",
+    title: "Transaction Queue",
+    href: "/accounts",
+    icon: <CommonFileTextClock />
+  },
+  {
+    title: "Settings & Privacy",
     href: "/settings",
-    icon: <Gear3 />,
-    mt: 6
+    icon: <Cog />,
+    mt: 5
+  },
+  {
+    title: "Help & Support",
+    href: "/accounts",
+    icon: <PhoneActionsQuestion />
   }
 ];

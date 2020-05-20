@@ -11,7 +11,8 @@ import Terms from "./Terms";
 // import PasswordScreen from "./PasswordScreen";
 import Success from "./Success";
 
-const PersonalInformatin = (props: any) => {
+const PersonalInformation = (props: any) => {
+  console.log(props, "PersonalInformation")
   const {
     match,
     history,
@@ -40,6 +41,7 @@ const PersonalInformatin = (props: any) => {
   };
 
   const getStepContent = (step: number) => {
+    console.log(step, "triggers -----")
     switch (step) {
       case 0:
         return (
@@ -102,4 +104,4 @@ const mapDispatchToProps = (dispatch: Dispatch<ReduxAction>) => ({
     dispatch({ type: CreateAccountActions.setActiveStep, payload: step })
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PersonalInformatin);
+export default connect(mapStateToProps, mapDispatchToProps)(PersonalInformation);

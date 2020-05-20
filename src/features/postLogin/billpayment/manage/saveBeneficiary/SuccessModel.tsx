@@ -25,6 +25,7 @@ const onClickGotIt= ()=>{
   dispatch(
     Actions.editAddModel(false)
   );
+  dispatch(Actions.clearBeneficiaryAddNew());
   setOpenModal(false);
 }
 
@@ -33,9 +34,9 @@ const onClickGotIt= ()=>{
       title={t("beneficiary.manage.prompts.edit.titleSvaveBenificiary")}
       iconBgVariant="success"
       desc=""
+      modalProps={{hideCloseIcon: true}}
       icon={Check}
       openModal={openModal}
-      onCloseModal={ () => setOpenModal(false)}
       content={
         <>
           <Box mt={6} mb={6}>

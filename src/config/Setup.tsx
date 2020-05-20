@@ -17,7 +17,7 @@ const Setup: FunctionComponent = (): JSX.Element => {
     <ThemeProvider theme={getMashreqTheme(undefined, undefined, dir)}>
       <RTL>
         <GlobalCss />
-        <Router>
+        <Router basename={'/individual'}>
           <CssBaseline />
           <Route path="*" render={renderProps => <App {...renderProps} />} />
         </Router>

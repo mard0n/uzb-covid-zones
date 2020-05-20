@@ -1,38 +1,84 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Header,
   LinearProgressBar,
   Select,
   Box,
   Caption,
-  makeStyles
+  makeStyles,
+  SvgIcon,
+  IconButton,
+  Theme,
+  H5,
+  Button
 } from "@mashreq-digital/ui";
 import { useSelector, useDispatch } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { getMashreqLogo } from "@mashreq-digital/webassets";
+import { getMashreqLogo, Search, AlarmBell, SingleNeutral, Logout ,Cross} from "@mashreq-digital/webassets";
 import { stepsID } from "../../redux/reducers/createAcountReducer";
 import i18n from "../../config/i18n";
 import { changeLocalization } from "../../redux/actions/globalSetupAction";
+import { globalStyle } from "../../util/constants";
+import * as PayListActions from "../../redux/actions/moneyTransfer/payListActions";
+import { useHistory } from 'react-router-dom';
+import { MONEY_TRANSFER } from "../../router/config";
+import * as TransferActions from "../../redux/actions/moneyTransfer/transferAction";
+import * as Transaction from "../../redux/actions/moneyTransfer/transaction";
+import { DispatchContext } from "../../redux/context";
 
-const useStyles = makeStyles(() => ({
-  sidebarHeader: {
-    borderBottom: "1px solid #ccc",
-    "& > .Header": {
-      borderBottom: "1px solid #ccc",
+
+const { header, logo, defaultGutter } = globalStyle;
+
+const headerIcons = [
+  {
+    title: "search",
+    icon: Search
+  },
+  {
+    title: "notification",
+    icon: AlarmBell
+  },
+  {
+    title: "user",
+    icon: SingleNeutral
+  },
+  {
+    title: "logout",
+    icon: Logout
+  }
+];
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    "& header > div": {
+      minHeight: header,
+      padding: `0 ${defaultGutter}px`,
+      borderBottom: "1px solid #ccc"
     }
+  },
+  svgIconButton: {
+    margin: `0 ${theme.spacing(0.8)}px`
+  },
+  sidebarHeader: {
+    // "& header > div": {
+    //   borderBottom: "1px solid #ccc"
+    // }
   }
  
 }));
 
 
+
 const MOLHeader = (props: any) => {
-  const { sidebarHeader } = useStyles();
+  const { root, sidebarHeader, svgIconButton } = useStyles();
   const { t } = useTranslation();
   const steps = t("account.steps", { returnObjects: true });
   const { activeStep } = useSelector((state: any) => ({
     activeStep: state?.createAccount?.activeStep
   }));
   const dispatch = useDispatch();
+  const history = useHistory();
+  const transferDispatch = useContext(DispatchContext);
 
   const handleLanguageChange = (event: any) => {
     let newlang = event.target.value,
@@ -41,20 +87,34 @@ const MOLHeader = (props: any) => {
     dispatch(changeLocalization(dir));
     document.body.setAttribute("dir", dir);
   };
+  
+  const onReturnClick = ()=>{
+    transferDispatch(TransferActions.setTransferObject({}));
+    dispatch(PayListActions.fetchPayListClear());
+    dispatch(Transaction.moneyTransferInitiateTransferClear());
+
+    history.push({
+      pathname: MONEY_TRANSFER,
+    });
+  };
 
   //update regex for any other path
   const exludePath = new RegExp("account");
+  const includeReturn = new RegExp("journey");
+
+
 
   const MashreqLogo = getMashreqLogo();
 
   return (
-    <Box className={props.hasSidebar ? sidebarHeader : ""}> 
+    <Box className={`${root} ${props.hasSidebar ? sidebarHeader : ""}`}>
       <Header
+        position="fixed"
         left={
           <Box display="flex" alignItems="center">
-            {!props.hasSidebar &&
-            <MashreqLogo width="40px" height="25px" />
-          }
+            {/* {!props.hasSidebar && */}
+            <MashreqLogo width={logo.width} height={logo.height} />
+            {/* } */}
             {!exludePath.test(props?.match?.url) ? null : (
               <Box ml={2.5}>
                 <Caption>{steps[activeStep]}</Caption>
@@ -64,11 +124,35 @@ const MOLHeader = (props: any) => {
         }
         right={
           <Box>
+            {props.hasSidebar &&
+              headerIcons.map((item: any, i: number) => {
+                const { icon } = item;
+                return (
+                  <IconButton
+                    key={i + "headerIcons"}
+                    className={svgIconButton}
+                    aria-label="upload picture"
+                    component="span"
+                  >
+                    <SvgIcon htmlColor="#313131" component={icon} />
+                  </IconButton>
+                );
+              })}
+
             {!exludePath.test(props?.match?.url) ? (
-              <Select native onChange={handleLanguageChange}>
-                <option value="er">{t("common.language.english")}</option>
-                <option value="ar">{t("common.language.arabic")}</option>
-              </Select>
+              includeReturn.test(props?.match?.url) ? (
+                <Box component={Button} display="flex" alignContent="center" onClick={()=>onReturnClick()}>
+                <SvgIcon component={Cross} color="primary" style={{marginRight:"10px"}}/>
+                <H5 color="primary">
+                  {t("common.links.returnToMoneyTransfer")}
+                </H5>
+                </Box>
+              ) : (
+                <Select native onChange={handleLanguageChange}>
+                  <option value="er">{t("common.language.english")}</option>
+                  <option value="ar">{t("common.language.arabic")}</option>
+                </Select>
+              )
             ) : (
               <Caption>{t("common.links.needHelp")}</Caption>
             )}

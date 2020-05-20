@@ -14,7 +14,8 @@ import {
 // import { BENIFICIARY_BILL_PAYMENT_ADD_EDIT } from "../../../router/config";
 // import { updateBeneficiaryStatus } from "../../../redux/actions/beneficiary/billPayment/addBillPaymentActions";
 // import getBeneficiariesAvatar from "../../util/getBeneficiariesAvatar";
-import ImageWithText from "../../../common/imageWithText";
+// import ImageWithText from "../../../common/imageWithText";
+import BeneficiaryCardList from "./BeneficiaryListCard";
 
 const useStyles = makeStyles((theme: Theme) => ({
   firstIconText: {
@@ -52,16 +53,17 @@ const BeneficiaryList = (props: BeneficiaryListProps) => {
   // const dispatch = useDispatch();
   // const history = useHistory();
 
+  /* Credit Card Changes */
   useEffect(()=>{
     let cloneList: any = [...list];
     if(cloneList && cloneList.length > 0) {
-      let cardsObj = {
-        name: "Credit Card Payments",
-        data: [{name: "My Mashreq Credit Card", code: "AADC"}, 
-        {name: "Another Mashreq Credit Card", code: "AADC"}, 
-        {name: "Non-Mashreq Credit Card",   code: "AADC"}]
-      };
-      cloneList[cloneList.length] = cardsObj;
+      // let cardsObj = {
+      //   name: "Credit Card Payments",
+      //   data: [{name: "My Mashreq Credit Card", code: "AADC"}, 
+      //   {name: "Another Mashreq Credit Card", code: "AADC"}, 
+      //   {name: "Non-Mashreq Credit Card",   code: "AADC"}]
+      // };
+      // cloneList[cloneList.length] = cardsObj;
       setListItems(cloneList);    
     }
   },[list]);
@@ -84,7 +86,8 @@ const BeneficiaryList = (props: BeneficiaryListProps) => {
             <Box my={5} key={i}>
               <Box mb={2}>{name && <H5>{name}</H5>}</Box>
               {/* <Grid container> */}
-              <Box display="flex" flexWrap="wrap">
+              <BeneficiaryCardList data={data} boxShadow={boxShadow} onClick={onClickServiceType}/>
+              {/* <Box display="flex" flexWrap="wrap">
                 {data &&
                   data.length > 0 &&
                   data.map((dItem: any, j: number) => {
@@ -106,7 +109,7 @@ const BeneficiaryList = (props: BeneficiaryListProps) => {
                     }
                     return null;
                   })}
-                  </Box>
+                  </Box> */}
               {/* </Grid> */}
             </Box>
           );

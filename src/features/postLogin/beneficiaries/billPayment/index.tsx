@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Switch, Redirect } from 'react-router-dom';
-import { RouteConfig } from '../../../../router';
 import DetailedView from './manage/DetailedView';
 import BillPaymentLanding from './landing';
 import * as Actions from "../../../../redux/actions/beneficiary/billPayment/landingActions";
 import * as RoutePath from '../../../../router/config';
 import { useDispatch } from 'react-redux';
 // import AddUpdateBillPayment from './manage/addUpdate/AddUpdateBillPayment';
+import { Route } from 'react-router-dom';
 
 const routes: any = [
   {
@@ -29,10 +29,15 @@ const Beneficiaries = () => {
   useEffect(() => {
     dispatch(Actions.fetchBillPaymentBeneficiariesRequest());
   }, [dispatch]);
+
+  
   return (
     <Switch>
     {routes.map((route: any, i: number) => {
-      return <RouteConfig key={i} {...route} />;
+      return  <Route key={i} path={route.path}>
+      <route.component />
+    </Route>
+      ;
     })}
     <Redirect from={RoutePath.BENIFICIARY_BILL_PAYMENT} to={RoutePath.BENIFICIARY_BILL_PAYMENT_LANDING} />
   </Switch>

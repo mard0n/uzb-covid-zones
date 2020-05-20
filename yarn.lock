@@ -988,7 +988,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.4", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.3.1", "@babel/runtime@^7.3.4", "@babel/runtime@^7.4.0", "@babel/runtime@^7.4.4", "@babel/runtime@^7.4.5", "@babel/runtime@^7.5.1", "@babel/runtime@^7.5.4", "@babel/runtime@^7.5.5", "@babel/runtime@^7.6.3", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.4", "@babel/runtime@^7.8.3", "@babel/runtime@^7.8.4", "@babel/runtime@^7.8.7", "@babel/runtime@^7.9.2":
   version "7.9.6"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@babel/runtime/-/runtime-7.9.6.tgz#a9102eb5cadedf3f31d08a9ecf294af7827ea29f"
   integrity sha1-qRAutcre3z8x0IqezylK94J+op8=
@@ -1249,40 +1249,41 @@
     "@material-ui/core" "^4.8.3"
     "@material-ui/lab" "^4.0.0-alpha.39"
 
-"@mashreq-digital/network@^1.0.1":
+"@mashreq-digital/network@^1.0.2":
   version "1.0.2"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/network/-/network-1.0.2.tgz#30c59f6000bb14ed0919baba23ef0e2d340ff592"
   integrity sha1-MMWfYAC7FO0JGbq6I+8OLTQP9ZI=
   dependencies:
     axios "^0.19.0"
 
-"@mashreq-digital/ui@^1.0.1":
-  version "1.0.5"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/ui/-/ui-1.0.5.tgz#0fccb143358d18902299c0e6ef37e793dcc0ec43"
-  integrity sha1-D8yxQzWNGJAimcDm7zfnk9zA7EM=
+"@mashreq-digital/ui@^1.0.3":
+  version "1.0.4"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/ui/-/ui-1.0.4.tgz#22787f174a59c07b206f953e4c64906b7b1dceb6"
+  integrity sha1-Inh/F0pZwHsgb5U+TGSQa3sdzrY=
   dependencies:
     "@mashreq-digital/material-ui" "^1.0.2"
-    "@mashreq-digital/webassets" "^1.0.5"
+    "@mashreq-digital/webassets" "^1.0.4"
     heic2any "^0.0.2"
     react-gtm-module "^2.0.8"
     react-image-cropper "^1.3.0"
     react-simple-keyboard "^2.2.16"
     react-webcam "^5.0.0"
 
-"@mashreq-digital/webassets@^1.0.1", "@mashreq-digital/webassets@^1.0.5":
-  version "1.0.5"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/webassets/-/webassets-1.0.5.tgz#aa8d96a8a924cd01b4dec25f7c4f4cff961bd8bd"
-  integrity sha1-qo2WqKkkzQG03sJffE9M/5Yb2L0=
+"@mashreq-digital/webassets@^1.0.3", "@mashreq-digital/webassets@^1.0.4":
+  version "1.0.4"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/webassets/-/webassets-1.0.4.tgz#eb6b35330a9718e7a4e53d46f5d651dc949aa7f2"
+  integrity sha1-62s1MwqXGOek5T1G9dZR3JSap/I=
 
 "@material-ui/core@^4.8.3":
-  version "4.9.14"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@material-ui/core/-/core-4.9.14.tgz#4388f82cf94554cd3a935774fc12820f3c607a8a"
-  integrity sha1-Q4j4LPlFVM06k1d0/BKCDzxgeoo=
+  version "4.9.13"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@material-ui/core/-/core-4.9.13.tgz#024962bcdda05139e1bad17a1815bf4088702b15"
+  integrity sha1-AklivN2gUTnhutF6GBW/QIhwKxU=
   dependencies:
     "@babel/runtime" "^7.4.4"
-    "@material-ui/styles" "^4.9.14"
-    "@material-ui/system" "^4.9.14"
-    "@material-ui/types" "^5.1.0"
+    "@material-ui/react-transition-group" "^4.3.0"
+    "@material-ui/styles" "^4.9.13"
+    "@material-ui/system" "^4.9.13"
+    "@material-ui/types" "^5.0.1"
     "@material-ui/utils" "^4.9.12"
     "@types/react-transition-group" "^4.2.0"
     clsx "^1.0.4"
@@ -1293,9 +1294,9 @@
     react-transition-group "^4.4.0"
 
 "@material-ui/lab@^4.0.0-alpha.39":
-  version "4.0.0-alpha.53"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@material-ui/lab/-/lab-4.0.0-alpha.53.tgz#8bb53f970861130413feec50a1d3202ec5c45f2c"
-  integrity sha1-i7U/lwhhEwQT/uxQodMgLsXEXyw=
+  version "4.0.0-alpha.52"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@material-ui/lab/-/lab-4.0.0-alpha.52.tgz#a868d8c772a90db091a6bfc89aed21a0e2c486bf"
+  integrity sha1-qGjYx3KpDbCRpr/Imu0hoOLEhr8=
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@material-ui/utils" "^4.9.6"
@@ -1303,14 +1304,24 @@
     prop-types "^15.7.2"
     react-is "^16.8.0"
 
-"@material-ui/styles@^4.9.14":
-  version "4.9.14"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@material-ui/styles/-/styles-4.9.14.tgz#0a9e93a2bf24e8daa0811411a6f3dabdafbe9a07"
-  integrity sha1-Cp6Tor8k6NqggRQRpvPava++mgc=
+"@material-ui/react-transition-group@^4.3.0":
+  version "4.3.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@material-ui/react-transition-group/-/react-transition-group-4.3.0.tgz#92529142addb5cc179dbf42d246c7e3fe4d6104b"
+  integrity sha1-klKRQq3bXMF52/QtJGx+P+TWEEs=
+  dependencies:
+    "@babel/runtime" "^7.5.5"
+    dom-helpers "^5.0.1"
+    loose-envify "^1.4.0"
+    prop-types "^15.6.2"
+
+"@material-ui/styles@^4.9.13":
+  version "4.9.13"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@material-ui/styles/-/styles-4.9.13.tgz#08b3976bdd21c38bc076693d95834f97539f3b15"
+  integrity sha1-CLOXa90hw4vAdmk9lYNPl1OfOxU=
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@emotion/hash" "^0.8.0"
-    "@material-ui/types" "^5.1.0"
+    "@material-ui/types" "^5.0.1"
     "@material-ui/utils" "^4.9.6"
     clsx "^1.0.4"
     csstype "^2.5.2"
@@ -1325,20 +1336,20 @@
     jss-plugin-vendor-prefixer "^10.0.3"
     prop-types "^15.7.2"
 
-"@material-ui/system@^4.9.14":
-  version "4.9.14"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@material-ui/system/-/system-4.9.14.tgz#4b00c48b569340cefb2036d0596b93ac6c587a5f"
-  integrity sha1-SwDEi1aTQM77IDbQWWuTrGxYel8=
+"@material-ui/system@^4.9.13":
+  version "4.9.13"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@material-ui/system/-/system-4.9.13.tgz#adefb3b6a5ddf0b00fe4e82ac63bb48276e9749d"
+  integrity sha1-re+ztqXd8LAP5Ogqxju0gnbpdJ0=
   dependencies:
     "@babel/runtime" "^7.4.4"
     "@material-ui/utils" "^4.9.6"
     csstype "^2.5.2"
     prop-types "^15.7.2"
 
-"@material-ui/types@^5.1.0":
-  version "5.1.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@material-ui/types/-/types-5.1.0.tgz#efa1c7a0b0eaa4c7c87ac0390445f0f88b0d88f2"
-  integrity sha1-76HHoLDqpMfIesA5BEXw+IsNiPI=
+"@material-ui/types@^5.0.1":
+  version "5.0.1"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@material-ui/types/-/types-5.0.1.tgz#c4954063cdc196eb327ee62c041368b1aebb6d61"
+  integrity sha1-xJVAY83BlusyfuYsBBNosa67bWE=
 
 "@material-ui/utils@^4.9.12", "@material-ui/utils@^4.9.6":
   version "4.9.12"
@@ -1629,9 +1640,9 @@
     "@types/node" "*"
 
 "@types/history@*":
-  version "4.7.6"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/history/-/history-4.7.6.tgz#ed8fc802c45b8e8f54419c2d054e55c9ea344356"
-  integrity sha1-7Y/IAsRbjo9UQZwtBU5Vyeo0Q1Y=
+  version "4.7.5"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/history/-/history-4.7.5.tgz#527d20ef68571a4af02ed74350164e7a67544860"
+  integrity sha1-Un0g72hXGkrwLtdDUBZOemdUSGA=
 
 "@types/hoist-non-react-statics@^3.3.0":
   version "3.3.1"
@@ -1641,7 +1652,7 @@
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
 
-"@types/http-proxy@^1.17.4":
+"@types/http-proxy@^1.17.3":
   version "1.17.4"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/http-proxy/-/http-proxy-1.17.4.tgz#e7c92e3dbe3e13aa799440ff42e6d3a17a9d045b"
   integrity sha1-58kuPb4+E6p5lED/QubToXqdBFs=
@@ -1649,9 +1660,9 @@
     "@types/node" "*"
 
 "@types/istanbul-lib-coverage@*", "@types/istanbul-lib-coverage@^2.0.0":
-  version "2.0.2"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.2.tgz#79d7a78bad4219f4c03d6557a1c72d9ca6ba62d5"
-  integrity sha1-edeni61CGfTAPWVXocctnKa6YtU=
+  version "2.0.1"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/istanbul-lib-coverage/-/istanbul-lib-coverage-2.0.1.tgz#42995b446db9a48a11a07ec083499a860e9138ff"
+  integrity sha1-QplbRG25pIoRoH7Ag0mahg6ROP8=
 
 "@types/istanbul-lib-report@*":
   version "3.0.0"
@@ -1661,9 +1672,9 @@
     "@types/istanbul-lib-coverage" "*"
 
 "@types/istanbul-reports@^1.1.1":
-  version "1.1.2"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/istanbul-reports/-/istanbul-reports-1.1.2.tgz#e875cc689e47bce549ec81f3df5e6f6f11cfaeb2"
-  integrity sha1-6HXMaJ5HvOVJ7IHz315vbxHPrrI=
+  version "1.1.1"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/istanbul-reports/-/istanbul-reports-1.1.1.tgz#7a8cbf6a406f36c8add871625b278eaf0b0d255a"
+  integrity sha1-eoy/akBvNsit2HFiWyeOrwsNJVo=
   dependencies:
     "@types/istanbul-lib-coverage" "*"
     "@types/istanbul-lib-report" "*"
@@ -1686,14 +1697,14 @@
   integrity sha1-PcoOPzOyAPx9ETnAzZbBJoyt/Z0=
 
 "@types/node@*":
-  version "14.0.4"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/node/-/node-14.0.4.tgz#43a63fc5edce226bed106b31b875165256271107"
-  integrity sha1-Q6Y/xe3OImvtEGsxuHUWUlYnEQc=
+  version "13.13.4"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/node/-/node-13.13.4.tgz#1581d6c16e3d4803eb079c87d4ac893ee7501c2c"
+  integrity sha1-FYHWwW49SAPrB5yH1KyJPudQHCw=
 
 "@types/node@^12.0.0":
-  version "12.12.41"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/node/-/node-12.12.41.tgz#cf48562b53ab6cf85d28dde95f1d06815af275c8"
-  integrity sha1-z0hWK1OrbPhdKN3pXx0GgVrydcg=
+  version "12.12.37"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/node/-/node-12.12.37.tgz#cb4782d847f801fa58316da5b4801ca3a59ae790"
+  integrity sha1-y0eC2Ef4AfpYMW2ltIAco6Wa55A=
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -1706,26 +1717,35 @@
   integrity sha1-KrDV2i5YFflLC51LldHl8kOrLKc=
 
 "@types/q@^1.5.1":
-  version "1.5.4"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/q/-/q-1.5.4.tgz#15925414e0ad2cd765bfef58842f7e26a7accb24"
-  integrity sha1-FZJUFOCtLNdlv+9YhC9+JqesyyQ=
+  version "1.5.2"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
+  integrity sha1-aQoUdbhPKohP0HzXl8APXzE1bqg=
 
 "@types/react-dom@*", "@types/react-dom@^16.9.4":
-  version "16.9.8"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/react-dom/-/react-dom-16.9.8.tgz#fe4c1e11dfc67155733dfa6aa65108b4971cb423"
-  integrity sha1-/kweEd/GcVVzPfpqplEItJcctCM=
+  version "16.9.7"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/react-dom/-/react-dom-16.9.7.tgz#60844d48ce252d7b2dccf0c7bb937130e27c0cd2"
+  integrity sha1-YIRNSM4lLXstzPDHu5NxMOJ8DNI=
   dependencies:
     "@types/react" "*"
 
 "@types/react-redux@^7.1.5":
-  version "7.1.9"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/react-redux/-/react-redux-7.1.9.tgz#280c13565c9f13ceb727ec21e767abe0e9b4aec3"
-  integrity sha1-KAwTVlyfE863J+wh52er4Om0rsM=
+  version "7.1.7"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/react-redux/-/react-redux-7.1.7.tgz#12a0c529aba660696947384a059c5c6e08185c7a"
+  integrity sha1-EqDFKaumYGlpRzhKBZxcbggYXHo=
   dependencies:
     "@types/hoist-non-react-statics" "^3.3.0"
     "@types/react" "*"
     hoist-non-react-statics "^3.3.0"
     redux "^4.0.0"
+
+"@types/react-router-config@^5.0.1":
+  version "5.0.1"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/react-router-config/-/react-router-config-5.0.1.tgz#54da8418190ee47484dee279975e2b8038fb8b5d"
+  integrity sha1-VNqEGBkO5HSE3uJ5l14rgDj7i10=
+  dependencies:
+    "@types/history" "*"
+    "@types/react" "*"
+    "@types/react-router" "*"
 
 "@types/react-router-dom@^5.1.3":
   version "5.1.5"
@@ -1759,9 +1779,9 @@
     "@types/react" "*"
 
 "@types/react@*", "@types/react@^16.9.17":
-  version "16.9.35"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/react/-/react-16.9.35.tgz#a0830d172e8aadd9bd41709ba2281a3124bbd368"
-  integrity sha1-oIMNFy6Krdm9QXCboigaMSS702g=
+  version "16.9.34"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/react/-/react-16.9.34.tgz#f7d5e331c468f53affed17a8a4d488cd44ea9349"
+  integrity sha1-99XjMcRo9Tr/7ReopNSIzUTqk0k=
   dependencies:
     "@types/prop-types" "*"
     csstype "^2.2.0"
@@ -1834,53 +1854,53 @@
   integrity sha1-yz+fdBhp4gzOMw/765JxWQSDiC0=
 
 "@types/yargs@^13.0.0":
-  version "13.0.9"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/yargs/-/yargs-13.0.9.tgz#44028e974343c7afcf3960f1a2b1099c39a7b5e1"
-  integrity sha1-RAKOl0NDx6/POWDxorEJnDmnteE=
+  version "13.0.8"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/yargs/-/yargs-13.0.8.tgz#a38c22def2f1c2068f8971acb3ea734eb3c64a99"
+  integrity sha1-o4wi3vLxwgaPiXGss+pzTrPGSpk=
   dependencies:
     "@types/yargs-parser" "*"
 
 "@types/yargs@^15.0.0":
-  version "15.0.5"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/yargs/-/yargs-15.0.5.tgz#947e9a6561483bdee9adffc983e91a6902af8b79"
-  integrity sha1-lH6aZWFIO97prf/Jg+kaaQKvi3k=
+  version "15.0.4"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@types/yargs/-/yargs-15.0.4.tgz#7e5d0f8ca25e9d5849f2ea443cf7c402decd8299"
+  integrity sha1-fl0PjKJenVhJ8upEPPfEAt7Ngpk=
   dependencies:
     "@types/yargs-parser" "*"
 
 "@typescript-eslint/eslint-plugin@^2.10.0", "@typescript-eslint/eslint-plugin@^2.13.0":
-  version "2.34.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.34.0.tgz#6f8ce8a46c7dea4a6f1d171d2bb8fbae6dac2be9"
-  integrity sha1-b4zopGx96kpvHRcdK7j7rm2sK+k=
+  version "2.30.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@typescript-eslint/eslint-plugin/-/eslint-plugin-2.30.0.tgz#312a37e80542a764d96e8ad88a105316cdcd7b05"
+  integrity sha1-MSo36AVCp2TZborYihBTFs3NewU=
   dependencies:
-    "@typescript-eslint/experimental-utils" "2.34.0"
+    "@typescript-eslint/experimental-utils" "2.30.0"
     functional-red-black-tree "^1.0.1"
     regexpp "^3.0.0"
     tsutils "^3.17.1"
 
-"@typescript-eslint/experimental-utils@2.34.0":
-  version "2.34.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@typescript-eslint/experimental-utils/-/experimental-utils-2.34.0.tgz#d3524b644cdb40eebceca67f8cf3e4cc9c8f980f"
-  integrity sha1-01JLZEzbQO687KZ/jPPkzJyPmA8=
+"@typescript-eslint/experimental-utils@2.30.0":
+  version "2.30.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@typescript-eslint/experimental-utils/-/experimental-utils-2.30.0.tgz#9845e868c01f3aed66472c561d4b6bac44809dd0"
+  integrity sha1-mEXoaMAfOu1mRyxWHUtrrESAndA=
   dependencies:
     "@types/json-schema" "^7.0.3"
-    "@typescript-eslint/typescript-estree" "2.34.0"
+    "@typescript-eslint/typescript-estree" "2.30.0"
     eslint-scope "^5.0.0"
     eslint-utils "^2.0.0"
 
 "@typescript-eslint/parser@^2.10.0", "@typescript-eslint/parser@^2.13.0", "@typescript-eslint/parser@^2.3.0":
-  version "2.34.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@typescript-eslint/parser/-/parser-2.34.0.tgz#50252630ca319685420e9a39ca05fe185a256bc8"
-  integrity sha1-UCUmMMoxloVCDpo5ygX+GFola8g=
+  version "2.30.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@typescript-eslint/parser/-/parser-2.30.0.tgz#7681c305a6f4341ae2579f5e3a75846c29eee9ce"
+  integrity sha1-doHDBab0NBriV59eOnWEbCnu6c4=
   dependencies:
     "@types/eslint-visitor-keys" "^1.0.0"
-    "@typescript-eslint/experimental-utils" "2.34.0"
-    "@typescript-eslint/typescript-estree" "2.34.0"
+    "@typescript-eslint/experimental-utils" "2.30.0"
+    "@typescript-eslint/typescript-estree" "2.30.0"
     eslint-visitor-keys "^1.1.0"
 
-"@typescript-eslint/typescript-estree@2.34.0":
-  version "2.34.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@typescript-eslint/typescript-estree/-/typescript-estree-2.34.0.tgz#14aeb6353b39ef0732cc7f1b8285294937cf37d5"
-  integrity sha1-FK62NTs57wcyzH8bgoUpSTfPN9U=
+"@typescript-eslint/typescript-estree@2.30.0":
+  version "2.30.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@typescript-eslint/typescript-estree/-/typescript-estree-2.30.0.tgz#1b8e848b55144270255ffbfe4c63291f8f766615"
+  integrity sha1-G46Ei1UUQnAlX/v+TGMpH492ZhU=
   dependencies:
     debug "^4.1.1"
     eslint-visitor-keys "^1.1.0"
@@ -2088,9 +2108,9 @@ acorn@^6.0.1, acorn@^6.0.4, acorn@^6.2.1:
   integrity sha1-Ux5Yuj9RudrLmmZGyk3r9bFMpHQ=
 
 acorn@^7.1.1:
-  version "7.2.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/acorn/-/acorn-7.2.0.tgz#17ea7e40d7c8640ff54a694c889c26f31704effe"
-  integrity sha1-F+p+QNfIZA/1SmlMiJwm8xcE7/4=
+  version "7.1.1"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/acorn/-/acorn-7.1.1.tgz#e35668de0b402f359de515c5482a1ab9f89a69bf"
+  integrity sha1-41Zo3gtALzWd5RXFSCoaufiaab8=
 
 address@1.1.2, address@^1.0.1:
   version "1.1.2"
@@ -2430,17 +2450,17 @@ atob@^2.1.2:
   integrity sha1-bZUX654DDSQ2ZmZR6GvZ9vE1M8k=
 
 autoprefixer@^9.6.1:
-  version "9.8.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/autoprefixer/-/autoprefixer-9.8.0.tgz#68e2d2bef7ba4c3a65436f662d0a56a741e56511"
-  integrity sha1-aOLSvve6TDplQ29mLQpWp0HlZRE=
+  version "9.7.6"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/autoprefixer/-/autoprefixer-9.7.6.tgz#63ac5bbc0ce7934e6997207d5bb00d68fa8293a4"
+  integrity sha1-Y6xbvAznk05plyB9W7ANaPqCk6Q=
   dependencies:
-    browserslist "^4.12.0"
-    caniuse-lite "^1.0.30001061"
+    browserslist "^4.11.1"
+    caniuse-lite "^1.0.30001039"
     chalk "^2.4.2"
     normalize-range "^0.1.2"
     num2fraction "^1.2.2"
-    postcss "^7.0.30"
-    postcss-value-parser "^4.1.0"
+    postcss "^7.0.27"
+    postcss-value-parser "^4.0.3"
 
 aws-sign2@~0.7.0:
   version "0.7.0"
@@ -2689,11 +2709,6 @@ bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.4.0:
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/bn.js/-/bn.js-4.11.8.tgz#2cde09eb5ee341f484746bb0309b3253b1b1442f"
   integrity sha1-LN4J617jQfSEdGuwMJsyU7GxRC8=
 
-bn.js@^5.1.1:
-  version "5.1.1"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/bn.js/-/bn.js-5.1.1.tgz#48efc4031a9c4041b9c99c6941d903463ab62eb5"
-  integrity sha1-SO/EAxqcQEG5yZxpQdkDRjq2LrU=
-
 body-parser@1.19.0:
   version "1.19.0"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/body-parser/-/body-parser-1.19.0.tgz#96b2709e57c9c4e09a6fd66a8fd979844f69f08a"
@@ -2815,19 +2830,17 @@ browserify-rsa@^4.0.0, browserify-rsa@^4.0.1:
     randombytes "^2.0.1"
 
 browserify-sign@^4.0.0:
-  version "4.2.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/browserify-sign/-/browserify-sign-4.2.0.tgz#545d0b1b07e6b2c99211082bf1b12cce7a0b0e11"
-  integrity sha1-VF0LGwfmssmSEQgr8bEsznoLDhE=
+  version "4.0.4"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/browserify-sign/-/browserify-sign-4.0.4.tgz#aa4eb68e5d7b658baa6bf6a57e630cbd7a93d298"
+  integrity sha1-qk62jl17ZYuqa/alfmMMvXqT0pg=
   dependencies:
-    bn.js "^5.1.1"
-    browserify-rsa "^4.0.1"
-    create-hash "^1.2.0"
-    create-hmac "^1.1.7"
-    elliptic "^6.5.2"
-    inherits "^2.0.4"
-    parse-asn1 "^5.1.5"
-    readable-stream "^3.6.0"
-    safe-buffer "^5.2.0"
+    bn.js "^4.1.1"
+    browserify-rsa "^4.0.0"
+    create-hash "^1.1.0"
+    create-hmac "^1.1.2"
+    elliptic "^6.0.0"
+    inherits "^2.0.1"
+    parse-asn1 "^5.0.0"
 
 browserify-zlib@^0.2.0:
   version "0.2.0"
@@ -2846,7 +2859,7 @@ browserslist@4.10.0:
     node-releases "^1.1.52"
     pkg-up "^3.1.0"
 
-browserslist@^4.0.0, browserslist@^4.11.1, browserslist@^4.12.0, browserslist@^4.6.2, browserslist@^4.6.4, browserslist@^4.8.5, browserslist@^4.9.1:
+browserslist@^4.0.0, browserslist@^4.11.1, browserslist@^4.6.2, browserslist@^4.6.4, browserslist@^4.8.5, browserslist@^4.9.1:
   version "4.12.0"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/browserslist/-/browserslist-4.12.0.tgz#06c6d5715a1ede6c51fc39ff67fd647f740b656d"
   integrity sha1-BsbVcVoe3mxR/Dn/Z/1kf3QLZW0=
@@ -3019,10 +3032,10 @@ caniuse-api@^3.0.0:
     lodash.memoize "^4.1.2"
     lodash.uniq "^4.5.0"
 
-caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001035, caniuse-lite@^1.0.30001043, caniuse-lite@^1.0.30001061:
-  version "1.0.30001062"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/caniuse-lite/-/caniuse-lite-1.0.30001062.tgz#d814b648338504b315222ace6f1a533d9a55e390"
-  integrity sha1-2BS2SDOFBLMVIirObxpTPZpV45A=
+caniuse-lite@^1.0.0, caniuse-lite@^1.0.30000981, caniuse-lite@^1.0.30001035, caniuse-lite@^1.0.30001039, caniuse-lite@^1.0.30001043:
+  version "1.0.30001050"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/caniuse-lite/-/caniuse-lite-1.0.30001050.tgz#11218af4b6b85dc1089536f31e10e3181e849e71"
+  integrity sha1-ESGK9La4XcEIlTbzHhDjGB6EnnE=
 
 capture-exit@^2.0.0:
   version "2.0.0"
@@ -3101,7 +3114,7 @@ chokidar@^2.1.8:
   optionalDependencies:
     fsevents "^1.2.7"
 
-chokidar@^3.3.0, chokidar@^3.4.0:
+chokidar@^3.3.0:
   version "3.4.0"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/chokidar/-/chokidar-3.4.0.tgz#b30611423ce376357c765b9b8f904b9fba3c0be8"
   integrity sha1-swYRQjzjdjV8dlubj5BLn7o8C+g=
@@ -3315,7 +3328,7 @@ commander@^4.1.1:
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/commander/-/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
   integrity sha1-n9YCvZNilOnp70aj9NaWQESxgGg=
 
-commander@^5.1.0:
+commander@^5.0.0:
   version "5.1.0"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/commander/-/commander-5.1.0.tgz#46abbd1652f8e059bddaef99bbdcb2ad9cf179ae"
   integrity sha1-Rqu9FlL44Fm92u+Zu9yyrZzxea4=
@@ -3872,6 +3885,11 @@ date-fns@^1.30.1:
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/date-fns/-/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha1-LnG/CxGRU9u0zE6I2epaz7UNwFw=
 
+date-fns@^2.12.0:
+  version "2.12.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/date-fns/-/date-fns-2.12.0.tgz#01754c8a2f3368fc1119cf4625c3dad8c1845ee6"
+  integrity sha1-AXVMii8zaPwRGc9GJcPa2MGEXuY=
+
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.9:
   version "2.6.9"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
@@ -4231,9 +4249,9 @@ ee-first@1.1.1:
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.3.378, electron-to-chromium@^1.3.413:
-  version "1.3.446"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/electron-to-chromium/-/electron-to-chromium-1.3.446.tgz#12c336bc858e04d6b614a488f32f2dd89561601f"
-  integrity sha1-EsM2vIWOBNa2FKSI8y8t2JVhYB8=
+  version "1.3.427"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/electron-to-chromium/-/electron-to-chromium-1.3.427.tgz#ea43d02908a8c71f47ebb46e09de5a3cf8236f04"
+  integrity sha1-6kPQKQioxx9H67RuCd5aPPgjbwQ=
 
 elegant-spinner@^2.0.0:
   version "2.0.0"
@@ -4294,7 +4312,7 @@ enhanced-resolve@^4.1.0:
     memory-fs "^0.5.0"
     tapable "^1.0.0"
 
-enquirer@^2.3.5:
+enquirer@^2.3.4:
   version "2.3.5"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/enquirer/-/enquirer-2.3.5.tgz#3ab2b838df0a9d8ab9e7dff235b0e8712ef92381"
   integrity sha1-OrK4ON8KnYq559/yNbDocS75I4E=
@@ -4307,9 +4325,9 @@ entities@^1.1.1:
   integrity sha1-vfpzUplmTfr9NFKe1PhSKidf6lY=
 
 entities@^2.0.0:
-  version "2.0.2"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/entities/-/entities-2.0.2.tgz#ac74db0bba8d33808bbf36809c3a5c3683531436"
-  integrity sha1-rHTbC7qNM4CLvzaAnDpcNoNTFDY=
+  version "2.0.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/entities/-/entities-2.0.0.tgz#68d6084cab1b079767540d80e56a39b423e4abf4"
+  integrity sha1-aNYITKsbB5dnVA2A5Wo5tCPkq/Q=
 
 errno@^0.1.3, errno@~0.1.7:
   version "0.1.7"
@@ -4542,28 +4560,10 @@ eslint-plugin-react-hooks@^1.6.1, eslint-plugin-react-hooks@^1.7.0:
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/eslint-plugin-react-hooks/-/eslint-plugin-react-hooks-1.7.0.tgz#6210b6d5a37205f0b92858f895a4e827020a7d04"
   integrity sha1-YhC21aNyBfC5KFj4laToJwIKfQQ=
 
-eslint-plugin-react@7.19.0:
+eslint-plugin-react@7.19.0, eslint-plugin-react@^7.17.0:
   version "7.19.0"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/eslint-plugin-react/-/eslint-plugin-react-7.19.0.tgz#6d08f9673628aa69c5559d33489e855d83551666"
   integrity sha1-bQj5ZzYoqmnFVZ0zSJ6FXYNVFmY=
-  dependencies:
-    array-includes "^3.1.1"
-    doctrine "^2.1.0"
-    has "^1.0.3"
-    jsx-ast-utils "^2.2.3"
-    object.entries "^1.1.1"
-    object.fromentries "^2.0.2"
-    object.values "^1.1.1"
-    prop-types "^15.7.2"
-    resolve "^1.15.1"
-    semver "^6.3.0"
-    string.prototype.matchall "^4.0.2"
-    xregexp "^4.3.0"
-
-eslint-plugin-react@^7.17.0:
-  version "7.20.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/eslint-plugin-react/-/eslint-plugin-react-7.20.0.tgz#f98712f0a5e57dfd3e5542ef0604b8739cd47be3"
-  integrity sha1-+YcS8KXlff0+VULvBgS4c5zUe+M=
   dependencies:
     array-includes "^3.1.1"
     doctrine "^2.1.0"
@@ -4704,9 +4704,9 @@ etag@~1.8.1:
   integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
 
 eventemitter3@^4.0.0:
-  version "4.0.4"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/eventemitter3/-/eventemitter3-4.0.4.tgz#b5463ace635a083d018bdc7c917b4c5f10a85384"
-  integrity sha1-tUY6zmNaCD0Bi9x8kXtMXxCoU4Q=
+  version "4.0.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/eventemitter3/-/eventemitter3-4.0.0.tgz#d65176163887ee59f386d64c82610b696a4a74eb"
+  integrity sha1-1lF2FjiH7lnzhtZMgmELaWpKdOs=
 
 events@^3.0.0:
   version "3.1.0"
@@ -4761,10 +4761,10 @@ execa@^2.1.0:
     signal-exit "^3.0.2"
     strip-final-newline "^2.0.0"
 
-execa@^4.0.1:
-  version "4.0.1"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/execa/-/execa-4.0.1.tgz#988488781f1f0238cd156f7aaede11c3e853b4c1"
-  integrity sha1-mISIeB8fAjjNFW96rt4Rw+hTtME=
+execa@^4.0.0:
+  version "4.0.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/execa/-/execa-4.0.0.tgz#7f37d6ec17f09e6b8fc53288611695b6d12b9daf"
+  integrity sha1-fzfW7BfwnmuPxTKIYRaVttErna8=
   dependencies:
     cross-spawn "^7.0.0"
     get-stream "^5.0.0"
@@ -5252,9 +5252,9 @@ fsevents@2.1.2:
   integrity sha1-TAofs0vGjlQ7S4Kp7Dkr+9qECAU=
 
 fsevents@^1.2.7:
-  version "1.2.13"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/fsevents/-/fsevents-1.2.13.tgz#f325cb0455592428bcf11b383370ef70e3bfcc38"
-  integrity sha1-8yXLBFVZJCi88Rs4M3DvcOO/zDg=
+  version "1.2.12"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/fsevents/-/fsevents-1.2.12.tgz#db7e0d8ec3b0b45724fd4d83d43554a8f1f0de5c"
+  integrity sha1-234NjsOwtFck/U2D1DVUqPHw3lw=
   dependencies:
     bindings "^1.5.0"
     nan "^2.12.1"
@@ -5418,6 +5418,11 @@ growly@^1.3.0:
   version "1.3.0"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
   integrity sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=
+
+gud@^1.0.0:
+  version "1.0.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/gud/-/gud-1.0.0.tgz#a489581b17e6a70beca9abe3ae57de7a499852c0"
+  integrity sha1-pIlYGxfmpwvsqavjrlfeekmYUsA=
 
 gzip-size@5.1.1:
   version "5.1.1"
@@ -5623,9 +5628,9 @@ html-escaper@^2.0.0:
   integrity sha1-39YAJ9o2o238viNiYsAKWCJoFFM=
 
 html-minifier-terser@^5.0.1:
-  version "5.1.1"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/html-minifier-terser/-/html-minifier-terser-5.1.1.tgz#922e96f1f3bb60832c2634b79884096389b1f054"
-  integrity sha1-ki6W8fO7YIMsJjS3mIQJY4mx8FQ=
+  version "5.1.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/html-minifier-terser/-/html-minifier-terser-5.1.0.tgz#95d3df037f04835e9d1a09d1767c0e361a7de916"
+  integrity sha1-ldPfA38Eg16dGgnRdnwONhp96RY=
   dependencies:
     camel-case "^4.1.1"
     clean-css "^4.2.3"
@@ -5719,9 +5724,9 @@ http-proxy-middleware@0.19.1:
     micromatch "^3.1.10"
 
 http-proxy-middleware@^1.0.1:
-  version "1.0.4"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/http-proxy-middleware/-/http-proxy-middleware-1.0.4.tgz#425ea177986a0cda34f9c81ec961c719adb6c2a9"
-  integrity sha1-Ql6hd5hqDNo0+cgeyWHHGa22wqk=
+  version "1.0.3"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/http-proxy-middleware/-/http-proxy-middleware-1.0.3.tgz#f73daad8dac622d51fe1769960c914b9b1f75a72"
+  integrity sha1-9z2q2NrGItUf4XaZYMkUubH3WnI=
   dependencies:
     "@types/http-proxy" "^1.17.4"
     http-proxy "^1.18.1"
@@ -5729,10 +5734,10 @@ http-proxy-middleware@^1.0.1:
     lodash "^4.17.15"
     micromatch "^4.0.2"
 
-http-proxy@^1.17.0, http-proxy@^1.18.1:
-  version "1.18.1"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/http-proxy/-/http-proxy-1.18.1.tgz#401541f0534884bbf95260334e72f88ee3976549"
-  integrity sha1-QBVB8FNIhLv5UmAzTnL4juOXZUk=
+http-proxy@^1.17.0, http-proxy@^1.18.0:
+  version "1.18.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/http-proxy/-/http-proxy-1.18.0.tgz#dbe55f63e75a347db7f3d99974f2692a314a6a3a"
+  integrity sha1-2+VfY+daNH2389mZdPJpKjFKajo=
   dependencies:
     eventemitter3 "^4.0.0"
     follow-redirects "^1.0.0"
@@ -7148,41 +7153,41 @@ lines-and-columns@^1.1.6:
   integrity sha1-HADHQ7QzzQpOgHWPe2SldEDZ/wA=
 
 lint-staged@^10.0.0-beta.14:
-  version "10.2.4"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/lint-staged/-/lint-staged-10.2.4.tgz#0ed5d1cf06bdac0d3fbb003931bb6df3771fbf42"
-  integrity sha1-DtXRzwa9rA0/uwA5Mbtt83cfv0I=
+  version "10.2.2"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/lint-staged/-/lint-staged-10.2.2.tgz#901403c120eb5d9443a0358b55038b04c8a7db9b"
+  integrity sha1-kBQDwSDrXZRDoDWLVQOLBMin25s=
   dependencies:
     chalk "^4.0.0"
-    commander "^5.1.0"
+    commander "^5.0.0"
     cosmiconfig "^6.0.0"
     debug "^4.1.1"
     dedent "^0.7.0"
-    execa "^4.0.1"
-    listr2 "^2.0.2"
-    log-symbols "^4.0.0"
+    execa "^4.0.0"
+    listr2 "1.3.8"
+    log-symbols "^3.0.0"
     micromatch "^4.0.2"
     normalize-path "^3.0.0"
     please-upgrade-node "^3.2.0"
     string-argv "0.3.1"
     stringify-object "^3.3.0"
 
-listr2@^2.0.2:
-  version "2.0.4"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/listr2/-/listr2-2.0.4.tgz#b39100b0a227ec5659dcf76ddc516211fc168d61"
-  integrity sha1-s5EAsKIn7FZZ3Pdt3FFiEfwWjWE=
+listr2@1.3.8:
+  version "1.3.8"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/listr2/-/listr2-1.3.8.tgz#30924d79de1e936d8c40af54b6465cb814a9c828"
+  integrity sha1-MJJNed4ek22MQK9UtkZcuBSpyCg=
   dependencies:
     "@samverschueren/stream-to-observable" "^0.3.0"
-    chalk "^4.0.0"
+    chalk "^3.0.0"
     cli-cursor "^3.1.0"
     cli-truncate "^2.1.0"
     elegant-spinner "^2.0.0"
-    enquirer "^2.3.5"
+    enquirer "^2.3.4"
     figures "^3.2.0"
     indent-string "^4.0.0"
     log-update "^4.0.0"
     p-map "^4.0.0"
     pad "^3.2.0"
-    rxjs "^6.5.5"
+    rxjs "^6.3.3"
     through "^2.3.8"
     uuid "^7.0.2"
 
@@ -7305,10 +7310,10 @@ lodash.uniq@^4.5.0:
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha1-tEf2ZwoEVbv+7dETku/zMOoJdUg=
 
-log-symbols@^4.0.0:
-  version "4.0.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/log-symbols/-/log-symbols-4.0.0.tgz#69b3cc46d20f448eccdb75ea1fa733d9e821c920"
-  integrity sha1-abPMRtIPRI7M23XqH6cz2eghySA=
+log-symbols@^3.0.0:
+  version "3.0.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/log-symbols/-/log-symbols-3.0.0.tgz#f3a08516a5dea893336a7dee14d18a1cfdab77c4"
+  integrity sha1-86CFFqXeqJMzan3uFNGKHP2rd8Q=
   dependencies:
     chalk "^4.0.0"
 
@@ -7549,10 +7554,10 @@ min-indent@^1.0.0:
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/min-indent/-/min-indent-1.0.0.tgz#cfc45c37e9ec0d8f0a0ec3dd4ef7f7c3abe39256"
   integrity sha1-z8RcN+nsDY8KDsPdTvf3w6vjklY=
 
-mini-create-react-context@^0.4.0:
-  version "0.4.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/mini-create-react-context/-/mini-create-react-context-0.4.0.tgz#df60501c83151db69e28eac0ef08b4002efab040"
-  integrity sha1-32BQHIMVHbaeKOrA7wi0AC76sEA=
+mini-create-react-context@^0.3.0:
+  version "0.3.2"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/mini-create-react-context/-/mini-create-react-context-0.3.2.tgz#79fc598f283dd623da8e088b05db8cddab250189"
+  integrity sha1-efxZjyg91iPajgiLBduM3aslAYk=
   dependencies:
     "@babel/runtime" "^7.5.5"
     tiny-warning "^1.0.3"
@@ -7604,16 +7609,16 @@ minipass-flush@^1.0.5:
     minipass "^3.0.0"
 
 minipass-pipeline@^1.2.2:
-  version "1.2.3"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/minipass-pipeline/-/minipass-pipeline-1.2.3.tgz#55f7839307d74859d6e8ada9c3ebe72cec216a34"
-  integrity sha1-VfeDkwfXSFnW6K2pw+vnLOwhajQ=
+  version "1.2.2"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/minipass-pipeline/-/minipass-pipeline-1.2.2.tgz#3dcb6bb4a546e32969c7ad710f2c79a86abba93a"
+  integrity sha1-PctrtKVG4ylpx61xDyx5qGq7qTo=
   dependencies:
     minipass "^3.0.0"
 
 minipass@^3.0.0, minipass@^3.1.1:
-  version "3.1.3"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/minipass/-/minipass-3.1.3.tgz#7d42ff1f39635482e15f9cdb53184deebd5815fd"
-  integrity sha1-fUL/HzljVILhX5zbUxhN7r1YFf0=
+  version "3.1.1"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/minipass/-/minipass-3.1.1.tgz#7607ce778472a185ad6d89082aa2070f79cedcd5"
+  integrity sha1-dgfOd4RyoYWtbYkIKqIHD3nO3NU=
   dependencies:
     yallist "^4.0.0"
 
@@ -7828,9 +7833,9 @@ node-notifier@^5.4.2:
     which "^1.3.0"
 
 node-releases@^1.1.52, node-releases@^1.1.53:
-  version "1.1.56"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/node-releases/-/node-releases-1.1.56.tgz#bc054a417d316e3adac90eafb7e1932802f28705"
-  integrity sha1-vAVKQX0xbjrayQ6vt+GTKALyhwU=
+  version "1.1.53"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/node-releases/-/node-releases-1.1.53.tgz#2d821bfa499ed7c5dffc5e2f28c88e78a08ee3f4"
+  integrity sha1-LYIb+kme18Xf/F4vKMiOeKCO4/Q=
 
 normalize-package-data@^2.3.2:
   version "2.5.0"
@@ -8073,9 +8078,9 @@ onetime@^5.1.0:
     mimic-fn "^2.1.0"
 
 open@^7.0.2:
-  version "7.0.4"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/open/-/open-7.0.4.tgz#c28a9d315e5c98340bf979fdcb2e58664aa10d83"
-  integrity sha1-woqdMV5cmDQL+Xn9yy5YZkqhDYM=
+  version "7.0.3"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/open/-/open-7.0.3.tgz#db551a1af9c7ab4c7af664139930826138531c48"
+  integrity sha1-21UaGvnHq0x69mQTmTCCYThTHEg=
   dependencies:
     is-docker "^2.0.0"
     is-wsl "^2.1.1"
@@ -9194,7 +9199,7 @@ postcss-value-parser@^3.0.0:
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/postcss-value-parser/-/postcss-value-parser-3.3.1.tgz#9ff822547e2893213cf1c30efa51ac5fd1ba8281"
   integrity sha1-n/giVH4okyE88cMO+lGsX9G6goE=
 
-postcss-value-parser@^4.0.0, postcss-value-parser@^4.0.2, postcss-value-parser@^4.1.0:
+postcss-value-parser@^4.0.0, postcss-value-parser@^4.0.2, postcss-value-parser@^4.0.3:
   version "4.1.0"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/postcss-value-parser/-/postcss-value-parser-4.1.0.tgz#443f6a20ced6481a2bda4fa8532a6e55d789a2cb"
   integrity sha1-RD9qIM7WSBor2k+oUypuVdeJoss=
@@ -9217,10 +9222,10 @@ postcss@7.0.21:
     source-map "^0.6.1"
     supports-color "^6.1.0"
 
-postcss@^7, postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.16, postcss@^7.0.17, postcss@^7.0.2, postcss@^7.0.23, postcss@^7.0.27, postcss@^7.0.30, postcss@^7.0.5, postcss@^7.0.6:
-  version "7.0.30"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/postcss/-/postcss-7.0.30.tgz#cc9378beffe46a02cbc4506a0477d05fcea9a8e2"
-  integrity sha1-zJN4vv/kagLLxFBqBHfQX86pqOI=
+postcss@^7, postcss@^7.0.0, postcss@^7.0.1, postcss@^7.0.14, postcss@^7.0.16, postcss@^7.0.17, postcss@^7.0.2, postcss@^7.0.23, postcss@^7.0.27, postcss@^7.0.5, postcss@^7.0.6:
+  version "7.0.29"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/postcss/-/postcss-7.0.29.tgz#d3a903872bd52280b83bce38cdc83ce55c06129e"
+  integrity sha1-06kDhyvVIoC4O844zcg85VwGEp4=
   dependencies:
     chalk "^2.4.2"
     source-map "^0.6.1"
@@ -9584,10 +9589,17 @@ react-redux@^7.1.3:
     prop-types "^15.7.2"
     react-is "^16.9.0"
 
+react-router-config@^5.1.1:
+  version "5.1.1"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/react-router-config/-/react-router-config-5.1.1.tgz#0f4263d1a80c6b2dc7b9c1902c9526478194a988"
+  integrity sha1-D0Jj0agMay3HucGQLJUmR4GUqYg=
+  dependencies:
+    "@babel/runtime" "^7.1.2"
+
 react-router-dom@^5.1.2:
-  version "5.2.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/react-router-dom/-/react-router-dom-5.2.0.tgz#9e65a4d0c45e13289e66c7b17c7e175d0ea15662"
-  integrity sha1-nmWk0MReEyieZsexfH4XXQ6hVmI=
+  version "5.1.2"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/react-router-dom/-/react-router-dom-5.1.2.tgz#06701b834352f44d37fbb6311f870f84c76b9c18"
+  integrity sha1-BnAbg0NS9E03+7YxH4cPhMdrnBg=
   dependencies:
     "@babel/runtime" "^7.1.2"
     history "^4.9.0"
@@ -9597,10 +9609,10 @@ react-router-dom@^5.1.2:
     tiny-invariant "^1.0.2"
     tiny-warning "^1.0.0"
 
-react-router@5.2.0:
-  version "5.2.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/react-router/-/react-router-5.2.0.tgz#424e75641ca8747fbf76e5ecca69781aa37ea293"
-  integrity sha1-Qk51ZByodH+/duXsyml4GqN+opM=
+react-router@5.1.2:
+  version "5.1.2"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/react-router/-/react-router-5.1.2.tgz#6ea51d789cb36a6be1ba5f7c0d48dd9e817d3418"
+  integrity sha1-bqUdeJyzamvhul98DUjdnoF9NBg=
   dependencies:
     "@babel/runtime" "^7.1.2"
     history "^4.9.0"
@@ -9674,9 +9686,9 @@ react-scripts@^3.4.0:
     fsevents "2.1.2"
 
 react-simple-keyboard@^2.2.16:
-  version "2.3.39"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/react-simple-keyboard/-/react-simple-keyboard-2.3.39.tgz#6956dfcc7cfbd9c74a13d7f11c6aae9c3fb3279f"
-  integrity sha1-aVbfzHz72cdKE9fxHGqunD+zJ58=
+  version "2.3.24"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/react-simple-keyboard/-/react-simple-keyboard-2.3.24.tgz#306fdbe906c9a455d41c92d68e29d181502a5a76"
+  integrity sha1-MG/b6QbJpFXUHJLWjinRgVAqWnY=
 
 react-transition-group@^4.4.0:
   version "4.4.1"
@@ -10164,7 +10176,7 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   dependencies:
     aproba "^1.1.1"
 
-rxjs@^6.5.2, rxjs@^6.5.3, rxjs@^6.5.5:
+rxjs@^6.3.3, rxjs@^6.5.2, rxjs@^6.5.3:
   version "6.5.5"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/rxjs/-/rxjs-6.5.5.tgz#c5c884e3094c8cfee31bf27eb87e54ccfc87f9ec"
   integrity sha1-xciE4wlMjP7jG/J+uH5UzPyH+ew=
@@ -10177,9 +10189,9 @@ safe-buffer@5.1.2, safe-buffer@~5.1.0, safe-buffer@~5.1.1:
   integrity sha1-mR7GnSluAxN0fVm9/St0XDX4go0=
 
 safe-buffer@>=5.1.0, safe-buffer@^5.0.1, safe-buffer@^5.1.0, safe-buffer@^5.1.1, safe-buffer@^5.1.2, safe-buffer@^5.2.0, safe-buffer@~5.2.0:
-  version "5.2.1"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/safe-buffer/-/safe-buffer-5.2.1.tgz#1eaf9fa9bdb1fdd4ec75f58f9cdb4e6b7827eec6"
-  integrity sha1-Hq+fqb2x/dTsdfWPnNtOa3gn7sY=
+  version "5.2.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/safe-buffer/-/safe-buffer-5.2.0.tgz#b74daec49b1148f88c64b68d49b1e815c1f2f519"
+  integrity sha1-t02uxJsRSPiMZLaNSbHoFcHy9Rk=
 
 safe-regex@^1.1.0:
   version "1.1.0"
@@ -10297,11 +10309,6 @@ semver@7.0.0:
   version "7.0.0"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/semver/-/semver-7.0.0.tgz#5f3ca35761e47e05b206c6daff2cf814f0316b8e"
   integrity sha1-XzyjV2HkfgWyBsba/yz4FPAxa44=
-
-semver@^7.3.2:
-  version "7.3.2"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/semver/-/semver-7.3.2.tgz#604962b052b81ed0786aae84389ffba70ffd3938"
-  integrity sha1-YElisFK4HtB4aq6EOJ/7pw/9OTg=
 
 send@0.17.1:
   version "0.17.1"
@@ -10621,9 +10628,9 @@ spdx-exceptions@^2.1.0:
   integrity sha1-PyjOGnegA3JoPq3kpDMYNSeiFj0=
 
 spdx-expression-parse@^3.0.0:
-  version "3.0.1"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/spdx-expression-parse/-/spdx-expression-parse-3.0.1.tgz#cf70f50482eefdc98e3ce0a6833e4a53ceeba679"
-  integrity sha1-z3D1BILu/cmOPOCmgz5KU87rpnk=
+  version "3.0.0"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/spdx-expression-parse/-/spdx-expression-parse-3.0.0.tgz#99e119b7a5da00e05491c9fa338b7904823b41d0"
+  integrity sha1-meEZt6XaAOBUkcn6M4t5BII7QdA=
   dependencies:
     spdx-exceptions "^2.1.0"
     spdx-license-ids "^3.0.0"
@@ -11089,9 +11096,9 @@ terser-webpack-plugin@^1.4.3:
     worker-farm "^1.7.0"
 
 terser@^4.1.2, terser@^4.4.3, terser@^4.6.3:
-  version "4.7.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/terser/-/terser-4.7.0.tgz#15852cf1a08e3256a80428e865a2fa893ffba006"
-  integrity sha1-FYUs8aCOMlaoBCjoZaL6iT/7oAY=
+  version "4.6.13"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/terser/-/terser-4.6.13.tgz#e879a7364a5e0db52ba4891ecde007422c56a916"
+  integrity sha1-6HmnNkpeDbUrpIkezeAHQixWqRY=
   dependencies:
     commander "^2.20.0"
     source-map "~0.6.1"
@@ -11247,9 +11254,9 @@ ts-pnp@^1.1.6:
   integrity sha1-pQCtCEsHmPHDBxrzkeZZEshrypI=
 
 tslib@^1.10.0, tslib@^1.8.1, tslib@^1.9.0:
-  version "1.13.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
-  integrity sha1-yIHhPMcBWJTtkUhi0nZDb6mkcEM=
+  version "1.11.1"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
+  integrity sha1-6xXRKIJ/vuKEFUnhcfRe0zisfjU=
 
 tsutils@^3.17.1:
   version "3.17.1"
@@ -11606,10 +11613,11 @@ watchpack-chokidar2@^2.0.0:
     chokidar "^2.1.8"
 
 watchpack@^1.6.0:
-  version "1.7.2"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/watchpack/-/watchpack-1.7.2.tgz#c02e4d4d49913c3e7e122c3325365af9d331e9aa"
-  integrity sha1-wC5NTUmRPD5+EiwzJTZa+dMx6ao=
+  version "1.6.1"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/watchpack/-/watchpack-1.6.1.tgz#280da0a8718592174010c078c7585a74cd8cd0e2"
+  integrity sha1-KA2gqHGFkhdAEMB4x1hadM2M0OI=
   dependencies:
+    chokidar "^2.1.8"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
   optionalDependencies:
@@ -12071,9 +12079,11 @@ yallist@^4.0.0:
   integrity sha1-m7knkNnA7/7GO+c1GeEaNQGaOnI=
 
 yaml@^1.7.2:
-  version "1.10.0"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/yaml/-/yaml-1.10.0.tgz#3b593add944876077d4d683fee01081bd9fff31e"
-  integrity sha1-O1k63ZRIdgd9TWg/7gEIG9n/8x4=
+  version "1.9.2"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/yaml/-/yaml-1.9.2.tgz#f0cfa865f003ab707663e4f04b3956957ea564ed"
+  integrity sha1-8M+oZfADq3B2Y+TwSzlWlX6lZO0=
+  dependencies:
+    "@babel/runtime" "^7.9.2"
 
 yargs-parser@^11.1.1:
   version "11.1.1"

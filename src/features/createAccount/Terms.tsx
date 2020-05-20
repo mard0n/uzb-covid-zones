@@ -17,7 +17,7 @@ const LeftContent = (props: any) => {
 
   const handleScroll = (e: any) => {
     const { scrollTop, scrollHeight, offsetHeight } = e.target;
-    if (scrollTop === scrollHeight - offsetHeight) {
+    if (Math.round(scrollTop) === Math.round(scrollHeight - offsetHeight)) {
       setScrolled(true);
     }
   };

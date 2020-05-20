@@ -38,18 +38,33 @@ const {t} = useTranslation();
   //   }
   // };
 
-  const onSuccessOTP = () => {
+  const onSuccessOTP = (finalData?: any) => {
     setLoading(true);
       updateStep({step: "confirmation", stepInit: "Confirmation"});
-      const {accountNumber, serviceTypeCode, billRefNo, rechargeAmount, selectedAccount} =startPayentData as any, url = Endpoint.BILL_PAYMENT_PAY_BILL_ENDPOINT,
-      data= {
+      let getAllData = finalData ? finalData : startPayentData;
+      const {accountNumber, salikPinCode, serviceTypeCode, billRefNo, rechargeAmount, selectedAccount} =getAllData as any, url = Endpoint.BILL_PAYMENT_PAY_BILL_ENDPOINT;
+      let data: any = {
         "consumerId": accountNumber, //"0504930554",
         "billerType": serviceTypeCode, //"etisalat-prepaid",
         "billRefNo" : billRefNo, //"06120204224478456558",
-        "paymentMode": "ACCOUNT",
         "paidAmount": rechargeAmount, //"20.00",
-        "debitAccountNo": selectedAccount.accountNumber //"010490707201"
     };
+
+    if(selectedAccount) {
+      //salik
+      if(salikPinCode) {
+        let isValidNumber = !isNaN(Number(salikPinCode));
+        data["checkDigit"] = isValidNumber ? btoa(salikPinCode) : salikPinCode;
+      }
+      if(selectedAccount.type === "cards" && selectedAccount.encryptedCardNumber) {
+        data["debitAccountNo"] = selectedAccount.encryptedCardNumber; //cardNo
+        data["paymentMode"] = "CARD"; //cardNo
+      } else if(selectedAccount.accountNumber) {
+        data["debitAccountNo"]= selectedAccount.accountNumber; //accountNumber
+        data["paymentMode"] = "ACCOUNT";
+      }
+    }
+    
       const config = {
         method: 'POST',
         url,
@@ -69,7 +84,12 @@ const {t} = useTranslation();
   };
 
   const onSubmitReview = (item: any) => {
-    updateStep({step: "otp", stepInit: "Authorization"});
+    let updateOptions = {step: "otp", stepInit: "Authorization"};
+    if(options && options.length> 0 && options.indexOf("Authorization") === -1) {
+      updateOptions = {step: "confirmation", stepInit: "Confirmation"};
+      onSuccessOTP(item);
+    }
+    updateStep(updateOptions);
     setStartPaymentData(item);
   }
 
@@ -138,7 +158,7 @@ const {t} = useTranslation();
         />)
       default:
         return (
-          <StartPayments type={billType} onHandleBeneficiary={()=>onHandleBeneficiary()} onSubmitPayment={onSubmitPayment} onHandleBack={()=>onHandleBack()}/>
+          <StartPayments data={startPayentData} type={billType} onHandleBeneficiary={()=>onHandleBeneficiary()} onSubmitPayment={onSubmitPayment} onHandleBack={()=>onHandleBack()}/>
         );
     }
   };

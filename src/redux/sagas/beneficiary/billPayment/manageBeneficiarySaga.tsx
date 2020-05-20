@@ -124,9 +124,16 @@ export function* workerAddUpdateSaga(action: any) {
     const response = yield call(addUpdateBillPayBeneficiary, action);
     if (response && response.data) {
       yield put(Actions.addUpdateBeneficiarySuccess(response.data.data));
-      if(response.data.errorCode) {
+      //Triggers account activation api if activateAccount is true ( action.payload.activateAccount )
+      if(action && action.payload && action.payload.activateAccount && response.data.data && response.data.data.id) {
         yield put(
-          Actions.addUpdateBeneficiaryFailure(response.data.errorCode),
+          Actions.activateBeneficiaryRequest({beneficiaryId: response.data.data.id})
+        );
+      }
+      if(response.data.errorCode || response.data.errorId) {
+        console.log(response.data.errorCode || response.data.errorId, "errorCode ========>>>>>>>>>")
+        yield put(
+          Actions.addUpdateBeneficiaryFailure(response.data.errorCode || response.data.errorId),
         );
       }
     } else {

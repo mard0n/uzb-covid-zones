@@ -156,10 +156,10 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
     }
   },[isAdd, edit, formFields]);
 
-  useEffect(() => {
-    let checkUtility = utilities.indexOf(type.toLowerCase()) > -1;
-    setIsUtility(checkUtility);
-  }, [type]);
+  // useEffect(() => {
+  //   let checkUtility = utilities.indexOf(type.toLowerCase()) > -1;
+  //   setIsUtility(checkUtility);
+  // }, [type]);
 
   useEffect(() => {
     if (onSubmitCallback && typeof onSubmitCallback === "function" && addNew) {
@@ -242,7 +242,7 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
         />
       )}
       <SectionSplitter
-        height="calc(100vh - 250px)"
+        height="calc(100vh - 400px)"
         top={
           <Box>
             <UnderlineText color="primary">
@@ -323,7 +323,7 @@ const AddUpdateBillPayment = (props: AddUpdateBillPaymentProps) => {
               color="primary"
               disabled={disabled}
               onClick={() => onClickSubmit()}
-              size="medium"
+              size="large"
             >
               {t("common.action.submit")}
             </Button>

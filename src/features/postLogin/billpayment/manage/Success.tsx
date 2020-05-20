@@ -9,7 +9,7 @@ import {
   SectionSplitter,
   SvgIcon,
 } from "@mashreq-digital/ui";
-import { useDispatch,useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
 import { Check, Phone24 } from "@mashreq-digital/webassets";
 // import getBeneficiariesAvatar from "../../../../util/getBeneficiariesAvatar";
@@ -17,7 +17,6 @@ import SucessFailureIcon from "../../../../common/successFailureIcon";
 import ReviewAmountType from "../../../../components/billpayment/reviewAmountType";
 import CardPayNow from "../../../../common/card/CardPayNow";
 import SaveBeneficiaryPrompt from "./saveBeneficiary";
-import * as Actions from "../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import SuccessModel from "./saveBeneficiary/SuccessModel";
 import PaymentReceipt from "../../../../common/paymentReceipt/index";
 
@@ -48,8 +47,6 @@ const Success = (props: SuccessProps) => {
   const [payRecieptModal, setPayRecieptModal] = useState(false);
   const [sucessModel, setSucessModel] = useState(false);
   const [saveData, setSaveData] = useState({});
-  const dispatch = useDispatch();
-  const benErrorOnSave = useSelector((state:any) => state.beneficiary.billPayment.errorCode);
   const addNew = useSelector((state:any) => state.beneficiary.billPayment.addNew);
 
 
@@ -70,22 +67,12 @@ const Success = (props: SuccessProps) => {
   };
 
   const SaveBenificiarySubmit = (formData: any) => {
-    let resData = {
+    let resData: any = {
       nickname: formData.nickName,
       serviceTypeCode: data.serviceTypeCode,
       accountNumber: data.accountNumber,
     }
     setSaveData(resData);
-    if (data.serviceTypeCode === "Salik") {
-      setSaveData({
-        ...resData,
-        salikPinCode: "NDIxOQ==",
-        savePinCode: false,
-      });
-    }
-    dispatch(
-      Actions.addUpdateBeneficiaryRequest({ updateMode: false, data: resData })
-    );
     setEditModal(false);
     setSucessModel(true);
   };
@@ -125,6 +112,7 @@ const Success = (props: SuccessProps) => {
               <Box mt={6}>
                 <Button onClick={() => setEditModal(true)}>
                   <CardPayNow
+                    style={{ justifyContent: "space-evenly" }}
                     arrow={true}
                     heading={t(`billPayments.steps.confirmation.payment`)}
                     subheading={t(`billPayments.steps.confirmation.saveIt`)}
@@ -155,6 +143,7 @@ const Success = (props: SuccessProps) => {
               title={t("beneficiary.manage.prompts.edit.titleSvaveBenificiary")}
               buttonLabel={t("beneficiary.manage.prompts.edit.buttonLabel2")}
               desc={""}
+              data={data}
               beneficiaryItemForSave={beneficiaryItemForEdit}
               openModal={editModal}
               onCloseModal={() => {
@@ -167,9 +156,6 @@ const Success = (props: SuccessProps) => {
 
           {sucessModel && addNew !== undefined  && <SuccessModel data={saveData} type={type} telecomType={data.telecomType}/>}
     
-          { benErrorOnSave !== "" && alert("error saving benificiary " +benErrorOnSave )}   
-
-
           {payRecieptModal && (
             <PaymentReceipt
               title={"Your invoice"}

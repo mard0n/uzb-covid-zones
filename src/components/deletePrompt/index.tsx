@@ -9,6 +9,7 @@ const DeletePrompt = (props: any) => {
             icon={TrashWarning}
             title={title}
             desc={desc}
+            iconBgVariant="warning"
             openModal={openModal}
             onCloseModal={() => {
               if(onCloseModal && typeof onCloseModal === "function") {

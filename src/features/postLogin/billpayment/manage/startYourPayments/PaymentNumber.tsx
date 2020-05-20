@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
-import { Button, Grid, Box } from "@mashreq-digital/ui";
+import { Button, Grid, Box, IconButton } from "@mashreq-digital/ui";
 import FilledCheckBox from "../../../../../common/filledCheckbox";
 import InputWrapper from "../../../../../common/inputWrapper";
 import GetBeneficiaryList from "./GetBeneficiaryList";
@@ -9,6 +9,10 @@ import { getTelecomServiceType } from "../../../../../util/getTelecomServiceType
 import { BILL_PAYMENT_ENQUIRY } from "../../../../../network/Endpoints";
 import { API } from "../../../../../network";
 import { capitalizeFirstLetter } from "../../../../../util/helper";
+import { Eye, Eye2 } from "@mashreq-digital/webassets";
+import SalikPinCodeModal from "./SalikPincodeModal";
+import { useDispatch } from "react-redux";
+import * as Actions from "../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 
 type PaymentNumberProps = {
   type : any,
@@ -18,18 +22,22 @@ type PaymentNumberProps = {
 }
 
 const PaymentNumber = (props: PaymentNumberProps) => {
-  // onClickBeneficiary,
-  const { type, onProceed, onChangeTab } = props;
+  const { type, onProceed, onChangeTab, onClickBeneficiary } = props;
   const getType: keyof typeof FormFields = type;
   const formSchema: any = FormFields[getType];
+  const dispatch = useDispatch();
   const telecomOptions =
     formSchema && formSchema["options"] && formSchema["options"].length > 0
       ? formSchema["options"]
       : [];
   const [billType, setBillType] = useState(formSchema["type"]);
-  const [telecomValue, setTelecomValue] = useState("prepaid");
+  const [telecomValue, setTelecomValue] = useState((formSchema["type"] === "du" || formSchema["type"] === "etisalat") ? "prepaid" : "");
+  const [hideSalikPin, setHideSalikPin] = useState(false);
+  const [openSalikModal, setOpenSalikModal] = useState(false);
+  const [salikPincodeError, setSalikPincodeError] = useState('');
   const [disabled, setDisabled] = useState(true);
   const [fields, setFields] = useState<any>({});
+  const [selectedBeneficiary, setSelectedBeneficiary] = useState<any>({});
   const [formData, setFormData] = useState({});
   const formFields: any =
     getType === "etisalat" || getType === "du"
@@ -50,10 +58,32 @@ const PaymentNumber = (props: PaymentNumberProps) => {
     setFields(initFieldProps());
   }, [formFields, type]);
 
+  useEffect(()=>{
+    const handleClickShowPassword = (val: any) => {
+      let cloneFields = {...val};
+      cloneFields['pincode']['config']['type'] = hideSalikPin ?  'password' : 'text';
+      setHideSalikPin(!hideSalikPin);
+      setFields(cloneFields);
+    }
+
+    for (const field in formFields) {
+      if (type==="salik" && field === "pincode") {
+        formFields[field]["config"]["InputProps"] = {
+          endAdornment: (
+            <IconButton
+            aria-label="toggle password visibility"
+            onClick={()=>handleClickShowPassword(fields)}
+          >
+            {hideSalikPin ? <Eye /> : <Eye2 />}
+          </IconButton>
+          )
+        };
+      }
+    }},[type, fields, hideSalikPin, formFields]);
+
   const onClickFilledOptions = (selItem: any) => {
     let cloneFields = { ...formSchema[selItem]["fields"] };
     setTelecomValue(selItem);
-    //console.log("onClickFilledOptions -> cloneFields", cloneFields)
     for (let field in cloneFields) {
       cloneFields[field]["config"]["value"] = "";
       cloneFields[field]["config"]["error"] = false;
@@ -65,33 +95,74 @@ const PaymentNumber = (props: PaymentNumberProps) => {
     }
   };
 
-  const onBlurFields = (resData: any) => {
-    setFormData(resData);
-    setDisabled(!resData.valid);
+  const onClickExistingBeneficiary = (existingBeneficiary: any) => {
+    setSelectedBeneficiary(existingBeneficiary);
+    let { serviceTypeCode, salikPinCode } = existingBeneficiary;
+    if(serviceTypeCode && serviceTypeCode === "Salik") {
+      if(salikPinCode) {
+        onClickProceed(existingBeneficiary);
+        onClickBeneficiary();
+      } else {
+        setOpenSalikModal(true);
+      }
+    } else {
+      onClickProceed(existingBeneficiary);
+      onClickBeneficiary();
+    }
+    
+  }
+
+  const onBlurFields = (resData: any, formData: any) => {
+    setFormData(formData);
+    setDisabled(!formData.valid);
   };
 
   const onClickProceed = (existingBeneficiary?: any) => {
     let data: any = existingBeneficiary ? { ...existingBeneficiary } : { ...formData },
       url = BILL_PAYMENT_ENQUIRY;
-    data["serviceTypeCode"] = getTelecomServiceType((type === "du" || type === "etisalat") ? billType.toLowerCase() : type === "noqodi" ? capitalizeFirstLetter(billType) : billType.toUpperCase(), telecomValue);
+    data["serviceTypeCode"] = getTelecomServiceType((type === "du" || type === "etisalat") ? billType.toLowerCase() : (type === "noqodi" || type === "salik") ? capitalizeFirstLetter(billType) : billType.toUpperCase(), telecomValue);
     delete data["valid"];
+
+    if(type === 'salik') {
+      delete data["pincode"];
+      data["salikPinCode"] = existingBeneficiary ? data.salikPinCode ? data.salikPinCode : '' : btoa(fields["pincode"]['config']['value']);
+    }
+
     const config = {
       method: 'POST',
       data,
       url,
     };
-    console.log("onClickProceed -> data", data);
     
     if(data["serviceTypeCode"]) {
       API(config).then((val: any) => { 
-      console.log("onClickProceed -> val", val);
       if(val && val.data && (val.data.errorCode || val.data.errorId)) {
-        setError(val.data.errorCode || val.data.errorId)
+        let errorId =  val.data.errorCode || val.data.errorId;
+        if(data["serviceTypeCode"] === "Salik" && openSalikModal) {
+          setSalikPincodeError(errorId);
+        } else {
+          setError(errorId);
+        }
       } else if(val.data && val.data.data) {
         if(onProceed && typeof onProceed === "function") {
           let res = {...data, ...val.data.data};
           if(telecomValue){
             res["telecomType"] = telecomValue;
+          }
+          //salik update
+          if(data["serviceTypeCode"] === "Salik" && openSalikModal) {
+            //if save Pincode is true then update the salik savepincode beneficiary
+            if(data["savePinCode"]) {
+              let updateSalik = {
+                id: data.id,
+                accountNumber: data.accountNumber,
+                nickname: data.nickname,
+                serviceTypeCode: "Salik",
+                salikPinCode: data.salikPinCode,
+                savePinCode: true
+              }
+              dispatch(Actions.addUpdateBeneficiaryRequest({ updateMode: true, data: updateSalik, activateAccount: true }));
+            }
           }
           onProceed(res);
         }
@@ -102,7 +173,6 @@ const PaymentNumber = (props: PaymentNumberProps) => {
 
   const setError = (code: string) => {
     let cloneFields = { ...fields };
-    //console.log("onClickFilledOptions -> cloneFields", cloneFields)
     for (let field in cloneFields) {
       cloneFields[field]["config"]["error"] = true;
       cloneFields[field]["config"]["errorText"] = t(`common.dbErrors.${code}`);
@@ -112,6 +182,23 @@ const PaymentNumber = (props: PaymentNumberProps) => {
 
   return (
     <>
+      {openSalikModal && (
+        <SalikPinCodeModal
+          title={t("beneficiary.manage.prompts.edit.titleSvaveBenificiary")}
+          buttonLabel={t("common.action.submit")}
+          desc={""}
+          isError={salikPincodeError}
+          data={selectedBeneficiary}
+          openModal={openSalikModal}
+          onChangePin={()=>setSalikPincodeError('')}
+          onCloseModal={() => {
+            // dispatch(ManageActions.clearBeneficiaryAddNew());
+            setSalikPincodeError('');
+            setOpenSalikModal(false);
+          }}
+          onSubmitSave={(val: any) => {setSalikPincodeError('');onClickProceed({...selectedBeneficiary, salikPinCode: btoa(val.pincode), savePinCode: val.savePinCode})}}
+        />
+      )}
       <Grid container>
         <Grid item xs={8}>
           {telecomOptions && telecomOptions.length > 0 && (
@@ -129,7 +216,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
             <InputWrapper
               type={type}
               initialState={fields}
-              onBlur={onBlurFields}
+              onChangeFields={onBlurFields}
             />
           </Grid>
         </Grid>
@@ -145,7 +232,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
           {t("common.action.proceed")}
         </Button>
       </Box>
-      <GetBeneficiaryList type={type} telecomActiveTab={telecomValue} onClickBeneficiary={onClickProceed}/>
+      <GetBeneficiaryList type={type} telecomActiveTab={telecomValue} onClickBeneficiary={onClickExistingBeneficiary}/>
     </>
   );
 };

@@ -4,7 +4,7 @@ import { makeStyles, Box } from "@mashreq-digital/ui";
 const useStyles = makeStyles(() => ({
   root: (props: any) => ({
     fontSize: props && props.size ? props.size : "12px",
-    background: "rgb(49, 49, 49)",
+    background: props && props.linearGradient ? "linear-gradient(-225deg, rgb(33, 31, 32) 0%, rgb(11, 11, 11) 100%)" : "rgb(49, 49, 49)",
     borderRadius: "4px",
     height: "2.1em",
     width: "3.5em",
@@ -27,7 +27,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 type CardIconProps = {
-  size?: number
+  size?: number,
+  linearGradient?: boolean
 }
 
 const CardIcon = (props: CardIconProps) => {

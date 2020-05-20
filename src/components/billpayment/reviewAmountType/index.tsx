@@ -42,9 +42,7 @@ const ReviewAmountType = (props: ReviewAmountTypeProps) => {
   const { rechargeAmount, telecomType, nickname, accountNumber } = data;
   const { iconStyle, successIconStyle } = useStyles();
 
-  console.log(data)
-
-  let typeWithTab = capitalizeFirstLetter(type) + ' '+ (telecomType ? capitalizeFirstLetter(telecomType) : ''),
+  let typeWithTab = capitalizeFirstLetter(type) + ' '+ (telecomType && (type === "du" || type === "etisalat") ? capitalizeFirstLetter(telecomType) : ''),
   cardHeading = nickname ? nickname : `${typeWithTab}`,
   cardSubheading = nickname ? `${typeWithTab} | ${accountNumber}` : accountNumber;
 
@@ -56,6 +54,7 @@ const ReviewAmountType = (props: ReviewAmountTypeProps) => {
 
   return (
     <Box mt={6} mb={6} display="flex" alignItems="center" >
+
       <CardPayNow
         icon={<Box className={isSuccess ? successIconStyle : iconStyle} p={1.6} borderRadius="50%" display="flex">
         <SvgIcon height="1rem" width="1rem" component={leftIcon} />
@@ -63,6 +62,7 @@ const ReviewAmountType = (props: ReviewAmountTypeProps) => {
         heading={<Body1>{title}</Body1>}
         subheading={<H5>AED {Math.abs(rechargeAmount)}</H5>}
       />
+
       <Box ml={3} mr={3}>
         <SvgIcon component={ArrowRight} />
       </Box>

@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import {
-  H4,
+  H5,
   Caption,
   Avatar,
   Card,
@@ -9,9 +9,10 @@ import {
   SvgIcon,
   makeStyles,
   createStyles,
+  Body2,
 } from "@mashreq-digital/ui";
 
-import {ChevronRight} from "@mashreq-digital/webassets";
+import { ChevronRight } from "@mashreq-digital/webassets";
 
 // const du = require("../../assets/images/beneficiaries/Du.png");
 
@@ -20,61 +21,129 @@ const useStyles = makeStyles((theme: any) =>
     card: (props: any) => ({
       display: "flex",
       paddingRight: theme.spacing(0.5),
-      width: "327px",
+      width: props && props.fullWidth ? "100%" : props && props.TIcon ? "408px" : "327px",
       borderRadius: "8px",
       alignItems: "center",
       justifyContent: "flex-start",
+      boxShadow: props && props.boxShadow ? "0px 8px 12px 0px rgba(0, 0, 0, 0.06)" : "none",
       padding: `0 ${theme.spacing(4)}px`,
       cursor: props && props.link ? "pointer" : "default"
     }),
+    headingStyle: {
+      fontWeight: 600
+    },
+    activeStyle: {
+      borderColor: "rgb(49, 49, 49)",
+    },
+    iconStyle: {
+      display: "flex",
+      justifyContent: "left",
+      marginBottom: theme.spacing(2.5),
+    },
+    avt: {
+      minHeight: "64px",
+      minWidth: "64px",
+      color: theme.palette.getContrastText("rgba(255, 94, 0, 0.14)"),
+      backgroundColor: "rgba(255, 94, 0, 0.14)",
+    },
     button: {
       width: 118,
-      height: 85
+      height: 85,
     },
     arrowStyle: {
-      height: "15px"
-    }
+      height: "15px",
+    },
   })
 );
 
 type CardPayNowProps = {
   heading?: ReactNode | string | undefined;
-  subheading? : ReactNode | string | undefined;
-  callback? : any;
-  buttonLable? : string; 
-  arrow?:boolean;
+  subheading?: ReactNode | string | undefined;
+  callback?: any;
+  fullWidth?: boolean;
+  boxShadow?: boolean;
+  cardCallBack?: any;
+  buttonLable?: string;
+  arrow?: boolean;
+  active?:boolean;
   icon?: any;
-  image? : string;
+  image?: string;
+  TIcon?: any;
+  logo?: boolean;
   link?: boolean;
-  style? : any;
-}
+  style?: any;
+};
 
 const CardPayNow = (props: CardPayNowProps) => {
-  const { heading,arrow, icon, subheading, style={}, buttonLable, image, link,callback } = props;
+  const {
+    heading,
+    arrow,
+    icon,
+    active,
+    subheading,
+    TIcon,
+    logo,
+    style = {},
+    buttonLable,
+    image,
+    // link,
+    cardCallBack,
+    callback,
+  } = props;
 
-  const { card, button, arrowStyle } = useStyles(props);
+  const { card, button, headingStyle, arrowStyle, iconStyle, avt,activeStyle } = useStyles(props);
+
+  let myStyle = active?activeStyle:style;
   return (
-    <Card className={card} style={style}>
+    <Card
+      className={card}
+      style={myStyle}
+      onClick={(e: any) => {
+        if (cardCallBack && typeof cardCallBack === "function") {
+          cardCallBack(e);
+        }
+      }}
+    >
       {image && <Avatar src={image} />}
       {icon}
+      {TIcon && (
+        <div className={iconStyle}>
+          {logo ? (
+            <Avatar className={avt}>
+              <TIcon width="50px" height="46px" />
+            </Avatar>
+          ) : (
+            <Avatar className={avt}>
+              <SvgIcon fontSize={"large"} color={"primary"} component={TIcon} />
+            </Avatar>
+          )}
+        </div>
+      )}
       <CardContent>
-        <H4 gutterBottom> {heading} </H4>
+        <Body2 gutterBottom className={headingStyle}> {heading} </Body2>
         <Caption>{subheading}</Caption>
       </CardContent>
-      {buttonLable && 
-      <Button
-        onClick={(e: any)=> {if(callback && typeof callback === "function"){callback(e)}}}
-        variant="contained"
-        color="primary"
-        className={button}
-      >
-        {buttonLable}
-      </Button>
-      }
-     {arrow && <SvgIcon className={arrowStyle} component={ChevronRight}/> }
+      {buttonLable && (
+        <Button
+          onClick={(e: any) => {
+            if (callback && typeof callback === "function") {
+              callback(e);
+            }
+          }}
+          variant="contained"
+          color="primary"
+          className={button}
+        >
+          {buttonLable}
+        </Button>
+      )}
+      {arrow && <SvgIcon className={arrowStyle} component={ChevronRight} />}
     </Card>
   );
 };
 
-export default CardPayNow;
+CardPayNow.defaultProps = {
+  boxShadow: true
+}
 
+export default CardPayNow;

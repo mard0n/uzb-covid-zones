@@ -39,21 +39,21 @@ const PayCustomAmount = (props: PayCustomAmountProps) => {
     let cloneData = { ...res };
     if(cloneData.customAmount && !isNaN(Number(cloneData.customAmount))) {
       let amount = Number(cloneData.customAmount);
-      
-      if(amount >= 50 && amount <= 1000){
+      /* 50 to 100 min and max limit validation*/
+      // if(amount >= 50 && amount <= 1000){
        if(onSubmitCallback && typeof onSubmitCallback === "function") {
         onSubmitCallback(amount);
        }
-      } else {
-         /* update error */
-         setDisabledEditButton(true);  
-         let cloneFields: any = {...fields};
-         for (const field in cloneFields) {
-           cloneFields[field]["config"]["error"] = true;
-           cloneFields[field]["config"]["errorText"] = replaceStr(replaceStr(t("beneficiary.manage.errors.matchNumber"), "--greater--", 50), "--lesser--", 1000);
-         }
-         setFields(cloneFields);
-      }
+      // } else {
+      //    /* update error */
+      //    setDisabledEditButton(true);  
+      //    let cloneFields: any = {...fields};
+      //    for (const field in cloneFields) {
+      //      cloneFields[field]["config"]["error"] = true;
+      //      cloneFields[field]["config"]["errorText"] = replaceStr(replaceStr(t("beneficiary.manage.errors.matchNumber"), "--greater--", 50), "--lesser--", 1000);
+      //    }
+      //    setFields(cloneFields);
+      // }
 
     }
   };

@@ -14,13 +14,16 @@ const GlobalCss = withStyles(({ palette, spacing }) => ({
       display: "flex",
       justifyContent: "center",
       "&>li": {
-        padding: `0 ${spacing(2)}px`,
-        "&:last-child": {
-          paddingRight: 0
-        },
-        "&:first-child": {
-          paddingLeft: 0
+        "&.footerlist":{
+          padding: `0 ${spacing(2)}px`,
+          "&:last-child": {
+            paddingRight: 0
+          },
+          "&:first-child": {
+            paddingLeft: 0
+          }
         }
+       
       },
       "&.border": {
         "&>li": {

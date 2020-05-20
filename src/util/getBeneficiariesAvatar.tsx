@@ -1,3 +1,8 @@
+import {   getMashreqLogo,
+  SingleNeutral,
+  Earth1,
+  CashPinMap } from '@mashreq-digital/webassets';
+
 const AADC = require("../assets/images/beneficiaries/AADC.png");
 const ADDC = require("../assets/images/beneficiaries/ADDC.png");
 const DEWA = require("../assets/images/beneficiaries/DEWA.png");
@@ -17,7 +22,7 @@ const getBeneficiariesAvatar = (serviceType: any) => {
     case "aadc":
       return AADC;
     case "addc":
-      return ADDC;     
+      return ADDC;
     case "noqodi":
       return Noqodi;
     case "ahsen":
@@ -31,7 +36,7 @@ const getBeneficiariesAvatar = (serviceType: any) => {
     case "du":
       return DU;
     case "duetisalat-prepaid":
-      return ETISALAT;      
+      return ETISALAT;
     case "etisalat":
       return ETISALAT;
     case "fewa":
@@ -40,6 +45,14 @@ const getBeneficiariesAvatar = (serviceType: any) => {
       return SALIK;
     case "sewa":
       return SEWA;
+    case "within-mashreq":
+      return getMashreqLogo("symbol");
+    case "international":
+      return Earth1;
+    case "own-account":
+      return SingleNeutral;
+    case "local":
+      return CashPinMap;
     case "thvte":
       return THAVTE;
     default:
