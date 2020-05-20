@@ -129,7 +129,7 @@ const PaymentNumber = (props: PaymentNumberProps) => {
     }
 
     const config = {
-      method: 'POST',
+      config: { method: "POST" },
       data,
       url,
     };

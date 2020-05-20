@@ -11,6 +11,8 @@ export const PRODUCT_INSURANCE_ENDPOINT = '/mob-dashboard/v1/summary/insurance';
 export const PRODUCT_MM_ENDPOINT = '/mob-dashboard/v1/summary/mmc';
 
 /* MANAGE BENEFICIARY */
+/*Money Transfer*/
+export const MONEY_TRANSFER_IBAN = '/beneficiary-core-service/v1/beneficiary/search'; //?category="biller" / "utility"
 /* Beneficiary */
 // const Beneficiary_bill_payment
 export const BENEFICIARY_SERVICE_TYPES_ENDPOINT = '/beneficiary-core-service/v1/beneficiary/service-type?category=biller'; //?category="biller" / "utility"

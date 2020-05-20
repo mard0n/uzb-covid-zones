@@ -38,7 +38,7 @@ export function addUpdateBillPayBeneficiary(action: any) {
   const url = Endpoints.BILL_PAYMENT_ADD_EDIT_BENEFICIARY_ENDPOINT;
 
   const config = {
-    method: updateMode ? 'PATCH' : 'POST',
+    config: { method: updateMode ? 'PATCH' : 'POST' },
     data,
     url,
   };
@@ -56,7 +56,7 @@ export function editBillPayBeneficiary(action: any) {
   const url = Endpoints.BILL_PAYMENT_ADD_EDIT_BENEFICIARY_ENDPOINT;
 
   const config = {
-    method: 'PATCH',
+    config: { method: "PATCH" },
     data,
     url,
   };
@@ -77,7 +77,7 @@ export function startBeneficiaryActivation(action: any) {
   );
 
   const config = {
-    method: 'POST',
+    config: { method: "POST" },
     url,
   };
 

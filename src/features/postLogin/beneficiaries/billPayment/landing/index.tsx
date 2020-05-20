@@ -21,6 +21,8 @@ import FilledCheckBox from "../../../../../common/filledCheckbox";
 import * as Actions from "../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import InputSearch from "../../../../../common/inputSearch";
 import { MONEY_TRANSFER_BENI_FILTER } from '../../../../../util/constants';
+import * as RoutePath from '../../../../../router/config';
+import { useHistory } from "react-router-dom";
 
 
 
@@ -43,6 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const BillPaymentLanding = (props: any) => {
   let dispatch = useDispatch();
+  const history = useHistory();
   
   let {normalChip,activeChip} = useStyles();
 
@@ -117,8 +120,13 @@ const BillPaymentLanding = (props: any) => {
     setAddServiceType("");
   };
 
+  // const routeUAE = () => {
+  //   history.push(RoutePath.BENIFICIARY_MONEY_TRANSFER_JOURNEY_LOCAL);
+  // }
+
   return (
     <Box>
+      {/* <Button onClick={routeUAE}>Local UAE Account</Button> */}
       {openModal && (
         <AddServiceType
           openModal={openModal}
