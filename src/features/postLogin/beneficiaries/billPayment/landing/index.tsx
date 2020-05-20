@@ -120,13 +120,13 @@ const BillPaymentLanding = (props: any) => {
     setAddServiceType("");
   };
 
-  const routeUAE = () => {
-    history.push(RoutePath.BENIFICIARY_MONEY_TRANSFER_JOURNEY_LOCAL);
-  }
+  // const routeUAE = () => {
+  //   history.push(RoutePath.BENIFICIARY_MONEY_TRANSFER_JOURNEY_LOCAL);
+  // }
 
   return (
     <Box>
-      <Button onClick={routeUAE}>Local UAE Account</Button>
+      {/* <Button onClick={routeUAE}>Local UAE Account</Button> */}
       {openModal && (
         <AddServiceType
           openModal={openModal}
