@@ -37,12 +37,12 @@ export function addUpdateBillPayBeneficiary(action: any) {
 
   const url = Endpoints.BILL_PAYMENT_ADD_EDIT_BENEFICIARY_ENDPOINT;
 
-  const config = {
-    config: { method: updateMode ? 'PATCH' : 'POST' },
-    data,
-    url,
-  };
-  return API(config);
+  // const config = {
+  //   config: { method: updateMode ? 'PATCH' : 'POST' },
+  //   data,
+  //   url,
+  // };
+  return API(url, {method: updateMode ? 'PATCH' : 'POST', data});
 }
 
 /**
@@ -55,12 +55,12 @@ export function editBillPayBeneficiary(action: any) {
 
   const url = Endpoints.BILL_PAYMENT_ADD_EDIT_BENEFICIARY_ENDPOINT;
 
-  const config = {
-    config: { method: "PATCH" },
-    data,
-    url,
-  };
-  return API(config);
+  // const config = {
+  //   config: { method: "PATCH" },
+  //   data,
+  //   url,
+  // };
+  return API(url, {method: "PATCH", data});
 }
 
 /**
@@ -76,12 +76,12 @@ export function startBeneficiaryActivation(action: any) {
     beneficiaryId,
   );
 
-  const config = {
-    config: { method: "POST" },
-    url,
-  };
+  // const config = {
+  //   config: { method: "POST" },
+  //   url,
+  // };
 
-  return API(config);
+  return API(url, {method: "PATCH"});
 }
 
 

@@ -82,6 +82,12 @@ const BeneficiaryDetails = () => {
   }, [response, loading]);
 
   const onChangeOfEditFiled = (data: any, formChanges: any) => {
+    if(formChanges["nickname"] === '') {
+      const beneificiaryField: any = data;
+        beneificiaryField["nickname"]["config"]["error"] = false;
+        beneificiaryField["nickname"]["config"]["errorText"] = '';
+        setFields({...beneificiaryField});
+    }
     setFormData(formChanges);
     setDisabled(!formChanges.valid);
   };

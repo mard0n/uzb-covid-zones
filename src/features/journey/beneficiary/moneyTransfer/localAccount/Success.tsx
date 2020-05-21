@@ -106,13 +106,13 @@ const Success = () => {
                   <CardListItem
                     customIcon={
                       <Avatar className={avatarStyle}>
-                        {getLetterFromStr(fullName)}
+                        {getLetterFromStr(nickname)}
                       </Avatar>
                     }
                     heading={nickname}
                     subheading={
                       <Box>
-                        <Body2>{`Account Number | ${accountNumber}`}</Body2>
+                        <Body2>{`IBAN | ${accountNumber}`}</Body2>
                         <Body2>
                           <b>
                             <Timer activeAfter={activeAfter}/>

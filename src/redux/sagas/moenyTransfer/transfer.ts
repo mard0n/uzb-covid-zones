@@ -23,13 +23,13 @@ export function fetchMoneyTransferInitiate(action: any) {
   const { payload = {} } = action;
   const url = Endpoints.MONEY_TRANSFER_INITIATE_TRANSFER_ENDPOINT;
 
-  const config = {
-    config: { method: "POST" },
-    url,
-    data: { ...payload },
-    //headers: {'X-CIF-ID': CIF}, //TODO: CIF 010424127  010424124
-  };
-  return API(config);
+  // const config = {
+  //   method: "POST"
+  //   url,
+  //   data: { ...payload },
+  //   //headers: {'X-CIF-ID': CIF}, //TODO: CIF 010424127  010424124
+  // };
+  return API(url, {method: "post", data: {...payload}});
 }
 
 /**

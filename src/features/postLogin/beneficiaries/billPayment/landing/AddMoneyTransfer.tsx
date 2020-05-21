@@ -41,16 +41,16 @@ export default function AddMoneyTransfer(props: any) {
   const onTransferSelection = (eachServiceType: any) => {
     switch (eachServiceType.code) {
       case withinMashreq:
-        // history.push({
-        //   pathname: MONEY_TRANSFER_JOURNEY_WITHIN_START,
-        //   state: { serviceType: eachServiceType },
-        // });
+        history.push({
+          pathname: RoutePath.BENIFICIARY_MONEY_TRANSFER_JOURNEY_WITHIN_BENEFICIARYDETAILS,
+          state: { serviceType: eachServiceType },
+        });
         break;
       case "own-account":
-        history.push({
-          pathname: RoutePath.BENIFICIARY_MONEY_TRANSFER_JOURNEY_WITHIN_BENEFICIARYDETAILS
-          // state: { serviceType: eachServiceType },
-        });
+        // history.push({
+        //   pathname: RoutePath.BENIFICIARY_MONEY_TRANSFER_JOURNEY_WITHIN_BENEFICIARYDETAILS
+        //   // state: { serviceType: eachServiceType },
+        // });
         break;
       case "local":
         history.push({
@@ -78,7 +78,7 @@ export default function AddMoneyTransfer(props: any) {
         <Modals
           heading={
             <UnderlineText>
-              <H3 noWrap>Choose a Beneficiarie Type</H3>
+              <H3 noWrap>Choose a Beneficiary Type</H3>
             </UnderlineText>
           }
           open={open}

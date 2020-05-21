@@ -24,14 +24,7 @@ export function* watchCurrencyRateSaga() {
 export function fetchCurrencyRate(action: any) {
   const {data = {}} = action.payload;
   const url = Endpoints.MONEY_TRANSFER_CURRENCY_EXCHANGE_ENDPOINT;
-  const config = {
-    config: { method: "POST" },
-    url,
-    data,
-  };
-  console.log('fetchCurrencyRate data', action);
-
-  return API(config);
+  return API(url, {method: "POST", data});
 }
 
 /**

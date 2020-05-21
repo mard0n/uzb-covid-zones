@@ -65,12 +65,12 @@ const {t} = useTranslation();
       }
     }
     
-      const config = {
-        config: { method: "POST" },
-        url,
-        data,
-      };
-        API(config).then((val: any) => {
+      // const config = {
+      //   config: { method: "POST" },
+      //   url,
+      //   data,
+      // };
+        API(url, {method: "POST", data}).then((val: any) => {
           setLoading(false);
           if (val && val.data && val.data.data) {
             // const resData = val.data.data;
