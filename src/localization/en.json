@@ -402,12 +402,19 @@
     "local":"To a Local UAE Account",
     "international":"To An International Account "
   },
-  "stepStart":"Start Your Transfer",
-  "stepSet":"Set transfer amount",
-  "stepReview":"Review",
-  "stepConfirm":"Confirmation",
-  "stepPurpos":"Purpose and charges",
-  "stepAuth":"Authorisation",
+  "steps":[
+    "Start Your Transfer",
+    "Set transfer amount",
+    "Review",
+    "Confirmation"
+  ],
+  "stepsPurpose":[
+    "Start Your Transfer",
+    "Set transfer amount",
+    "Purpose and charges",
+    "Review",
+    "Confirmation"
+  ],
   "purpose":{
     "title":"Let us know the purpose of payment and charges",
     "payfor":"The Payments is for",

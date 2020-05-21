@@ -31,6 +31,7 @@ import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
 import Loader from "../../../../common/loader/index";
 import ImageWithText from "../../../../common/imageWithText/index";
 import { StateContext } from "../../../../redux/context";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 const useStyles = makeStyles(() => ({
   iconStyle: {
@@ -43,7 +44,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Review = (props: any) => {
-  const { setStep } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -131,7 +131,6 @@ const Review = (props: any) => {
         subTitle: !confirmation ? "oops! somthing went wrong" : successMessage,
       },
     });
-    setStep(4);
   };
 
   const onHandleBack = () => {
@@ -139,14 +138,13 @@ const Review = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_LOCAL_PURPOSE,
       state: { serviceType: serviceType },
     });
-    setStep(2);
   };
 
   let srcAcount = transfer.fromAccount;
   let destAcount = transfer.toAccount;
 
   return (
-    <>
+    <JourneySidebar steps={"moneytransfer.stepsPurpose"} currentStep={3}>
       <SectionSplitter
         height={"calc(100vh - 400px)"}
         top={
@@ -272,7 +270,7 @@ const Review = (props: any) => {
         }
       />
       {loading && <Loader enable={true} />}
-    </>
+      </JourneySidebar>
   );
 };
 

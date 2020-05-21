@@ -29,9 +29,9 @@ import ImageWithText from "../../../../common/imageWithText/index";
 import { DispatchContext, StateContext } from "../../../../redux/context";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
 import { useTranslation } from "react-i18next";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 const SetTransferAmount = (props: any) => {
-  const { setStep } = props;
   const transferDispatch = useContext(DispatchContext);
   const transferState = useContext(StateContext);
   let { transfer,serviceType } = transferState;
@@ -76,7 +76,7 @@ const SetTransferAmount = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_PURPOSE,
       state: { serviceType: serviceType },
     });
-    setStep(2);
+
   };
 
   const onHandleBack = () => {
@@ -84,7 +84,7 @@ const SetTransferAmount = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_START,
       state: { serviceType: serviceType },
     });
-    setStep(0);
+
   };
 
   useEffect(() => {
@@ -150,6 +150,7 @@ const SetTransferAmount = (props: any) => {
   };
 
   return (
+    <JourneySidebar steps={"moneytransfer.stepsPurpose"} currentStep={1}>
     <SectionSplitter
       height={"calc(100vh - 400px)"}
       top={
@@ -343,6 +344,7 @@ const SetTransferAmount = (props: any) => {
         </Box>
       }
     />
+    </JourneySidebar>
   );
 };
 export default SetTransferAmount;

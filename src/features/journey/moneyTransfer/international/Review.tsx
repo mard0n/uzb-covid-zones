@@ -31,6 +31,7 @@ import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
 import Loader from "../../../../common/loader/index";
 import ImageWithText from "../../../../common/imageWithText/index";
 import { StateContext } from "../../../../redux/context";
+import JourneySidebar from "../../../../components/JourneySidebar/index";
 
 const useStyles = makeStyles(() => ({
   iconStyle: {
@@ -43,7 +44,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Review = (props: any) => {
-  const { setStep } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -64,18 +64,18 @@ const Review = (props: any) => {
     (state: any) => state.moneyTransfer.makeTransfer
   );
 
-//   {
-//     "fromAccount": "019010000993",
-//     "toAccount": "24545451",
-//     "amount": "2.00",
-//     "serviceType": "international",
-//     "chargeBearer": "O",
-//     "purposeCode": "FAM",
-//     "purposeDesc": "Family Support",
-//     "dealNumber": "",
-//     "finTxnNo": "1234561188032790",
-//     "beneficiaryId": "121"
-// }
+  //   {
+  //     "fromAccount": "019010000993",
+  //     "toAccount": "24545451",
+  //     "amount": "2.00",
+  //     "serviceType": "international",
+  //     "chargeBearer": "O",
+  //     "purposeCode": "FAM",
+  //     "purposeDesc": "Family Support",
+  //     "dealNumber": "",
+  //     "finTxnNo": "1234561188032790",
+  //     "beneficiaryId": "121"
+  // }
 
   const onSubmit = () => {
     let beniData = {
@@ -131,7 +131,6 @@ const Review = (props: any) => {
         subTitle: !confirmation ? "oops! somthing went wrong" : successMessage,
       },
     });
-    setStep(4);
   };
 
   const onHandleBack = () => {
@@ -139,14 +138,13 @@ const Review = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_PURPOSE,
       state: { serviceType: serviceType },
     });
-    setStep(2);
   };
 
   let srcAcount = transfer.fromAccount;
   let destAcount = transfer.toAccount;
 
   return (
-    <>
+    <JourneySidebar steps={"moneytransfer.stepsPurpose"} currentStep={3}>
       <SectionSplitter
         height={"calc(100vh - 400px)"}
         top={
@@ -206,7 +204,6 @@ const Review = (props: any) => {
                 <H4>{t("moneytransfer.review.purp")} </H4>{" "}
               </Box>
               <Body2>
-                
                 <span style={{ color: "rgb(110, 110, 110)" }}>
                   {transfer.purpose.selected.purposeDesc}
                 </span>
@@ -218,11 +215,42 @@ const Review = (props: any) => {
                 <H4>{t("moneytransfer.review.payCharge")}</H4>
               </Box>
               <Body2>
-
                 <span style={{ color: "rgb(110, 110, 110)" }}>
                   {transfer.purpose.chargeBearerDesc}
                 </span>
               </Body2>
+            </Box>
+            <Box mt={3} mb={3} display="flex">
+              <Grid container spacing={3}>
+                <Grid item xs>
+                  <Caption>
+                    <span style={{ color: "rgb(110, 110, 110)" }}>
+                      Debited Amount
+                    </span>
+                  </Caption>
+                  <Body2>
+                    {transfer.amount.type} {Math.abs(transfer.amount.total)}{" "}
+                  </Body2>
+                </Grid>
+                <Grid item xs>
+                  <Caption>
+                    <span style={{ color: "rgb(110, 110, 110)" }}>
+                      Mashreq Charges
+                    </span>
+                  </Caption>
+                  <Body2>{transfer.amount.type} 0</Body2>
+                </Grid>
+                <Grid item xs>
+                  <Caption>
+                    <span style={{ color: "rgb(110, 110, 110)" }}>
+                      Ttotal Debit Amount
+                    </span>
+                  </Caption>
+                  <Body2>
+                    {transfer.amount.type} {Math.abs(transfer.amount.total)}{" "}
+                  </Body2>
+                </Grid>
+              </Grid>
             </Box>
 
             <hr />
@@ -239,10 +267,12 @@ const Review = (props: any) => {
             <Box mt={4}>
               <Caption>
                 <span style={{ color: "rgb(173, 184, 191)" }}>
-                {t("moneytransfer.review.ack")} 
+                  {t("moneytransfer.review.ack")}
+                  {" "}
                   <span style={{ color: "rgb(255, 94, 0)" }}>
-                  {t("moneytransfer.review.terms")}
+                    {t("moneytransfer.review.terms")}
                   </span>
+                  {" "}
                   {t("moneytransfer.review.appl")}
                 </span>
               </Caption>
@@ -272,7 +302,7 @@ const Review = (props: any) => {
         }
       />
       {loading && <Loader enable={true} />}
-    </>
+    </JourneySidebar>
   );
 };
 

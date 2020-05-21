@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 import * as RoutePath from "../../../router/config";
 // import MoneyTransferJourneyLocal from "./local/index";
 import MoneyTransferJourneyWithinMashreq from "./withinMashreq/index";

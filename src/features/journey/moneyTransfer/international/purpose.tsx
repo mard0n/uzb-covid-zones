@@ -30,6 +30,7 @@ import * as Endpoints from "../../../../network/Endpoints";
 import { QuestionCircle } from "@mashreq-digital/webassets";
 import { DispatchContext, StateContext } from "../../../../redux/context";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 const useStyles = makeStyles(() => ({
   iconStyle: {
@@ -42,7 +43,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Purpose = (props: any) => {
-  const { setStep } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [purposeModel, setPurposeModel] = useState(false);
@@ -77,7 +77,6 @@ const Purpose = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_REVIEW,
       state: { serviceType: serviceType },
     });
-    setStep(3);
   };
 
   const onHandleBack = () => {
@@ -85,7 +84,6 @@ const Purpose = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_AMOUNT,
       state: { serviceType: serviceType },
     });
-    setStep(1);
   };
 
   useEffect(() => {
@@ -107,7 +105,7 @@ const Purpose = (props: any) => {
   }, []);
 
   return (
-    <>
+    <JourneySidebar steps={"moneytransfer.stepsPurpose"} currentStep={2}>
       <SectionSplitter
         height={"calc(100vh - 400px)"}
         top={
@@ -249,7 +247,7 @@ const Purpose = (props: any) => {
         }
       />
       {loading && <Loader enable={true} />}
-    </>
+        </JourneySidebar>
   );
 };
 

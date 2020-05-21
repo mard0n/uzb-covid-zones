@@ -28,6 +28,7 @@ import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions
 import { MONEY_TRANSFER } from "../../../../router/config";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
 import * as Transaction from "../../../../redux/actions/moneyTransfer/transaction";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 type SuccessProps = {
   success: boolean;
@@ -100,6 +101,7 @@ const Success = (props: SuccessProps) => {
   };
 
   return (
+    <JourneySidebar steps={"moneytransfer.stepsPurpose"} currentStep={4}>
     <SectionSplitter
       height="calc(100vh - 250px)"
       top={
@@ -233,6 +235,7 @@ const Success = (props: SuccessProps) => {
         </Box>
       }
     />
+    </JourneySidebar>
   );
 };
 

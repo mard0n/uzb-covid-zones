@@ -1307,30 +1307,33 @@
     "@material-ui/core" "^4.8.3"
     "@material-ui/lab" "^4.0.0-alpha.39"
 
-"@mashreq-digital/network@^1.0.2":
-  version "1.0.2"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/network/-/network-1.0.2.tgz#30c59f6000bb14ed0919baba23ef0e2d340ff592"
-  integrity sha1-MMWfYAC7FO0JGbq6I+8OLTQP9ZI=
-  dependencies:
-    axios "^0.19.0"
+"@mashreq-digital/network@^1.0.3":
+  version "1.0.3"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/network/-/network-1.0.3.tgz#99e588ace0f5300e83c5ad545ccfc624c662f9e4"
+  integrity sha1-meWIrOD1MA6Dxa1UXM/GJMZi+eQ=
 
-"@mashreq-digital/ui@^1.0.3":
-  version "1.0.4"
-  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/ui/-/ui-1.0.4.tgz#22787f174a59c07b206f953e4c64906b7b1dceb6"
-  integrity sha1-Inh/F0pZwHsgb5U+TGSQa3sdzrY=
+"@mashreq-digital/ui@1.0.7":
+  version "1.0.7"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/ui/-/ui-1.0.7.tgz#11929f53f7dde535a0fd21fd5383c1ff5f859ce4"
+  integrity sha1-EZKfU/fd5TWg/SH9U4PB/1+FnOQ=
   dependencies:
     "@mashreq-digital/material-ui" "^1.0.2"
-    "@mashreq-digital/webassets" "^1.0.4"
+    "@mashreq-digital/webassets" "^1.0.5"
     heic2any "^0.0.2"
     react-gtm-module "^2.0.8"
     react-image-cropper "^1.3.0"
     react-simple-keyboard "^2.2.16"
     react-webcam "^5.0.0"
 
-"@mashreq-digital/webassets@^1.0.3", "@mashreq-digital/webassets@^1.0.4":
+"@mashreq-digital/webassets@^1.0.3":
   version "1.0.4"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/webassets/-/webassets-1.0.4.tgz#eb6b35330a9718e7a4e53d46f5d651dc949aa7f2"
   integrity sha1-62s1MwqXGOek5T1G9dZR3JSap/I=
+
+"@mashreq-digital/webassets@^1.0.5":
+  version "1.0.5"
+  resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/@mashreq-digital/webassets/-/webassets-1.0.5.tgz#aa8d96a8a924cd01b4dec25f7c4f4cff961bd8bd"
+  integrity sha1-qo2WqKkkzQG03sJffE9M/5Yb2L0=
 
 "@material-ui/core@^4.8.3":
   version "4.9.13"
@@ -2537,7 +2540,7 @@ axios-mock-adapter@^1.17.0:
     fast-deep-equal "^3.1.1"
     is-buffer "^2.0.3"
 
-axios@^0.19.0, axios@^0.19.2:
+axios@^0.19.2:
   version "0.19.2"
   resolved "https://pkgs.dev.azure.com/MashreqDigital/_packaging/core-components/npm/registry/axios/-/axios-0.19.2.tgz#3ea36c5d8818d0d5f8a8a97a6d36b86cdc00cb27"
   integrity sha1-PqNsXYgY0NX4qKl6bTa4bNwAyyc=
