@@ -39,7 +39,6 @@ const useStyles = makeStyles((theme: any) => ({
 
 const StartPayments = (props: any) => {
   const [transferButton, setTransferButton] = useState(false);
-  const { setStep } = props;
   const { NoBeniStyle } = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -64,7 +63,6 @@ const StartPayments = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT,
       state: { serviceType: serviceType, resumeFileds: transfer },
     });
-    setStep(1);
   };
 
   const onChangeFromAcount = (item: any) => {

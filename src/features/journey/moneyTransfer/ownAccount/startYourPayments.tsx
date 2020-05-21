@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme: any) => ({
 
 const StartPayments = (props:any) => {
   const [transferButton, setTransferButton] = useState(false);
-  const {serviceType,setStep,resumeFileds} = props;
+  const {serviceType,resumeFileds} = props;
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -47,7 +47,6 @@ const StartPayments = (props:any) => {
       pathname: MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_AMOUNT,
       state: {serviceType:serviceType, resumeFileds:{transfer}}
     });
-    setStep(1);
   };
 
 

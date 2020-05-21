@@ -41,7 +41,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Review = (props: any) => {
-  const {  setStep } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -112,7 +111,6 @@ const Review = (props: any) => {
         subTitle: !confirmation ? "oops! somthing went wrong" : successMessage,
       },
     });
-    setStep(3);
   };
 
   const onHandleBack = () => {
@@ -120,7 +118,6 @@ const Review = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT,
       state: { serviceType: serviceType },
     });
-    setStep(1);
   };
 
   let srcAcount = transfer.fromAccount;

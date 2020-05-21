@@ -32,7 +32,6 @@ import { useTranslation } from "react-i18next";
 import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 const SetTransferAmount = (props: any) => {
-  const { setStep } = props;
   const transferDispatch = useContext(DispatchContext);
   const transferState = useContext(StateContext);
   let { transfer,serviceType } = transferState;
@@ -80,7 +79,6 @@ const SetTransferAmount = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_WITHIN_REVIEW,
       state: { serviceType: serviceType },
     });
-    setStep(2);
   };
 
   const onHandleBack = () => {
@@ -88,7 +86,6 @@ const SetTransferAmount = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_WITHIN_START,
       state: { serviceType: serviceType },
     });
-    setStep(0);
   };
 
   useEffect(() => {

@@ -43,7 +43,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Purpose = (props: any) => {
-  const { setStep } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [purposeModel, setPurposeModel] = useState(false);
@@ -78,7 +77,6 @@ const Purpose = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_REVIEW,
       state: { serviceType: serviceType },
     });
-    setStep(3);
   };
 
   const onHandleBack = () => {
@@ -86,7 +84,6 @@ const Purpose = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_INTERNATIONAL_AMOUNT,
       state: { serviceType: serviceType },
     });
-    setStep(1);
   };
 
   useEffect(() => {

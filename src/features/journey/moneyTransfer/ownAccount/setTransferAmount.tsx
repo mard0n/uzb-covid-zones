@@ -29,7 +29,7 @@ import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 const SetTransferAmount = (props: any) => {
 
-  const {  serviceType ,setStep} = props;
+  const {  serviceType } = props;
 
   const transferDispatch = useContext(DispatchContext);
   const transferState = useContext(StateContext);
@@ -76,7 +76,6 @@ const SetTransferAmount = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_REVIEW,
       state: { serviceType: serviceType },
     });
-    setStep(2);
   };
 
 
@@ -87,7 +86,6 @@ const SetTransferAmount = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START,
       state: {serviceType:serviceType, resumeFileds:{transfer}}
     });
-    setStep(0);
   };
 
 

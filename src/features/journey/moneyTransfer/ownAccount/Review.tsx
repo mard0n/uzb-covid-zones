@@ -40,7 +40,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Review = (props: any) => {
-  const { serviceType,setStep } = props;
+  const { serviceType } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
@@ -124,7 +124,6 @@ console.log("gotoConfirmation -> confirmation pyr", confirmation);
       subTitle:!confirmation ? "oops! somthing went wrong" : successMessage
     }
   });
-  setStep(3);
 }
  
 
@@ -133,7 +132,6 @@ console.log("gotoConfirmation -> confirmation pyr", confirmation);
       pathname: MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_AMOUNT,
       state: {serviceType:serviceType}
     });
-    setStep(1);
   };
   
 
