@@ -44,7 +44,7 @@ const ownBeneficiaryDetails = {
       config: {
         type: "text",
         inputProps: {
-          minLength: 5,
+          minLength: 2,
           maxLength: 50,
           required: true
         },
@@ -59,7 +59,7 @@ const ownBeneficiaryDetails = {
             regEx: replaceStr(
               RegEx.ALPHA_NUMERIC_SPL_CHARS_ONLY,
               "splChars",
-              "@_#&-"
+              "@_ #&-"
             ),
             errorCode: "beneficiary.manage.errors.nickName"
           },
@@ -69,10 +69,10 @@ const ownBeneficiaryDetails = {
                 replaceStr(
                   RegEx.ALPHA_NUMERIC_SPL_CHARS_LIMIT,
                   "splChars",
-                  "@_#&-"
+                  "@_ #&-"
                 ),
                 "min",
-                5
+                2
               ),
               "max",
               50
@@ -81,7 +81,7 @@ const ownBeneficiaryDetails = {
               replaceStr(
                 i18n.t("beneficiary.manage.errors.minMaxLength"),
                 "--min--",
-                5
+                2
               ),
               "--max--",
               50

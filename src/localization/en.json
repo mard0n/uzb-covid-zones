@@ -353,7 +353,7 @@
           "confirmation":{
             "success" : {
               "title" : "Beneficiary request created",
-              "desc" : "You will now be able to transfer money to your beneficiary after 6 hours. For amounts greater than AED 10,000, please wait 6 hours for activation",
+              "desc" : "You will now be able to transfer money to your beneficiary after 6 hours.",
               "activation" : "To Activation",
               "viewAllButton" : "View all beneficiaries"
             }

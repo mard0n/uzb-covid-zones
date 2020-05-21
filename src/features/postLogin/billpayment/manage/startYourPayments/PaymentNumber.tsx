@@ -128,14 +128,14 @@ const PaymentNumber = (props: PaymentNumberProps) => {
       data["salikPinCode"] = existingBeneficiary ? data.salikPinCode ? data.salikPinCode : '' : btoa(fields["pincode"]['config']['value']);
     }
 
-    const config = {
-      config: { method: "POST" },
-      data,
-      url,
-    };
+    // const config = {
+    //   config: { method: "POST" },
+    //   data,
+    //   url,
+    // };
     
     if(data["serviceTypeCode"]) {
-      API(config).then((val: any) => { 
+      API(url, {method: "POST", data}).then((val: any) => { 
       if(val && val.data && (val.data.errorCode || val.data.errorId)) {
         let errorId =  val.data.errorCode || val.data.errorId;
         if(data["serviceTypeCode"] === "Salik" && openSalikModal) {

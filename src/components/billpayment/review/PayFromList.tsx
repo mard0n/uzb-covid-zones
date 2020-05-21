@@ -110,15 +110,16 @@ const PayFromList = (props: PayFromListProps) => {
           minAmountToBeAvailable: "200",
           suggestAccountOrCard: true,
         };
-      const config = {
-        config: { method: "POST" },
-        url,
-        data,
-      };
+      // const config = {
+      //   config: { method: "POST" },
+      //   url,
+      //   data,
+      // };
+
 
       payListData
         ? configurValues(payListData)
-        : API(config).then((val: any) => {
+        : API(url, {method: "POST", data}).then((val: any) => {
             if (val && val.data && val.data.data) {
               configurValues(val.data.data);
             }
