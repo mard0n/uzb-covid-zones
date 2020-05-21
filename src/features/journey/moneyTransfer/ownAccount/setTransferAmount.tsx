@@ -25,6 +25,7 @@ import {  MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_REVIEW, MONEY_TRANSFER_JOURNEY_OWN_A
 import ImageWithText from '../../../../common/imageWithText/index';
 import { DispatchContext, StateContext } from "../../../../redux/context";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 const SetTransferAmount = (props: any) => {
 
@@ -158,6 +159,8 @@ const SetTransferAmount = (props: any) => {
 
   console.log("SetTransferAmount -> serviceType", serviceType.maxAmount);
   return (
+    <JourneySidebar steps={"moneytransfer.steps"} currentStep={1}>
+
     <SectionSplitter
       height={"calc(100vh - 400px)"}
       top={
@@ -343,6 +346,7 @@ const SetTransferAmount = (props: any) => {
         </Box>
       }
     />
+    </JourneySidebar>
   );
 };
 export default SetTransferAmount;

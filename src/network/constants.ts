@@ -1,7 +1,7 @@
 export const BASE_URL = '/api';
 // Remove the below code in deployment To test api
 let getCifg = sessionStorage.getItem('cif');
-export const CIF = getCifg ? getCifg : '012519220';
+export const CIF = getCifg ? getCifg : '011111111';
 // 010424124 => shabhaz
 // 967156204 =>  hasneeth
 // 010424127 => postman

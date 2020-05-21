@@ -28,6 +28,7 @@ import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
 import Loader from "../../../../common/loader/index";
 import ImageWithText from "../../../../common/imageWithText/index";
 import { StateContext } from "../../../../redux/context";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 const useStyles = makeStyles(() => ({
   iconStyle: {
@@ -126,7 +127,7 @@ const Review = (props: any) => {
   let destAcount = transfer.toAccount;
 
   return (
-    <>
+    <JourneySidebar steps={"moneytransfer.steps"} currentStep={2}>
       <SectionSplitter
         height={"calc(100vh - 400px)"}
         top={
@@ -214,7 +215,7 @@ const Review = (props: any) => {
         }
       />
       {loading && <Loader enable={true} />}
-    </>
+    </JourneySidebar>
   );
 };
 

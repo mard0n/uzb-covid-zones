@@ -24,6 +24,7 @@ import { MONEY_TRANSFER_JOURNEY_WITHIN_AMOUNT } from "../../../../router/config"
 import ImageWithText from "../../../../common/imageWithText/index";
 import { DispatchContext, StateContext } from "../../../../redux/context";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 const useStyles = makeStyles((theme: any) => ({
   NoBeniStyle: {
@@ -129,6 +130,7 @@ const StartPayments = (props: any) => {
   }, []);
 
   return (
+    <JourneySidebar steps={"moneytransfer.steps"} currentStep={0}>
     <SectionSplitter
       height={"calc(100vh - 400px)"}
       top={
@@ -213,6 +215,7 @@ const StartPayments = (props: any) => {
         </Box>
       }
     />
+    </JourneySidebar>
   );
 };
 

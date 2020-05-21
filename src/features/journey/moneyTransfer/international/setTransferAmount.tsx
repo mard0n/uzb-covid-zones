@@ -29,6 +29,7 @@ import ImageWithText from "../../../../common/imageWithText/index";
 import { DispatchContext, StateContext } from "../../../../redux/context";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
 import { useTranslation } from "react-i18next";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 const SetTransferAmount = (props: any) => {
   const { setStep } = props;
@@ -150,6 +151,7 @@ const SetTransferAmount = (props: any) => {
   };
 
   return (
+    <JourneySidebar steps={"moneytransfer.stepsPurpose"} currentStep={1}>
     <SectionSplitter
       height={"calc(100vh - 400px)"}
       top={
@@ -343,6 +345,7 @@ const SetTransferAmount = (props: any) => {
         </Box>
       }
     />
+    </JourneySidebar>
   );
 };
 export default SetTransferAmount;

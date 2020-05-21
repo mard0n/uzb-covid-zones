@@ -28,6 +28,7 @@ import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions
 import { MONEY_TRANSFER } from "../../../../router/config";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
 import * as Transaction from "../../../../redux/actions/moneyTransfer/transaction";
+import JourneySidebar from "../../../../components/JourneySidebar/index";
 
 type SuccessProps = {
   success: boolean;
@@ -68,7 +69,6 @@ const Success = (props: SuccessProps) => {
   let transaction = useSelector(
     (state: any) => state.moneyTransfer.makeTransfer
   );
-  
 
   let destAcount = transfer.toAccount;
   let history = useHistory();
@@ -100,139 +100,151 @@ const Success = (props: SuccessProps) => {
   };
 
   return (
-    <SectionSplitter
-      height="calc(100vh - 250px)"
-      top={
-        <>
-          <SucessFailureIcon success={success} warning2 />
-          <UnderlineText color="primary">
-            <H2>{title}</H2>
-          </UnderlineText>
+    <JourneySidebar steps={"moneytransfer.stepsPurpose"} currentStep={4}>
+      <SectionSplitter
+        height="calc(100vh - 250px)"
+        top={
+          <>
+            <SucessFailureIcon success={success} warning2 />
+            <UnderlineText color="primary">
+              <H2>{title}</H2>
+            </UnderlineText>
 
-         {success && <Box mt={6}>
-          <Caption>Your transaction with reference number <b>#{transaction.response.mwReferenceNo}</b></Caption>
-          </Box>}
-
-          {subTitle && (
-            <Box mt={6} mb={6}>
-              <Caption>
-                {success ? t("moneytransfer.success.withNumber") : null}{" "}
-                <b> {subTitle} </b>
-              </Caption>{" "}
-              <br />
-              <Caption>{t("moneytransfer.success.fallowup")}</Caption>
-            </Box>
-          )}
-
-          {success ? (
-            <>
-              <CardDash
-                leftContent={
-                  <CardPayNow
-                    icon={
-                      <Box
-                        className={successIconStyle}
-                        p={1.6}
-                        borderRadius="50%"
-                        display="flex"
-                      >
-                        <SvgIcon height="1rem" width="1rem" component={Check} />
-                      </Box>
-                    }
-                    heading={
-                      <Body1>{t("moneytransfer.success.transferd")}</Body1>
-                    }
-                    subheading={
-                      <H5>
-                        {transfer.amount.type} {Math.abs(transfer.amount.total)}
-                      </H5>
-                    }
-                  />
-                }
-                rightContent={
-                  <PayListItem
-                    active={false}
-                    activeSelected={true}
-                    data={getPayListFormattedData(destAcount, "benificiary")}
-                  />
-                }
-              />
-
-              <Box mt={10} mb={10} display="flex" alignItems="center">
-                <CardPayNow
-                  icon={<SvgIcon color="primary" component={User} />}
-                  style={{ justifyContent: "space-evenly" }}
-                  arrow={true}
-                  heading={t("moneytransfer.success.frequent")}
-                  subheading={t("moneytransfer.success.setupInstruction")}
-                />
-              </Box>
-            </>
-          ) : (
-            <>
-              <Box mt={10} display="flex" alignItems="center">
-                <H4>Got question? Talk to us</H4>
-              </Box>
-              <Box mt={5} mb={5} display="flex" alignItems="center">
-                <CardPayNow
-                  icon={<SvgIcon color="primary" component={Phone24} />}
-                  style={{ justifyContent: "space-evenly" }}
-                  arrow={true}
-                  heading={t(`billPayments.steps.confirmation.customerCare`)}
-                  subheading={t(`billPayments.steps.confirmation.support`)}
-                />
-              </Box>
-            </>
-          )}
-          {payRecieptModal && (
-            <PaymentReceipt
-              title={"Your invoice"}
-              billRefNo={data.billRefNo}
-              openModal={payRecieptModal}
-              paymentSummary={payreceptData}
-              onCloseModal={() => {
-                setPayRecieptModal(false);
-              }}
-            />
-          )}
-        </>
-      }
-      bottom={
-        <Box display="flex" justifyContent="space-between">
-          <Box>
             {success && (
-              <Button
-                variant="outlined"
-                size="large"
-                onClick={() => {
-                  setPayRecieptModal(true);
-                  if (
-                    onReceiptCallback &&
-                    typeof onReceiptCallback === "function"
-                  ) {
-                    onReceiptCallback();
-                  }
-                }}
-                color="primary"
-              >
-                {t(`common.action.receipt`)}
-              </Button>
+              <Box mt={6}>
+                <Caption>
+                  Your transaction with reference number{" "}
+                  <b>#{transaction.response.mwReferenceNo}</b>
+                </Caption>
+              </Box>
             )}
-          </Box>
 
-          <Button
-            variant="contained"
-            size="large"
-            onClick={() => {
-              onDoneCallback();
-            }}
-            color="primary"
-          >
-            {t(`common.action.done`)}
-          </Button>
-        </Box>
-      }
-    />
+            {subTitle && (
+              <Box mt={6} mb={6}>
+                <Caption>
+                  {success ? t("moneytransfer.success.withNumber") : null}{" "}
+                  <b> {subTitle} </b>
+                </Caption>{" "}
+                <br />
+                <Caption>{t("moneytransfer.success.fallowup")}</Caption>
+              </Box>
+            )}
+
+            {success ? (
+              <>
+                <CardDash
+                  leftContent={
+                    <CardPayNow
+                      icon={
+                        <Box
+                          className={successIconStyle}
+                          p={1.6}
+                          borderRadius="50%"
+                          display="flex"
+                        >
+                          <SvgIcon
+                            height="1rem"
+                            width="1rem"
+                            component={Check}
+                          />
+                        </Box>
+                      }
+                      heading={
+                        <Body1>{t("moneytransfer.success.transferd")}</Body1>
+                      }
+                      subheading={
+                        <H5>
+                          {transfer.amount.type}{" "}
+                          {Math.abs(transfer.amount.total)}
+                        </H5>
+                      }
+                    />
+                  }
+                  rightContent={
+                    <PayListItem
+                      active={false}
+                      activeSelected={true}
+                      data={getPayListFormattedData(destAcount, "benificiary")}
+                    />
+                  }
+                />
+
+                <Box mt={10} mb={10} display="flex" alignItems="center">
+                  <CardPayNow
+                    icon={<SvgIcon color="primary" component={User} />}
+                    style={{ justifyContent: "space-evenly" }}
+                    arrow={true}
+                    heading={t("moneytransfer.success.frequent")}
+                    subheading={t("moneytransfer.success.setupInstruction")}
+                  />
+                </Box>
+              </>
+            ) : (
+              <>
+                <Box mt={10} display="flex" alignItems="center">
+                  <H4>Got question? Talk to us</H4>
+                </Box>
+                <Box mt={5} mb={5} display="flex" alignItems="center">
+                  <CardPayNow
+                    icon={<SvgIcon color="primary" component={Phone24} />}
+                    style={{ justifyContent: "space-evenly" }}
+                    arrow={true}
+                    heading={t(`billPayments.steps.confirmation.customerCare`)}
+                    subheading={t(`billPayments.steps.confirmation.support`)}
+                  />
+                </Box>
+              </>
+            )}
+            {payRecieptModal && (
+              <PaymentReceipt
+                title={"Your invoice"}
+                billRefNo={data.billRefNo}
+                openModal={payRecieptModal}
+                paymentSummary={payreceptData}
+                onCloseModal={() => {
+                  setPayRecieptModal(false);
+                }}
+              />
+            )}
+          </>
+        }
+        bottom={
+          <Box display="flex" justifyContent="space-between">
+            <Box>
+              {success && (
+                <Button
+                  variant="outlined"
+                  size="large"
+                  onClick={() => {
+                    setPayRecieptModal(true);
+                    if (
+                      onReceiptCallback &&
+                      typeof onReceiptCallback === "function"
+                    ) {
+                      onReceiptCallback();
+                    }
+                  }}
+                  color="primary"
+                >
+                  {t(`common.action.receipt`)}
+                </Button>
+              )}
+            </Box>
+
+            <Button
+              variant="contained"
+              size="large"
+              onClick={() => {
+                onDoneCallback();
+              }}
+              color="primary"
+            >
+              {t(`common.action.done`)}
+            </Button>
+          </Box>
+        }
+      />
+    </JourneySidebar>
   );
 };
 

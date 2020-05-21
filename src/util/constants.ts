@@ -54,7 +54,7 @@ export const MONEY_TRANSFER_BENI_FILTER = [
 
 
 export const MONEY_TRANSFER_LOCAL_STEPS = [
-  i18n.t(`moneytransfer.stepStart`),
+  i18n.t(`moneytransfer.steps`),
   i18n.t(`moneytransfer.stepSet`),
   i18n.t(`moneytransfer.stepPurpos`),
   i18n.t(`moneytransfer.stepReview`),

@@ -30,6 +30,7 @@ import * as Endpoints from "../../../../network/Endpoints";
 import { QuestionCircle } from "@mashreq-digital/webassets";
 import { DispatchContext, StateContext } from "../../../../redux/context";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 const useStyles = makeStyles(() => ({
   iconStyle: {
@@ -107,7 +108,7 @@ const Purpose = (props: any) => {
   }, []);
 
   return (
-    <>
+    <JourneySidebar steps={"moneytransfer.stepsPurpose"} currentStep={2}>
       <SectionSplitter
         height={"calc(100vh - 400px)"}
         top={
@@ -249,7 +250,7 @@ const Purpose = (props: any) => {
         }
       />
       {loading && <Loader enable={true} />}
-    </>
+        </JourneySidebar>
   );
 };
 

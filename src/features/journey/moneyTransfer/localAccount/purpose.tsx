@@ -5,7 +5,6 @@ import {
   H2,
   SectionSplitter,
   Button,
-  makeStyles,
   H4,
   Modals,
   Caption,
@@ -30,32 +29,20 @@ import * as Endpoints from "../../../../network/Endpoints";
 import { QuestionCircle } from "@mashreq-digital/webassets";
 import { DispatchContext, StateContext } from "../../../../redux/context";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
-const useStyles = makeStyles(() => ({
-  iconStyle: {
-    backgroundColor: "rgb(224, 224, 224)",
-    "& > svg": {
-      height: "15px",
-      width: "15px",
-    },
-  },
-}));
 
 const Purpose = (props: any) => {
-  const { setStep } = props;
   const { t } = useTranslation();
   const [loading, setLoading] = useState(false);
   const [purposeModel, setPurposeModel] = useState(false);
   const [chargeBearer, setChargeBearer] = useState("");
   console.log("Purpose -> chargeBearer naaz", chargeBearer)
   const [chargeBearerDesc, setChargeBearerDesc] = useState("");
-
-  
   const [selectedPurpose, setSelectedPurpose]: any = useState({});
   console.log("Purpose -> selectedPurpose naaz", selectedPurpose)
 
   const [purposeList, setPurposeList] = useState([]);
-  const { iconStyle } = useStyles();
   const history = useHistory();
 
   const transferDispatch = useContext(DispatchContext);
@@ -77,7 +64,6 @@ const Purpose = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_LOCAL_REVIEW,
       state: { serviceType: serviceType },
     });
-    setStep(3);
   };
 
   const onHandleBack = () => {
@@ -85,7 +71,6 @@ const Purpose = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT,
       state: { serviceType: serviceType },
     });
-    setStep(1);
   };
 
   useEffect(() => {
@@ -96,7 +81,7 @@ const Purpose = (props: any) => {
       .replace("customerTypeParam", "I")
       .replace("qrTypeParam", "");
 
-    API.get(url).then((res: any) => {
+      API.get(url).then((res: any) => {
       console.log("Purpose -> response agaya %%  vvv", res);
 
       setPurposeList(res.data.data);
@@ -108,6 +93,7 @@ const Purpose = (props: any) => {
 
   return (
     <>
+    <JourneySidebar steps={"moneytransfer.stepsPurpose"} currentStep={2}>
       <SectionSplitter
         height={"calc(100vh - 400px)"}
         top={
@@ -249,6 +235,8 @@ const Purpose = (props: any) => {
         }
       />
       {loading && <Loader enable={true} />}
+
+      </JourneySidebar>
     </>
   );
 };

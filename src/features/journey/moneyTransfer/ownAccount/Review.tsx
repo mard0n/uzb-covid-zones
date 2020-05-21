@@ -25,6 +25,7 @@ import * as Actions from "../../../../redux/actions/moneyTransfer/transaction";
 import Loader from '../../../../common/loader/index';
 import ImageWithText from '../../../../common/imageWithText/index';
 import { StateContext } from "../../../../redux/context";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 
 
@@ -141,7 +142,7 @@ console.log("gotoConfirmation -> confirmation pyr", confirmation);
   let destAcount = transfer.toAccount;
 
   return (
-    <>
+    <JourneySidebar steps={"moneytransfer.steps"} currentStep={2}>
     <SectionSplitter
       height={"calc(100vh - 400px)"}
       top={
@@ -221,7 +222,7 @@ console.log("gotoConfirmation -> confirmation pyr", confirmation);
       }
     />
     {loading && <Loader enable={true} />}
-  </>
+      </JourneySidebar>
   );
 
 };
