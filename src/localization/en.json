@@ -52,7 +52,11 @@
       "INTERFACE_ERROR_INVALID_PARAMETER_VALUES" : "Field should not be blank",
       "BN-3001" : "Invalid number",
       "BN-4004" : "Beneficiary exists for given Account number",
-      "BN-4003" : "Beneficiary exists for given Account number"
+      "BN-4003" : "Beneficiary with nickname already exists",
+      "BN-4011" : "Account length is not valid",
+      "BN-4012" : "Mashreq account is not allowed",
+      "BN-2001" : "Account number is invalid",
+      "BN-1001" : "IBAN Account details not found"
     }
   },
   "error": {
@@ -295,6 +299,97 @@
         "maxLength" : "Length should be --max--",
         "nickName" : "Allow only these special characters @_#&-"
       }
+    },
+    "moneyTransfer" : {
+      "manage": {
+        "local" : {
+          "title" : "Local UAE Account",
+          "steps" : [
+            "Account details",
+            "Bank details",
+            "Beneficiary details",
+            "Authorisation",
+            "Confirmation"
+          ],
+          "accountDetails" : {
+            "title" : "Let’s get started with account details",
+            "fieldTitle" : "Please enter details",
+            "buttonLabel" : "Generate bank details",
+            "field" : {
+              "label" : "Enter IBAN",
+              "adornment" : "AE",
+              "helperText" : "--length-- digit IBAN code of a UAE bank account",
+              "beneficiaryExists" : "Baneficiary exists for the entered account"
+            },
+            "info" : {
+              "title" : "Local transfer",
+              "desc" : "We only support AED transfers to local banks in UAE."
+            }
+          },
+          "bankDetails" : {
+            "title" : "Beneficiary bank details fetched",
+            "iban" : "IBAN",
+            "swiftcode" : "SWIFT CODE",
+            "buttonLabel" : "Confirm and continue",
+            "info" : {
+              "title" : "Are these bank details correct?",
+              "desc" : "If these details don’t belong to the account you want to send money to, please go back and enter the right details in the previous step!"
+            }
+          },
+          "beneficiaryDetails" : {
+            "title" : "Beneficiary details",
+            "fieldTitle" : "Please enter details",
+            "accountName" : {
+              "label" : "Enter Beneficiary Account Name",
+              "helperText" : "Write the full name of the account holder",
+              "error" : ""
+            },
+            "nickName" : {
+              "label" : "Enter Nickname",
+              "helperText" : "Find your beneficiariesquicker by naming them! --br-- For e.g. Masood",
+              "error" : "This Nickname is already being used for a different beneficiary, please write a new one!"
+            }
+          },
+          "confirmation":{
+            "success" : {
+              "title" : "Beneficiary request created",
+              "desc" : "You will now be able to transfer money to your beneficiary after 6 hours.",
+              "activation" : "To Activation",
+              "viewAllButton" : "View all beneficiaries"
+            }
+          }
+        },
+        "within" : {
+          "title" : "Mashreq Bank",
+          "steps" : [
+            "Beneficiary details",
+            "Authorisation",
+            "Confirmation"
+          ],
+          "beneficiaryDetails" : {
+            "title" : "Let's get started with the beneficiary details",
+            "fieldTitle" : "Please enter details",
+            "accountNumber" : {
+              "label" : "Enter Account Number",
+              "helperText" : "Enter the 12 digit Mashreq account number",
+              "error" : ""
+            },
+            "nickName" : {
+              "label" : "Enter Nickname",
+              "helperText" : "Adding unique nicknames help you find your --br-- beneficiaries quicker!",
+              "error" : "This Nickname is already being used for a different beneficiary, please write a new one!"
+            }
+          },
+          "confirmation":{
+            "success" : {
+              "title" : "Beneficiary request created",
+              "desc" : "You will now be able to transfer money to your beneficiary after 6 hours.",
+              "activation" : "To Activation",
+              "viewAllButton" : "View all beneficiaries"
+            }
+          }
+        }
+      }
     }
    
   },
@@ -307,11 +402,70 @@
     "local":"To a Local UAE Account",
     "international":"To An International Account "
   },
+  "steps":[
+    "Start Your Transfer",
+    "Set transfer amount",
+    "Review",
+    "Confirmation"
+  ],
+  "stepsPurpose":[
+    "Start Your Transfer",
+    "Set transfer amount",
+    "Purpose and charges",
+    "Review",
+    "Confirmation"
+  ],
+  "purpose":{
+    "title":"Let us know the purpose of payment and charges",
+    "payfor":"The Payments is for",
+    "select":"Select Purpose of Payment",
+    "whoPays":"Who pays the payment charges?",
+    "oreciever":"Only the receiver",
+    "receiverCharges":"The receiver pays the charges out of this transfer",
+    "oSender":"Only the sender",
+    "toCharges":"To pay the charges upfront",
+    "shared":"Shared between sender & receiver",
+    "both":"Both parties share the charges",
+    "payment":"Payment charges for locale UAE transfers",
+    "card":"Not expected from Praveen. Please note that the correspondent bank may deduct charges from remittance amount irrespective of the charge method selected.",
+    "selectPurpose":"Select Purpose of Payment",
+    "continue":"Continue"
+  },
   "startYourPayment":{
     "title":"Start your transfer",
     "payfrom":"I want to send money from",
     "to":"To this account",
     "setAmountButton":"Set Transfer Amount"
+   },
+   "review":{
+    "payingFrom":"Paying from",
+    "title":"Review your transfer",
+    "transfering":"You are Transfering",
+    "payCharge":"Payment Charges",
+    "ack":"By clicking on ’Submit’ button, I/We acknowledge and accept the",
+    "terms":"Terms and Conditions",
+    "appl":"applicable and available.",
+    "purp":"Purpose of Payment"
+
+   },
+   "success":{
+     "fallowup":"Please check the Transaction Queue tab to follow up on the status of the transaction.",
+      "transferd":"You have transferred",
+      "withNumber":"Your transaction with reference number",
+      "frequent":"Frequent Payment?",
+      "setupInstruction":"Set up as standing instruction"
+    },
+   "setTransferAmount":{
+    "title":"What amount would you like to transfer?",
+    "recievingAmount":"The Receiving account will get",
+    "amountLabel":"Receiving Amount",
+    "amountLabelAria":"Transfer amount input box",
+    "debitedLabel":"Transfer amount",
+    "debitedLabelAria":"Transfer amount input box",
+    "debitedTitle":"You will be debited",
+    "atAnExchangeRate":"At an exchange rate of",
+    "calcValues":"Your exchange rate is calculated on the following values",
+    "review":"Review"
    },
    "noAccount":"You dont seems to have account",
    "nobeni":"No beneficiaries detected",

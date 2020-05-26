@@ -21,6 +21,9 @@ import FilledCheckBox from "../../../../../common/filledCheckbox";
 import * as Actions from "../../../../../redux/actions/beneficiary/billPayment/manageBeneficiaryActions";
 import InputSearch from "../../../../../common/inputSearch";
 import { MONEY_TRANSFER_BENI_FILTER } from '../../../../../util/constants';
+import AddMoneyTransfer from './AddMoneyTransfer';
+import * as RoutePath from '../../../../../router/config';
+import { useHistory } from "react-router-dom";
 
 
 
@@ -43,6 +46,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const BillPaymentLanding = (props: any) => {
   let dispatch = useDispatch();
+  const history = useHistory();
   
   let {normalChip,activeChip} = useStyles();
 
@@ -55,6 +59,8 @@ const BillPaymentLanding = (props: any) => {
   const [selectedServiceType, setSelectedServiceType] = useState("all");
 
   const [openModal, setOpenModal] = useState(false);
+  const [openMoneyTransferModal, setOpenMoneyTransferModal] = useState(false);
+
   const [addServiceType, setAddServiceType] = useState("");
   const { t } = useTranslation();
   const tabs: Array<string> = t("beneficiary.landing.tabs", {
@@ -78,7 +84,12 @@ const BillPaymentLanding = (props: any) => {
 
 
   const handleOpen = () => {
+    if(switchValue === "Money Transfer")
+    {
+    setOpenMoneyTransferModal(true);
+    }else{
     setOpenModal(true);
+ } 
   };
 
   const onCloseErrorSnackBar = (reason: any) => {
@@ -87,20 +98,36 @@ const BillPaymentLanding = (props: any) => {
   };
 
   const handleClose = () => {
+    if(switchValue === "Money Transfer")
+    {
+    setOpenMoneyTransferModal(false);
+    }else{
     setOpenModal(false);
+ } 
   };
 
   const onClickService = (name: any) => {
     setAddServiceType(name.toLowerCase());
+    if(switchValue === "Money Transfer")
+    {
+    setOpenMoneyTransferModal(false);
+    }else{
     setOpenModal(false);
+ }
+
   };
 
   const onCloseDialog = () => {
     setAddServiceType("");
   };
 
+  // const routeUAE = () => {
+  //   history.push(RoutePath.BENIFICIARY_MONEY_TRANSFER_JOURNEY_LOCAL);
+  // }
+
   return (
     <Box>
+      {/* <Button onClick={routeUAE}>Local UAE Account</Button> */}
       {openModal && (
         <AddServiceType
           openModal={openModal}
@@ -108,6 +135,15 @@ const BillPaymentLanding = (props: any) => {
           handleClose={handleClose}
         />
       )}
+
+      {openMoneyTransferModal && (
+        <AddMoneyTransfer
+        openModal={openMoneyTransferModal}
+        handleClose={handleClose}
+      />
+      )}
+
+
       <Box>
         <UnderlineText color="primary">
           <H2>{t("beneficiary.landing.title")}</H2>

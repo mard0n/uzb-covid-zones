@@ -25,10 +25,11 @@ import {  MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_REVIEW, MONEY_TRANSFER_JOURNEY_OWN_A
 import ImageWithText from '../../../../common/imageWithText/index';
 import { DispatchContext, StateContext } from "../../../../redux/context";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 const SetTransferAmount = (props: any) => {
 
-  const {  serviceType ,setStep} = props;
+  const {  serviceType } = props;
 
   const transferDispatch = useContext(DispatchContext);
   const transferState = useContext(StateContext);
@@ -75,7 +76,6 @@ const SetTransferAmount = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_REVIEW,
       state: { serviceType: serviceType },
     });
-    setStep(2);
   };
 
 
@@ -86,7 +86,6 @@ const SetTransferAmount = (props: any) => {
       pathname: MONEY_TRANSFER_JOURNEY_OWN_ACOUNT_START,
       state: {serviceType:serviceType, resumeFileds:{transfer}}
     });
-    setStep(0);
   };
 
 
@@ -158,6 +157,8 @@ const SetTransferAmount = (props: any) => {
 
   console.log("SetTransferAmount -> serviceType", serviceType.maxAmount);
   return (
+    <JourneySidebar steps={"moneytransfer.steps"} currentStep={1}>
+
     <SectionSplitter
       height={"calc(100vh - 400px)"}
       top={
@@ -343,6 +344,7 @@ const SetTransferAmount = (props: any) => {
         </Box>
       }
     />
+    </JourneySidebar>
   );
 };
 export default SetTransferAmount;

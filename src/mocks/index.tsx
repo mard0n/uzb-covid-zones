@@ -9,6 +9,7 @@ import { mockPaymentEnquiry } from "./mockData/billPayment/mockPaymentEnquiry";
 import { landingMocked } from './mockData/moneyTransfer/landingMocked';
 import { payListOwnAccount } from './mockData/moneyTransfer/payListOwnAccount';
 import { payListBeni } from './mockData/moneyTransfer/payListBeni';
+// import { mockMTIbansearch } from './mockData/beneficiary/moneyTransfer/mockIBAN';
 
 const startMocking = (isMockingRequired: boolean = false) => {
   if (isMockingRequired) {
@@ -22,6 +23,8 @@ const startMocking = (isMockingRequired: boolean = false) => {
     // );
 
     mock
+        // .onPost(Endpoints.MONEY_TRANSFER_IBAN)
+        // .reply(200, mockMTIbansearch)
         .onPost(Endpoints.BILL_PAYMENT_PAY_BILL_ENDPOINT)
         .reply(200, mockPaymentBill)
         .onPost(Endpoints.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT)
@@ -32,10 +35,10 @@ const startMocking = (isMockingRequired: boolean = false) => {
       .reply(200, mockServiceTypes)
       .onGet(Endpoints.MONEY_TRANSFER_LANDING)
       .reply(200, landingMocked)
-      .onGet("mob-common-service/v1/payment-options/own-account")
-      .reply(200, payListOwnAccount)
-      .onGet(Endpoints.MONEY_TRANSFER_BENEFICIARIES_ENDPOINT_Static)
-      .reply(200, payListBeni)
+      // .onGet("mob-common-service/v1/payment-options/own-account")
+      // .reply(200, payListOwnAccount)
+      // .onGet(Endpoints.MONEY_TRANSFER_BENEFICIARIES_ENDPOINT_Static)
+      // .reply(200, payListBeni)
       // .onGet(Endpoints.MY_BILL_PAYMENT_BENEFICIARES_ENDPOINT)
       // .reply(200, mockMyBillPaymentBeneficiaries)
       //   .onGet(Endpoints.WIDGETS_SUMMARY_OWE_ENDPOINT)

@@ -14,18 +14,22 @@ import {
   colors,
   SvgIcon,
   H4,
+  Button,
 } from "@mashreq-digital/ui";
 import CardIcon from "../../../../common/cardIcon";
 import { capitalizeFirstLetter, formatCurrency } from "../../../../util/helper";
-import { MoneyPouch, getMashreqLogo } from "@mashreq-digital/webassets";
+import { MoneyPouch, getMashreqLogo, ArrowRight, ChevronRight } from "@mashreq-digital/webassets";
 import { useTranslation } from "react-i18next";
 
+
+
+
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    borderRadius: "6px",
-    margin: `${theme.spacing(2.5)}px 0`,
-    boxShadow: " 0px 8px 12px 0px rgba(0, 0, 0, 0.06)",
-    border: "2px solid transparent",
+  root:{
+    borderRadius: (props:any)=>props.activeSelected?"6px":"",
+    margin:(props:any)=>props.activeSelected?`${theme.spacing(2.5)}px 0`:"0px",
+    boxShadow: (props:any)=>props.activeSelected?"0px 8px 12px 0px rgba(0, 0, 0, 0.06)":"",
+    border: (props:any)=>props.activeSelected?"2px solid transparent":"",
     backgroundColor: "#fff",
     "&:hover, &:focus, &:active": {
       borderColor: "rgb(49, 49, 49)",
@@ -123,8 +127,11 @@ interface CustomListItemProps {
   disabled?: boolean;
   active?: boolean;
   data: object | any;
+  isBeni?:boolean;
   color?: string | undefined;
+  destinationSelect?:any;
   isDefault?: boolean;
+  activeSelected?: boolean;
   selectOptions?: boolean;
   onClickCallback?: any | undefined;
 }
@@ -134,7 +141,10 @@ const PayListItem = (props: CustomListItemProps) => {
     // avatarImage,
     disabled,
     color,
+    destinationSelect,
     isDefault,
+    activeSelected,
+    isBeni,
     active,
     selectOptions,
     onClickCallback,
@@ -155,6 +165,7 @@ const PayListItem = (props: CustomListItemProps) => {
     descStyle,
     currencyStyle,
     activeStyle,
+    
     goldStyle,
     disabledStyle,
     listAvatarStyle,
@@ -177,11 +188,20 @@ const PayListItem = (props: CustomListItemProps) => {
     {selectOptions ?
     <Box
       display="flex"
+      onClick={()=>destinationSelect()}
       justifyContent="space-between"
       style={{ width: "100%" }}
     >
-    <ListItemText primary={<H5 noWrap> Click on change and select </H5>} /> 
-    </Box>:
+    
+    <ListItemText primary={<H5 noWrap>{isBeni? " Select Benificiary" : " Select Account"} </H5>} /> 
+     
+    <SvgIcon
+    height="14"
+    width="16"
+    component={ChevronRight}
+  />
+
+   </Box>:
     <>
       {/* <Avatar alt={name} src={avatarImage} /> */}
       {type && !isAccountCard && (
@@ -192,7 +212,7 @@ const PayListItem = (props: CustomListItemProps) => {
             display="inline-flex"
             borderRadius="50%"
           >
-          {type === "within-mashreq"? <BeniLogo width="20" height="20"/>:
+          {type === "within-mashreq" || type === "local" || type === "international" ? <BeniLogo width="20" height="20"/>:
             <SvgIcon
               height="14"
               width="16"
@@ -202,6 +222,7 @@ const PayListItem = (props: CustomListItemProps) => {
           </Box>
         </ListItemAvatar>
       )}
+{      console.log("PayListItem -> balance hansini", balance)}
 
       {type && (type === "salaam" || type === "mm") && balance ? (
         <Box display="flex">
@@ -210,14 +231,14 @@ const PayListItem = (props: CustomListItemProps) => {
           </Box>
           <Box ml={1.3}><Caption>{t(`dashboard.productSummary.${type}.payList.title`)}</Caption></Box>
         </Box>
-      ): type === "within-mashreq"? 
+      ): type === "within-mashreq" || type === "local" || type === "international" ? 
       (
         <Box
           display="flex"
           justifyContent="space-between"
           style={{ width: "100%" }}
         >
-          <Box width="calc(100% - 120px)">
+          <Box >
             <ListItemText
             disableTypography={true}
             primaryTypographyProps={{noWrap: true}}

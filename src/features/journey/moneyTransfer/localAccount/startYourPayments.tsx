@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   Box,
   UnderlineText,
@@ -20,7 +20,10 @@ import EmtyList from "../../../../common/payList/emtyList";
 import { Plus } from "@mashreq-digital/webassets";
 import { useHistory } from "react-router-dom";
 import { MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT } from "../../../../router/config";
-import ImageWithText from '../../../../common/imageWithText/index';
+import ImageWithText from "../../../../common/imageWithText/index";
+import { DispatchContext, StateContext } from "../../../../redux/context";
+import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 const useStyles = makeStyles((theme: any) => ({
   NoBeniStyle: {
@@ -33,16 +36,17 @@ const useStyles = makeStyles((theme: any) => ({
   },
 }));
 
-const StartPayments = (props:any) => {
+const StartPayments = (props: any) => {
   const [transferButton, setTransferButton] = useState(false);
-  const {serviceType,setStep,resumeFileds} = props;
   const { NoBeniStyle } = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
+  const transferDispatch = useContext(DispatchContext);
+  const transferState = useContext(StateContext);
 
-  let transfer = useSelector(
-    (state: any) => state.moneyTransfer.other.transfer
-  );
+  let { transfer, serviceType } = transferState;
+  console.log("StartPayments -> transfer lvlv", transfer);
+
   const payCardListData = Object.assign(
     useSelector((state: any) => state.moneyTransfer.other.payListData)
   );
@@ -50,21 +54,22 @@ const StartPayments = (props:any) => {
   let benificiary = useSelector(
     (state: any) => state.moneyTransfer.mtBeni.beneficiaries
   );
+  console.log("StartPayments -> benificiary", benificiary);
 
   const { t } = useTranslation();
 
   const onSubmitPayment = () => {
     history.replace({
       pathname: MONEY_TRANSFER_JOURNEY_LOCAL_AMOUNT,
-      state: {serviceType:serviceType,
-      resumeFileds:transfer
-      }
+      state: { serviceType: serviceType, resumeFileds: transfer },
     });
-    setStep(1);
   };
+
   const onChangeFromAcount = (item: any) => {
+    console.log("onChangeFromAcount -> item dekho", item);
+
     transfer = { ...transfer, fromAccount: item };
-    dispatch(Actions.setTransferObject(transfer));
+    transferDispatch(TransferActions.setTransferObject(transfer));
     if (payCardListData) {
       payCardListData.source["suggestedAccount"] = item;
     }
@@ -85,57 +90,61 @@ const StartPayments = (props:any) => {
   };
 
   const onChangeToAcount = (item: any) => {
-    transfer = { ...transfer, toAccount: item };
-    if (payCardListData) {
-      payCardListData.destination = {
-        ...payCardListData.destination,
-        suggestedAccount: item,
-      };
-    }
+    if (item.accountNumber) {
+      transfer = { ...transfer, toAccount: item };
+      if (payCardListData) {
+        payCardListData.destination = {
+          ...payCardListData.destination,
+          suggestedAccount: item,
+        };
+      }
 
-    dispatch(Actions.setTransferObject(transfer));
-    if (
-      transfer.hasOwnProperty("fromAccount") &&
-      transfer.hasOwnProperty("toAccount")
-    ) {
+      transferDispatch(TransferActions.setTransferObject(transfer));
+
       if (
-        !(transfer.fromAccount.availableBalance <= 0) &&
-        transfer.fromAccount.accountNumber !== transfer.toAccount.accountNumber
+        transfer.hasOwnProperty("fromAccount") &&
+        transfer.hasOwnProperty("toAccount")
       ) {
-        setTransferButton(true);
-      } else {
-        setTransferButton(false);
+        if (
+          !(transfer.fromAccount.availableBalance <= 0) &&
+          transfer.fromAccount.accountNumber !==
+            transfer.toAccount.accountNumber
+        ) {
+          setTransferButton(true);
+        } else {
+          setTransferButton(false);
+        }
       }
     }
   };
 
   useEffect(() => {
     dispatch(Actions.fetchPayListRequest({ type: "local" }));
-    dispatch(ActionBeni.fetchMoneyTransferBeneficiariesRequest());
-    
-    // console.log("StartPayments -> resumeFileds", resumeFileds);
-    // if(!resumeFileds){
-    //   transfer = resumeFileds;
-    // }
-    
-    /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. 
-    We should add onChangeList as dependency then source api will get triggered infinitely */
+    dispatch(
+      ActionBeni.fetchMoneyTransferBeneficiariesRequest({ type: "local" })
+    );
+
+    /* Patch - Don't remove the below comment otherwiser useeffect will expect a dependency. */
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
+    <JourneySidebar steps={"moneytransfer.stepsPurpose"} currentStep={0}>
+
     <SectionSplitter
       height={"calc(100vh - 400px)"}
       top={
         <>
-        <Box mb={6}>
-        <ImageWithText
-          description={serviceType.name}
-          name={serviceType.code}
-          iconType={false}
-          logo={true}
-        />
-      </Box>
+          <Box mb={6}>
+            <ImageWithText
+              description={serviceType.name}
+              name={serviceType.code}
+              iconType={true}
+              logo={true}
+              avtHight="40px"
+              avtWidth="40px"
+            />
+          </Box>
 
           <UnderlineText color="primary">
             <H2>{t("moneytransfer.startYourPayment.title")}</H2>
@@ -175,8 +184,7 @@ const StartPayments = (props:any) => {
                       style={{ justifyContent: "space-around" }}
                       arrow={true}
                       heading={t("moneytransfer.nobeni")}
-                      subheading= {t("moneytransfer.addbeni")}
-
+                      subheading={t("moneytransfer.addbeni")}
                     />
                   )
                 ) : (
@@ -202,11 +210,12 @@ const StartPayments = (props:any) => {
             onClick={onSubmitPayment}
             size="large"
           >
-          {t("moneytransfer.startYourPayment.setAmountButton")}
+            {t("moneytransfer.startYourPayment.setAmountButton")}
           </Button>
         </Box>
       }
     />
+    </JourneySidebar>
   );
 };
 

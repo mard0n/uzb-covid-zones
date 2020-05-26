@@ -156,14 +156,14 @@ const CardAccountList = () => {
                       }
                       btnLabel={type && orgData && orgData.length > 2 && type !== 'salaam' ? t(`dashboard.productSummary.${type}.seeAll`) : ''}
                       data={data}
-                      balanceAmount={formatCurrency(remainingBalance)}
+                      balanceAmount={formatCurrency(remainingBalance) ? formatCurrency(remainingBalance) : '0'}
                       balance={t(
                         `dashboard.productSummary.${type}.availableBalance`
                       )}
                       currentBalance={t(
                         `dashboard.productSummary.${type}.currentBalance`
                       )}
-                      currentBalanceAmount={formatCurrency(balanceAmount)}
+                      currentBalanceAmount={formatCurrency(balanceAmount)?formatCurrency(balanceAmount): '0'}
                     />
                   </Grid>
                 );

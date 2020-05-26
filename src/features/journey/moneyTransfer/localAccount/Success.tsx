@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   UnderlineText,
   Button,
@@ -13,23 +13,22 @@ import {
   Body1,
   H5,
 } from "@mashreq-digital/ui";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTranslation } from "react-i18next";
-import { Check, Phone24, ArrowDown, User } from "@mashreq-digital/webassets";
-// import getBeneficiariesAvatar from "../../../../util/getBeneficiariesAvatar";
+import { Check, Phone24, User } from "@mashreq-digital/webassets";
 import SucessFailureIcon from "../../../../common/successFailureIcon";
 import CardPayNow from "../../../../common/card/CardPayNow";
 import PaymentReceipt from "../../../../common/paymentReceipt/index";
 import CardDash from "../../../../common/cardDash";
 import { getPayListFormattedData } from "../../../../util/getPayListFormattedData";
-import { withinMashreq } from "../../../../util/constants";
 import PayListItem from "../../../../components/billpayment/review/payList/index";
 import { useHistory } from "react-router-dom";
-import { MONEY_TRANSFER_LANDING } from "../../../../network/Endpoints";
+import { StateContext, DispatchContext } from "../../../../redux/context";
+import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
 import { MONEY_TRANSFER } from "../../../../router/config";
 import * as TransferActions from "../../../../redux/actions/moneyTransfer/transferAction";
-import * as Actions from "../../../../redux/actions/moneyTransfer/payListActions";
 import * as Transaction from "../../../../redux/actions/moneyTransfer/transaction";
+import JourneySidebar from '../../../../components/JourneySidebar/index';
 
 type SuccessProps = {
   success: boolean;
@@ -50,7 +49,6 @@ const useStyles = makeStyles(() => ({
 }));
 
 const Success = (props: SuccessProps) => {
-  // const { capitalize, cardPay } = useStyles();
   const {
     type = "",
     data,
@@ -64,12 +62,18 @@ const Success = (props: SuccessProps) => {
   const [payRecieptModal, setPayRecieptModal] = useState(false);
   const dispatch = useDispatch();
 
-  let transfer = useSelector(
-    (state: any) => state.moneyTransfer.other.transfer
+  const transferDispatch = useContext(DispatchContext);
+  const transferState = useContext(StateContext);
+  let { transfer } = transferState;
+
+  let transaction = useSelector(
+    (state: any) => state.moneyTransfer.makeTransfer
   );
-  let srcAcount = transfer.fromAccount;
+  
+
   let destAcount = transfer.toAccount;
   let history = useHistory();
+
   const beneficiaryItemForEdit: any = {
     accountNumber: data.accountNumber,
     nickname: "",
@@ -77,13 +81,15 @@ const Success = (props: SuccessProps) => {
   };
 
   const onDoneCallback = () => {
-    // transferDispatch(TransferActions.setTransferObject({}));
+    transferDispatch(TransferActions.setTransferObject({}));
     dispatch(Actions.fetchPayListClear());
     dispatch(Transaction.moneyTransferInitiateTransferClear());
+
     history.push({
       pathname: MONEY_TRANSFER,
     });
   };
+
   let payreceptData = {
     "Paid To": "Etisalat",
     "Etisalat Mobile Number": data.accountNumber,
@@ -95,6 +101,7 @@ const Success = (props: SuccessProps) => {
   };
 
   return (
+    <JourneySidebar steps={"moneytransfer.stepsPurpose"} currentStep={4}>
     <SectionSplitter
       height="calc(100vh - 250px)"
       top={
@@ -104,17 +111,18 @@ const Success = (props: SuccessProps) => {
             <H2>{title}</H2>
           </UnderlineText>
 
+         {success && <Box mt={6}>
+          <Caption>Your transaction with reference number <b>#{transaction.response.mwReferenceNo}</b></Caption>
+          </Box>}
+
           {subTitle && (
             <Box mt={6} mb={6}>
               <Caption>
-                {success ? "Your transaction with reference number " : null}{" "}
+                {success ? t("moneytransfer.success.withNumber") : null}{" "}
                 <b> {subTitle} </b>
               </Caption>{" "}
               <br />
-              <Caption>
-                Please check the Transaction Queue tab to follow up on the
-                status of the transaction.
-              </Caption>
+              <Caption>{t("moneytransfer.success.fallowup")}</Caption>
             </Box>
           )}
 
@@ -133,7 +141,9 @@ const Success = (props: SuccessProps) => {
                         <SvgIcon height="1rem" width="1rem" component={Check} />
                       </Box>
                     }
-                    heading={<Body1>You have transferred</Body1>}
+                    heading={
+                      <Body1>{t("moneytransfer.success.transferd")}</Body1>
+                    }
                     subheading={
                       <H5>
                         {transfer.amount.type} {Math.abs(transfer.amount.total)}
@@ -144,10 +154,8 @@ const Success = (props: SuccessProps) => {
                 rightContent={
                   <PayListItem
                     active={false}
-                    data={getPayListFormattedData(
-                      destAcount,
-                      type === withinMashreq ? "benificiary" : "accounts"
-                    )}
+                    activeSelected={true}
+                    data={getPayListFormattedData(destAcount, "benificiary")}
                   />
                 }
               />
@@ -157,8 +165,8 @@ const Success = (props: SuccessProps) => {
                   icon={<SvgIcon color="primary" component={User} />}
                   style={{ justifyContent: "space-evenly" }}
                   arrow={true}
-                  heading={"Frequent Payment?"}
-                  subheading={"Set up as standing instruction"}
+                  heading={t("moneytransfer.success.frequent")}
+                  subheading={t("moneytransfer.success.setupInstruction")}
                 />
               </Box>
             </>
@@ -227,6 +235,7 @@ const Success = (props: SuccessProps) => {
         </Box>
       }
     />
+    </JourneySidebar>
   );
 };
 

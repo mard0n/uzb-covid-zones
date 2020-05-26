@@ -63,7 +63,7 @@ const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
   }, []);
 
   const footerLinks: Array<string> = t("footer.links", { returnObjects: true });
-  const exludePath = new RegExp("account");
+  const exludePath = new RegExp("account/");
 
   return (
     <Box display="flex">
@@ -76,7 +76,7 @@ const App: FunctionComponent<AppProps> = (props: any): JSX.Element => {
           {currentUrl && !exludePath.test(props.match.url) && (
             <Box px={5} className={`${footerRoot} ${enableSidebar ? footerWithSidebar : ''}`}>
             <Footer>
-              <Box display="flex" justifyContent="space-between">
+              <Box display="flex" width="100%" justifyContent="space-between">
                 <Box><Body2>&copy; {t("footer.copy")}</Body2></Box>
                 <Box>
                 {/* border */}

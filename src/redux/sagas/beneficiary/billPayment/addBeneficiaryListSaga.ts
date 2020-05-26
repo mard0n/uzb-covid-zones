@@ -23,7 +23,7 @@ export function* watchAddBillPaymentListSaga() {
 export function fetchServiceTypesSaga(action: any) {
   const url = Endpoints.BENEFICIARY_SERVICE_TYPES_ENDPOINT;
   // const config = {
-  //   method: 'GET',
+  //   config: { method: "POST" },'GET',
   //   url,
   //   headers: {'X-CIF-ID': CIF}, //TODO: CIF 012344355 for all Beneficiries 010424124
   // };

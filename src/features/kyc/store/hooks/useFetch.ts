@@ -4,16 +4,17 @@ import { DispatchContext } from "../context";
 import { ERROR, RESET_ERROR } from "../../types";
 import { createInstance } from "@mashreq-digital/network";
 import * as Config from '../../../../network/constants';
+import { API } from "../../../../network";
 
 const CancelToken = axios.CancelToken;
 // let cancel: any;
 let pending: any = {};
 
-export const API = createInstance({ BASE_URL: Config.BASE_URL,  TIMEOUT: 20000 });
+// export const API = createInstance({ baseURL: Config.BASE_URL,  timeout: 20000 });
 
-const delay = async () => new Promise(resolve => setTimeout(resolve,Math.floor((Math.random() * 3000) + 1)))  
+// const delay = async () => new Promise(resolve => setTimeout(resolve,Math.floor((Math.random() * 3000) + 1)))  
 
-export const useFetch = (url: string, options: object = {}) => {
+export const useFetch = (url: string, options: any = {}) => {
   const [response, setResponse] = React.useState<any>(null);
   const [error, setError] = React.useState<any>(null);
   const [loading, setLoading] = React.useState(false);
@@ -21,20 +22,27 @@ export const useFetch = (url: string, options: object = {}) => {
   const lastReqRef: any = React.useRef();
 
   const execute = async () => {
+    // generate HashedUrl
+    let hashedURI: string;
+    if ((options.method && options.method.toLowerCase() === "post") || options.data) {
+      hashedURI = btoa(`${url}~POST`);
+    } else {
+      hashedURI = btoa(`${url}~GET`);
+    }
+
     try {
       setLoading(true);
       dispatch({ type: RESET_ERROR });
-      if (pending[url] && lastReqRef.current) {
+      if (pending[hashedURI] && lastReqRef.current) {
         lastReqRef.current();
-        delete pending[url];
+        delete pending[hashedURI];
       }
-      const wait = await delay();
       const res = await API(url, {
         ...options,
         cancelToken: new CancelToken(async (c) => {
           // cancel = c;
           lastReqRef.current = c;
-          pending[url] = true;
+          pending[hashedURI] = true;
         }),
       });
 
@@ -44,11 +52,10 @@ export const useFetch = (url: string, options: object = {}) => {
       setResponse(data);
     } catch (error) {
       setLoading(false);
-      if (API.isCancel(error)) {
+      if (axios.isCancel(error)) {
         // console.log("request was cancelled", pending);
         // TODO: If needed we can handle the cancelled request for any use
-      }
-      if (error.response) {
+      } else if (error.response) {
         switch (error.response.status) {
           case 400:
             setError("Bad request");
