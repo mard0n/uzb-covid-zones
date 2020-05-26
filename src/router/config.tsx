@@ -60,6 +60,9 @@ export const BENIFICIARY_BILL_PAYMENT_DETAILED = `${BENEFICIARY}/billpayment/det
 /* KYC */
 export const KYC = "/kyc"
 
+/* CARDS */
+export const CARDS = "/cards"
+
 /* Beneficiary money transfer */
 export const BENIFICIARY_MONEY_TRANSFER = `${BENEFICIARY}/moneytransfer`; //default route and landing route
 export const BENIFICIARY_MONEY_TRANSFER_JOURNEY = `${BENEFICIARY}/moneytransfer/:service/:step`; // service can be create edit and view

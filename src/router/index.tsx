@@ -8,9 +8,10 @@ import * as RoutePath from "./config";
 import PostLogin from "../features/postLogin/";
 import Journey from "../features/journey/index";
 import ProtectedRoute from "./ProtectedRoute";
-import MoneyTransfer from '../features/postLogin/moneyTransfer/index';
+import MoneyTransfer from "../features/postLogin/moneyTransfer/index";
 import Kyc from "../features/kyc";
 import Cif from "../features/authentication/Cif";
+import Cards from "../features/cards";
 
 // const NoMatchPage = () => {
 //   return <h3>404 - Not found</h3>;
@@ -20,23 +21,27 @@ import Cif from "../features/authentication/Cif";
 const routes = [
   {
     path: RoutePath.LOGINPAGE,
-    component: Login
-    },
-    {
-      path: RoutePath.CIF,
-      component: Cif
-    },
+    component: Login,
+  },
+  {
+    path: RoutePath.CIF,
+    component: Cif,
+  },
   {
     path: RoutePath.KYC,
-    component: Kyc
+    component: Kyc,
+  },
+  {
+    path: RoutePath.CARDS,
+    component: Cards,
   },
   {
     path: RoutePath.JOURNEY,
-    component: Journey
+    component: Journey,
   },
   {
     path: RoutePath.POSTLOGIN,
-    component: PostLogin
+    component: PostLogin,
   },
   {
     path: RoutePath.PASSCODE,
@@ -63,31 +68,27 @@ const routes = [
 
 const Routes: FunctionComponent = (): JSX.Element => {
   return (
-
     <Switch>
-    <Route key={"login"} exact path={RoutePath.ROOT}>
-      <Login/>
-    </Route>
+      <Route key={"login"} exact path={RoutePath.ROOT}>
+        <Login />
+      </Route>
 
-    {routes.map((route, i) => {
+      {routes.map((route, i) => {
         return (
-          <Route key={i} path={route.path} >
+          <Route key={i} path={route.path}>
             <route.component />
           </Route>
         );
       })}
 
-  { 
-  // <ProtectedRoute path={RoutePath.JOURNEY} component={Journey} />
-  // <ProtectedRoute path={RoutePath.POSTLOGIN} component={PostLogin} />  
-} 
+      {
+        // <ProtectedRoute path={RoutePath.JOURNEY} component={Journey} />
+        // <ProtectedRoute path={RoutePath.POSTLOGIN} component={PostLogin} />
+      }
 
       <Redirect from="*" to={RoutePath.ROOT} />
-    
-  </Switch>
+    </Switch>
   );
 };
 
 export default Routes;
-
-
