@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import {
   H1,
   Body1,
@@ -8,119 +8,195 @@ import {
   Grid,
   SectionSplitter,
   InfoCard,
-  makeStyles,
   Caption,
   List,
   ListItem,
   ListItemText,
   ListItemIcon,
+  Banner,
+  BackButton,
+  makeStyles,
+  H2,
+  OTP,
 } from "@mashreq-digital/ui";
-import BackButton from "../../../../common/backButton";
-import { globalStyle } from "../../../../util/constants";
-import { SuccessTick } from "@mashreq-digital/webassets";
-const { postLogin, sidebarWidth, defaultGutter } = globalStyle;
+import { SuccessTick, CheckCircle } from "@mashreq-digital/webassets";
+import { useFetch } from "../../../kyc/store/hooks/useFetch";
+import * as Endpoint from "../../../../network/Endpoints";
+import { DispatchContext } from "../../store/context";
+import { useHistory } from "react-router-dom";
+import JourneySidebar from "../../../../components/JourneySidebar";
+import { ADD_MASKED_MOBILE } from "../../store/types";
+import { PIN_RESET_AUTH } from "../../routes/config";
+import { useTranslation } from "react-i18next";
+import PinInput from "../components/PinInput";
 
-const useStyles = makeStyles((theme: any) => ({
-  mainLayout: {
-    width: `calc( 100vw - ${sidebarWidth}px)`,
-    height: "100%",
-    overflow: "auto",
-    padding: `${theme.spacing(10.6)}px ${defaultGutter}px ${theme.spacing(
-      10.6
-    )}px ${theme.spacing(8)}px`,
+const useStyles = makeStyles(() => ({
+  root: {
+    marginTop: "8px",
+  },
+  listItemIcon: {
+    minWidth: "32px",
   },
 }));
 
 export interface PinResetInitProps {}
 
 const PinResetInit: React.SFC<PinResetInitProps> = () => {
-  const [pin, setPin] = useState<any>();
-  const [pinConfirm, setPinConfirm] = useState<any>();
-  const { mainLayout } = useStyles();
-  const tips = [
-    "Keep your PIN unique for each of your cards.",
-    "Do not use sequential or repetitive numbers like 1234 or 1111.",
-    "Avoid easily accessible information like phone no. and date of birth.",
-    "Use as many different digits as possible and keep it unique to you.",
-  ];
-  const isPinsMatch = () => {
-    return pin && pinConfirm && pin.trim() === pinConfirm.trim();
+  const history = useHistory();
+  const classes = useStyles();
+  const { t } = useTranslation();
+  const dispatch = useContext(DispatchContext);
+  const [pin, setPin] = useState<any>("");
+  const [pinConfirm, setPinConfirm] = useState<any>("");
+  const [pinError, setPinError] = useState("");
+  const [error, setError] = useState("");
+
+  const tips: string[] = t("cards.pinReset.init.infoCard.list", {
+    returnObjects: true,
+  });
+
+  const { execute, response, loading } = useFetch(
+    Endpoint.CARDS_PIN_RESET_INIT,
+    {
+      method: "POST",
+      data: {
+        encryptedPinNo: pin,
+        cardNumber: "123",
+      },
+    }
+  );
+
+  useEffect(() => {
+    if (!loading && response) {
+      console.log("response", response);
+      if (response.errorCode) {
+        setError("Error message");
+      } else {
+        dispatch({ type: ADD_MASKED_MOBILE, payload: response.data });
+        history.push({
+          pathname: PIN_RESET_AUTH,
+        });
+        setError("");
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response, loading, dispatch]);
+
+  const handleSubmit = () => {
+    if (pin && pinConfirm && pin.trim() === pinConfirm.trim()) {
+      execute();
+    } else {
+      setPinError(t("cards.pinReset.init.pinsNotMatchError"));
+    }
   };
   return (
-    <Box className={mainLayout}>
+    <JourneySidebar steps={"cards.pinReset.steps"} currentStep={0}>
       <SectionSplitter
         top={
           <Box display="flex" justifyContent="space-between">
-            <Grid md={4}>
-              <UnderlineText>
-                <H1>Enter your PIN</H1>
-              </UnderlineText>
+            <Grid item md={4}>
+              <Box mb={5}>
+                <UnderlineText>
+                  <H2>{t("cards.pinReset.init.title")}</H2>
+                </UnderlineText>
+              </Box>
+              <Box mb={5}>
+                <Body1>{t("cards.pinReset.init.subTitle")}</Body1>
+              </Box>
 
-              <Body1>
-                To reset your credit card PIN, please enter the new PIN you wish
-                touse.
-              </Body1>
-
-              <Box display="flex" flexDirection="column" mt={3}>
-                <label htmlFor="enter-pin">Enter your new PIN</label>
-                <input
-                  name="enter-pin"
-                  type="number"
+              <Box display="flex" flexDirection="column">
+                <PinInput
+                  label={"Enter your new PIN"}
                   value={pin}
-                  onChange={(e) => setPin(e.target.value)}
+                  onPinChange={(value) => {
+                    setPinError("");
+                    setPin(value);
+                  }}
+                  error={!!pinError}
                 />
-                <label htmlFor="reenter-pin">Re-enter your PIN</label>
-                <input
-                  name="reenter-pin"
-                  type="number"
+                <PinInput
+                  label={"Re-enter your pin"}
                   value={pinConfirm}
-                  onChange={(e) => setPinConfirm(e.target.value)}
+                  onPinChange={(value) => {
+                    setPinError("");
+                    setPinConfirm(value);
+                  }}
+                  error={!!pinError}
                 />
+                {pinError && <Caption color="error">{pinError}</Caption>}
               </Box>
             </Grid>
-            <InfoCard
-              icon={SuccessTick}
-              title={"How to set a secure PIN?"}
-              content={
-                <>
-                  <Caption gutterBottom>
-                    A secure PIN is unique and not easy to guess. Here are some
-                    tips to guide you:{" "}
-                  </Caption>
-                  {tips.map((tip: string) => (
-                    <List dense={true} disablePadding={true}>
-                      <ListItem disableGutters={true}>
-                        <ListItemIcon>()</ListItemIcon>
-                        <ListItemText
-                          primary={<Caption>Single-line item</Caption>}
-                        />
-                      </ListItem>
+            <Box style={{ maxWidth: "300px" }}>
+              <InfoCard
+                fullWidth
+                icon={SuccessTick}
+                title={t("cards.pinReset.init.infoCard.title")}
+                content={
+                  <>
+                    <Caption gutterBottom>
+                      {t("cards.pinReset.init.infoCard.content")}
+                    </Caption>
+                    <List
+                      className={classes.root}
+                      dense={true}
+                      disablePadding={true}
+                    >
+                      {tips.map((tip: string) => (
+                        <ListItem
+                          key={tip}
+                          disableGutters={true}
+                          alignItems="flex-start"
+                        >
+                          <ListItemIcon className={classes.listItemIcon}>
+                            <CheckCircle />
+                          </ListItemIcon>
+                          <ListItemText primary={<Caption>{tip}</Caption>} />
+                        </ListItem>
+                      ))}
                     </List>
-                  ))}
-                </>
-              }
-              actions={<div>asdasd</div>}
-              color={"primary"}
-            ></InfoCard>
+                  </>
+                }
+                color={"primary"}
+              />
+            </Box>
           </Box>
         }
         bottom={
           <Box display="flex" justifyContent="space-between">
-            <BackButton disableRoute onClickBack={() => {}} />
+            {error ? (
+              <Banner
+                left={error}
+                severity="error"
+                style={{}}
+                // style={{
+                //   height: "48px",
+                //   width: "100%",
+                //   maxWidth: "408px",
+                //   backgroundColor: "#ffeaea",
+                //   color: "#b00020",
+                // }}
+                onClose={() => setError("")}
+              />
+            ) : (
+              <BackButton
+                label={t("cards.pinReset.init.backBtnText")}
+                onClickBack={() => {}}
+              />
+            )}
 
             <Button
               variant="contained"
               size="large"
               color="primary"
-              disabled={!isPinsMatch()}
-              onClick={() => {}}
+              disabled={!pin || !pinConfirm}
+              onClick={handleSubmit}
             >
-              Reset PIN
+              {t("cards.pinReset.init.mainBtnText")}
             </Button>
           </Box>
         }
       />
-    </Box>
+    </JourneySidebar>
   );
 };
 

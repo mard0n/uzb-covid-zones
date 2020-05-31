@@ -110,5 +110,58 @@
       "expiredMoreThan30": "Please update and verify your account details at the earliest to have unrestricted access to your account.",
       "expiredLessThan30": "We will need to update some of your details to comply with regulations. You only have to ensure your account activity is not restricted"
     }
+  },
+  "cards": {
+    "pinReset": {
+      "steps": [
+        "Need to find Arabic",
+        "Need to find Arabic",
+        "Need to find Arabic"
+      ],
+      "otp": {
+        "resendPossible": "Need to find Arabic",
+        "sendOtpError": "Need to find Arabic",
+        "resendOtpError": "Need to find Arabic",
+        "validateOtpError": "Need to find Arabic"
+      },
+      "init": {
+        "title": "Need to find Arabic",
+        "subTitle": "Need to find Arabic",
+        "infoCard": {
+          "title": "Need to find Arabic",
+          "content": "Need to find Arabic",
+          "list": [
+            "Need to find Arabic",
+            "Need to find Arabic",
+            "Need to find Arabic",
+            "Need to find Arabic"
+          ]
+        },
+        "pinsNotMatchError": "Need to find Arabic",
+        "mainBtnText": "Need to find Arabic",
+        "backBtnText": "Need to find Arabic"
+      },
+      "auth": {
+        "title": "Need to find Arabic",
+        "subTitle": "Need to find Arabic",
+        "infoCard": {
+          "title": "Need to find Arabic",
+          "content": "Need to find Arabic",
+          "list": ["Need to find Arabic", "Need to find Arabic"]
+        },
+        "mainBtnText": "Need to find Arabic",
+        "backBtnText": "Need to find Arabic"
+      },
+      "success": {
+        "title": "Need to find Arabic",
+        "subTitle": "Need to find Arabic",
+        "mainBtnText": "Need to find Arabic"
+      },
+      "fail": {
+        "title": "Need to find Arabic",
+        "subTitle": "Need to find Arabic",
+        "mainBtnText": "Need to find Arabic"
+      }
+    }
   }
 }

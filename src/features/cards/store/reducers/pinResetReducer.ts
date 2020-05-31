@@ -1,8 +1,8 @@
-import { UPDATE_INITIAL_STATE } from "../types";
+import { ADD_MASKED_MOBILE } from "../types";
 
 export default (state: any, action: any) => {
   switch (action.type) {
-    case UPDATE_INITIAL_STATE:
+    case ADD_MASKED_MOBILE:
       return {
         ...state,
         ...action.payload,

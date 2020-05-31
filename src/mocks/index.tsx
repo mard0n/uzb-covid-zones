@@ -6,15 +6,31 @@ import { mockMyBillPaymentBeneficiaries } from "./mockData/beneficiary/billPayme
 import { mockPaymentSource } from "./mockData/billPayment/mockPaymentSource";
 import { mockPaymentBill } from "./mockData/billPayment/mockPaymentBill";
 import { mockPaymentEnquiry } from "./mockData/billPayment/mockPaymentEnquiry";
-import { landingMocked } from './mockData/moneyTransfer/landingMocked';
-import { payListOwnAccount } from './mockData/moneyTransfer/payListOwnAccount';
-import { payListBeni } from './mockData/moneyTransfer/payListBeni';
+import { landingMocked } from "./mockData/moneyTransfer/landingMocked";
+import { payListOwnAccount } from "./mockData/moneyTransfer/payListOwnAccount";
+import { payListBeni } from "./mockData/moneyTransfer/payListBeni";
+import {
+  mockPinResetSuccess,
+  mockPinResetFail,
+} from "./mockData/cards/pinReset/mockPinResetInit";
+import {
+  mockPinResetAuthSendSuccess,
+  mockPinResetAuthSendFail,
+} from "./mockData/cards/pinReset/mockPinResetAuthSend";
+import {
+  mockPinResetAuthResendSuccess,
+  mockPinResetAuthResendFail,
+} from "./mockData/cards/pinReset/mockPinResetAuthResend";
+import {
+  mockPinResetAuthValidateSuccess,
+  mockPinResetAuthValidateFail,
+} from "./mockData/cards/pinReset/mockPinResetAuthValidate";
 // import { mockMTIbansearch } from './mockData/beneficiary/moneyTransfer/mockIBAN';
 
 const startMocking = (isMockingRequired: boolean = false) => {
   if (isMockingRequired) {
     const mock = new MockAdapter(API, {
-      delayResponse: 500
+      delayResponse: 500,
     });
 
     // const accountDetailsUrl = Endpoints.ACCOUNT_DETAIL_ENDPOINT.replace(
@@ -23,18 +39,26 @@ const startMocking = (isMockingRequired: boolean = false) => {
     // );
 
     mock
-        // .onPost(Endpoints.MONEY_TRANSFER_IBAN)
-        // .reply(200, mockMTIbansearch)
-        .onPost(Endpoints.BILL_PAYMENT_PAY_BILL_ENDPOINT)
-        .reply(200, mockPaymentBill)
-        .onPost(Endpoints.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT)
-        .reply(200, mockPaymentSource)
-        .onPost(Endpoints.BILL_PAYMENT_ENQUIRY)
-        .reply(200, mockPaymentEnquiry)
-      .onGet(Endpoints.BENEFICIARY_SERVICE_TYPES_ENDPOINT)
-      .reply(200, mockServiceTypes)
-      .onGet(Endpoints.MONEY_TRANSFER_LANDING)
-      .reply(200, landingMocked)
+      // .onPost(Endpoints.MONEY_TRANSFER_IBAN)
+      // .reply(200, mockMTIbansearch)
+      // .onPost(Endpoints.BILL_PAYMENT_PAY_BILL_ENDPOINT)
+      // .reply(200, mockPaymentBill)
+      // .onPost(Endpoints.BILL_PAYMENT_SOURCE_ACCOUNTS_ENDPOINT)
+      // .reply(200, mockPaymentSource)
+      // .onPost(Endpoints.BILL_PAYMENT_ENQUIRY)
+      // .reply(200, mockPaymentEnquiry)
+      // .onGet(Endpoints.BENEFICIARY_SERVICE_TYPES_ENDPOINT)
+      // .reply(200, mockServiceTypes)
+      // .onGet(Endpoints.MONEY_TRANSFER_LANDING)
+      // .reply(200, landingMocked)
+      .onGet(Endpoints.CARDS_PIN_RESET_INIT)
+      .reply(200, mockPinResetSuccess)
+      .onGet(Endpoints.CARDS_PIN_RESET_AUTH_SEND)
+      .reply(200, mockPinResetAuthSendSuccess)
+      .onGet(Endpoints.CARDS_PIN_RESET_AUTH_RESEND)
+      .reply(200, mockPinResetAuthResendSuccess)
+      .onGet(Endpoints.CARDS_PIN_RESET_AUTH_VALIDATE)
+      .reply(200, mockPinResetAuthValidateSuccess)
       // .onGet("mob-common-service/v1/payment-options/own-account")
       // .reply(200, payListOwnAccount)
       // .onGet(Endpoints.MONEY_TRANSFER_BENEFICIARIES_ENDPOINT_Static)

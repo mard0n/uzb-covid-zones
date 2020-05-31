@@ -14,17 +14,15 @@ export interface CardsProps {}
 
 const Cards: React.SFC<CardsProps> = () => {
   const [state, dispatch] = useReducer(combinedReducers, combinedState);
-  
+
   return (
-    <Box display="flex">
-      <DispatchContext.Provider value={dispatch}>
-        <StateContext.Provider value={state}>
-          <Route path={RoutePath.PIN_RESET}>
-            <PinReset />
-          </Route>
-        </StateContext.Provider>
-      </DispatchContext.Provider>
-    </Box>
+    <DispatchContext.Provider value={dispatch}>
+      <StateContext.Provider value={state}>
+        <Route path={RoutePath.PIN_RESET}>
+          <PinReset />
+        </Route>
+      </StateContext.Provider>
+    </DispatchContext.Provider>
   );
 };
 

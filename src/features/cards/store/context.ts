@@ -1,9 +1,9 @@
 import React from "react";
 import { useCombineReducers } from "../../kyc/store/hooks/useCombineReducers";
 
-import profilesReducer from "./reducers/profilesReducer";
+import pinResetReducer from "./reducers/pinResetReducer";
 
-import profilesState from "./states/profilesState";
+import pinResetState from "./states/pinResetState";
 
 export const StateContext = React.createContext<any>(null);
 export const DispatchContext = React.createContext((() => {}) as any);
@@ -11,7 +11,7 @@ export const DispatchContext = React.createContext((() => {}) as any);
 /** EDITABLE CONTENT */
 
 export const [combinedReducers, combinedState] = useCombineReducers({
-  profiles: [profilesReducer, profilesState],
+  pinReset: [pinResetReducer, pinResetState],
 });
 
 /** EDITABLE CONTENT */

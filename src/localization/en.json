@@ -13,12 +13,12 @@
       "mobileNumber": "Mobile Number",
       "nickName": "Nick Name",
       "accountNumber": "Account Number",
-      "payCustomAmount" : "Pay Custom Amount",
+      "payCustomAmount": "Pay Custom Amount",
       "enterMobileNo": "Enter your --type-- account number",
       "enterCode": "Enter your --type-- code"
     },
     "hintText": {
-      "mobileNumber" : "Enter your --No-- digit acount number"
+      "mobileNumber": "Enter your --No-- digit acount number"
     },
     "action": {
       "back": "Back",
@@ -26,20 +26,20 @@
       "cancel": "Cancel",
       "applyNow": "Apply Now",
       "payNow": "Pay Now",
-      "gotit":"Got It",
+      "gotit": "Got It",
       "pay": "Pay",
-      "receipt":"Payment Receipt",
-      "payCustomAmount" : "Pay Custom Amount",
+      "receipt": "Payment Receipt",
+      "payCustomAmount": "Pay Custom Amount",
       "proceed": "Proceed",
       "signin": "Signin",
       "submit": "Submit",
       "signup": "Sign Up",
       "rm": "Read More",
-      "resume" : "Resume",
+      "resume": "Resume",
       "started": "Get Started",
       "tryAgain": "Try Again",
-      "done" : "Done",
-      "reviewPayment" : "Review your payment"
+      "done": "Done",
+      "reviewPayment": "Review your payment"
     },
     "links": {
       "forgetUsername": "Forgot your Username?",
@@ -48,20 +48,20 @@
       "returnToMoneyTransfer": "Return to Money Transfer"
     },
     "dbErrors": {
-      "NO_ESB_ENQUIRY_DETAILS" : "Please enter a valid number",
-      "INTERFACE_ERROR_INVALID_PARAMETER_VALUES" : "Field should not be blank",
-      "BN-3001" : "Invalid number",
-      "BN-4004" : "Beneficiary exists for given Account number",
-      "BN-4003" : "Beneficiary with nickname already exists",
-      "BN-4011" : "Account length is not valid",
-      "BN-4012" : "Mashreq account is not allowed",
-      "BN-2001" : "Account number is invalid",
-      "BN-1001" : "IBAN Account details not found"
+      "NO_ESB_ENQUIRY_DETAILS": "Please enter a valid number",
+      "INTERFACE_ERROR_INVALID_PARAMETER_VALUES": "Field should not be blank",
+      "BN-3001": "Invalid number",
+      "BN-4004": "Beneficiary exists for given Account number",
+      "BN-4003": "Beneficiary with nickname already exists",
+      "BN-4011": "Account length is not valid",
+      "BN-4012": "Mashreq account is not allowed",
+      "BN-2001": "Account number is invalid",
+      "BN-1001": "IBAN Account details not found"
     }
   },
   "error": {
     "title": "Oops!",
-    "somethingWrong" : "Something went wrong",
+    "somethingWrong": "Something went wrong",
     "desc": "Sorry it seems like you’ve made a mistake"
   },
   "notFound": {
@@ -130,391 +130,385 @@
   },
   "dashboard": {
     "welcomeNote": "Welcome back!",
-    "payYourBill" : {
+    "payYourBill": {
       "title": "Pay your Bills",
       "buttonLinkLabel": "View All Billers"
     },
-    "sendMoney" : {
+    "sendMoney": {
       "title": "Send money to",
       "buttonLabel": "View All Your Beneficiaries",
       "buttonLinkLabel": "Start A New Transfer"
     },
-    "productSummary" : {
-      "accounts" : {
+    "productSummary": {
+      "accounts": {
         "title": "Accounts",
-        "availableBalance" : "Available Balance",
-        "currentBalance" : "Current Balance",
-        "seeAll" : "See All Accounts",
+        "availableBalance": "Available Balance",
+        "currentBalance": "Current Balance",
+        "seeAll": "See All Accounts",
         "empty": {
-          "title" : "Start an account",
-          "desc" : "It's instant, and paperless"
+          "title": "Start an account",
+          "desc": "It's instant, and paperless"
         }
       },
-      "cards" : {
+      "cards": {
         "title": "Credit Card",
-        "availableBalance" : "Available Balance",
-        "currentBalance" : "Current Spender",
-        "seeAll" : "See All Cards",
+        "availableBalance": "Available Balance",
+        "currentBalance": "Current Spender",
+        "seeAll": "See All Cards",
         "empty": {
-          "title" : "Apply for a card now",
-          "desc" : "It's instant, and paperless"
+          "title": "Apply for a card now",
+          "desc": "It's instant, and paperless"
         }
       },
-      "loans" : {
+      "loans": {
         "title": "Loan",
-        "availableBalance" : "Total Outstanding",
-        "currentBalance" : "Current Spender",
-        "seeAll" : "See All Loans",
+        "availableBalance": "Total Outstanding",
+        "currentBalance": "Current Spender",
+        "seeAll": "See All Loans",
         "empty": {
-          "title" : "Realise Every Dream",
-          "desc" : "Loans at low rate of interests"
+          "title": "Realise Every Dream",
+          "desc": "Loans at low rate of interests"
         }
       },
-      "deposits" : {
+      "deposits": {
         "title": "Deposits",
-        "availableBalance" : "Maturity Amount",
-        "currentBalance" : "Principle Deposits",
-        "seeAll" : "See All Deposits",
+        "availableBalance": "Maturity Amount",
+        "currentBalance": "Principle Deposits",
+        "seeAll": "See All Deposits",
         "empty": {
-          "title" : "Deposit Your Dream",
-          "desc" : "Get an instant Deposit Now"
+          "title": "Deposit Your Dream",
+          "desc": "Get an instant Deposit Now"
         }
       },
-      "insurances" : {
+      "insurances": {
         "title": "Insurances",
-        "availableBalance" : "Total Cover",
-        "currentBalance" : "Monthly Premium",
-        "seeAll" : "See All Insurances",
+        "availableBalance": "Total Cover",
+        "currentBalance": "Monthly Premium",
+        "seeAll": "See All Insurances",
         "empty": {
-          "title" : "Protect everything",
-          "desc" : "Insurance is easy, and safe"
+          "title": "Protect everything",
+          "desc": "Insurance is easy, and safe"
         }
       },
-      "mm" : {
+      "mm": {
         "title": "Mashreq Millionaire Cert.",
-        "availableBalance" : "Total Investments",
-        "seeAll" : "See All Mashreq Millionaire",
+        "availableBalance": "Total Investments",
+        "seeAll": "See All Mashreq Millionaire",
         "payList": {
-          "title" : "Next Draw Date"
+          "title": "Next Draw Date"
         },
         "empty": {
-          "title" : "Mashreq Millionaire",
-          "desc" : "Make the smart choice"
+          "title": "Mashreq Millionaire",
+          "desc": "Make the smart choice"
         }
       },
-      "salaam" : {
+      "salaam": {
         "title": "Salaam Rewards",
-        "availableBalance" : "AED Value",
+        "availableBalance": "AED Value",
         "payList": {
-          "title" : "Points Value"
+          "title": "Points Value"
         },
         "empty": {
-          "title" : "Salaam Rewards",
-          "desc" : "Earn your salam points"
+          "title": "Salaam Rewards",
+          "desc": "Earn your salam points"
         }
       }
     }
   },
-  "beneficiary" : {
-    "landing" : {
-      "title" : "Manage your beneficiaries",
+  "beneficiary": {
+    "landing": {
+      "title": "Manage your beneficiaries",
       "tabs": ["Bill Payments", "Money Transfer"],
-      "searchPlaceholder" : "Search for billers",
-      "addButtonLabel" : "Add New Beneficiary",
-      "notFound" : {
-        "title" : "You don't have any beneficiaries",
-        "desc" : "Start by adding new beneficiary"
+      "searchPlaceholder": "Search for billers",
+      "addButtonLabel": "Add New Beneficiary",
+      "notFound": {
+        "title": "You don't have any beneficiaries",
+        "desc": "Start by adding new beneficiary"
       },
-      "addBeneficiary" : {
-        "title" : "Add a bill payment beneficiary",
-        "desc" : "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe officia assumenda animi similique earum quos esse expedita dignissimos quod accusantium. Rerum perferendis ea beatae illo placeat vero, nesciunt animi incidunt."
+      "addBeneficiary": {
+        "title": "Add a bill payment beneficiary",
+        "desc": "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe officia assumenda animi similique earum quos esse expedita dignissimos quod accusantium. Rerum perferendis ea beatae illo placeat vero, nesciunt animi incidunt."
       }
     },
-    "manage" :{
-      "prompts" : {
-        "delete" : {
-          "title" : "Delete Beneficiary",
-          "desc" : "Are you sure you want to delete --username-- beneficiary?",
-          "buttonLabel" : "Delete"
+    "manage": {
+      "prompts": {
+        "delete": {
+          "title": "Delete Beneficiary",
+          "desc": "Are you sure you want to delete --username-- beneficiary?",
+          "buttonLabel": "Delete"
         },
-        "edit" : {
-          "title" : "Edit",
-          "titleSvaveBenificiary":"Beneficiary Details",
-          "desc" : "Find you beneficiaries quicker by naming them. For eg. Masood DEWA Home.",
-          "buttonLabel" : "Submit",
-          "buttonLabel2" : "Save Beneficiary"
+        "edit": {
+          "title": "Edit",
+          "titleSvaveBenificiary": "Beneficiary Details",
+          "desc": "Find you beneficiaries quicker by naming them. For eg. Masood DEWA Home.",
+          "buttonLabel": "Submit",
+          "buttonLabel2": "Save Beneficiary"
         }
       },
-      "info" : {
+      "info": {
         "title": "Your --type-- Account Number",
         "desc": "will be in this section of your bill"
       },
-      "addEdit" : {
-        "title" : "Let’s get started with your beneficiary details",
-        "desc" : "Please enter your details",
-        "salik" : {
-          "savePin" : "Save my Salik PIN for future transactions",
+      "addEdit": {
+        "title": "Let’s get started with your beneficiary details",
+        "desc": "Please enter your details",
+        "salik": {
+          "savePin": "Save my Salik PIN for future transactions",
           "info": {
-          "title" : "Why should i save my PIN?",
-          "item1" : "We securely save an encryted version of your PIN",
-          "item2" : "You are never asked for your Salik PIN again",
-          "item3" : "Salik account top-ups will be just 2 clicks away!"
-        }
+            "title": "Why should i save my PIN?",
+            "item1": "We securely save an encryted version of your PIN",
+            "item2": "You are never asked for your Salik PIN again",
+            "item3": "Salik account top-ups will be just 2 clicks away!"
+          }
         },
-        "helperText" : {
-          "accountNumber" : "Account number helperText",
-          "nickName" : "Find your beneficiaries quicker by naming them. --br-- For e.g. Masood DEWA Home"
+        "helperText": {
+          "accountNumber": "Account number helperText",
+          "nickName": "Find your beneficiaries quicker by naming them. --br-- For e.g. Masood DEWA Home"
         },
-        "success" : {
-          "title" : "New --type-- beneficiary created",
-          "desc" : "You will now receive notifications whenever we detect a due bill against this number",
-          "buttonLanbel" : "Done"
+        "success": {
+          "title": "New --type-- beneficiary created",
+          "desc": "You will now receive notifications whenever we detect a due bill against this number",
+          "buttonLanbel": "Done"
         },
-        "failure" : {
-          "title" : "Failure",
-          "desc" : "Failure Desc",
-          "buttonLanbel" : "Try Again"
+        "failure": {
+          "title": "Failure",
+          "desc": "Failure Desc",
+          "buttonLanbel": "Try Again"
         }
       },
-      "details" : {
-        "title" : "Beneficiary details",
-        "type" : "Beneficiary Type",
-        "status" : "Status",
+      "details": {
+        "title": "Beneficiary details",
+        "type": "Beneficiary Type",
+        "status": "Status",
         "creationDate": "Beneficiary Creation Date",
-        "notFound" : {
-          "title" : "Benecifiary not found",
-          "desc" : "Go back to beneficiary by click the back button"
+        "notFound": {
+          "title": "Benecifiary not found",
+          "desc": "Go back to beneficiary by click the back button"
         },
-        "billDetected" : {
-          "title" : "Bill Status",
-          "desc" : " We have detected an outstanding bill payment for this account number",
-          "zeroAmount" : " You don’t have any outstanding bill payment for this account number.",
-          "negativeAmount" : "We have deducted that you are in credit of AED --amount-- for this account number."
+        "billDetected": {
+          "title": "Bill Status",
+          "desc": " We have detected an outstanding bill payment for this account number",
+          "zeroAmount": " You don’t have any outstanding bill payment for this account number.",
+          "negativeAmount": "We have deducted that you are in credit of AED --amount-- for this account number."
         }
       },
-      "errors" : {
-        "onlyNumbers" : "Allow only numbers",
-        "minMaxLength" : "Only between --min-- - --max-- are valid.",
-        "matchNumber" : "Entered number should be greater than --greater-- and lesser than --lesser--",
-        "maxLength" : "Length should be --max--",
-        "nickName" : "Allow only these special characters @_#&-"
+      "errors": {
+        "onlyNumbers": "Allow only numbers",
+        "minMaxLength": "Only between --min-- - --max-- are valid.",
+        "matchNumber": "Entered number should be greater than --greater-- and lesser than --lesser--",
+        "maxLength": "Length should be --max--",
+        "nickName": "Allow only these special characters @_#&-"
       }
     },
-    "moneyTransfer" : {
+    "moneyTransfer": {
       "manage": {
-        "local" : {
-          "title" : "Local UAE Account",
-          "steps" : [
+        "local": {
+          "title": "Local UAE Account",
+          "steps": [
             "Account details",
             "Bank details",
             "Beneficiary details",
             "Authorisation",
             "Confirmation"
           ],
-          "accountDetails" : {
-            "title" : "Let’s get started with account details",
-            "fieldTitle" : "Please enter details",
-            "buttonLabel" : "Generate bank details",
-            "field" : {
-              "label" : "Enter IBAN",
-              "adornment" : "AE",
-              "helperText" : "--length-- digit IBAN code of a UAE bank account",
-              "beneficiaryExists" : "Baneficiary exists for the entered account"
+          "accountDetails": {
+            "title": "Let’s get started with account details",
+            "fieldTitle": "Please enter details",
+            "buttonLabel": "Generate bank details",
+            "field": {
+              "label": "Enter IBAN",
+              "adornment": "AE",
+              "helperText": "--length-- digit IBAN code of a UAE bank account",
+              "beneficiaryExists": "Baneficiary exists for the entered account"
             },
-            "info" : {
-              "title" : "Local transfer",
-              "desc" : "We only support AED transfers to local banks in UAE."
+            "info": {
+              "title": "Local transfer",
+              "desc": "We only support AED transfers to local banks in UAE."
             }
           },
-          "bankDetails" : {
-            "title" : "Beneficiary bank details fetched",
-            "iban" : "IBAN",
-            "swiftcode" : "SWIFT CODE",
-            "buttonLabel" : "Confirm and continue",
-            "info" : {
-              "title" : "Are these bank details correct?",
-              "desc" : "If these details don’t belong to the account you want to send money to, please go back and enter the right details in the previous step!"
+          "bankDetails": {
+            "title": "Beneficiary bank details fetched",
+            "iban": "IBAN",
+            "swiftcode": "SWIFT CODE",
+            "buttonLabel": "Confirm and continue",
+            "info": {
+              "title": "Are these bank details correct?",
+              "desc": "If these details don’t belong to the account you want to send money to, please go back and enter the right details in the previous step!"
             }
           },
-          "beneficiaryDetails" : {
-            "title" : "Beneficiary details",
-            "fieldTitle" : "Please enter details",
-            "accountName" : {
-              "label" : "Enter Beneficiary Account Name",
-              "helperText" : "Write the full name of the account holder",
-              "error" : ""
+          "beneficiaryDetails": {
+            "title": "Beneficiary details",
+            "fieldTitle": "Please enter details",
+            "accountName": {
+              "label": "Enter Beneficiary Account Name",
+              "helperText": "Write the full name of the account holder",
+              "error": ""
             },
-            "nickName" : {
-              "label" : "Enter Nickname",
-              "helperText" : "Find your beneficiariesquicker by naming them! --br-- For e.g. Masood",
-              "error" : "This Nickname is already being used for a different beneficiary, please write a new one!"
+            "nickName": {
+              "label": "Enter Nickname",
+              "helperText": "Find your beneficiariesquicker by naming them! --br-- For e.g. Masood",
+              "error": "This Nickname is already being used for a different beneficiary, please write a new one!"
             }
           },
-          "confirmation":{
-            "success" : {
-              "title" : "Beneficiary request created",
-              "desc" : "You will now be able to transfer money to your beneficiary after 6 hours.",
-              "activation" : "To Activation",
-              "viewAllButton" : "View all beneficiaries"
+          "confirmation": {
+            "success": {
+              "title": "Beneficiary request created",
+              "desc": "You will now be able to transfer money to your beneficiary after 6 hours.",
+              "activation": "To Activation",
+              "viewAllButton": "View all beneficiaries"
             }
           }
         },
-        "within" : {
-          "title" : "Mashreq Bank",
-          "steps" : [
-            "Beneficiary details",
-            "Authorisation",
-            "Confirmation"
-          ],
-          "beneficiaryDetails" : {
-            "title" : "Let's get started with the beneficiary details",
-            "fieldTitle" : "Please enter details",
-            "accountNumber" : {
-              "label" : "Enter Account Number",
-              "helperText" : "Enter the 12 digit Mashreq account number",
-              "error" : ""
+        "within": {
+          "title": "Mashreq Bank",
+          "steps": ["Beneficiary details", "Authorisation", "Confirmation"],
+          "beneficiaryDetails": {
+            "title": "Let's get started with the beneficiary details",
+            "fieldTitle": "Please enter details",
+            "accountNumber": {
+              "label": "Enter Account Number",
+              "helperText": "Enter the 12 digit Mashreq account number",
+              "error": ""
             },
-            "nickName" : {
-              "label" : "Enter Nickname",
-              "helperText" : "Adding unique nicknames help you find your --br-- beneficiaries quicker!",
-              "error" : "This Nickname is already being used for a different beneficiary, please write a new one!"
+            "nickName": {
+              "label": "Enter Nickname",
+              "helperText": "Adding unique nicknames help you find your --br-- beneficiaries quicker!",
+              "error": "This Nickname is already being used for a different beneficiary, please write a new one!"
             }
           },
-          "confirmation":{
-            "success" : {
-              "title" : "Beneficiary request created",
-              "desc" : "You will now be able to transfer money to your beneficiary after 6 hours.",
-              "activation" : "To Activation",
-              "viewAllButton" : "View all beneficiaries"
+          "confirmation": {
+            "success": {
+              "title": "Beneficiary request created",
+              "desc": "You will now be able to transfer money to your beneficiary after 6 hours.",
+              "activation": "To Activation",
+              "viewAllButton": "View all beneficiaries"
             }
           }
         }
       }
     }
-   
   },
-  "moneytransfer":{
-    "landing":{
-    "title":"Money Transfers",
-    "choose":"Choose a Transfer Type",
-    "within":"Within your Mashreq Accounts",
-    "toAnother":"To Another Mashreq Account",
-    "local":"To a Local UAE Account",
-    "international":"To An International Account "
-  },
-  "steps":[
-    "Start Your Transfer",
-    "Set transfer amount",
-    "Review",
-    "Confirmation"
-  ],
-  "stepsPurpose":[
-    "Start Your Transfer",
-    "Set transfer amount",
-    "Purpose and charges",
-    "Review",
-    "Confirmation"
-  ],
-  "purpose":{
-    "title":"Let us know the purpose of payment and charges",
-    "payfor":"The Payments is for",
-    "select":"Select Purpose of Payment",
-    "whoPays":"Who pays the payment charges?",
-    "oreciever":"Only the receiver",
-    "receiverCharges":"The receiver pays the charges out of this transfer",
-    "oSender":"Only the sender",
-    "toCharges":"To pay the charges upfront",
-    "shared":"Shared between sender & receiver",
-    "both":"Both parties share the charges",
-    "payment":"Payment charges for locale UAE transfers",
-    "card":"Not expected from Praveen. Please note that the correspondent bank may deduct charges from remittance amount irrespective of the charge method selected.",
-    "selectPurpose":"Select Purpose of Payment",
-    "continue":"Continue"
-  },
-  "startYourPayment":{
-    "title":"Start your transfer",
-    "payfrom":"I want to send money from",
-    "to":"To this account",
-    "setAmountButton":"Set Transfer Amount"
-   },
-   "review":{
-    "payingFrom":"Paying from",
-    "title":"Review your transfer",
-    "transfering":"You are Transfering",
-    "payCharge":"Payment Charges",
-    "ack":"By clicking on ’Submit’ button, I/We acknowledge and accept the",
-    "terms":"Terms and Conditions",
-    "appl":"applicable and available.",
-    "purp":"Purpose of Payment"
-
-   },
-   "success":{
-     "fallowup":"Please check the Transaction Queue tab to follow up on the status of the transaction.",
-      "transferd":"You have transferred",
-      "withNumber":"Your transaction with reference number",
-      "frequent":"Frequent Payment?",
-      "setupInstruction":"Set up as standing instruction"
+  "moneytransfer": {
+    "landing": {
+      "title": "Money Transfers",
+      "choose": "Choose a Transfer Type",
+      "within": "Within your Mashreq Accounts",
+      "toAnother": "To Another Mashreq Account",
+      "local": "To a Local UAE Account",
+      "international": "To An International Account "
     },
-   "setTransferAmount":{
-    "title":"What amount would you like to transfer?",
-    "recievingAmount":"The Receiving account will get",
-    "amountLabel":"Receiving Amount",
-    "amountLabelAria":"Transfer amount input box",
-    "debitedLabel":"Transfer amount",
-    "debitedLabelAria":"Transfer amount input box",
-    "debitedTitle":"You will be debited",
-    "atAnExchangeRate":"At an exchange rate of",
-    "calcValues":"Your exchange rate is calculated on the following values",
-    "review":"Review"
-   },
-   "noAccount":"You dont seems to have account",
-   "nobeni":"No beneficiaries detected",
-   "addbeni":"You can add one right now"
+    "steps": [
+      "Start Your Transfer",
+      "Set transfer amount",
+      "Review",
+      "Confirmation"
+    ],
+    "stepsPurpose": [
+      "Start Your Transfer",
+      "Set transfer amount",
+      "Purpose and charges",
+      "Review",
+      "Confirmation"
+    ],
+    "purpose": {
+      "title": "Let us know the purpose of payment and charges",
+      "payfor": "The Payments is for",
+      "select": "Select Purpose of Payment",
+      "whoPays": "Who pays the payment charges?",
+      "oreciever": "Only the receiver",
+      "receiverCharges": "The receiver pays the charges out of this transfer",
+      "oSender": "Only the sender",
+      "toCharges": "To pay the charges upfront",
+      "shared": "Shared between sender & receiver",
+      "both": "Both parties share the charges",
+      "payment": "Payment charges for locale UAE transfers",
+      "card": "Not expected from Praveen. Please note that the correspondent bank may deduct charges from remittance amount irrespective of the charge method selected.",
+      "selectPurpose": "Select Purpose of Payment",
+      "continue": "Continue"
+    },
+    "startYourPayment": {
+      "title": "Start your transfer",
+      "payfrom": "I want to send money from",
+      "to": "To this account",
+      "setAmountButton": "Set Transfer Amount"
+    },
+    "review": {
+      "payingFrom": "Paying from",
+      "title": "Review your transfer",
+      "transfering": "You are Transfering",
+      "payCharge": "Payment Charges",
+      "ack": "By clicking on ’Submit’ button, I/We acknowledge and accept the",
+      "terms": "Terms and Conditions",
+      "appl": "applicable and available.",
+      "purp": "Purpose of Payment"
+    },
+    "success": {
+      "fallowup": "Please check the Transaction Queue tab to follow up on the status of the transaction.",
+      "transferd": "You have transferred",
+      "withNumber": "Your transaction with reference number",
+      "frequent": "Frequent Payment?",
+      "setupInstruction": "Set up as standing instruction"
+    },
+    "setTransferAmount": {
+      "title": "What amount would you like to transfer?",
+      "recievingAmount": "The Receiving account will get",
+      "amountLabel": "Receiving Amount",
+      "amountLabelAria": "Transfer amount input box",
+      "debitedLabel": "Transfer amount",
+      "debitedLabelAria": "Transfer amount input box",
+      "debitedTitle": "You will be debited",
+      "atAnExchangeRate": "At an exchange rate of",
+      "calcValues": "Your exchange rate is calculated on the following values",
+      "review": "Review"
+    },
+    "noAccount": "You dont seems to have account",
+    "nobeni": "No beneficiaries detected",
+    "addbeni": "You can add one right now"
   },
   "billPayments": {
-    "landing" : {
+    "landing": {
       "title": "Recharges & Bill Payments",
-      "searchTitle" : "Search for a Service Provider, Type or Beneficiary",
-      "searchPlaceholder" : "Search for a Service Provider or Bill payment type",
-      "search" : {
+      "searchTitle": "Search for a Service Provider, Type or Beneficiary",
+      "searchPlaceholder": "Search for a Service Provider or Bill payment type",
+      "search": {
         "notFound": {
-          "title" : "No search results",
+          "title": "No search results",
           "desc": "Lorem Ipsum is simply dummy text of the printing and typesetting industry"
         }
       }
     },
-    "steps" : {
-      "startPayment" : {
-        "title" : "Start your payment",
-        "prepaidBalance" : "Current --type-- --serviceType-- balance",
-        "prepaidDesc" : "Make sure this amount is greater then AED 50.00, but doesn't exceed AED 1,000.00",
-        "beneficiaryList" : {
-          "title" : "Your Beneficiaries",
-          "desc" : "Click on your beneficiaries to start payments"
+    "steps": {
+      "startPayment": {
+        "title": "Start your payment",
+        "prepaidBalance": "Current --type-- --serviceType-- balance",
+        "prepaidDesc": "Make sure this amount is greater then AED 50.00, but doesn't exceed AED 1,000.00",
+        "beneficiaryList": {
+          "title": "Your Beneficiaries",
+          "desc": "Click on your beneficiaries to start payments"
         },
         "voucher": {
-          "title" : "Pick a voucher"
+          "title": "Pick a voucher"
         }
       },
       "review": {
-        "title":"Review your payment",
-        "youarePaying" : "You are paying",
-        "payingFrom" : "Paying From"
+        "title": "Review your payment",
+        "youarePaying": "You are paying",
+        "payingFrom": "Paying From"
       },
-      "confirmation":{
+      "confirmation": {
         "success": {
-          "title" : "Transaction is successfully completed" 
+          "title": "Transaction is successfully completed"
         },
         "failure": {
-          "title" : "Transaction could not be processed",
-          "desc":"lorelum sample text lorelum sample text yet to be added bla bla bla"
+          "title": "Transaction could not be processed",
+          "desc": "lorelum sample text lorelum sample text yet to be added bla bla bla"
         },
-        "customerCare":"Mashreq customer care",
-        "payment":"Frequent Payment?",
-        "saveIt":"Save it as beneficiary",
-        "debited":"Debited",
-        "support":"24/7 support",
-        "contactus":"You can contact us"
+        "customerCare": "Mashreq customer care",
+        "payment": "Frequent Payment?",
+        "saveIt": "Save it as beneficiary",
+        "debited": "Debited",
+        "support": "24/7 support",
+        "contactus": "You can contact us"
       },
       "payCustomAmount": {
         "title": "Pay Custom Amount"
@@ -531,10 +525,10 @@
     "links": ["Disclaimer", "Teram & Conditions", "Sitemap"]
   },
   "kyc": {
-    "title" : {
+    "title": {
       "loginTitle": "Login to renew your KYC online"
     },
-    "placeholderText" : {
+    "placeholderText": {
       "loginPlaceholder": "Enter Debit card or CIF number"
     },
     "message": {
@@ -544,6 +538,58 @@
       "expiredBeyondFreeze": "Your account activity may have already been restricted. Please complete this process so that you have unrestricted access to your account.",
       "expiredMoreThan30": "Please update and verify your account details at the earliest to have unrestricted access to your account.",
       "expiredLessThan30": "We will need to update some of your details to comply with regulations. You only have to ensure your account activity is not restricted"
+    }
+  },
+  "cards": {
+    "pinReset": {
+      "steps": ["Enter your PIN", "Authentication", "Confirmation"],
+      "otp": {
+        "resendPossible": "Resend possible in",
+        "sendOtpError": "Couldn't send otp. Please try again",
+        "resendOtpError": "Couldn't resend otp. Please try again",
+        "validateOtpError": "The entered 6 digit code is incorrect. Please re-enter the correct code!"
+      },
+      "init": {
+        "title": "Enter your PIN",
+        "subTitle": "To reset your credit card PIN, please enter the new PIN you wish to use.",
+        "infoCard": {
+          "title": "How to set a secure PIN?",
+          "content": "A secure PIN is unique and not easy to guess. Here are some tips to guide you: ",
+          "list": [
+            "Keep your PIN unique for each of your cards.",
+            "Do not use sequential or repetitive numbers like 1234 or 1111.",
+            "Avoid easily accessible information like phone no. and date of birth.",
+            "Use as many different digits as possible and keep it unique to you."
+          ]
+        },
+        "pinsNotMatchError": "The PINs do not match. Try again!",
+        "mainBtnText": "Reset PIN",
+        "backBtnText": "Back"
+      },
+      "auth": {
+        "title": "Authentication",
+        "subTitle": "Please enter the 6 digit code sent to your registered mobile",
+        "infoCard": {
+          "title": "Not your number?",
+          "content": "In case you have a different number, you have to change it to proceed. You can:",
+          "list": [
+            "Go to your nearest ATM, and select change the PIN from the options.",
+            "Go to your nearest branch and raise a request."
+          ]
+        },
+        "mainBtnText": "Submit",
+        "backBtnText": "Back"
+      },
+      "success": {
+        "title": "You have successfully reset your PIN!",
+        "subTitle": "You can start using your new PIN from your next transaction!",
+        "mainBtnText": "Done"
+      },
+      "fail": {
+        "title": "We couldn’t complete your PIN reset.",
+        "subTitle": "Apologies, there was an error",
+        "mainBtnText": "Try Again"
+      }
     }
   }
 }
