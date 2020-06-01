@@ -39,9 +39,9 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export interface PinResetInitProps {}
+export interface CardActivationInitProps {}
 
-const PinResetInit: React.SFC<PinResetInitProps> = () => {
+const CardActivationInit: React.SFC<CardActivationInitProps> = () => {
   const history = useHistory();
   const classes = useStyles();
   const { t } = useTranslation();
@@ -205,4 +205,4 @@ const PinResetInit: React.SFC<PinResetInitProps> = () => {
   );
 };
 
-export default PinResetInit;
+export default CardActivationInit;

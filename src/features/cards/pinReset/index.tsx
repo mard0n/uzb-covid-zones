@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box } from "@mashreq-digital/ui";
-import { Route, Redirect } from "react-router-dom";
+import { Route } from "react-router-dom";
 import * as RoutePath from "../routes/config";
 import PinResetInit from "./screens/PinResetInit";
 import PinResetAuth from "./screens/PinResetAuth";

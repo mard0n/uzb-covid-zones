@@ -9,6 +9,7 @@ import {
 import { Route } from "react-router-dom";
 import * as RoutePath from "./routes/config";
 import PinReset from "./pinReset";
+import CardActivation from "./cardActivation";
 
 export interface CardsProps {}
 
@@ -20,6 +21,9 @@ const Cards: React.SFC<CardsProps> = () => {
       <StateContext.Provider value={state}>
         <Route path={RoutePath.PIN_RESET}>
           <PinReset />
+        </Route>
+        <Route path={RoutePath.CARD_ACTIVATION}>
+          <CardActivation />
         </Route>
       </StateContext.Provider>
     </DispatchContext.Provider>
