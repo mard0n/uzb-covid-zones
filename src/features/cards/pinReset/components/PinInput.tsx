@@ -6,15 +6,16 @@ export interface PinInputProps {
   value: string;
   onPinChange: (pin: string) => void;
   error: boolean;
+  autoFocus?: boolean;
 }
 
 const PinInput: React.SFC<PinInputProps> = (props) => {
-  const { label, value, onPinChange, error } = props;
+  const { label, autoFocus = false, value, onPinChange, error } = props;
   return (
     <Box mb={"40px"}>
       <H5 gutterBottom>{label}</H5>
       <OTP
-        autoFocus
+        autoFocus={autoFocus}
         secure // TODO: Issue with " 2 4"(not empty value) and password type
         value={value}
         onChange={onPinChange}

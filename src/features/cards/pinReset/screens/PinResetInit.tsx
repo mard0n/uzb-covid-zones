@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import {
-  H1,
   Body1,
   UnderlineText,
   Box,
@@ -17,7 +16,8 @@ import {
   BackButton,
   makeStyles,
   H2,
-  OTP,
+  SuccessFailureIcon,
+  H5,
 } from "@mashreq-digital/ui";
 import { SuccessTick, CheckCircle } from "@mashreq-digital/webassets";
 import { useFetch } from "../../../kyc/store/hooks/useFetch";
@@ -55,7 +55,7 @@ const PinResetInit: React.SFC<PinResetInitProps> = () => {
     returnObjects: true,
   });
 
-  const { execute, response, loading } = useFetch(
+  const { execute, response, loading, error: apiError } = useFetch(
     Endpoint.CARDS_PIN_RESET_INIT,
     {
       method: "POST",
@@ -67,6 +67,8 @@ const PinResetInit: React.SFC<PinResetInitProps> = () => {
   );
 
   useEffect(() => {
+    console.log("apiError", apiError);
+
     if (!loading && response) {
       console.log("response", response);
       if (response.errorCode) {
@@ -80,7 +82,7 @@ const PinResetInit: React.SFC<PinResetInitProps> = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response, loading, dispatch]);
+  }, [response, loading, dispatch, apiError]);
 
   const handleSubmit = () => {
     if (pin && pinConfirm && pin.trim() === pinConfirm.trim()) {
@@ -106,6 +108,7 @@ const PinResetInit: React.SFC<PinResetInitProps> = () => {
 
               <Box display="flex" flexDirection="column">
                 <PinInput
+                  autoFocus={true}
                   label={"Enter your new PIN"}
                   value={pin}
                   onPinChange={(value) => {
@@ -129,10 +132,12 @@ const PinResetInit: React.SFC<PinResetInitProps> = () => {
             <Box style={{ maxWidth: "300px" }}>
               <InfoCard
                 fullWidth
-                icon={SuccessTick}
-                title={t("cards.pinReset.init.infoCard.title")}
                 content={
                   <>
+                    <SuccessFailureIcon type="success" />
+                    <H5 gutterBottom>
+                      {t("cards.pinReset.init.infoCard.title")}
+                    </H5>
                     <Caption gutterBottom>
                       {t("cards.pinReset.init.infoCard.content")}
                     </Caption>

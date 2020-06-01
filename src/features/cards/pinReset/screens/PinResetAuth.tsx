@@ -20,6 +20,7 @@ import {
   makeStyles,
   SuccessFailureIcon,
   H2,
+  H5,
 } from "@mashreq-digital/ui";
 import {
   SuccessTick,
@@ -116,10 +117,12 @@ const PinResetAuth: React.SFC<PinResetAuthProps> = () => {
             <Box style={{ maxWidth: "300px" }}>
               <InfoCard
                 fullWidth
-                icon={SuccessTick}
-                title={t("cards.pinReset.auth.infoCard.title")}
                 content={
                   <>
+                    <SuccessFailureIcon type="warning" />
+                    <H5 gutterBottom>
+                      {t("cards.pinReset.auth.infoCard.title")}
+                    </H5>
                     <Caption gutterBottom>
                       {t("cards.pinReset.auth.infoCard.content")}
                     </Caption>
