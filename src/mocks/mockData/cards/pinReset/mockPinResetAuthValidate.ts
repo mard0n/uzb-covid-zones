@@ -1,15 +1,10 @@
 export const mockPinResetAuthValidateSuccess = {
-  data: {},
-  responseStatus: {
-    status: "success",
-    message: "HSMI Translate PIN*Failed",
-  },
+  status: "success",
+  message: "Success",
+  errorCode: "EAI-SEL-BRK-000",
 };
 export const mockPinResetAuthValidateFail = {
-  data: {},
-  responseStatus: {
-    status: "success",
-    message: "HSMI Translate PIN*Failed",
-    errorCode: "EAI-SEL-BRK-099",
-  },
+  status: "success",
+  message: "HSMI Translate PIN*Failed",
+  errorCode: "EAI-SEL-BRK-099",
 };

@@ -541,14 +541,14 @@
     }
   },
   "cards": {
+    "otp": {
+      "resendPossible": "Resend possible in",
+      "sendOtpError": "Couldn't send otp. Please try again",
+      "resendOtpError": "Couldn't resend otp. Please try again",
+      "validateOtpError": "The entered 6 digit code is incorrect. Please re-enter the correct code!"
+    },
     "pinReset": {
       "steps": ["Enter your PIN", "Authentication", "Confirmation"],
-      "otp": {
-        "resendPossible": "Resend possible in",
-        "sendOtpError": "Couldn't send otp. Please try again",
-        "resendOtpError": "Couldn't resend otp. Please try again",
-        "validateOtpError": "The entered 6 digit code is incorrect. Please re-enter the correct code!"
-      },
       "init": {
         "title": "Enter your PIN",
         "subTitle": "To reset your credit card PIN, please enter the new PIN you wish to use.",

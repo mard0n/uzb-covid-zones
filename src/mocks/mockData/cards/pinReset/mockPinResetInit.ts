@@ -1,4 +1,4 @@
-export const mockPinResetSuccess = {
+export const mockPinResetInitSuccess = {
   data: {
     maskedMobileNumber: "+99852***1234",
   },
@@ -7,7 +7,7 @@ export const mockPinResetSuccess = {
     message: "HSMI Translate PIN*Failed",
   },
 };
-export const mockPinResetFail = {
+export const mockPinResetInitFail = {
   data: {},
   responseStatus: {
     status: "success",

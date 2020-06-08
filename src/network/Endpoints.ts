@@ -45,6 +45,7 @@ export const CARDS_PIN_RESET_INIT = "/cards/pin-reset/init";
 export const CARDS_PIN_RESET_AUTH_SEND = "/cards/pin-reset/auth/send";
 export const CARDS_PIN_RESET_AUTH_RESEND = "/cards/pin-reset/auth/resend";
 export const CARDS_PIN_RESET_AUTH_VALIDATE = "/cards/pin-reset/auth/validate";
+export const CARDS_PIN_RESET = "/cards-mtn-general-service/cards-maintenance-service/v1/reset-pin";
 
 export const MONEY_TRANSFER_PURPOSE_OF_PAYMENT_ENDPOINT = `/mob-common-service/v1/payment-purposes/${"transferType"}?qrType=${"qrTypeParam"}&customerType=${"customerTypeParam"}`;
 // transactionType = local, international, quick-remit

@@ -53,7 +53,7 @@ const OtpInput: React.SFC<OtpInputProps> = (props) => {
   useEffect(() => {
     if (!sendOtpLoading && sendOtpRes) {
       console.log("sendOtpRes", sendOtpRes);
-      if (sendOtpRes.errorCode) {
+      if (sendOtpRes.message !== "Success") {
         setError(t("cards.otp.sendOtpError"));
       } else {
         // setError("");
@@ -65,7 +65,7 @@ const OtpInput: React.SFC<OtpInputProps> = (props) => {
   useEffect(() => {
     if (!resendOtpLoading && resendOtpRes) {
       console.log("resendOtpRes", resendOtpRes);
-      if (resendOtpRes.errorCode) {
+      if (resendOtpRes.message !== "Success") {
         setError(t("cards.otp.resendOtpError"));
       } else {
         // setError("");
