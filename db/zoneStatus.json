@@ -1,0 +1,24 @@
+[
+  {
+    "id": "danger",
+    "range": ["4000", ""],
+    "color": "#ff5858",
+    "restrictions": [
+      "Don't do ABC",
+      "Don't do DEF",
+      "There is a lot of restrictions"
+    ]
+  },
+  {
+    "id": "mild",
+    "range": ["1000", "3999"],
+    "color": "#ffc182",
+    "restrictions": ["Don't do ABC", "Less restrictions"]
+  },
+  {
+    "id": "good",
+    "range": ["", "999"],
+    "color": "#2e8e58",
+    "restrictions": ["Only small restrictions"]
+  }
+]
