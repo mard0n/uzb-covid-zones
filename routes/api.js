@@ -45,26 +45,26 @@ router.post("/authenticate", async (req, res, next) => {
 //   });
 // });
 
-// router.get("/zones", async (req, res) => {
-//   Zone.find({})
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       console.log("Admin error catch", err);
-//       res.sendStatus(500);
-//     });
-// });
+router.get("/zones", async (req, res) => {
+  Zone.find({})
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log("Admin error catch", err);
+      res.sendStatus(500);
+    });
+});
 
-// router.get("/zones-status", async (req, res) => {
-//   ZoneCategories.find({})
-//     .then((data) => {
-//       res.send(data);
-//     })
-//     .catch((err) => {
-//       console.log("Admin error catch", err);
-//       res.sendStatus(500);
-//     });
-// });
+router.get("/zones-status", async (req, res) => {
+  ZoneCategories.find({})
+    .then((data) => {
+      res.send(data);
+    })
+    .catch((err) => {
+      console.log("Admin error catch", err);
+      res.sendStatus(500);
+    });
+});
 
 module.exports = router;
