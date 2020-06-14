@@ -66,27 +66,36 @@ const PinResetInit: React.SFC<PinResetInitProps> = () => {
     }
   );
 
-  useEffect(() => {
-    console.log("apiError", apiError);
+  // useEffect(() => {
+  //   console.log("apiError", apiError);
 
-    if (!loading && response) {
-      console.log("response", response);
-      if (response.errorCode) {
-        setError("Error message");
-      } else {
-        dispatch({ type: ADD_MASKED_MOBILE, payload: response.data });
-        history.push({
-          pathname: PIN_RESET_AUTH,
-        });
-        setError("");
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [response, loading, dispatch, apiError]);
+  //   if (!loading && response) {
+  //     console.log("response", response);
+  //     if (response.errorCode) {
+  //       setError("Error message");
+  //     } else {
+  //       dispatch({ type: ADD_MASKED_MOBILE, payload: response.data });
+  //       history.push({
+  //         pathname: PIN_RESET_AUTH,
+  //       });
+  //       setError("");
+  //     }
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [response, loading, dispatch, apiError]);
 
+  // const handleSubmit = () => {
+  //   if (pin && pinConfirm && pin.trim() === pinConfirm.trim()) {
+  //     execute();
+  //   } else {
+  //     setPinError(t("cards.pinReset.init.pinsNotMatchError"));
+  //   }
+  // };
   const handleSubmit = () => {
     if (pin && pinConfirm && pin.trim() === pinConfirm.trim()) {
-      execute();
+      history.push({
+        pathname: PIN_RESET_AUTH,
+      });
     } else {
       setPinError(t("cards.pinReset.init.pinsNotMatchError"));
     }

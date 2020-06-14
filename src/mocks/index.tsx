@@ -10,8 +10,8 @@ import { landingMocked } from "./mockData/moneyTransfer/landingMocked";
 import { payListOwnAccount } from "./mockData/moneyTransfer/payListOwnAccount";
 import { payListBeni } from "./mockData/moneyTransfer/payListBeni";
 import {
-  mockPinResetSuccess,
-  mockPinResetFail,
+  mockPinResetInitSuccess,
+  mockPinResetInitFail,
 } from "./mockData/cards/pinReset/mockPinResetInit";
 import {
   mockPinResetAuthSendSuccess,
@@ -25,6 +25,7 @@ import {
   mockPinResetAuthValidateSuccess,
   mockPinResetAuthValidateFail,
 } from "./mockData/cards/pinReset/mockPinResetAuthValidate";
+import { mockPinResetSuccess } from "./mockData/cards/pinReset/mockPinReset";
 // import { mockMTIbansearch } from './mockData/beneficiary/moneyTransfer/mockIBAN';
 
 const startMocking = (isMockingRequired: boolean = false) => {
@@ -51,14 +52,14 @@ const startMocking = (isMockingRequired: boolean = false) => {
       // .reply(200, mockServiceTypes)
       // .onGet(Endpoints.MONEY_TRANSFER_LANDING)
       // .reply(200, landingMocked)
-      .onGet(Endpoints.CARDS_PIN_RESET_INIT)
-      .reply(200, mockPinResetSuccess)
-      .onGet(Endpoints.CARDS_PIN_RESET_AUTH_SEND)
+      .onPost(Endpoints.CARDS_PIN_RESET_AUTH_SEND)
       .reply(200, mockPinResetAuthSendSuccess)
-      .onGet(Endpoints.CARDS_PIN_RESET_AUTH_RESEND)
+      .onPost(Endpoints.CARDS_PIN_RESET_AUTH_RESEND)
       .reply(200, mockPinResetAuthResendSuccess)
-      .onGet(Endpoints.CARDS_PIN_RESET_AUTH_VALIDATE)
+      .onPost(Endpoints.CARDS_PIN_RESET_AUTH_VALIDATE)
       .reply(200, mockPinResetAuthValidateSuccess)
+      // .onPost(Endpoints.CARDS_PIN_RESET)
+      // .reply(200, mockPinResetSuccess)
       // .onGet("mob-common-service/v1/payment-options/own-account")
       // .reply(200, payListOwnAccount)
       // .onGet(Endpoints.MONEY_TRANSFER_BENEFICIARIES_ENDPOINT_Static)

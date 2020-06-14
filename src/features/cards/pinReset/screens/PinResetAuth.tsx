@@ -34,7 +34,7 @@ import * as Endpoint from "../../../../network/Endpoints";
 import OtpInput from "../../shared/components/OtpInput";
 import Loader from "../../../../common/loader";
 import { useHistory } from "react-router-dom";
-import { PIN_RESET_SUCCESS } from "../../routes/config";
+import { PIN_RESET_SUCCESS, PIN_RESET_FAIL } from "../../routes/config";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(() => ({
@@ -50,6 +50,7 @@ export interface PinResetAuthProps {}
 
 const PinResetAuth: React.SFC<PinResetAuthProps> = () => {
   const { maskedMobileNumber } = useContext(StateContext).pinReset;
+  // const maskedMobileNumber = 971521231234
   const history = useHistory();
   const { t } = useTranslation();
   const tips: string[] = t("cards.pinReset.auth.infoCard.list", {
@@ -69,21 +70,50 @@ const PinResetAuth: React.SFC<PinResetAuthProps> = () => {
       cardNumber: "123",
     },
   });
+  const {
+    execute: pinReset,
+    response: pinResetRes,
+    loading: pinResetLoading,
+  } = useFetch(Endpoint.CARDS_PIN_RESET, {
+    method: "POST",
+    data: {
+      cardNumber:
+        "0E3F9DC4A67AFB8F36CD17B18C039C42A76DEE63C9CEBAFBFAB3D23B02ED17B9",
+      encryptedPinNo: "334343432244",
+    },
+  });
   useEffect(() => {
     if (!validateOtpLoading && validateOtpRes) {
       // TODO: need to find a way to handle server errors to show error page
       console.log("validateOtpRes", validateOtpRes);
-      if (validateOtpRes.errorCode) {
+      if (validateOtpRes.hasError) {
         setError(t("cards.otp.validateOtpError"));
       } else {
         setError("");
+        pinReset();
+        // history.replace({
+        //   pathname: PIN_RESET_SUCCESS,
+        // });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [validateOtpRes, validateOtpLoading]);
+  useEffect(() => {
+    if (!pinResetLoading && pinResetRes) {
+      // TODO: need to find a way to handle server errors to show error page
+      console.log("pinResetRes", pinResetRes);
+      if (pinResetRes.hasError) {
+        history.replace({
+          pathname: PIN_RESET_FAIL,
+        });
+      } else {
         history.replace({
           pathname: PIN_RESET_SUCCESS,
         });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [validateOtpRes, validateOtpLoading]);
+  }, [pinResetRes, pinResetLoading]);
   const handleSubmit = () => {
     validateOtp();
     setOtp("");
@@ -173,7 +203,7 @@ const PinResetAuth: React.SFC<PinResetAuthProps> = () => {
           </Box>
         }
       />
-      {validateOtpLoading && <Loader enable={true} />}
+      {(validateOtpLoading || pinResetLoading) && <Loader enable={true} />}
     </JourneySidebar>
   );
 };
