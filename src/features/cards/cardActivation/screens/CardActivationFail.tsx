@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   Box,
   UnderlineText,
-  H1,
   Body1,
   SectionSplitter,
   Button,
@@ -11,7 +10,7 @@ import {
 } from "@mashreq-digital/ui";
 import JourneySidebar from "../../../../components/JourneySidebar";
 import { useHistory } from "react-router-dom";
-import { PIN_RESET_INIT } from "../../routes/config";
+import { PIN_SET } from "../../routes/config";
 import { useTranslation } from "react-i18next";
 
 export interface PinResetFailProps {}
@@ -21,22 +20,22 @@ const PinResetFail: React.SFC<PinResetFailProps> = () => {
   const { t } = useTranslation();
   const handleSubmit = () => {
     history.replace({
-      pathname: PIN_RESET_INIT,
+      pathname: PIN_SET,
     });
   };
   return (
-    <JourneySidebar steps={"cards.pinReset.steps"} currentStep={2}>
+    <JourneySidebar steps={"cards.cardActivation.steps"} currentStep={3}>
       <SectionSplitter
         top={
           <Grid>
             <Box mb={5}>
               <UnderlineText>
-                <H2>{t("cards.pinReset.fail.title")}</H2>
+                <H2>{t("cards.cardActivation.fail.title")}</H2>
               </UnderlineText>
             </Box>
 
             <Box mb={5}>
-              <Body1>{t("cards.pinReset.fail.subTitle")}</Body1>
+              <Body1>{t("cards.cardActivation.fail.subTitle")}</Body1>
             </Box>
           </Grid>
         }
@@ -48,7 +47,7 @@ const PinResetFail: React.SFC<PinResetFailProps> = () => {
               color="primary"
               onClick={handleSubmit}
             >
-              {t("cards.pinReset.fail.mainBtnText")}
+              {t("cards.cardActivation.fail.mainBtnText")}
             </Button>
           </Box>
         }

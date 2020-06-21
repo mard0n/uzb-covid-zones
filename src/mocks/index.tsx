@@ -10,10 +10,6 @@ import { landingMocked } from "./mockData/moneyTransfer/landingMocked";
 import { payListOwnAccount } from "./mockData/moneyTransfer/payListOwnAccount";
 import { payListBeni } from "./mockData/moneyTransfer/payListBeni";
 import {
-  mockPinResetInitSuccess,
-  mockPinResetInitFail,
-} from "./mockData/cards/pinReset/mockPinResetInit";
-import {
   mockPinResetAuthSendSuccess,
   mockPinResetAuthSendFail,
 } from "./mockData/cards/pinReset/mockPinResetAuthSend";
@@ -26,6 +22,7 @@ import {
   mockPinResetAuthValidateFail,
 } from "./mockData/cards/pinReset/mockPinResetAuthValidate";
 import { mockPinResetSuccess } from "./mockData/cards/pinReset/mockPinReset";
+import { mockExpiryDateValidateSuccess } from "./mockData/cards/cardActivation/mockExpiryDateValidate";
 // import { mockMTIbansearch } from './mockData/beneficiary/moneyTransfer/mockIBAN';
 
 const startMocking = (isMockingRequired: boolean = false) => {
@@ -58,6 +55,8 @@ const startMocking = (isMockingRequired: boolean = false) => {
       .reply(200, mockPinResetAuthResendSuccess)
       .onPost(Endpoints.CARDS_PIN_RESET_AUTH_VALIDATE)
       .reply(200, mockPinResetAuthValidateSuccess)
+      .onPost(Endpoints.CARDS_EXPIRY_DATE_VALIDATION)
+      .reply(200, mockExpiryDateValidateSuccess)
       // .onPost(Endpoints.CARDS_PIN_RESET)
       // .reply(200, mockPinResetSuccess)
       // .onGet("mob-common-service/v1/payment-options/own-account")

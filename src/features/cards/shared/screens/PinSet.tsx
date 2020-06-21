@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import {
   Body1,
   UnderlineText,
@@ -19,16 +19,11 @@ import {
   SuccessFailureIcon,
   H5,
 } from "@mashreq-digital/ui";
-import { SuccessTick, CheckCircle } from "@mashreq-digital/webassets";
-import { useFetch } from "../../../kyc/store/hooks/useFetch";
-import * as Endpoint from "../../../../network/Endpoints";
-import { DispatchContext } from "../../store/context";
+import { CheckCircle } from "@mashreq-digital/webassets";
 import { useHistory } from "react-router-dom";
 import JourneySidebar from "../../../../components/JourneySidebar";
-import { ADD_MASKED_MOBILE } from "../../store/types";
-import { PIN_RESET_AUTH } from "../../routes/config";
 import { useTranslation } from "react-i18next";
-import PinInput from "../../shared/components/PinInput";
+import PinInput from "../components/PinInput";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -39,80 +34,49 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export interface PinResetInitProps {}
+export interface PinSetProps {
+  nextPage: string;
+  steps: string;
+  currentStep: number;
+}
 
-const PinResetInit: React.SFC<PinResetInitProps> = () => {
+const PinSet: React.SFC<PinSetProps> = (props) => {
+  const { nextPage, steps, currentStep } = props;
   const history = useHistory();
   const classes = useStyles();
   const { t } = useTranslation();
-  const dispatch = useContext(DispatchContext);
+  // const dispatch = useContext(DispatchContext);
   const [pin, setPin] = useState<any>("");
   const [pinConfirm, setPinConfirm] = useState<any>("");
   const [pinError, setPinError] = useState("");
   const [error, setError] = useState("");
 
-  const tips: string[] = t("cards.pinReset.init.infoCard.list", {
+  const tips: string[] = t("cards.pinSet.infoCard.list", {
     returnObjects: true,
   });
 
-  const { execute, response, loading, error: apiError } = useFetch(
-    Endpoint.CARDS_PIN_RESET_INIT,
-    {
-      method: "POST",
-      data: {
-        encryptedPinNo: pin,
-        cardNumber: "123",
-      },
-    }
-  );
-
-  // useEffect(() => {
-  //   console.log("apiError", apiError);
-
-  //   if (!loading && response) {
-  //     console.log("response", response);
-  //     if (response.errorCode) {
-  //       setError("Error message");
-  //     } else {
-  //       dispatch({ type: ADD_MASKED_MOBILE, payload: response.data });
-  //       history.push({
-  //         pathname: PIN_RESET_AUTH,
-  //       });
-  //       setError("");
-  //     }
-  //   }
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [response, loading, dispatch, apiError]);
-
-  // const handleSubmit = () => {
-  //   if (pin && pinConfirm && pin.trim() === pinConfirm.trim()) {
-  //     execute();
-  //   } else {
-  //     setPinError(t("cards.pinReset.init.pinsNotMatchError"));
-  //   }
-  // };
   const handleSubmit = () => {
     if (pin && pinConfirm && pin.trim() === pinConfirm.trim()) {
       history.push({
-        pathname: PIN_RESET_AUTH,
+        pathname: nextPage,
       });
     } else {
-      setPinError(t("cards.pinReset.init.pinsNotMatchError"));
+      setPinError(t("cards.pinSet.pinsNotMatchError"));
     }
   };
   return (
-    <JourneySidebar steps={"cards.pinReset.steps"} currentStep={0}>
+    <JourneySidebar steps={steps} currentStep={currentStep}>
       <SectionSplitter
         top={
           <Box display="flex" justifyContent="space-between">
             <Grid item md={4}>
               <Box mb={5}>
                 <UnderlineText>
-                  <H2>{t("cards.pinReset.init.title")}</H2>
+                  <H2>{t("cards.pinSet.title")}</H2>
                 </UnderlineText>
               </Box>
               <Box mb={5}>
-                <Body1>{t("cards.pinReset.init.subTitle")}</Body1>
+                <Body1>{t("cards.pinSet.subTitle")}</Body1>
               </Box>
 
               <Box display="flex" flexDirection="column">
@@ -144,11 +108,9 @@ const PinResetInit: React.SFC<PinResetInitProps> = () => {
                 content={
                   <>
                     <SuccessFailureIcon type="success" />
-                    <H5 gutterBottom>
-                      {t("cards.pinReset.init.infoCard.title")}
-                    </H5>
+                    <H5 gutterBottom>{t("cards.pinSet.infoCard.title")}</H5>
                     <Caption gutterBottom>
-                      {t("cards.pinReset.init.infoCard.content")}
+                      {t("cards.pinSet.infoCard.content")}
                     </Caption>
                     <List
                       className={classes.root}
@@ -193,7 +155,7 @@ const PinResetInit: React.SFC<PinResetInitProps> = () => {
               />
             ) : (
               <BackButton
-                label={t("cards.pinReset.init.backBtnText")}
+                label={t("cards.pinSet.backBtnText")}
                 onClickBack={() => {}}
               />
             )}
@@ -205,7 +167,7 @@ const PinResetInit: React.SFC<PinResetInitProps> = () => {
               disabled={!pin || !pinConfirm}
               onClick={handleSubmit}
             >
-              {t("cards.pinReset.init.mainBtnText")}
+              {t("cards.pinSet.mainBtnText")}
             </Button>
           </Box>
         }
@@ -214,4 +176,4 @@ const PinResetInit: React.SFC<PinResetInitProps> = () => {
   );
 };
 
-export default PinResetInit;
+export default PinSet;

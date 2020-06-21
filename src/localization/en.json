@@ -547,9 +547,26 @@
       "resendOtpError": "Couldn't resend otp. Please try again",
       "validateOtpError": "The entered 6 digit code is incorrect. Please re-enter the correct code!"
     },
-    "pinReset": {
-      "steps": ["Enter your PIN", "Authentication", "Confirmation"],
+    "cardActivation": {
+      "steps": [
+        "Activate Card",
+        "Enter your PIN",
+        "Authentication",
+        "Confirmation"
+      ],
       "init": {
+        "title": "Activate Card",
+        "subTitle": "The expiry date is printed on the front of your card.",
+        "input": {
+          "title": "Enter the expiry date of your card",
+          "label": "Expiry Date",
+          "helperText": "Make sure you type it in exactly as on your card.",
+          "expiryNotMatch": "The expiry date doesn’t match the card. Try again!"
+        },
+        "mainBtnText": "Activate Card",
+        "backBtnText": "Back"
+      },
+      "pinSet": {
         "title": "Enter your PIN",
         "subTitle": "To reset your credit card PIN, please enter the new PIN you wish to use.",
         "infoCard": {
@@ -581,6 +598,23 @@
         "backBtnText": "Back"
       },
       "success": {
+        "title": "You have successfully activated your card!",
+        "subTitle": "You are all set to use your new Mashreq card! What’s next?",
+        "walletBenefits": [
+          "Easy, contactless payments from your phone.",
+          "Your financial information stays only in your wallet, no need to enter your card details for most websites you shop with."
+        ],
+        "mainBtnText": "Add to Wallet"
+      },
+      "fail": {
+        "title": "We couldn’t complete your card activation.",
+        "subTitle": "Apologies, there was an error.",
+        "mainBtnText": "Try Again"
+      }
+    },
+    "pinReset": {
+      "steps": ["Enter your PIN", "Authentication", "Confirmation"],
+      "success": {
         "title": "You have successfully reset your PIN!",
         "subTitle": "You can start using your new PIN from your next transaction!",
         "mainBtnText": "Done"
@@ -590,6 +624,37 @@
         "subTitle": "Apologies, there was an error",
         "mainBtnText": "Try Again"
       }
+    },
+    "pinSet": {
+      "title": "Enter your PIN",
+      "subTitle": "To reset your credit card PIN, please enter the new PIN you wish to use.",
+      "infoCard": {
+        "title": "How to set a secure PIN?",
+        "content": "A secure PIN is unique and not easy to guess. Here are some tips to guide you: ",
+        "list": [
+          "Keep your PIN unique for each of your cards.",
+          "Do not use sequential or repetitive numbers like 1234 or 1111.",
+          "Avoid easily accessible information like phone no. and date of birth.",
+          "Use as many different digits as possible and keep it unique to you."
+        ]
+      },
+      "pinsNotMatchError": "The PINs do not match. Try again!",
+      "mainBtnText": "Reset PIN",
+      "backBtnText": "Back"
+    },
+    "auth": {
+      "title": "Authentication",
+      "subTitle": "Please enter the 6 digit code sent to your registered mobile",
+      "infoCard": {
+        "title": "Not your number?",
+        "content": "In case you have a different number, you have to change it to proceed. You can:",
+        "list": [
+          "Go to your nearest ATM, and select change the PIN from the options.",
+          "Go to your nearest branch and raise a request."
+        ]
+      },
+      "mainBtnText": "Submit",
+      "backBtnText": "Back"
     }
   }
 }

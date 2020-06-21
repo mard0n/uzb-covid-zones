@@ -4,7 +4,7 @@ export const mockPinResetAuthResendSuccess = {
   errorCode: "EAI-SEL-BRK-000",
 };
 export const mockPinResetAuthResendFail = {
-  status: "success",
+  status: "error",
   message: "HSMI Translate PIN*Failed",
   errorCode: "EAI-SEL-BRK-099",
 };

@@ -6,7 +6,7 @@ import {
   combinedReducers,
   combinedState,
 } from "./store/context";
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import * as RoutePath from "./routes/config";
 import PinReset from "./pinReset";
 import CardActivation from "./cardActivation";
@@ -19,12 +19,14 @@ const Cards: React.SFC<CardsProps> = () => {
   return (
     <DispatchContext.Provider value={dispatch}>
       <StateContext.Provider value={state}>
-        <Route path={RoutePath.PIN_RESET}>
-          <PinReset />
-        </Route>
-        <Route path={RoutePath.CARD_ACTIVATION}>
-          <CardActivation />
-        </Route>
+        <Switch>
+          <Route path={RoutePath.PIN_RESET}>
+            <PinReset />
+          </Route>
+          <Route path={RoutePath.CARD_ACTIVATION}>
+            <CardActivation />
+          </Route>
+        </Switch>
       </StateContext.Provider>
     </DispatchContext.Provider>
   );

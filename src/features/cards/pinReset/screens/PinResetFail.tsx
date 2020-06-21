@@ -2,7 +2,6 @@ import * as React from "react";
 import {
   Box,
   UnderlineText,
-  H1,
   Body1,
   SectionSplitter,
   Button,
@@ -11,7 +10,7 @@ import {
 } from "@mashreq-digital/ui";
 import JourneySidebar from "../../../../components/JourneySidebar";
 import { useHistory } from "react-router-dom";
-import { PIN_RESET_INIT } from "../../routes/config";
+import { PIN_RESET } from "../../routes/config";
 import { useTranslation } from "react-i18next";
 
 export interface PinResetFailProps {}
@@ -21,7 +20,7 @@ const PinResetFail: React.SFC<PinResetFailProps> = () => {
   const { t } = useTranslation();
   const handleSubmit = () => {
     history.replace({
-      pathname: PIN_RESET_INIT,
+      pathname: PIN_RESET,
     });
   };
   return (

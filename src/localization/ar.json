@@ -162,6 +162,71 @@
         "subTitle": "Need to find Arabic",
         "mainBtnText": "Need to find Arabic"
       }
+    },
+    "cardActivation": {
+      "steps": [
+        "Need to find Arabic",
+        "Need to find Arabic",
+        "Need to find Arabic",
+        "Need to find Arabic"
+      ],
+      "init": {
+        "title": "Need to find Arabic",
+        "subTitle": "Need to find Arabic",
+        "input": {
+          "title": "Need to find Arabic",
+          "label": "Need to find Arabic",
+          "helperText": "Need to find Arabic",
+          "expiryNotMatch": "Need to find Arabic!"
+        },
+        "mainBtnText": "Need to find Arabic",
+        "backBtnText": "Need to find Arabic"
+      },
+      "pinSet": {
+        "title": "Need to find Arabic",
+        "subTitle": "Need to find Arabic",
+        "infoCard": {
+          "title": "Need to find Arabic",
+          "content": "Need to find Arabic",
+          "list": [
+            "Need to find Arabic",
+            "Need to find Arabic",
+            "Need to find Arabic",
+            "Need to find Arabic"
+          ]
+        },
+        "pinsNotMatchError": "Need to find Arabic",
+        "mainBtnText": "Need to find Arabic",
+        "backBtnText": "Need to find Arabic"
+      },
+      "auth": {
+        "title": "Need to find Arabic",
+        "subTitle": "Need to find Arabic",
+        "infoCard": {
+          "title": "Need to find Arabic",
+          "content": "Need to find Arabic",
+          "list": [
+            "Need to find Arabic",
+            "Need to find Arabic"
+          ]
+        },
+        "mainBtnText": "Need to find Arabic",
+        "backBtnText": "Need to find Arabic"
+      },
+      "success": {
+        "title": "Need to find Arabic",
+        "subTitle": "Need to find Arabic",
+        "walletBenefits": [
+          "Need to find Arabic",
+          "Need to find Arabic"
+        ],
+        "mainBtnText": "Need to find Arabic"
+      },
+      "fail": {
+        "title": "Need to find Arabic",
+        "subTitle": "Need to find Arabic",
+        "mainBtnText": "Need to find Arabic"
+      }
     }
   }
 }

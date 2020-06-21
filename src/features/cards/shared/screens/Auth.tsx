@@ -4,7 +4,6 @@ import {
   SectionSplitter,
   Box,
   UnderlineText,
-  H1,
   Body1,
   MobileIconText,
   InfoCard,
@@ -13,7 +12,6 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
-  Banner,
   Button,
   BackButton,
   Grid,
@@ -23,18 +21,14 @@ import {
   H5,
 } from "@mashreq-digital/ui";
 import {
-  SuccessTick,
-  WarningCircle,
-  Warning,
   CheckCircle,
 } from "@mashreq-digital/webassets";
 import { StateContext } from "../../store/context";
 import { useFetch } from "../../../kyc/store/hooks/useFetch";
 import * as Endpoint from "../../../../network/Endpoints";
-import OtpInput from "../../shared/components/OtpInput";
+import OtpInput from "../components/OtpInput";
 import Loader from "../../../../common/loader";
 import { useHistory } from "react-router-dom";
-import { PIN_RESET_SUCCESS } from "../../routes/config";
 import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles(() => ({
@@ -46,13 +40,28 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-export interface PinResetAuthProps {}
+export interface AuthProps {
+  immediateApiCall: {
+    endpoint: any;
+    data: any;
+    routeOnSuccess: any;
+    routeOnFail: any;
+  };
+  steps: string;
+  currentStep: number;
+}
 
-const PinResetAuth: React.SFC<PinResetAuthProps> = () => {
-  const { maskedMobileNumber } = useContext(StateContext).pinReset;
+const Auth: React.SFC<AuthProps> = (props) => {
+  const {
+    immediateApiCall: { endpoint, data, routeOnSuccess, routeOnFail },
+    steps,
+    currentStep,
+  } = props;
+  const { maskedMobileNumber } = useContext(StateContext);
+  // const maskedMobileNumber = 971521231234
   const history = useHistory();
   const { t } = useTranslation();
-  const tips: string[] = t("cards.pinReset.auth.infoCard.list", {
+  const tips: string[] = t("cards.auth.infoCard.list", {
     returnObjects: true,
   });
   const classes = useStyles();
@@ -63,44 +72,66 @@ const PinResetAuth: React.SFC<PinResetAuthProps> = () => {
     execute: validateOtp,
     response: validateOtpRes,
     loading: validateOtpLoading,
-  } = useFetch(Endpoint.CARDS_PIN_RESET_AUTH_VALIDATE, {
+  } = useFetch(endpoint, {
     method: "POST",
     data: {
       cardNumber: "123",
     },
   });
+  const {
+    execute: immediateApiCall,
+    response: immediateApiCallRes,
+    loading: immediateApiCallLoading,
+  } = useFetch(Endpoint.CARDS_PIN_RESET, {
+    method: "POST",
+    data,
+  });
   useEffect(() => {
     if (!validateOtpLoading && validateOtpRes) {
       // TODO: need to find a way to handle server errors to show error page
       console.log("validateOtpRes", validateOtpRes);
-      if (validateOtpRes.errorCode) {
+      if (validateOtpRes.status === 'error') {
         setError(t("cards.otp.validateOtpError"));
       } else {
         setError("");
-        history.replace({
-          pathname: PIN_RESET_SUCCESS,
-        });
+        immediateApiCall();
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [validateOtpRes, validateOtpLoading]);
+  useEffect(() => {
+    if (!immediateApiCallLoading && immediateApiCallRes) {
+      // TODO: need to find a way to handle server errors to show error page
+      console.log("immediateApiCallRes", immediateApiCallRes);
+      if (immediateApiCallRes.status === "error") {
+        history.replace({
+          pathname: routeOnFail,
+        });
+      } else {
+        history.replace({
+          pathname: routeOnSuccess,
+        });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [immediateApiCallRes, immediateApiCallLoading]);
   const handleSubmit = () => {
     validateOtp();
     setOtp("");
   };
   return (
-    <JourneySidebar steps={"cards.pinReset.steps"} currentStep={1}>
+    <JourneySidebar steps={steps} currentStep={currentStep}>
       <SectionSplitter
         top={
           <Box display="flex" justifyContent="space-between">
             <Grid item md={4}>
               <Box mb={5}>
                 <UnderlineText>
-                  <H2>{t("cards.pinReset.auth.title")}</H2>
+                  <H2>{t("cards.auth.title")}</H2>
                 </UnderlineText>
               </Box>
               <Box mb={5}>
-                <Body1>{t("cards.pinReset.auth.subTitle")}</Body1>
+                <Body1>{t("cards.auth.subTitle")}</Body1>
               </Box>
 
               <Box display="flex" flexDirection="column">
@@ -120,11 +151,9 @@ const PinResetAuth: React.SFC<PinResetAuthProps> = () => {
                 content={
                   <>
                     <SuccessFailureIcon type="warning" />
-                    <H5 gutterBottom>
-                      {t("cards.pinReset.auth.infoCard.title")}
-                    </H5>
+                    <H5 gutterBottom>{t("cards.auth.infoCard.title")}</H5>
                     <Caption gutterBottom>
-                      {t("cards.pinReset.auth.infoCard.content")}
+                      {t("cards.auth.infoCard.content")}
                     </Caption>
                     <List
                       className={classes.root}
@@ -154,7 +183,7 @@ const PinResetAuth: React.SFC<PinResetAuthProps> = () => {
         bottom={
           <Box display="flex" justifyContent="space-between">
             <BackButton
-              label={t("cards.pinReset.auth.backBtnText")}
+              label={t("cards.auth.backBtnText")}
               onClick={() => {
                 console.log("history clicked");
                 history.goBack();
@@ -168,14 +197,16 @@ const PinResetAuth: React.SFC<PinResetAuthProps> = () => {
               disabled={otp?.replace(/\s/g, "").length !== 6}
               onClick={handleSubmit}
             >
-              {t("cards.pinReset.auth.mainBtnText")}
+              {t("cards.auth.mainBtnText")}
             </Button>
           </Box>
         }
       />
-      {validateOtpLoading && <Loader enable={true} />}
+      {(validateOtpLoading || immediateApiCallLoading) && (
+        <Loader enable={true} />
+      )}
     </JourneySidebar>
   );
 };
 
-export default PinResetAuth;
+export default Auth;
