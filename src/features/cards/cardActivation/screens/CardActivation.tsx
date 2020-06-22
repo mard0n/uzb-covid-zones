@@ -47,15 +47,19 @@ const CardActivation: React.SFC<CardActivationProps> = () => {
       if (response.status === "error") {
         setError("Error message");
       } else {
-        let {
-          expiryDate: { year: validYY = null, monthValue: validMM = null } = {},
-        } = response?.data || {};
+        let { expiryDate } = response?.data || {};
         let [mm, yy] = (expDate.split("/") as [any, any]);
 
+
+        let [validYY, validMM] = expiryDate.split('-')
         validYY = parseInt(validYY.toString().substr(-2));
+        validMM = parseInt(validMM);
         mm = parseInt(mm);
         yy = parseInt(yy);
 
+        console.log('validMM', validMM);
+        console.log('validYY', validYY);
+        
         if (validMM === mm && validYY === yy) {
 
           setError("");

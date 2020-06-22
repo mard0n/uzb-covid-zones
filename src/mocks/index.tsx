@@ -49,6 +49,8 @@ const startMocking = (isMockingRequired: boolean = false) => {
       // .reply(200, mockServiceTypes)
       // .onGet(Endpoints.MONEY_TRANSFER_LANDING)
       // .reply(200, landingMocked)
+      // .onPost(Endpoints.CARDS_PIN_RESET)
+      // .reply(200, mockPinResetSuccess)
       .onPost(Endpoints.CARDS_PIN_RESET_AUTH_SEND)
       .reply(200, mockPinResetAuthSendSuccess)
       .onPost(Endpoints.CARDS_PIN_RESET_AUTH_RESEND)
