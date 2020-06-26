@@ -6,16 +6,16 @@ const zoneSchema = new Schema({
     type: "String",
   },
   properties: {
-    place_id: {
-      type: "Number",
-    },
-    display_name: {
+    displayName: {
       type: "String",
     },
     alias: {
       type: ["String"],
     },
-    place_type: {
+    parentZone: {
+      type: "ObjectId", ref: 'Zone'
+    },
+    placeType: {
       type: "String",
     },
     zoomRange: {

@@ -58,10 +58,21 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Search: React.SFC<SearchProps> = () => {
-  const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
+  const { zones = [], dispatch } = useContext(StateContext);
   const [selectedZone, setSelectedZone] = useState<any>();
   const classes = useStyles();
   console.log("selectedZone", selectedZone);
+  const handleChange = (event: any, newValue: any, reason: any) => {
+    console.log("on change", newValue);
+    console.log("on change reason", reason);
+    if (reason === "select-option") {
+      dispatch({
+        type: ADD_SELECTED_ZONE_ID,
+        payload: newValue?._id,
+      });
+    }
+    setSelectedZone(newValue);
+  };
   return (
     <>
       <Autocomplete
@@ -72,24 +83,18 @@ const Search: React.SFC<SearchProps> = () => {
           inputRoot: classes.inputRoot,
         }}
         options={zones}
-        getOptionLabel={(option: any) => option?.properties?.display_name}
+        getOptionLabel={(option: any) => option?.properties?.displayName}
         value={selectedZone}
-        onChange={(event, newValue, reason) => {
-          console.log("on change", newValue);
-          console.log("on change reason", reason);
-          if (reason === "select-option") {
-            dispatch({
-              type: ADD_SELECTED_ZONE_ID,
-              payload: newValue?._id,
-            });
-          }
-          setSelectedZone(newValue);
-        }}
+        onChange={handleChange}
         filterOptions={(option: any, state: any) => {
-          return option.filter((i: any) =>
-            i?.properties?.alias?.some((a: any) =>
-              a?.toLowerCase().includes(state?.inputValue?.toLowerCase())
-            )
+          return option.filter(
+            (i: any) =>
+              i?.properties?.alias?.some((a: any) =>
+                a?.toLowerCase().includes(state?.inputValue?.toLowerCase())
+              ) ||
+              i?.properties?.displayName
+                ?.toLowerCase()
+                .includes(state?.inputValue?.toLowerCase())
           );
         }}
         popupIcon={null}

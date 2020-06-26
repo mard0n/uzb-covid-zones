@@ -38,7 +38,7 @@ const HistoryController: React.SFC<HistoryControllerProps> = (props) => {
   const { socket = {} } = props;
   const { zones, selectedZoneId } = useContext(StateContext);
   const selectedZone: any = getSelectedZoneObjById(selectedZoneId, zones);
-  const { history } = selectedZone?.properties || {};
+  const { history = [] } = selectedZone?.properties || {};
   const classes = useStyles();
 
   const [showColumnAdder, setShowColumnAdder] = useState(false);

@@ -9,6 +9,7 @@ import {
   ADD_STATUS_DESCRIPTION,
 } from "../state/reducers/appReducer";
 import { StateContext } from "../state/StateContext";
+import Search from "../components/Search";
 
 function User() {
   const { dispatch } = useContext(StateContext);
@@ -35,6 +36,7 @@ function User() {
 
   return (
     <div className="User">
+      <Search/>
       <div style={{ width: "100%", height: "500px" }}>
         <MapZones />
       </div>

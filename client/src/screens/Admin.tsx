@@ -33,6 +33,8 @@ const Admin: React.SFC<AdminProps> = () => {
       console.log("connect", socket.id); // 'G5p5...'
       socket.emit("initial_data");
       socket.on("push_zones", (zones: any) => {
+        console.log('zones', zones);
+        
         dispatch({
           type: ADD_ZONES,
           payload: zones,

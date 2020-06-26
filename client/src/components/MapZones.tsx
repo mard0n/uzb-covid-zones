@@ -6,12 +6,14 @@ import {
   Rectangle,
   Circle,
   FeatureGroup,
+  CircleMarker,
 } from "react-leaflet";
 import * as turf from "@turf/turf";
 import { getInfectionStatus } from "../utils/infection";
 import { StateContext } from "../state/StateContext";
 import { ADD_SELECTED_ZONE_ID } from "../state/reducers/appReducer";
 import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
+import { featureEach } from "@turf/turf";
 
 export interface MapZonesProps {}
 
@@ -19,23 +21,23 @@ const MapZones: React.SFC<MapZonesProps> = () => {
   const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
   const [zoomLevel, setZoomLevel] = useState(9);
-  console.log("Map Zones zones", zones);
+  // console.log("Map Zones zones", zones);
 
   const mapRef = useRef<any>(null);
 
   useEffect(() => {
     console.log("selectedZone", selectedZone);
-    if (selectedZone?.bbox) {
-      console.log(
-        "mapRef.current?.leafletElement?.flyToBounds",
-        mapRef.current?.leafletElement?.flyToBounds
-      );
-      const [westlon, minlat, eastlon, maxlat] = selectedZone?.bbox;
-      mapRef.current?.leafletElement?.flyToBounds([
-        [minlat, westlon],
-        [maxlat, eastlon],
-      ]);
-    }
+    // if (selectedZone?.bbox?.length) {
+    //   console.log(
+    //     "mapRef.current?.leafletElement?.flyToBounds",
+    //     mapRef.current?.leafletElement?.flyToBounds
+    //   );
+    //   const [westlon, minlat, eastlon, maxlat] = selectedZone?.bbox;
+    //   mapRef.current?.leafletElement?.flyToBounds([
+    //     [minlat, eastlon],
+    //     [westlon, maxlat],
+    //   ]);
+    // }
     return () => {};
   }, [selectedZone]);
 
@@ -247,42 +249,85 @@ const MapZones: React.SFC<MapZonesProps> = () => {
         }}
       />
       <FeatureGroup>
-        {zones.map((feature: any, i: any) => {
-          const { showFrom, showTo } = feature?.properties?.zoomRange;
+        {zones.map((zone: any, i: any) => {
+          // const { showFrom, showTo } = zone?.properties?.zoomRange;
+          const placeType = zone?.properties?.placeType;
+          console.log("zoomLevel", zoomLevel);
+          let isShown;
 
-          const isProperZoomLevel =
-            showFrom <= zoomLevel && showTo >= zoomLevel;
+          if (zoomLevel >= 9) {
+            isShown = placeType === "DISTRICT" || placeType === "CITY";
+          } else if (zoomLevel < 9 && zoomLevel >= 6) {
+            isShown = placeType === "REGION";
+          } else if (zoomLevel < 6) {
+            isShown = placeType === "COUNRTY";
+          }
+          // const parent = zones.find(
+          //   (z: any) => z._id === zone.properties.parentZone
+          // );
+          // console.log("parent -------", parent);
+
+          // if (parent) {
+          //   const [minlat, maxlat, minlng, maxlng] = parent?.bbox || [];
+          //   const isParentInViewBounds = mapRef.current.leafletElement
+          //     .getBounds()
+          //     .contains([
+          //       [minlat, minlng],
+          //       [maxlat, maxlng],
+          //     ]);
+          //   isShown = !isParentInViewBounds;
+          // } else {
+          //   const [minlat, maxlat, minlng, maxlng] = zone?.bbox || [];
+          //   const isZoneInViewBounds = mapRef.current.leafletElement
+          //     .getBounds()
+          //     .contains([
+          //       [minlat, minlng],
+          //       [maxlat, maxlng],
+          //     ]);
+          //   isShown = isZoneInViewBounds;
+          // }
+          // const isParentInsideBounds = parent
+          // if()
+          //   showFrom <= zoomLevel && showTo >= zoomLevel;
 
           // const infectionStatus: any = getInfectionStatus(
-          //   feature?.properties?.history?.infectedNumber,
+          //   zone?.properties?.history?.infectedNumber,
           //   zonesStatusDesc
           // );
-
+          // if (isShown) {
+          //   console.log("visible zone name", zone.properties.displayName);
+          //   console.log(
+          //     "visible zone parent",
+          //     parent && parent.properties.displayName
+          //   );
+          // }
           return (
-            isProperZoomLevel && (
-              <GeoJSON
-                key={i}
-                data={feature}
-                onEachFeature={(feat: any, layer: any) => {
-                  layer.on({ click: () => handleZoneSelect(feature) });
-                }}
-                style={(feat) => {
-                  const status = feature?.properties?.status;
-                  console.log("status", status);
-                  const color =
-                    status === "RED"
-                      ? "#ff5858"
-                      : status === "YELLOW"
-                      ? "#ffc182"
-                      : "#2e8e58";
-                  console.log("color", color);
-                  return {
-                    fillColor: color,
-                    fillOpacity: 0.4,
-                    color: color,
-                  };
-                }}
-              />
+            isShown && (
+              <>
+                <GeoJSON
+                  key={i}
+                  data={zone}
+                  onEachFeature={(feat: any, layer: any) => {
+                    layer.on({ click: () => handleZoneSelect(zone) });
+                  }}
+                  style={(feat) => {
+                    const status = zone?.properties?.status;
+                    // console.log("status", status);
+                    const color =
+                      status === "RED"
+                        ? "#ff5858"
+                        : status === "YELLOW"
+                        ? "#ffc182"
+                        : "#2e8e58";
+                    // console.log("color", color);
+                    return {
+                      fillColor: color,
+                      fillOpacity: 0.4,
+                      color: color,
+                    };
+                  }}
+                />
+              </>
             )
           );
         })}
