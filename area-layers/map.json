@@ -3,9 +3,9 @@
     "type": "Feature",
     "properties": {
       "place_id": 235034872,
-      "display_name": "Fergana Region, Uzbekistan",
+      "displayName": "Fergana Region, Uzbekistan",
       "alias": ["Fergana", "Fargona"],
-      "place_type": "REGION",
+      "placeType": "REGION",
       "zoomRange": {
         "showFrom": 3,
         "showTo": 6
@@ -3305,9 +3305,9 @@
     "type": "Feature",
     "properties": {
       "place_id": 91419808,
-      "display_name": "Fergana, Ташлакский район, Fergana Region, 150100, Uzbekistan",
+      "displayName": "Fergana, Ташлакский район, Fergana Region, 150100, Uzbekistan",
       "alias": ["Fergana", "Fargona"],
-      "place_type": "CITY",
+      "placeType": "CITY",
       "zoomRange": {
         "showFrom": 7,
         "showTo": 15
@@ -3519,9 +3519,9 @@
     "type": "Feature",
     "properties": {
       "place_id": 92661583,
-      "display_name": "Margilan, Ташлакский район, Fergana Region, 151100, Uzbekistan",
+      "displayName": "Margilan, Ташлакский район, Fergana Region, 151100, Uzbekistan",
       "alias": ["Margilon", "Margilan"],
-      "place_type": "CITY",
+      "placeType": "CITY",
       "zoomRange": {
         "showFrom": 7,
         "showTo": 15
