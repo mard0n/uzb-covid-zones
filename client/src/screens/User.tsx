@@ -10,6 +10,9 @@ import {
 } from "../state/reducers/appReducer";
 import { StateContext } from "../state/StateContext";
 import Search from "../components/Search";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { Typography } from "@material-ui/core";
+import Layout from "../components/Layout";
 
 function User() {
   const { dispatch } = useContext(StateContext);
@@ -35,11 +38,24 @@ function User() {
   }, []);
 
   return (
-    <div className="User">
-      <Search/>
-      <div style={{ width: "100%", height: "500px" }}>
-        <MapZones />
-      </div>
+    <>
+      <CssBaseline />
+      <Layout
+        search={<Search />}
+        map={<MapZones />}
+        mainContent={
+          <>
+            <Typography variant="h1">H1</Typography>
+            <Typography variant="subtitle1">Subtitle1</Typography>
+            <Typography variant="body1">body1</Typography>
+            <Typography variant="body2">body2</Typography>
+            <Typography variant="caption">caption</Typography>
+            <Typography variant="overline">overline</Typography>
+          </>
+        }
+      />
+
+      {/* <Search/>
       <div
         style={{
           display: "grid",
@@ -49,8 +65,8 @@ function User() {
       >
         <Restrictions />
         <Graph />
-      </div>
-    </div>
+      </div> */}
+    </>
   );
 }
 

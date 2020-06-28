@@ -8610,6 +8610,13 @@ material-table@^1.58.2:
     react-beautiful-dnd "11.0.3"
     react-double-scrollbar "0.0.15"
 
+material-ui-bottom-sheet@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/material-ui-bottom-sheet/-/material-ui-bottom-sheet-0.5.1.tgz#aec68d72844c8f14ceb252e4a4b035135a6c8771"
+  integrity sha512-qt5i2Z07cnb1HVedXGSQQqYQ/L/w3j1GKUEZD4cvdzt8/O0BVGA3yYO0zgkgbnSl7bp0kV4z38YGN9BdbCNUHA==
+  dependencies:
+    prop-types "^15.5.8"
+
 math-expression-evaluator@^1.2.14:
   version "1.2.22"
   resolved "https://registry.yarnpkg.com/math-expression-evaluator/-/math-expression-evaluator-1.2.22.tgz#c14dcb3d8b4d150e5dcea9c68c8dad80309b0d5e"
