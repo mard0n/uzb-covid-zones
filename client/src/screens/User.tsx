@@ -9,7 +9,7 @@ import {
   ADD_STATUS_DESCRIPTION,
 } from "../state/reducers/appReducer";
 import { StateContext } from "../state/StateContext";
-import Search from "../components/Search";
+import Search from "../components/Search/index";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Typography } from "@material-ui/core";
 import Layout from "../components/Layout";
@@ -45,12 +45,12 @@ function User() {
         map={<MapZones />}
         mainContent={
           <>
-            <Typography variant="h1">H1</Typography>
+            {/* <Typography variant="h1">H1</Typography>
             <Typography variant="subtitle1">Subtitle1</Typography>
             <Typography variant="body1">body1</Typography>
             <Typography variant="body2">body2</Typography>
             <Typography variant="caption">caption</Typography>
-            <Typography variant="overline">overline</Typography>
+            <Typography variant="overline">overline</Typography> */}
           </>
         }
       />

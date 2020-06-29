@@ -18,6 +18,22 @@ const Login = React.lazy(() => import("./screens/Login"));
 const Admin = React.lazy(() => import("./screens/Admin"));
 const User = React.lazy(() => import("./screens/User"));
 
+declare module "@material-ui/core/styles/createMuiTheme" {
+  interface Theme {
+    zoneStatusColor: {
+      safe: {
+        main: string;
+      };
+      mild: {
+        main: string;
+      };
+      danger: {
+        main: string;
+      };
+    };
+  }
+}
+
 const theme = createMuiTheme({
   palette: {
     primary: {
@@ -73,10 +89,24 @@ theme.typography.body2 = {
   },
 };
 
+const customTheme = {
+  zoneStatusColor: {
+    safe: {
+      main: '#87D03F'
+    },
+    mild: {
+      main: '#EF7C38'
+    },
+    danger: {
+      main: '#EA5C73'
+    }
+  }
+}
+
 function App() {
   return (
     <StateContextProvider initialState={initialState}>
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={{...theme, ...customTheme}}>
         <Router>
           <Suspense fallback={<div>Loading... </div>}>
             <Switch>

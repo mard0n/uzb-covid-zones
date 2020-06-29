@@ -14,7 +14,7 @@ import {
 import { useHistory, useLocation } from "react-router-dom";
 import ZoneStatusController from "../components/ZoneStatusController";
 import RestrictionController from "../components/RestrictionController";
-import Search from "../components/Search";
+import Search from "../components/Search/index";
 
 export interface AdminProps {}
 
@@ -86,7 +86,7 @@ const Admin: React.SFC<AdminProps> = () => {
 
   return (
     <>
-      <Search />
+      {/* <Search /> */}
       <div
         style={{
           position: 'relative',

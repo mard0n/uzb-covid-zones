@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   makeStyles,
   Drawer,
@@ -22,13 +22,14 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
   },
   drawer: {
-    width: "50%",
     flexShrink: 0,
+    width: "50%",
     maxWidth: 600,
   },
   drawerPaper: {
     width: "50%",
     maxWidth: 600,
+    padding: "32px 40px",
   },
   bottomSheetPaper: {
     position: "relative",
@@ -51,6 +52,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Layout: React.SFC<LayoutProps> = (props) => {
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const classes = useStyles();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const { map, search, mainContent } = props;
@@ -67,7 +69,7 @@ const Layout: React.SFC<LayoutProps> = (props) => {
             }}
             anchor="left"
           >
-            {search}
+            {React.cloneElement(search, { isInsidePaper: true })}
             {mainContent}
           </Drawer>
           <Box height={"100vh"} flexGrow={1} zIndex={1}>
@@ -76,11 +78,23 @@ const Layout: React.SFC<LayoutProps> = (props) => {
         </Grid>
       ) : (
         <Grid container>
-          <Box position="absolute" width={'100%'} zIndex={100} >
-            {search}
+          <Box
+            position="absolute"
+            width={"100%"}
+            paddingTop={"24px"}
+            paddingLeft={"20px"}
+            paddingRight={"20px"}
+            zIndex={100}
+          >
+            {React.cloneElement(search, {
+              isInsidePaper: false,
+              closeBottomSheet: () => setIsBottomSheetOpen(false),
+            })}
           </Box>
           <Box height={"calc(100vh - 260px)"} flexGrow={1} zIndex={1}>
-            {map}
+            {React.cloneElement(map, {
+              closeBottomSheet: () => setIsBottomSheetOpen(false),
+            })}
           </Box>
           <Box zIndex={100}>
             <SwipeableBottomSheet
@@ -89,9 +103,8 @@ const Layout: React.SFC<LayoutProps> = (props) => {
               topShadow={false}
               overlay={false}
               bodyStyle={{ backgroundColor: "none", overflow: "unset" }}
-              onTransitionEnd={() => {
-                console.log("e");
-              }}
+              open={isBottomSheetOpen}
+              onChange={setIsBottomSheetOpen}
             >
               <Paper elevation={11} className={classes.bottomSheetPaper}>
                 <Box className={classes.notch}></Box>

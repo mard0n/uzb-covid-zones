@@ -15,9 +15,12 @@ import { ADD_SELECTED_ZONE_ID } from "../state/reducers/appReducer";
 import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
 import { featureEach } from "@turf/turf";
 
-export interface MapZonesProps {}
+export interface MapZonesProps {
+  closeBottomSheet?: () => void;
+}
 
-const MapZones: React.SFC<MapZonesProps> = () => {
+const MapZones: React.SFC<MapZonesProps> = (props) => {
+  const { closeBottomSheet = () => {} } = props;
   const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
   const [zoomLevel, setZoomLevel] = useState(9);
@@ -27,21 +30,22 @@ const MapZones: React.SFC<MapZonesProps> = () => {
 
   useEffect(() => {
     console.log("selectedZone", selectedZone);
-    // if (selectedZone?.bbox?.length) {
-    //   console.log(
-    //     "mapRef.current?.leafletElement?.flyToBounds",
-    //     mapRef.current?.leafletElement?.flyToBounds
-    //   );
-    //   const [westlon, minlat, eastlon, maxlat] = selectedZone?.bbox;
-    //   mapRef.current?.leafletElement?.flyToBounds([
-    //     [minlat, eastlon],
-    //     [westlon, maxlat],
-    //   ]);
-    // }
+    if (selectedZone?.bbox?.length) {
+      console.log(
+        "mapRef.current?.leafletElement?.flyToBounds",
+        mapRef.current?.leafletElement?.flyToBounds
+      );
+      const [westlon, minlat, eastlon, maxlat] = selectedZone?.bbox;
+      mapRef.current?.leafletElement?.flyToBounds([
+        [minlat, eastlon],
+        [westlon, maxlat],
+      ]);
+    }
     return () => {};
   }, [selectedZone]);
 
   const handleZoom = (e: any) => {
+    // closeBottomSheet();
     setZoomLevel(e.target._zoom);
   };
   const handleZoneSelect = (feature: any) => {

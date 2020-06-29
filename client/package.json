@@ -19,6 +19,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-leaflet": "^2.5.1",
     "@types/react-router-dom": "^5.1.5",
+    "@types/react-window": "^1.8.2",
     "@types/recharts": "^1.8.10",
     "@types/socket.io-client": "^1.4.33",
     "axios": "^0.19.2",
@@ -33,6 +34,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
     "react-swipeable-bottom-sheet": "^1.1.1",
+    "react-window": "^1.8.5",
     "recharts": "^1.8.5",
     "socket.io-client": "^2.3.0",
     "typescript": "~3.7.2"
