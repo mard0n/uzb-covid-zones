@@ -14,44 +14,61 @@ import {
   useMediaQuery,
   Theme,
 } from "@material-ui/core";
+import RubikRegularWoff2 from "./assets/fonts/Rubik-Regular.woff2";
+import RubikRegularWoff from "./assets/fonts/Rubik-Regular.woff";
+import RubikRegularTtf from "./assets/fonts/Rubik-Regular.ttf";
+import RubikMediumWoff2 from "./assets/fonts/Rubik-Medium.woff2";
+import RubikMediumWoff from "./assets/fonts/Rubik-Medium.woff";
+import RubikMediumTtf from "./assets/fonts/Rubik-Medium.ttf";
+
 const Login = React.lazy(() => import("./screens/Login"));
 const Admin = React.lazy(() => import("./screens/Admin"));
 const User = React.lazy(() => import("./screens/User"));
 
-declare module "@material-ui/core/styles/createMuiTheme" {
-  interface Theme {
-    zoneStatusColor: {
-      safe: {
-        main: string;
-      };
-      mild: {
-        main: string;
-      };
-      danger: {
-        main: string;
-      };
-    };
-  }
-}
+/* rubik-regular - latin_cyrillic */
+const raleway = {
+  fontFamily: "Rubik",
+  fontStyle: "normal",
+  fontWeight: 400,
+  src: `
+    local('Raleway'),
+    local('Raleway-Regular'),
+    url(${RubikRegularWoff2}) format('woff2'),
+    url(${RubikRegularWoff}) format('woff'),
+    url(${RubikRegularTtf}) format('truetype')
+  `,
+  // unicodeRange:
+  //   'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF',
+};
+const RubikRegular = {
+  fontFamily: "Rubik",
+  fontStyle: "normal",
+  fontWeight: 400,
+  src: `
+    local('Rubik'),
+    local('Rubik-Regular'),
+    url(${RubikRegularWoff2}) format('woff2'),
+    url(${RubikRegularWoff}) format('woff'), 
+    url(${RubikRegularTtf}) format('truetype')`,
+};
+/* rubik-500 - latin_cyrillic */
+const RubikMedium = {
+  fontFamily: "Rubik",
+  fontStyle: "normal",
+  fontWeight: 500,
+  src: `
+    local('Rubik Medium'),
+    local('Rubik-Medium'),
+    url(${RubikMediumWoff2}) format('woff2'),
+    url(${RubikMediumWoff}) format('woff'),
+    url(${RubikMediumTtf}) format('truetype')`,
+};
 
 const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#4863F4",
-    },
-    secondary: {
-      main: "#FF6496",
-    },
-    text: {
-      primary: "#242B43",
-      secondary: "#777FA9",
-    },
-    grey: {
-      "500": "#969BAC",
-    },
-  },
   typography: {
+    fontFamily: "Rubik",
     h1: {
+      fontSize: 26,
       fontWeight: 500,
     },
     subtitle1: {
@@ -63,6 +80,7 @@ const theme = createMuiTheme({
       fontWeight: 500,
     },
     body2: {
+      fontSize: 16,
       fontWeight: 400,
     },
     caption: {
@@ -74,39 +92,58 @@ const theme = createMuiTheme({
       fontWeight: 400,
     },
   },
+  overrides: {
+    MuiCssBaseline: {
+      "@global": {
+        "@font-face": [RubikRegular, RubikMedium],
+      },
+    },
+  },
+  palette: {
+    primary: {
+      main: "#4863F4",
+    },
+    secondary: {
+      main: "#F0F3FE",
+      contrastText: "#2E409E",
+    },
+    text: {
+      primary: "#242B43",
+      secondary: "#777FA9",
+    },
+    grey: {
+      "500": "#969BAC",
+    },
+  },
 });
 
-theme.typography.h1 = {
-  fontSize: 24,
-  [theme.breakpoints.up("md")]: {
-    fontSize: 26,
-  },
-};
-theme.typography.body2 = {
-  fontSize: 14,
-  [theme.breakpoints.up("md")]: {
-    fontSize: 16,
-  },
-};
-
-const customTheme = {
-  zoneStatusColor: {
-    safe: {
-      main: '#87D03F'
-    },
-    mild: {
-      main: '#EF7C38'
-    },
-    danger: {
-      main: '#EA5C73'
-    }
-  }
-}
+// theme.typography.h1 = {
+//   fontFamily: 'Rubik',
+//   fontWeight: 500,
+//   letterSpacing: "-0.01562em",
+//   lineHeight: 1.167,
+//   fontSize: 24,
+//   [theme.breakpoints.up("md")]: {
+//     fontSize: 26,
+//   },
+// };
+// theme.typography.body2 = {
+//   // fontFamily: 'Rubik',
+//   fontFamily: '"Rubik", "Arial", "Helvetica", sans-serif',
+//   fontWeight: 400,
+//   letterSpacing: "0.01071em",
+//   lineHeight: 1.43,
+//   fontSize: 14,
+//   [theme.breakpoints.up("md")]: {
+//     fontSize: 16,
+//   },
+// };
 
 function App() {
+  console.log("theme ", theme);
   return (
     <StateContextProvider initialState={initialState}>
-      <ThemeProvider theme={{...theme, ...customTheme}}>
+      <ThemeProvider theme={theme}>
         <Router>
           <Suspense fallback={<div>Loading... </div>}>
             <Switch>
