@@ -16,11 +16,6 @@ import MomentUtils from "@date-io/moment";
 import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
 import { StateContext } from "../state/StateContext";
-import {
-  ADD_CASE_TO_HISTORY,
-  DELETE_CASE_FROM_HISTORY,
-} from "../state/reducers/appReducer";
-
 const useStyles = makeStyles({
   table: {
     // minWidth: 650,

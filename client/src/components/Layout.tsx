@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ReactElement } from "react";
 import {
   makeStyles,
   Drawer,
@@ -10,11 +10,12 @@ import {
 } from "@material-ui/core";
 import SwipeableBottomSheet from "react-swipeable-bottom-sheet";
 import { transformTranslate } from "@turf/turf";
+import { SearchProps } from "./Search";
 
 export interface LayoutProps {
-  map: any;
-  mainContent: any;
-  search: any;
+  map: ReactElement;
+  mainContent: ReactElement;
+  search: ReactElement;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -69,7 +70,9 @@ const Layout: React.SFC<LayoutProps> = (props) => {
             }}
             anchor="left"
           >
-            {React.cloneElement(search, { isInsidePaper: true })}
+            <Box mb={4}>
+              {React.cloneElement(search, { isInsidePaper: true })}
+            </Box>
             {mainContent}
           </Drawer>
           <Box height={"100vh"} flexGrow={1} zIndex={1}>

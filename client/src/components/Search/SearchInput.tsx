@@ -1,13 +1,19 @@
 import React from "react";
-import { Paper, InputBase, makeStyles, useTheme } from "@material-ui/core";
+import {
+  Paper,
+  InputBase,
+  makeStyles,
+  useTheme,
+  PaperProps,
+} from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 
 export interface SearchInputProps {
   InputProps: {
     ref: any;
   };
-  bgColor: any;
-  elevation: any;
+  bgColor: string;
+  elevation: PaperProps["elevation"];
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -32,7 +38,7 @@ const SearchInput: React.SFC<SearchInputProps> = (props) => {
       ref={props.InputProps.ref}
       component="form"
       className={classes.inputContainer}
-      style={{backgroundColor: props.bgColor}}
+      style={{ backgroundColor: props.bgColor }}
       elevation={props.elevation}
     >
       <SearchIcon />

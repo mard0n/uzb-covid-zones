@@ -1,10 +1,14 @@
+import { State } from "../StateContext";
+import { Zone } from "../../types/zone";
+
 export const ADD_ZONES = "ADD_ZONES";
 export const ADD_SELECTED_ZONE_ID = "ADD_SELECTED_ZONE_ID";
-export const ADD_STATUS_DESCRIPTION = "ADD_STATUS_DESCRIPTION";
-export const ADD_CASE_TO_HISTORY = "ADD_CASE_TO_HISTORY";
-export const DELETE_CASE_FROM_HISTORY = "DELETE_CASE_FROM_HISTORY";
 
-export const appReducer = (state: any, action: any) => {
+export type Action =
+  | { type: "ADD_ZONES"; payload: Zone[] }
+  | { type: "ADD_SELECTED_ZONE_ID"; payload: string };
+
+export const appReducer = (state: State, action: Action): State => {
   console.log("action", action);
   switch (action.type) {
     case ADD_ZONES:
@@ -16,11 +20,6 @@ export const appReducer = (state: any, action: any) => {
       return {
         ...state,
         selectedZoneId: action.payload,
-      };
-    case ADD_STATUS_DESCRIPTION:
-      return {
-        ...state,
-        zonesStatusDesc: action.payload,
       };
     default:
       return state;

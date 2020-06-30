@@ -7,7 +7,7 @@ export const editorToHTMLParser = (blocks: any = []) => {
     switch (block?.type) {
       case "delimiter":
         elemToReturn = <br />;
-
+        break;
       case "header":
         switch (block?.data?.level) {
           case 1:
@@ -45,6 +45,9 @@ export const editorToHTMLParser = (blocks: any = []) => {
         switch (block?.data?.style) {
           case "unordered":
             elemToReturn = <ul>{list}</ul>;
+            break;
+          case "ordered":
+            elemToReturn = <ol>{list}</ol>;
             break;
 
           default:

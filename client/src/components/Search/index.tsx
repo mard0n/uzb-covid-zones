@@ -1,27 +1,22 @@
-import React, { useContext, useState } from "react";
+import React, {
+  useContext,
+  useState,
+  PropsWithChildren,
+  ChangeEvent,
+} from "react";
 import { StateContext } from "../../state/StateContext";
-import {
-  Paper,
-  IconButton,
-  InputBase,
-  makeStyles,
-  TextField,
-  InputAdornment,
-  List,
-  ListItem,
-  Typography,
-  Box,
-  useTheme,
-} from "@material-ui/core";
+import { makeStyles, useTheme } from "@material-ui/core";
 
-import Autocomplete from "@material-ui/lab/Autocomplete";
+import Autocomplete, {
+  AutocompleteChangeReason,
+} from "@material-ui/lab/Autocomplete";
 import { ADD_SELECTED_ZONE_ID } from "../../state/reducers/appReducer";
-import useAutocomplete from "@material-ui/lab/useAutocomplete";
-import ZoneStatusPin from "./ZoneStatusPin";
 import SearchInput from "./SearchInput";
-import SearchOption from "./SearchOption";
+import SearchOption, { SearchOptionProps } from "./SearchOption";
 import SearchOptionsPaper from "./SearchOptionsPaper";
 import ListboxComponent from "./ListboxComponent";
+import { Zone } from "../../types/zone";
+import { FilterOptionsState } from "@material-ui/lab";
 
 export interface SearchProps {
   isInsidePaper?: boolean;
@@ -49,26 +44,34 @@ const useStyles = makeStyles((theme) => ({
 const Search: React.SFC<SearchProps> = (props) => {
   const { isInsidePaper, closeBottomSheet = () => {} } = props;
   const { zones = [], dispatch } = useContext(StateContext);
-  const [selectedZone, setSelectedZone] = useState<any>();
+  const [selectedZone, setSelectedZone] = useState<Zone | null>();
   const theme = useTheme();
   const classes = useStyles(theme);
-  console.log("selectedZone", selectedZone);
-  const handleChange = (event: any, newValue: any, reason: any) => {
-    console.log("on change", newValue);
+
+  const handleChange = (
+    event: ChangeEvent<{}>,
+    value: PropsWithChildren<SearchOptionProps> | null,
+    reason: AutocompleteChangeReason
+  ) => {
+    console.log("on change", value);
     console.log("on change reason", reason);
-    if (reason === "select-option") {
+    if (reason === "select-option" && value?._id) {
       dispatch({
         type: ADD_SELECTED_ZONE_ID,
-        payload: newValue?._id,
+        payload: value._id,
       });
     }
-    closeBottomSheet()
-    setSelectedZone(newValue);
+    closeBottomSheet();
+    setSelectedZone(value);
   };
-  const optionsToShow = (option: any, state: any) => {
-    return option.filter((i: any, index: any) => {
+
+  const optionsToShow = (
+    option: PropsWithChildren<SearchOptionProps>[],
+    state: FilterOptionsState<PropsWithChildren<SearchOptionProps>>
+  ) => {
+    return option.filter((i) => {
       return (
-        i?.properties?.alias?.some((a: any) =>
+        i?.properties?.alias?.some((a) =>
           a?.toLowerCase().includes(state?.inputValue?.toLowerCase())
         ) ||
         i?.properties?.displayName
@@ -86,6 +89,7 @@ const Search: React.SFC<SearchProps> = (props) => {
     ? "#FFF"
     : "#bdc0cb";
   const elevation = isInsidePaper ? 0 : 2;
+
   return (
     <>
       <Autocomplete
@@ -95,7 +99,9 @@ const Search: React.SFC<SearchProps> = (props) => {
           paper: classes.optionContainerPaper,
         }}
         options={zones}
-        getOptionLabel={(option: any) => option?.properties?.displayName}
+        getOptionLabel={(option: PropsWithChildren<SearchOptionProps>) =>
+          option?.properties?.displayName
+        }
         value={selectedZone}
         onChange={handleChange}
         onFocus={closeBottomSheet}

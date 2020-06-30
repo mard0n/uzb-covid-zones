@@ -1,4 +1,4 @@
-import React, { useRef, useState, useContext, useEffect } from "react";
+import React, { useRef, useState, useContext, useEffect, Ref } from "react";
 import {
   Map,
   TileLayer,
@@ -7,13 +7,16 @@ import {
   Circle,
   FeatureGroup,
   CircleMarker,
+  MapLayer,
 } from "react-leaflet";
 import * as turf from "@turf/turf";
 import { getInfectionStatus } from "../utils/infection";
 import { StateContext } from "../state/StateContext";
 import { ADD_SELECTED_ZONE_ID } from "../state/reducers/appReducer";
 import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
-import { featureEach } from "@turf/turf";
+import { featureEach, GeoJSONObject } from "@turf/turf";
+import { LeafletEvent } from "leaflet";
+import { Zone } from "../types/zone";
 
 export interface MapZonesProps {
   closeBottomSheet?: () => void;
@@ -26,7 +29,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
   const [zoomLevel, setZoomLevel] = useState(9);
   // console.log("Map Zones zones", zones);
 
-  const mapRef = useRef<any>(null);
+  const mapRef = useRef<Map | null>(null);
 
   useEffect(() => {
     console.log("selectedZone", selectedZone);
@@ -44,11 +47,10 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
     return () => {};
   }, [selectedZone]);
 
-  const handleZoom = (e: any) => {
-    // closeBottomSheet();
+  const handleZoom = (e: LeafletEvent) => {
     setZoomLevel(e.target._zoom);
   };
-  const handleZoneSelect = (feature: any) => {
+  const handleZoneSelect = (feature: Zone) => {
     console.log("onZoneSelect", feature);
     dispatch({
       type: ADD_SELECTED_ZONE_ID,
@@ -67,193 +69,9 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
       <TileLayer
         attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
         url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
-        options={{
-          styles: [
-            {
-              featureType: "all",
-              elementType: "labels",
-              stylers: [
-                {
-                  visibility: "off",
-                },
-              ],
-            },
-            {
-              featureType: "administrative",
-              elementType: "all",
-              stylers: [
-                {
-                  visibility: "simplified",
-                },
-                {
-                  color: "#5b6571",
-                },
-                {
-                  lightness: "35",
-                },
-              ],
-            },
-            {
-              featureType: "administrative.neighborhood",
-              elementType: "all",
-              stylers: [
-                {
-                  visibility: "off",
-                },
-              ],
-            },
-            {
-              featureType: "landscape",
-              elementType: "all",
-              stylers: [
-                {
-                  visibility: "on",
-                },
-                {
-                  color: "#f3f4f4",
-                },
-              ],
-            },
-            {
-              featureType: "landscape.man_made",
-              elementType: "geometry",
-              stylers: [
-                {
-                  weight: 0.9,
-                },
-                {
-                  visibility: "off",
-                },
-              ],
-            },
-            {
-              featureType: "poi.park",
-              elementType: "geometry.fill",
-              stylers: [
-                {
-                  visibility: "on",
-                },
-                {
-                  color: "#83cead",
-                },
-              ],
-            },
-            {
-              featureType: "road",
-              elementType: "all",
-              stylers: [
-                {
-                  visibility: "on",
-                },
-                {
-                  color: "#ffffff",
-                },
-              ],
-            },
-            {
-              featureType: "road",
-              elementType: "labels",
-              stylers: [
-                {
-                  visibility: "off",
-                },
-              ],
-            },
-            {
-              featureType: "road.highway",
-              elementType: "all",
-              stylers: [
-                {
-                  visibility: "on",
-                },
-                {
-                  color: "#fee379",
-                },
-              ],
-            },
-            {
-              featureType: "road.highway",
-              elementType: "geometry",
-              stylers: [
-                {
-                  visibility: "on",
-                },
-              ],
-            },
-            {
-              featureType: "road.highway",
-              elementType: "labels",
-              stylers: [
-                {
-                  visibility: "off",
-                },
-              ],
-            },
-            {
-              featureType: "road.highway",
-              elementType: "labels.icon",
-              stylers: [
-                {
-                  visibility: "off",
-                },
-              ],
-            },
-            {
-              featureType: "road.highway.controlled_access",
-              elementType: "labels.icon",
-              stylers: [
-                {
-                  visibility: "off",
-                },
-              ],
-            },
-            {
-              featureType: "road.arterial",
-              elementType: "all",
-              stylers: [
-                {
-                  visibility: "simplified",
-                },
-                {
-                  color: "#ffffff",
-                },
-              ],
-            },
-            {
-              featureType: "road.arterial",
-              elementType: "labels",
-              stylers: [
-                {
-                  visibility: "off",
-                },
-              ],
-            },
-            {
-              featureType: "road.arterial",
-              elementType: "labels.icon",
-              stylers: [
-                {
-                  visibility: "off",
-                },
-              ],
-            },
-            {
-              featureType: "water",
-              elementType: "all",
-              stylers: [
-                {
-                  visibility: "on",
-                },
-                {
-                  color: "#7fc8ed",
-                },
-              ],
-            },
-          ],
-        }}
       />
       <FeatureGroup>
-        {zones.map((zone: any, i: any) => {
+        {zones.map((zone, i) => {
           // const { showFrom, showTo } = zone?.properties?.zoomRange;
           const placeType = zone?.properties?.placeType;
           console.log("zoomLevel", zoomLevel);
@@ -310,8 +128,8 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
               <>
                 <GeoJSON
                   key={i}
-                  data={zone}
-                  onEachFeature={(feat: any, layer: any) => {
+                  data={zone as GeoJSON.GeoJsonObject}
+                  onEachFeature={(feat, layer) => {
                     layer.on({ click: () => handleZoneSelect(zone) });
                   }}
                   style={(feat) => {

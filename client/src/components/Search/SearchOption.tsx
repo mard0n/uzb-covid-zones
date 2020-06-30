@@ -1,10 +1,9 @@
 import React from "react";
 import ZoneStatusPin from "./ZoneStatusPin";
 import { Typography } from "@material-ui/core";
+import { Zone } from "../../types/zone";
 
-export interface SearchOptionProps {
-  properties: any;
-}
+export interface SearchOptionProps extends Zone {}
 
 const SearchOption: React.SFC<SearchOptionProps> = (option) => {
   return (
