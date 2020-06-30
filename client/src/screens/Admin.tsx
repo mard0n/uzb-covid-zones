@@ -4,17 +4,15 @@ import React, { useEffect, useContext, useState } from "react";
 import MapZones from "../components/MapZones";
 import Graph from "../components/Graph";
 import Restrictions from "../components/Restrictions";
-import { fetchZones, fetchZonesStatus } from "../api/zones";
+import { fetchZones } from "../api/zones";
 import HistoryController from "../components/HistoryController";
 import { StateContext } from "../state/StateContext";
 import {
   ADD_ZONES,
-  ADD_STATUS_DESCRIPTION,
 } from "../state/reducers/appReducer";
 import { useHistory, useLocation } from "react-router-dom";
 import ZoneStatusController from "../components/ZoneStatusController";
 import RestrictionController from "../components/RestrictionController";
-import Search from "../components/Search/index";
 
 export interface AdminProps {}
 
@@ -34,22 +32,11 @@ const Admin: React.SFC<AdminProps> = () => {
       socket.emit("initial_data");
       socket.on("push_zones", (zones: any) => {
         console.log('zones', zones);
-        
         dispatch({
           type: ADD_ZONES,
           payload: zones,
         });
       });
-      // socket.on("push_zone_status_desc", (zoneStatusDesc: any) => {
-      //   const turnEmptyToUndef = zoneStatusDesc.map((d: any) => ({
-      //     ...d,
-      //     range: [d.range[0] || undefined, d.range[1] || undefined],
-      //   }));
-      //   dispatch({
-      //     type: ADD_STATUS_DESCRIPTION,
-      //     payload: turnEmptyToUndef,
-      //   });
-      // });
     });
     socket.on("connect_error", (error: any) => {
       console.log("connect_error", error);
@@ -71,16 +58,6 @@ const Admin: React.SFC<AdminProps> = () => {
     // socket.emit('initial_data')
     // fetchZones().then((res) => {
 
-    // });
-    // fetchZonesStatus().then((res) => {
-    //   const turnEmptyToUndef = res?.data.map((d: any) => ({
-    //     ...d,
-    //     range: [d.range[0] || undefined, d.range[1] || undefined],
-    //   }));
-    //   dispatch({
-    //     type: ADD_STATUS_DESCRIPTION,
-    //     payload: turnEmptyToUndef,
-    //   });
     // });
   }, []);
 
