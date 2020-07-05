@@ -31,7 +31,7 @@ module.exports = function (socket, redis) {
     const { zoneId, date, infectedNumber, recoveredNumber, deadNumber } =
       data || {};
     console.log("add_case_to_history data", data);
-    console.log("is valid _id", mongoose.Types.ObjectId.isValid(data.zoneId));
+    // console.log("is valid _id", mongoose.Types.ObjectId.isValid(data.zoneId));
     Zone.findByIdAndUpdate(
       zoneId,
       {
@@ -64,7 +64,7 @@ module.exports = function (socket, redis) {
     const { historyId, date, infectedNumber, recoveredNumber, deadNumber } =
       data || {};
     console.log("edit_case_in_history data", data);
-    console.log("is valid _id", mongoose.Types.ObjectId.isValid(historyId));
+    // console.log("is valid _id", mongoose.Types.ObjectId.isValid(historyId));
     Zone.findOneAndUpdate(
       { "properties.history": { $elemMatch: { _id: historyId } } },
       {
