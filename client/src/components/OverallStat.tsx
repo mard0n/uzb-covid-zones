@@ -42,21 +42,6 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
             numberColor={infectedColor}
             position={OverallStatPaperPosition.LEFT}
           />
-          {/* <Paper className={classes.paper} color="secondary" elevation={0}>
-            <Typography variant="caption" className={classes.paperTitle}>
-              Infected
-            </Typography>
-            <Typography
-              variant="h1"
-              className={classes.paperNumber}
-              style={{ color: infectedColor }}
-            >
-              {totalInfected}
-            </Typography>
-            <Typography variant="caption" className={classes.paperCaption}>
-              12%
-            </Typography>
-          </Paper> */}
         </Grid>
         <Grid item xs>
           <OverallStatPaper
@@ -66,21 +51,6 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
             numberColor={recoveredColor}
             position={OverallStatPaperPosition.MIDDLE}
           />
-          {/* <Paper className={classes.paper} color="secondary" elevation={0}>
-            <Typography variant="caption" className={classes.paperTitle}>
-              Recovered
-            </Typography>
-            <Typography
-              variant="h1"
-              className={classes.paperNumber}
-              style={{ color: recoveredColor }}
-            >
-              {totalRecovered}
-            </Typography>
-            <Typography variant="caption" className={classes.paperCaption}>
-              11%
-            </Typography>
-          </Paper> */}
         </Grid>
         <Grid item xs>
           <OverallStatPaper
@@ -90,21 +60,6 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
             numberColor={deadColor}
             position={OverallStatPaperPosition.RIGHT}
           />
-          {/* <Paper className={classes.paper} color="secondary" elevation={0}>
-            <Typography variant="caption" className={classes.paperTitle}>
-              Dead
-            </Typography>
-            <Typography
-              variant="h1"
-              className={classes.paperNumber}
-              style={{ color: deadColor }}
-            >
-              {totalDead}
-            </Typography>
-            <Typography variant="caption" className={classes.paperCaption}>
-              5%
-            </Typography>
-          </Paper> */}
         </Grid>
       </Grid>
     </Box>

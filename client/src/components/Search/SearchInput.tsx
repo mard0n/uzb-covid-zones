@@ -12,6 +12,7 @@ export interface SearchInputProps {
   InputProps: {
     ref: any;
   };
+  inputRef: any;
   bgColor: string;
   elevation: PaperProps["elevation"];
 }
@@ -46,6 +47,7 @@ const SearchInput: React.SFC<SearchInputProps> = (props) => {
         {...props}
         className={classes.input}
         placeholder="Search for the city..."
+        inputRef={props.inputRef}
       />
     </Paper>
   );

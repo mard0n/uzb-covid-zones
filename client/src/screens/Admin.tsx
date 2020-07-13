@@ -7,9 +7,7 @@ import Restrictions from "../components/Restrictions";
 import { fetchZones } from "../api/zones";
 import HistoryController from "../components/HistoryController";
 import { StateContext } from "../state/StateContext";
-import {
-  ADD_ZONES,
-} from "../state/reducers/appReducer";
+import { ADD_ZONES } from "../state/reducers/appReducer";
 import { useHistory, useLocation } from "react-router-dom";
 import ZoneStatusController from "../components/ZoneStatusController";
 import RestrictionController from "../components/RestrictionController";
@@ -31,7 +29,7 @@ const Admin: React.SFC<AdminProps> = () => {
       console.log("connect", socket.id); // 'G5p5...'
       socket.emit("initial_data");
       socket.on("push_zones", (zones: any) => {
-        console.log('zones', zones);
+        console.log("zones", zones);
         dispatch({
           type: ADD_ZONES,
           payload: zones,
@@ -60,13 +58,13 @@ const Admin: React.SFC<AdminProps> = () => {
 
     // });
   }, []);
-
+  console.log("socket", socket);
   return (
     <>
       {/* <Search /> */}
       <div
         style={{
-          position: 'relative',
+          position: "relative",
           zIndex: 10,
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
@@ -77,19 +75,19 @@ const Admin: React.SFC<AdminProps> = () => {
           <MapZones />
         </div>
         <div className="status-controller">
-          <ZoneStatusController socket={socket} />
+          {socket && <ZoneStatusController socket={socket} />}
         </div>
         <div className="graph">
           <Graph />
         </div>
         <div className="graph-controller">
-          <HistoryController socket={socket} />
+          {socket && <HistoryController socket={socket} />}
         </div>
         <div className="restrictions">
           <Restrictions />
         </div>
         <div className="restriction-controller">
-          <RestrictionController socket={socket} />
+          {socket && <RestrictionController socket={socket} />}
         </div>
       </div>
     </>

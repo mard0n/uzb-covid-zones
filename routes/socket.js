@@ -8,8 +8,8 @@ module.exports = function (socket, redis) {
     Zone.find({})
       .then((data) => {
         console.log("zones found");
-        console.log("mongo type", typeof data);
-        redis.set("zones", JSON.stringify(data));
+        // console.log("mongo type", typeof data);
+        // redis.set("zones", JSON.stringify(data));
         socket.emit("push_zones", data);
       })
       .catch((err) => {

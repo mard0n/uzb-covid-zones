@@ -11,6 +11,7 @@ import {
 import SwipeableBottomSheet from "react-swipeable-bottom-sheet";
 import { transformTranslate } from "@turf/turf";
 import { SearchProps } from "./Search";
+import { Scrollbars } from "react-custom-scrollbars";
 
 export interface LayoutProps {
   map: ReactElement;
@@ -30,7 +31,6 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: "50%",
     maxWidth: 600,
-    padding: "32px 40px",
   },
   bottomSheetPaper: {
     position: "relative",
@@ -57,65 +57,79 @@ const Layout: React.SFC<LayoutProps> = (props) => {
   const classes = useStyles();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const { map, search, mainContent } = props;
+  console.log("isBottomSheetOpen", isBottomSheetOpen);
 
   return (
     <>
       {mdUp ? (
         <Grid container>
           <Drawer
-            className={classes.drawer}
+            className={`${classes.drawer}`}
             variant="permanent"
             classes={{
               paper: classes.drawerPaper,
             }}
             anchor="left"
           >
-            <Box mb={4}>
-              {React.cloneElement(search, { isInsidePaper: true })}
-            </Box>
-            {mainContent}
+            <Scrollbars style={{ padding: "32px 40px" }} autoHide>
+              <Box pt={4} pb={4} pl={5} pr={5}>
+                <Box mb={4}>
+                  {React.cloneElement(search, { isInsidePaper: true })}
+                </Box>
+                {mainContent}
+              </Box>
+            </Scrollbars>
           </Drawer>
           <Box height={"100vh"} flexGrow={1} zIndex={1}>
             {map}
           </Box>
         </Grid>
       ) : (
-        <Grid container>
-          <Box
-            position="absolute"
-            width={"100%"}
-            paddingTop={"24px"}
-            paddingLeft={"20px"}
-            paddingRight={"20px"}
-            zIndex={100}
-          >
-            {React.cloneElement(search, {
-              isInsidePaper: false,
-              closeBottomSheet: () => setIsBottomSheetOpen(false),
-            })}
-          </Box>
-          <Box height={"calc(100vh - 260px)"} flexGrow={1} zIndex={1}>
-            {React.cloneElement(map, {
-              closeBottomSheet: () => setIsBottomSheetOpen(false),
-            })}
-          </Box>
-          <Box zIndex={100}>
-            <SwipeableBottomSheet
-              overflowHeight={300}
-              shadowTip={false}
-              topShadow={false}
-              overlay={false}
-              bodyStyle={{ backgroundColor: "none", overflow: "unset" }}
-              open={isBottomSheetOpen}
-              onChange={setIsBottomSheetOpen}
+        <>
+          <Grid container>
+            <Box
+              position="absolute"
+              width={"100%"}
+              paddingTop={"24px"}
+              paddingLeft={"20px"}
+              paddingRight={"20px"}
+              zIndex={100}
             >
-              <Paper elevation={11} className={classes.bottomSheetPaper}>
-                <Box className={classes.notch}></Box>
-                <Box height={"60vh"}>{mainContent}</Box>
-              </Paper>
-            </SwipeableBottomSheet>
-          </Box>
-        </Grid>
+              {React.cloneElement(search, {
+                isInsidePaper: false,
+                closeBottomSheet: () => setIsBottomSheetOpen(false),
+              })}
+            </Box>
+            <Box height={"calc(100vh - 260px)"} flexGrow={1} zIndex={1}>
+              {React.cloneElement(map, {
+                closeBottomSheet: () => setIsBottomSheetOpen(false),
+              })}
+            </Box>
+            <Box zIndex={100}>
+              <SwipeableBottomSheet
+                overflowHeight={150}
+                shadowTip={false}
+                topShadow={false}
+                overlay={false}
+                bodyStyle={{
+                  backgroundColor: "none",
+                  overflow: "visible",
+                }}
+                open={isBottomSheetOpen}
+                onChange={setIsBottomSheetOpen}
+              >
+                <Paper
+                  elevation={11}
+                  className={classes.bottomSheetPaper}
+                  style={{ height: "60vh" }}
+                >
+                  <Box className={classes.notch}></Box>
+                  <Box height={"60vh"}>{mainContent}</Box>
+                </Paper>
+              </SwipeableBottomSheet>
+            </Box>
+          </Grid>
+        </>
       )}
     </>
   );
