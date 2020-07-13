@@ -3,6 +3,7 @@ import React, {
   useState,
   PropsWithChildren,
   ChangeEvent,
+  useRef,
 } from "react";
 import { StateContext } from "../../state/StateContext";
 import { makeStyles, useTheme } from "@material-ui/core";
@@ -47,6 +48,7 @@ const Search: React.SFC<SearchProps> = (props) => {
   const [selectedZone, setSelectedZone] = useState<Zone | null>();
   const theme = useTheme();
   const classes = useStyles(theme);
+  const inputRef = useRef<any>();
 
   const handleChange = (
     event: ChangeEvent<{}>,
@@ -60,9 +62,10 @@ const Search: React.SFC<SearchProps> = (props) => {
         type: ADD_SELECTED_ZONE_ID,
         payload: value._id,
       });
+      closeBottomSheet();
+      setSelectedZone(value);
+      inputRef.current?.blur()
     }
-    closeBottomSheet();
-    setSelectedZone(value);
   };
 
   const optionsToShow = (
@@ -90,6 +93,8 @@ const Search: React.SFC<SearchProps> = (props) => {
     : "#bdc0cb";
   const elevation = isInsidePaper ? 0 : 2;
 
+  console.log('inputRef', inputRef.current);
+  
   return (
     <>
       <Autocomplete
@@ -108,7 +113,13 @@ const Search: React.SFC<SearchProps> = (props) => {
         filterOptions={optionsToShow}
         // popupIcon={null}
         renderInput={(params) => (
-          <SearchInput bgColor={bgColor} elevation={elevation} {...params} />
+          <SearchInput
+            {...params}
+            bgColor={bgColor}
+            elevation={elevation}
+            inputRef={inputRef}
+            // InputProps={{ ...params.InputProps, ref: inputRef }}
+          />
         )}
         renderOption={SearchOption}
         PaperComponent={SearchOptionsPaper}

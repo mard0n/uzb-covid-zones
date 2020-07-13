@@ -3,62 +3,53 @@ import ChartLib from "chart.js";
 import { History, ZoneStatus } from "../types/zone";
 import moment, { min } from "moment";
 import getZoneStatusColor from "../utils/getZoneStatusColor";
-import { getDataFromRange, getRangeFromData } from "../utils/getDataFromRange";
+import { getDataFromRange } from "../utils/getDataFromRange";
+import {
+  Typography,
+  Grid,
+  Box,
+  IconButton,
+  Paper,
+  makeStyles,
+} from "@material-ui/core";
+import NavigateNextRoundedIcon from "@material-ui/icons/NavigateNextRounded";
+import NavigateBeforeRoundedIcon from "@material-ui/icons/NavigateBeforeRounded";
 
 export interface ChartProps {
   data: History[];
-  minVisible?: number;
+  minVisible: number;
 }
 
+const useStyles = makeStyles({
+  container: {
+    borderRadius: 9
+  },
+  btnStyle: {
+    backgroundColor: "white",
+    height: 32,
+    width: 32
+  },
+});
+
 const Chart: React.SFC<ChartProps> = (props) => {
-  const { data, minVisible = 9 } = props;
+  const { data, minVisible } = props;
+  let date_list = data.map((d) => moment(d.date).format("YYYY-MM-DD"));
+  const classes = useStyles();
   const [isGrabbed, setIsGrabbed] = useState(false);
   const [currentVisibleTicks, setCurrentVisibleTicks] = useState({
-    from: "2019-08-30",
-    range: -9,
+    from: date_list[date_list.length - 1],
+    range: -minVisible,
   });
   const canvas = useRef<any>();
   const chart = useRef<Chart>();
-  let date_list = [
-    "2019-08-01",
-    "2019-08-02",
-    "2019-08-03",
-    "2019-08-04",
-    "2019-08-05",
-    "2019-08-06",
-    "2019-08-07",
-    "2019-08-08",
-    "2019-08-09",
-    "2019-08-10",
-    "2019-08-11",
-    "2019-08-12",
-    "2019-08-13",
-    "2019-08-14",
-    "2019-08-15",
-    "2019-08-16",
-    "2019-08-17",
-    "2019-08-18",
-    "2019-08-19",
-    "2019-08-20",
-    "2019-08-21",
-    "2019-08-22",
-    "2019-08-23",
-    "2019-08-24",
-    "2019-08-25",
-    "2019-08-26",
-    "2019-08-27",
-    "2019-08-28",
-    "2019-08-29",
-    "2019-08-30",
-  ];
-  console.log("currentVisibleTicks", currentVisibleTicks);
 
   useEffect(() => {
-    const dataFromRange = getDataFromRange(
-      currentVisibleTicks.from,
-      currentVisibleTicks.range,
-      date_list
-    );
+    const dataFromRange = getDataFromRange({
+      data: date_list,
+      minVisible: minVisible,
+      from: currentVisibleTicks.from,
+      range: -Math.abs(currentVisibleTicks.range),
+    });
     var ctx = document.getElementById("myChart") as HTMLCanvasElement;
     const chartInstance = new window.Chart(canvas.current, {
       type: "line",
@@ -69,119 +60,20 @@ const Chart: React.SFC<ChartProps> = (props) => {
           {
             label: "infected",
             borderColor: getZoneStatusColor(ZoneStatus.YELLOW).textInBlueishBg,
-            // data: [...data.map((h) => h.infectedNumber)],
-            data: [
-              12,
-              19,
-              3,
-              5,
-              2,
-              3,
-              2,
-              16,
-              23,
-              11,
-              44,
-              22,
-              12,
-              19,
-              3,
-              5,
-              2,
-              3,
-              2,
-              16,
-              23,
-              11,
-              44,
-              22,
-              2,
-              3,
-              2,
-              16,
-              23,
-              11,
-              44,
-              22,
-            ],
+            backgroundColor: getZoneStatusColor(ZoneStatus.YELLOW).textInBlueishBg,
+            data: [...data.map((h) => h.infectedNumber)],
           },
           {
             label: "recovered",
             borderColor: getZoneStatusColor(ZoneStatus.GREEN).textInBlueishBg,
-            // data: [...data.map((h) => h.infectedNumber)],
-            data: [
-              12,
-              3,
-              2,
-              16,
-              23,
-              11,
-              44,
-              22,
-              2,
-              3,
-              2,
-              19,
-              3,
-              5,
-              2,
-              3,
-              5,
-              2,
-              16,
-              23,
-              11,
-              44,
-              3,
-              2,
-              16,
-              23,
-              11,
-              44,
-              22,
-              12,
-              19,
-              22,
-            ],
+            backgroundColor: getZoneStatusColor(ZoneStatus.GREEN).textInBlueishBg,
+            data: [...data.map((h) => h.recoveredNumber)],
           },
           {
             label: "dead",
             borderColor: getZoneStatusColor(ZoneStatus.RED).textInBlueishBg,
-            // data: [...data.map((h) => h.infectedNumber)],
-            data: [
-              12,
-              19,
-              3,
-              5,
-              2,
-              16,
-              23,
-              11,
-              44,
-              2,
-              3,
-              11,
-              44,
-              22,
-              3,
-              2,
-              16,
-              23,
-              11,
-              44,
-              22,
-              2,
-              12,
-              19,
-              3,
-              5,
-              2,
-              3,
-              2,
-              16,
-              23,
-              22,
-            ],
+            backgroundColor: getZoneStatusColor(ZoneStatus.RED).textInBlueishBg,
+            data: [...data.map((h) => h.deadNumber)],
           },
         ],
       },
@@ -194,6 +86,25 @@ const Chart: React.SFC<ChartProps> = (props) => {
         legend: {
           display: false,
         },
+        tooltips: {
+          mode: 'index',
+          intersect: false,
+          callbacks: {
+            title: (item: any, data: any) => {
+              console.log('item', item);
+              console.log('data', data);
+              return moment(item[0].label).format('DD MMM YYYY')
+            },
+          },
+          backgroundColor: 'white',
+          titleFontSize: 14,
+          titleFontColor: '#242B43',
+          // titleFontStyle: 'inherit 600',
+          bodyFontColor: '#242B43',
+          bodyFontSize: 12,
+          // bodyFontStyle: 'inherit',
+          displayColors: false
+        },
         scales: {
           xAxes: [
             {
@@ -202,13 +113,21 @@ const Chart: React.SFC<ChartProps> = (props) => {
               time: {
                 // parser: "DD MMM",
                 // tooltipFormat: "DD MMM",
-                min: dataFromRange[0],
-                max: dataFromRange[dataFromRange.length - 1],
                 unit: "day",
                 minUnit: "day",
               },
               ticks: {
                 padding: 24,
+                min: dataFromRange.from,
+                max: dataFromRange.to,
+                // callback: (value: number | string, index: number, values: any) => {
+                //   console.log(values[0].value);
+                //   const date = values.find((v: any, i: number) => i === index)?.value
+                //   console.log('date', date);
+                //   const day = moment(date).format('DD')
+                //   const weekDay = moment(date).format('ddd')
+                //   return day
+                // }
               },
               gridLines: {
                 drawBorder: false,
@@ -228,8 +147,6 @@ const Chart: React.SFC<ChartProps> = (props) => {
               },
             },
           ],
-          // min: moment.min(data.map((h) => moment(h.date))).format('DD MMM'),
-          // max: moment.max(data.map((h) => moment(h.date))).format('DD MMM')
         },
         plugins: {
           zoom: {
@@ -279,7 +196,10 @@ const Chart: React.SFC<ChartProps> = (props) => {
                 console.log(`I was panned!!!`, chart);
                 const from = chart.scales["x-axis-0"].ticks[0];
                 const range = chart.scales["x-axis-0"].ticks.length - 1;
-                setCurrentVisibleTicks({ from, range });
+                setCurrentVisibleTicks({
+                  from: moment(from).format("[2019]-MM-DD"),
+                  range,
+                });
                 setIsGrabbed(false);
               },
             },
@@ -351,46 +271,113 @@ const Chart: React.SFC<ChartProps> = (props) => {
     return () => {};
   }, []);
 
-  const handleBackClick = () => {
-    const { from, range } = currentVisibleTicks;
-    const positiveRangeFrom = getDataFromRange(from, range, date_list);
-    console.log("positiveRangeFrom", positiveRangeFrom);
-    const minTime = getDataFromRange(
-      positiveRangeFrom[0],
-      -Math.abs(range),
-      date_list
-    )[0];
-    const maxTime = positiveRangeFrom[0];
-
-    if (chart.current?.options?.scales?.xAxes?.[0].time) {
-      console.log("minTime", minTime);
-      console.log("maxTime", maxTime);
-      chart.current.options.scales.xAxes[0].time.min = minTime;
-      chart.current.options.scales.xAxes[0].time.max = maxTime;
+  const updateRange = (newRange: {
+    from: string;
+    to: string;
+    range: number;
+    data: string[];
+  }) => {
+    const minTime = newRange.from;
+    const maxTime = newRange.to;
+    if (chart.current?.options?.scales?.xAxes?.[0].ticks) {
+      chart.current.options.scales.xAxes[0].ticks.min = minTime;
+      chart.current.options.scales.xAxes[0].ticks.max = maxTime;
       chart.current.update();
-      const { from, range } = getRangeFromData(
-        minTime,
-        maxTime,
-        date_list,
-        minVisible
-      );
-      setCurrentVisibleTicks({ from, range });
-      console.log("updated, from, range", from, range);
+
+      setCurrentVisibleTicks({ from: newRange.from, range: newRange.range });
     }
   };
-  const handleForwardClick = () => {};
+
+  const handleBackClick = () => {
+    console.log("back currentVisibleTicks", currentVisibleTicks);
+
+    const { from, range } = currentVisibleTicks;
+    const positiveRangeFrom = getDataFromRange({
+      data: date_list,
+      minVisible: minVisible,
+      from: from,
+      range: range,
+    });
+    // console.log("positiveRangeFrom", positiveRangeFrom);
+    const newRange = getDataFromRange({
+      data: date_list,
+      minVisible: minVisible,
+      from: positiveRangeFrom.from,
+      range: -Math.abs(range),
+    });
+    console.log("newRange", newRange);
+    updateRange(newRange);
+  };
+  const handleForwardClick = () => {
+    console.log("forward currentVisibleTicks", currentVisibleTicks);
+
+    const { from, range } = currentVisibleTicks;
+    const positiveRangeFrom = getDataFromRange({
+      data: date_list,
+      minVisible: minVisible,
+      from: from,
+      range: range,
+    });
+    console.log("positiveRangeFrom", positiveRangeFrom);
+    const newRange = getDataFromRange({
+      data: date_list,
+      minVisible: minVisible,
+      from: positiveRangeFrom.to || positiveRangeFrom.from,
+      range: Math.abs(range),
+    });
+
+    console.log("newRange", newRange);
+    updateRange(newRange);
+  };
+
+  const getUniqueVisibleMonth = () => {
+    const currentVisibleRange = getDataFromRange({
+      data: date_list,
+      minVisible: minVisible,
+      from: currentVisibleTicks.from,
+      range: currentVisibleTicks.range,
+    });
+    const dates = currentVisibleRange.data;
+
+    const visibleMonths = dates.map((d) => moment(d).format("MMMM"));
+    return [...new Set(visibleMonths)];
+  };
   return (
-    <>
-      <button onClick={handleBackClick}>{"<---"}</button>
-      <button onClick={handleForwardClick}>{"--->"}</button>
-      <div
-        style={{
-          cursor: isGrabbed ? "grabbing" : "grab",
-        }}
-      >
-        <canvas id="myChart" ref={canvas} width="600px" height="400" />
-      </div>
-    </>
+      <Box pt={2} pr={2} pb={2} bgcolor="secondary.main" className={classes.container}>
+        <Box pl={2} pb={2}>
+          <Grid container justify="space-between">
+            <Typography variant="subtitle1">
+              {getUniqueVisibleMonth().join("-")}
+            </Typography>
+            <Grid item className="actions">
+              <Grid container>
+                <IconButton
+                  className={classes.btnStyle}
+                  onClick={handleBackClick}
+                  size="small"
+                >
+                  <NavigateBeforeRoundedIcon />
+                </IconButton>
+                <Box m={1} />
+                <IconButton
+                  className={classes.btnStyle}
+                  onClick={handleForwardClick}
+                  size="small"
+                >
+                  <NavigateNextRoundedIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+          </Grid>
+        </Box>
+        <Box
+          style={{
+            cursor: isGrabbed ? "grabbing" : "grab",
+          }}
+        >
+          <canvas id="myChart" ref={canvas} />
+        </Box>
+      </Box>
   );
 };
 

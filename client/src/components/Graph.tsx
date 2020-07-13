@@ -14,6 +14,7 @@ import moment from "moment";
 import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
 import { StateContext } from "../state/StateContext";
 import Chart from "./Chart";
+import { Box, Typography } from "@material-ui/core";
 
 export interface GraphProps {}
 
@@ -25,7 +26,12 @@ const Graph: React.SFC<GraphProps> = () => {
   const { history = [] } = selectedZone?.properties || {};
   console.log("history", history);
   return history && history.length > 0 ? (
-    <Chart data={history} />
+    <Box mt={4} mb={4}>
+      <Box mb={1}>
+        <Typography variant="subtitle1">Statistics</Typography>
+      </Box>
+      <Chart data={history} minVisible={5} />
+    </Box>
   ) : (
     // <ResponsiveContainer width="100%" height="100%">
     //   <LineChart
