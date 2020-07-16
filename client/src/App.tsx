@@ -83,6 +83,10 @@ const theme = createMuiTheme({
       fontSize: 20,
       fontWeight: 500,
     },
+    h5: {
+      fontSize: 18,
+      fontWeight: 500,
+    },
     subtitle1: {
       fontSize: 18,
       fontWeight: 500,
@@ -101,7 +105,7 @@ const theme = createMuiTheme({
     },
     overline: {
       fontSize: 12,
-      fontWeight: 400,
+      fontWeight: 500,
     },
   },
   overrides: {
