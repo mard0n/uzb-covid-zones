@@ -3,26 +3,38 @@ import { ZoneStatus } from "../types/zone";
 import { Color } from "@material-ui/lab";
 
 const getZoneStatusColor = (status: ZoneStatus) => {
-  let whiteBgText: string = "",
-    blueishBgText: string = "";
+  let textColorInWhite: string = "",
+    textColorInBlue: string = "",
+    text: string = "",
+    bgColor: string = "";
   switch (status) {
     case ZoneStatus.RED:
-      whiteBgText = "#EA5C73";
-      blueishBgText = "#FF4967";
+      textColorInWhite = "#EA5C73";
+      textColorInBlue = "#FF4967";
+      text = "Dangerous";
+      bgColor = "#ff0c0c26";
       break;
     case ZoneStatus.YELLOW:
-      whiteBgText = "#EF7C38";
-      blueishBgText = "#FF9635";
+      textColorInWhite = "#EF7C38";
+      textColorInBlue = "#FF9635";
+      text = "Warning";
+      bgColor = "#ffeb0159";
       break;
     case ZoneStatus.GREEN:
-      whiteBgText = "#87D03F";
-      blueishBgText = "#87D03F";
+      textColorInWhite = "#87D03F";
+      textColorInBlue = "#87D03F";
+      text = "Safe to Visit";
+      bgColor = "#8ff8293d";
       break;
     default:
-      whiteBgText = "#ccc";
       break;
   }
-  return { textInWhiteBg: whiteBgText, textInBlueishBg: blueishBgText };
+  return {
+    textInWhiteBg: textColorInWhite,
+    textInBlueishBg: textColorInBlue,
+    text: text,
+    bgColor: bgColor
+  };
 };
 
 export default getZoneStatusColor;

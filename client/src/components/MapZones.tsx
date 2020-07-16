@@ -178,13 +178,13 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                           margin: 0;
                         }
                         .custom-popup-style .data.infected {
-                          color: ${getZoneStatusColor(ZoneStatus.YELLOW).textInBlueishBg};
+                          color: ${getZoneStatusColor(ZoneStatus.YELLOW).textInWhiteBg};
                         }
                         .custom-popup-style .data.recovered {
-                          color: ${getZoneStatusColor(ZoneStatus.GREEN).textInBlueishBg};
+                          color: ${getZoneStatusColor(ZoneStatus.GREEN).textInWhiteBg};
                         }
                         .custom-popup-style .data.dead {
-                          color: ${getZoneStatusColor(ZoneStatus.RED).textInBlueishBg};
+                          color: ${getZoneStatusColor(ZoneStatus.RED).textInWhiteBg};
                         }
                       </style>
 

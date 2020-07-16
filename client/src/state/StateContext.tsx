@@ -11,7 +11,7 @@ export type State = {
 
 export const initialState = {
   zones: [],
-  selectedZoneId: "5ef360cf0ce6935b8404d9aa",
+  selectedZoneId: "",
   dispatch: () => null,
 };
 

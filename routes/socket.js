@@ -1,5 +1,5 @@
 const Zone = require("../models/zone.model");
-const ZoneCategories = require("../models/zoneCategory.model");
+// const ZoneCategories = require("../models/zoneCategory.model");
 const Admin = require("../models/admin.model");
 
 module.exports = function (socket, redis) {
@@ -14,16 +14,6 @@ module.exports = function (socket, redis) {
       })
       .catch((err) => {
         console.log("Admin error", err);
-        socket.emit("internal_error", "Internal error");
-      });
-
-    ZoneCategories.find({})
-      .then((data) => {
-        console.log("zoneCategories found");
-        socket.emit("push_zone_status_desc", data);
-      })
-      .catch((err) => {
-        console.log("ZoneCategories error", err);
         socket.emit("internal_error", "Internal error");
       });
   });

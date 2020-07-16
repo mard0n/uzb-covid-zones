@@ -47,4 +47,4 @@ const Editor: React.SFC<EditorProps> = (props) => {
   );
 };
 
-export default React.memo(Editor, () => true);
+export default Editor;

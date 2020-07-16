@@ -1,7 +1,8 @@
 import React from "react";
 import { Alert } from "@material-ui/lab";
-import { Typography, makeStyles, useTheme, Grid } from "@material-ui/core";
+import { Typography, makeStyles, useTheme, Grid, Box } from "@material-ui/core";
 import { ZoneStatus } from "../types/zone";
+import getZoneStatusColor from "../utils/getZoneStatusColor";
 
 export interface SelectedZoneNameProps {
   zoneName: string;
@@ -9,13 +10,16 @@ export interface SelectedZoneNameProps {
 }
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  badge: {
     display: "inline-block",
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingRight: theme.spacing(2),
-    minHeight: "36px",
+    borderRadius: 5,
+  },
+  badgeText: {
+    fontWeight: 500,
   },
   icon: {
     margin: 0,
@@ -30,32 +34,7 @@ const SelectedZoneName: React.SFC<SelectedZoneNameProps> = (props) => {
   const { zoneName, zoneStatus } = props;
   const theme = useTheme();
   const classes = useStyles(theme);
-  const getAlertStatus = () => {
-    const status: {
-      alertStatus: "success" | "warning" | "error";
-      alertText: string;
-    } = {
-      alertStatus: "success",
-      alertText: "",
-    };
-    switch (zoneStatus) {
-      case ZoneStatus.RED:
-        status["alertStatus"] = "error";
-        status["alertText"] = "Dangerous";
-        break;
-      case ZoneStatus.YELLOW:
-        status["alertStatus"] = "warning";
-        status["alertText"] = "Warning";
-        break;
-      case ZoneStatus.GREEN:
-        status["alertStatus"] = "success";
-        status["alertText"] = "Safe";
-        break;
-      default:
-        break;
-    }
-    return status;
-  };
+  const status = getZoneStatusColor(zoneStatus);
 
   return (
     <Grid
@@ -69,18 +48,18 @@ const SelectedZoneName: React.SFC<SelectedZoneNameProps> = (props) => {
         {zoneName && <Typography variant="h1">{zoneName}</Typography>}
       </Grid>
       <Grid item>
-        {getAlertStatus().alertText && (
-          <Alert
-            classes={{
-              root: classes.root,
-              icon: classes.icon,
-              message: classes.message,
+        {status.text && (
+          <Box
+            className={classes.badge}
+            style={{
+              color: status.textInBlueishBg,
+              backgroundColor: status.bgColor,
             }}
-            icon={() => {}}
-            severity={getAlertStatus().alertStatus}
           >
-            {getAlertStatus().alertText}
-          </Alert>
+            <Typography variant="caption" className={classes.badgeText}>
+              {status.text}
+            </Typography>
+          </Box>
         )}
       </Grid>
     </Grid>
