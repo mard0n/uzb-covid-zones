@@ -13,18 +13,13 @@ const zoneSchema = new Schema({
       type: ["String"],
     },
     parentZone: {
-      type: "ObjectId", ref: 'Zone'
+      type: "String"
+    },
+    childZones: {
+      type: ["ObjectId"], ref: 'Zone'
     },
     placeType: {
       type: "String",
-    },
-    zoomRange: {
-      showFrom: {
-        type: "Number",
-      },
-      showTo: {
-        type: "Number",
-      },
     },
     status: {
       type: "String",
