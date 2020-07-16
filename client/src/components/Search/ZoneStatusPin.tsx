@@ -14,11 +14,11 @@ const ZoneStatusPin: React.SFC<ZoneStatusPinProps> = (props) => {
   const statusColor = getZoneStatusColor(status);
 
   const style = {
+    display: 'inline-block',
     width: 8,
     height: 8,
     borderRadius: 4,
     backgroundColor: statusColor?.textInWhiteBg,
-    marginRight: 16,
   };
   return <Box style={style} component="span" />;
 };

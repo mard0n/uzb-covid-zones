@@ -15,6 +15,9 @@ import { AxiosResponse } from "axios";
 import OverallStat from "../components/OverallStat";
 import Graph from "../components/Graph";
 import Restrictions from "../components/Restrictions";
+import ChildZones from "../components/ChildZones";
+import CallBanner from "../components/CallBanner";
+import WelcomeBanner from "../components/WelcomeBanner";
 
 function User() {
   const { dispatch, selectedZoneId, zones = [] } = useContext(StateContext);
@@ -52,10 +55,12 @@ function User() {
                 totalDead={selectedZone?.properties?.total.deadNumber}
               />
               <Graph />
+              <ChildZones />
+              <CallBanner />
               <Restrictions />
             </Grid>
           ) : (
-            <></>
+            <WelcomeBanner/>
           )
         }
       />
