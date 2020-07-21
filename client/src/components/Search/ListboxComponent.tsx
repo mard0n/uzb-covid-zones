@@ -41,19 +41,19 @@ const ListboxComponent = React.forwardRef<HTMLDivElement>(
     const theme = useTheme();
     const smUp = useMediaQuery(theme.breakpoints.up("sm"), { noSsr: true });
     const itemCount = itemData.length;
-    const itemSize = smUp ? 36 : 48;
+    const itemSize = 56;
 
     const getChildSize = (child: React.ReactNode) => {
       if (React.isValidElement(child) && child.type === ListSubheader) {
-        return 48;
+        return 56;
       }
 
       return itemSize;
     };
 
     const getHeight = () => {
-      if (itemCount > 8) {
-        return 8 * itemSize;
+      if (itemCount > 5) {
+        return 5 * itemSize;
       }
       return itemData.map(getChildSize).reduce((a, b) => a + b, 0);
     };

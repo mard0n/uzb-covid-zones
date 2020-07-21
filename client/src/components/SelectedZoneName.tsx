@@ -1,15 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Alert } from "@material-ui/lab";
 import { Typography, makeStyles, useTheme, Grid, Box } from "@material-ui/core";
 import { ZoneStatus } from "../types/zone";
 import getZoneStatusColor from "../utils/getZoneStatusColor";
+import { StateContext } from "../state/StateContext";
+import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
+import { getParents } from "../utils/getParents";
+import LocationOnIcon from "@material-ui/icons/LocationOn";
 
-export interface SelectedZoneNameProps {
-  zoneName: string;
-  zoneStatus: ZoneStatus;
-}
+export interface SelectedZoneNameProps {}
 
 const useStyles = makeStyles((theme) => ({
+  zoneName: {
+    marginBottom: '4px'
+  },
   badge: {
     display: "inline-block",
     paddingTop: theme.spacing(1),
@@ -25,30 +29,48 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     padding: 0,
   },
+  parentZones: {
+    verticalAlign: 'top'
+  },
   message: {
     padding: 0,
   },
 }));
 
 const SelectedZoneName: React.SFC<SelectedZoneNameProps> = (props) => {
-  const { zoneName, zoneStatus } = props;
+  const { zones, selectedZoneId, dispatch } = useContext(StateContext);
+  const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
+  console.log("SelectedZoneName selectedZone", selectedZone);
+  const zoneName = selectedZone?.properties.displayName;
+  const zoneStatus = selectedZone?.properties.status;
+
   const theme = useTheme();
   const classes = useStyles(theme);
-  const status = getZoneStatusColor(zoneStatus);
+  const status = zoneStatus && getZoneStatusColor(zoneStatus);
 
   return (
     <Grid
       container
       justify="space-between"
-      alignItems={"center"}
       wrap={"wrap-reverse"}
       spacing={1}
     >
-      <Grid item>
-        {zoneName && <Typography variant="h1">{zoneName}</Typography>}
-      </Grid>
-      <Grid item>
-        {status.text && (
+      {zoneName && (
+        <Grid item>
+          <Typography className={classes.zoneName} variant="h1">{zoneName}</Typography>
+          {selectedZone && (
+            <>
+              <LocationOnIcon fontSize="small" color={"disabled"} />
+              <Box mr={1} component='span'/>
+              <Typography className={classes.parentZones} variant="caption">
+                {getParents(selectedZone, zones)}
+              </Typography>
+            </>
+          )}
+        </Grid>
+      )}
+      {status?.text && (
+        <Grid item>
           <Box
             className={classes.badge}
             style={{
@@ -60,8 +82,8 @@ const SelectedZoneName: React.SFC<SelectedZoneNameProps> = (props) => {
               {status.text}
             </Typography>
           </Box>
-        )}
-      </Grid>
+        </Grid>
+      )}
     </Grid>
   );
 };

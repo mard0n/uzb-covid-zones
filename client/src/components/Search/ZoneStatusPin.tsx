@@ -5,22 +5,23 @@ import getZoneStatusColor from "../../utils/getZoneStatusColor";
 
 export interface ZoneStatusPinProps {
   status: ZoneStatus;
+  style?: any
 }
 
 const ZoneStatusPin: React.SFC<ZoneStatusPinProps> = (props) => {
   const theme = useTheme();
-  const { status } = props;
+  const { status, style = {} } = props;
 
   const statusColor = getZoneStatusColor(status);
 
-  const style = {
+  const boxStyle = {
     display: 'inline-block',
     width: 8,
     height: 8,
     borderRadius: 4,
     backgroundColor: statusColor?.textInWhiteBg,
   };
-  return <Box style={style} component="span" />;
+  return <Box style={{...boxStyle, ...style}} component="span" />;
 };
 
 export default React.memo(ZoneStatusPin, () => true);

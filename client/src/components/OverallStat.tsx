@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import {
   Typography,
   Paper,
@@ -13,15 +13,18 @@ import { center } from "@turf/turf";
 import getZoneStatusColor from "../utils/getZoneStatusColor";
 import { ZoneStatus } from "../types/zone";
 import OverallStatPaper, { OverallStatPaperPosition } from "./OverallStatPaper";
+import { StateContext } from "../state/StateContext";
+import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
 
-export interface OverallStatProps {
-  totalInfected: number;
-  totalRecovered: number;
-  totalDead: number;
-}
+export interface OverallStatProps {}
 
 const OverallStat: React.SFC<OverallStatProps> = (props) => {
-  const { totalInfected = 0, totalRecovered = 0, totalDead = 0 } = props;
+  const { zones, selectedZoneId } = useContext(StateContext);
+  const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
+  const totalInfected = selectedZone?.properties?.total.infectedNumber;
+  const totalRecovered = selectedZone?.properties?.total.recoveredNumber;
+  const totalDead = selectedZone?.properties?.total.deadNumber;
+
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
   const infectedColor = getZoneStatusColor(ZoneStatus.YELLOW)?.textInBlueishBg;
@@ -38,7 +41,7 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
           <OverallStatPaper
             title={"Infected"}
             number={totalInfected}
-            caption={"12%"}
+            // caption={"12%"}
             numberColor={infectedColor}
             position={OverallStatPaperPosition.LEFT}
           />
@@ -47,7 +50,7 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
           <OverallStatPaper
             title={"Recovered"}
             number={totalRecovered}
-            caption={"11%"}
+            // caption={"11%"}
             numberColor={recoveredColor}
             position={OverallStatPaperPosition.MIDDLE}
           />
@@ -56,7 +59,7 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
           <OverallStatPaper
             title={"Dead"}
             number={totalDead}
-            caption={"5%"}
+            // caption={"5%"}
             numberColor={deadColor}
             position={OverallStatPaperPosition.RIGHT}
           />

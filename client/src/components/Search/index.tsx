@@ -32,6 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
   option: {
     padding: "8px 0",
+    height: 50
     // '&[data-focus="true"]': {
     //   backgroundColor: "#ff5e00",
     //   color: "white",
@@ -98,6 +99,7 @@ const Search: React.SFC<SearchProps> = (props) => {
   return (
     <>
       <Autocomplete
+        debug
         id="search-bank-name"
         classes={{
           option: classes.option,
@@ -121,7 +123,7 @@ const Search: React.SFC<SearchProps> = (props) => {
             // InputProps={{ ...params.InputProps, ref: inputRef }}
           />
         )}
-        renderOption={SearchOption}
+        renderOption={(option) => <SearchOption zone={option} zones={zones}/>}
         PaperComponent={SearchOptionsPaper}
         ListboxComponent={
           ListboxComponent as React.ComponentType<

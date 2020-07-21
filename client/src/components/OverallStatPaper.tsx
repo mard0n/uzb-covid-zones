@@ -19,8 +19,8 @@ export enum OverallStatPaperPosition {
 
 export interface OverallStatPaperProps {
   title: string;
-  number: number;
-  caption: string;
+  number?: number;
+  caption?: string;
   numberColor: string;
   position: OverallStatPaperPosition;
 }
@@ -68,7 +68,7 @@ const OverallStatPaper: React.SFC<OverallStatPaperProps> = (props) => {
   const { title, number, caption, numberColor, position } = props;
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const classes = useStyles(props);
-  return (
+  return number ? (
     <Paper className={classes.paper} color="secondary" elevation={0}>
       <Grid container justify="space-between" alignItems="stretch">
         {position === OverallStatPaperPosition.MIDDLE && !mdUp && (
@@ -94,6 +94,8 @@ const OverallStatPaper: React.SFC<OverallStatPaperProps> = (props) => {
         )}
       </Grid>
     </Paper>
+  ) : (
+    <></>
   );
 };
 

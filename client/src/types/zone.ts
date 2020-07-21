@@ -34,6 +34,8 @@ export type Zone = {
   properties: {
     displayName: string;
     alias: string[];
+    parentZone: string;
+    childZones: string[];
     placeType: string;
     status: ZoneStatus;
     total: Total;

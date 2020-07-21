@@ -19,6 +19,7 @@ import { featureEach, GeoJSONObject } from "@turf/turf";
 import { LeafletEvent } from "leaflet";
 import { Zone, ZoneStatus } from "../types/zone";
 import getZoneStatusColor from "../utils/getZoneStatusColor";
+import { getParents } from "../utils/getParents";
 
 export interface MapZonesProps {
   closeBottomSheet?: () => void;
@@ -35,6 +36,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
 
   useEffect(() => {
     console.log("selectedZone", selectedZone);
+    
     if (selectedZone?.bbox?.length) {
       console.log(
         "mapRef.current?.leafletElement?.flyToBounds",
@@ -84,7 +86,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
           } else if (zoomLevel < 9 && zoomLevel >= 6) {
             isShown = placeType === "REGION";
           } else if (zoomLevel < 6) {
-            isShown = placeType === "COUNRTY";
+            isShown = placeType === "COUNTRY";
           }
           // const parent = zones.find(
           //   (z: any) => z._id === zone.properties.parentZone

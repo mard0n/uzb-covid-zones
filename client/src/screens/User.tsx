@@ -35,33 +35,20 @@ function User() {
 
   return (
     <>
-      {/* <Box height={100} width={"100vw"}>
-        <Graph />
-      </Box> */}
       <CssBaseline />
       <Layout
         search={<Search />}
         map={<MapZones />}
         mainContent={
-          selectedZone ? (
-            <Grid direction={"row"}>
-              <SelectedZoneName
-                zoneName={selectedZone?.properties?.displayName}
-                zoneStatus={selectedZone?.properties?.status}
-              />
-              <OverallStat
-                totalInfected={selectedZone?.properties?.total.infectedNumber}
-                totalRecovered={selectedZone?.properties?.total.recoveredNumber}
-                totalDead={selectedZone?.properties?.total.deadNumber}
-              />
-              <Graph />
-              <ChildZones />
-              <CallBanner />
-              <Restrictions />
-            </Grid>
-          ) : (
-            <WelcomeBanner/>
-          )
+          <>
+            {!selectedZone && <WelcomeBanner />}
+            {selectedZone && <SelectedZoneName />}
+            {selectedZone && <OverallStat />}
+            {selectedZone?.properties.history && <Graph />}
+            <ChildZones />
+            <CallBanner />
+            {selectedZone && <Restrictions />}
+          </>
         }
       />
     </>
