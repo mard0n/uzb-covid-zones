@@ -41,9 +41,11 @@
     "react-leaflet": "^2.7.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "react-slick": "0.27.0",
     "react-swipeable-bottom-sheet": "^1.1.1",
     "react-window": "^1.8.5",
     "recharts": "^1.8.5",
+    "slick-carousel": "1.8.1",
     "socket.io-client": "^2.3.0",
     "typescript": "~3.7.2"
   },
@@ -71,6 +73,7 @@
   "devDependencies": {
     "@editorjs/editorjs": "^2.18.0",
     "@editorjs/header": "^2.4.1",
-    "@editorjs/list": "^1.4.0"
+    "@editorjs/list": "^1.4.0",
+    "@types/react-slick": "0.23.4"
   }
 }

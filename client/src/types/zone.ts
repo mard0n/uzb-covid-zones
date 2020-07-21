@@ -6,6 +6,13 @@ export enum ZoneStatus {
   GREEN = "GREEN",
 }
 
+export enum PlaceType {
+  DISTRICT = "DISTRICT",
+  CITY = "CITY",
+  REGION = "REGION",
+  COUNTRY = "COUNTRY"
+}
+
 export type Total = {
   infectedNumber: number;
   recoveredNumber: number;
@@ -36,7 +43,7 @@ export type Zone = {
     alias: string[];
     parentZone: string;
     childZones: string[];
-    placeType: string;
+    placeType: PlaceType;
     status: ZoneStatus;
     total: Total;
     history: History[];

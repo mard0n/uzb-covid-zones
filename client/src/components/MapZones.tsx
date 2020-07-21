@@ -17,7 +17,7 @@ import { ADD_SELECTED_ZONE_ID } from "../state/reducers/appReducer";
 import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
 import { featureEach, GeoJSONObject } from "@turf/turf";
 import { LeafletEvent } from "leaflet";
-import { Zone, ZoneStatus } from "../types/zone";
+import { Zone, ZoneStatus, PlaceType } from "../types/zone";
 import getZoneStatusColor from "../utils/getZoneStatusColor";
 import { getParents } from "../utils/getParents";
 
@@ -82,11 +82,11 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
           let isShown;
 
           if (zoomLevel >= 9) {
-            isShown = placeType === "DISTRICT" || placeType === "CITY";
+            isShown = placeType === PlaceType.DISTRICT || placeType === PlaceType.CITY;
           } else if (zoomLevel < 9 && zoomLevel >= 6) {
-            isShown = placeType === "REGION";
+            isShown = placeType === PlaceType.REGION;
           } else if (zoomLevel < 6) {
-            isShown = placeType === "COUNTRY";
+            isShown = placeType === PlaceType.COUNTRY;
           }
           // const parent = zones.find(
           //   (z: any) => z._id === zone.properties.parentZone
