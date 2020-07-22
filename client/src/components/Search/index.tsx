@@ -73,7 +73,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Search: React.SFC<SearchProps> = (props) => {
   const { isInsidePaper, closeBottomSheet = () => {} } = props;
-  const { zones = [], dispatch } = useContext(StateContext);
+  const { zones = [], dispatch, navigateTo } = useContext(StateContext);
   const [selectedZone, setSelectedZone] = useState<Zone | null>();
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -138,6 +138,10 @@ const Search: React.SFC<SearchProps> = (props) => {
     selectZone(zone)
   }
 
+  const handleAutoLocate = (lat: number, lng: number) => {
+    navigateTo(lat, lng)
+  }
+
   return (
     <>
       <Autocomplete
@@ -162,6 +166,7 @@ const Search: React.SFC<SearchProps> = (props) => {
             bgColor={bgColor}
             elevation={elevation}
             inputRef={inputRef}
+            handleAutoLocate={handleAutoLocate}
             // InputProps={{ ...params.InputProps, ref: inputRef }}
           />
         )}

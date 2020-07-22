@@ -6,12 +6,14 @@ import { Zone } from "../types/zone";
 export type State = {
   zones: Zone[];
   selectedZoneId: string;
+  navigateTo: Function;
   dispatch: React.Dispatch<Action>;
 };
 
 export const initialState = {
   zones: [],
   selectedZoneId: "",
+  navigateTo: () => null,
   dispatch: () => null,
 };
 

@@ -9,11 +9,15 @@ import {
   CircleMarker,
   MapLayer,
   Popup,
+  Marker,
 } from "react-leaflet";
 import * as turf from "@turf/turf";
 import { getInfectionStatus } from "../utils/infection";
 import { StateContext } from "../state/StateContext";
-import { ADD_SELECTED_ZONE_ID } from "../state/reducers/appReducer";
+import {
+  ADD_SELECTED_ZONE_ID,
+  ADD_NAVIGATE_TO_FN,
+} from "../state/reducers/appReducer";
 import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
 import { featureEach, GeoJSONObject } from "@turf/turf";
 import { LeafletEvent } from "leaflet";
@@ -30,13 +34,35 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
   const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
   const [zoomLevel, setZoomLevel] = useState(9);
+  const [marker, setMarker] = useState<any>(null);
   // console.log("Map Zones zones", zones);
 
   const mapRef = useRef<Map | null>(null);
 
+  const navigateTo = (lat: number, lng: number) => {
+    mapRef.current?.leafletElement.setView({ lat, lng }, 12, { animate: true });
+    setMarker({ lat, lng });
+  };
+
+  useEffect(() => {
+    const L = require("leaflet");
+
+    delete L.Icon.Default.prototype._getIconUrl;
+
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+      iconUrl: require("leaflet/dist/images/marker-icon.png"),
+      shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+    }); // to show marker
+    dispatch({
+      type: ADD_NAVIGATE_TO_FN,
+      payload: navigateTo,
+    });
+  }, []);
+
   useEffect(() => {
     console.log("selectedZone", selectedZone);
-    
+
     if (selectedZone?.bbox?.length) {
       console.log(
         "mapRef.current?.leafletElement?.flyToBounds",
@@ -74,6 +100,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
         attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
         url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
       />
+      {marker && <Marker position={{ lat: marker.lat, lng: marker.lng }} />}
       <FeatureGroup>
         {zones.map((zone, i) => {
           // const { showFrom, showTo } = zone?.properties?.zoomRange;
@@ -82,51 +109,13 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
           let isShown;
 
           if (zoomLevel >= 9) {
-            isShown = placeType === PlaceType.DISTRICT || placeType === PlaceType.CITY;
+            isShown =
+              placeType === PlaceType.DISTRICT || placeType === PlaceType.CITY;
           } else if (zoomLevel < 9 && zoomLevel >= 6) {
             isShown = placeType === PlaceType.REGION;
           } else if (zoomLevel < 6) {
             isShown = placeType === PlaceType.COUNTRY;
           }
-          // const parent = zones.find(
-          //   (z: any) => z._id === zone.properties.parentZone
-          // );
-          // console.log("parent -------", parent);
-
-          // if (parent) {
-          //   const [minlat, maxlat, minlng, maxlng] = parent?.bbox || [];
-          //   const isParentInViewBounds = mapRef.current.leafletElement
-          //     .getBounds()
-          //     .contains([
-          //       [minlat, minlng],
-          //       [maxlat, maxlng],
-          //     ]);
-          //   isShown = !isParentInViewBounds;
-          // } else {
-          //   const [minlat, maxlat, minlng, maxlng] = zone?.bbox || [];
-          //   const isZoneInViewBounds = mapRef.current.leafletElement
-          //     .getBounds()
-          //     .contains([
-          //       [minlat, minlng],
-          //       [maxlat, maxlng],
-          //     ]);
-          //   isShown = isZoneInViewBounds;
-          // }
-          // const isParentInsideBounds = parent
-          // if()
-          //   showFrom <= zoomLevel && showTo >= zoomLevel;
-
-          // const infectionStatus: any = getInfectionStatus(
-          //   zone?.properties?.history?.infectedNumber,
-          //   zonesStatusDesc
-          // );
-          // if (isShown) {
-          //   console.log("visible zone name", zone.properties.displayName);
-          //   console.log(
-          //     "visible zone parent",
-          //     parent && parent.properties.displayName
-          //   );
-          // }
           return (
             isShown && (
               <>
@@ -162,7 +151,10 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                           height: 8px;
                           border-radius: 4px;
                           margin-right: 5px;
-                          background-color: ${getZoneStatusColor(zone.properties.status).textInBlueishBg};
+                          background-color: ${
+                            getZoneStatusColor(zone.properties.status)
+                              .textInBlueishBg
+                          };
                         }
                         .custom-popup-style .zone-name {
                           font-family: Rubik;
@@ -180,23 +172,37 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                           margin: 0;
                         }
                         .custom-popup-style .data.infected {
-                          color: ${getZoneStatusColor(ZoneStatus.YELLOW).textInWhiteBg};
+                          color: ${
+                            getZoneStatusColor(ZoneStatus.YELLOW).textInWhiteBg
+                          };
                         }
                         .custom-popup-style .data.recovered {
-                          color: ${getZoneStatusColor(ZoneStatus.GREEN).textInWhiteBg};
+                          color: ${
+                            getZoneStatusColor(ZoneStatus.GREEN).textInWhiteBg
+                          };
                         }
                         .custom-popup-style .data.dead {
-                          color: ${getZoneStatusColor(ZoneStatus.RED).textInWhiteBg};
+                          color: ${
+                            getZoneStatusColor(ZoneStatus.RED).textInWhiteBg
+                          };
                         }
                       </style>
 
                       <div class='title-container'>
                         <span class="zone-status-pin"></span>
-                        <h5 class="zone-name">${zone.properties.displayName}</h5>
+                        <h5 class="zone-name">${
+                          zone.properties.displayName
+                        }</h5>
                       </div>
-                      <p class="data infected">Infected ${zone.properties.total.infectedNumber}</p>
-                      <p class="data recovered">Recovered ${zone.properties.total.recoveredNumber}</p>
-                      <p class="data dead">Dead ${zone.properties.total.deadNumber}</p>
+                      <p class="data infected">Infected ${
+                        zone.properties.total.infectedNumber
+                      }</p>
+                      <p class="data recovered">Recovered ${
+                        zone.properties.total.recoveredNumber
+                      }</p>
+                      <p class="data dead">Dead ${
+                        zone.properties.total.deadNumber
+                      }</p>
 
                     `,
                       {
@@ -209,7 +215,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                       click: () => handleZoneSelect(zone),
                       mouseover: (e) => {
                         layer.openPopup();
-                      }
+                      },
                     });
                   }}
                   style={(feat) => {

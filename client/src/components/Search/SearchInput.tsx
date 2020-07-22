@@ -5,8 +5,11 @@ import {
   makeStyles,
   useTheme,
   PaperProps,
+  Button,
+  IconButton,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
+import NavigationRoundedIcon from "@material-ui/icons/NavigationRounded";
 
 export interface SearchInputProps {
   InputProps: {
@@ -15,6 +18,7 @@ export interface SearchInputProps {
   inputRef: any;
   bgColor: string;
   elevation: PaperProps["elevation"];
+  handleAutoLocate: (lat: number, lng: number) => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -29,11 +33,42 @@ const useStyles = makeStyles((theme) => ({
   input: {
     marginLeft: theme.spacing(1),
   },
+  autoLocate: {
+    boxShadow: "0px 4px 10px rgba(27, 41, 83, 0.24)",
+    height: "30px",
+    width: "30px",
+    backgroundColor: "white",
+  },
+  autoLocateIcon: {
+    transform: "rotate(27deg) translateY(-1px)",
+    fontSize: "1rem",
+  },
 }));
 
 const SearchInput: React.SFC<SearchInputProps> = (props) => {
+  const { handleAutoLocate } = props;
   const theme = useTheme();
   const classes = useStyles(theme);
+
+  const handleAutoLocateClick = () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        function (position) {
+          handleAutoLocate(position.coords.latitude, position.coords.longitude);
+          // infoWindow.setPosition(pos);
+          // infoWindow.setContent('Location found.');
+          // infoWindow.open(map);
+          // map.setCenter(pos);
+        },
+        function () {
+          // handleLocationError(true, infoWindow, map.getCenter());
+        }
+      );
+    } else {
+      // Browser doesn't support Geolocation
+      // handleLocationError(false, infoWindow, map.getCenter());
+    }
+  };
   return (
     <Paper
       ref={props.InputProps.ref}
@@ -49,6 +84,15 @@ const SearchInput: React.SFC<SearchInputProps> = (props) => {
         placeholder="Search for the city..."
         inputRef={props.inputRef}
       />
+      <IconButton
+        className={classes.autoLocate}
+        onClick={handleAutoLocateClick}
+      >
+        <NavigationRoundedIcon
+          color="primary"
+          className={classes.autoLocateIcon}
+        />
+      </IconButton>
     </Paper>
   );
 };
