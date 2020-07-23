@@ -10,8 +10,9 @@ import {
   MapLayer,
   Popup,
   Marker,
+  ZoomControl,
 } from "react-leaflet";
-import * as turf from "@turf/turf";
+// import * as turf from "@turf/turf";
 import { getInfectionStatus } from "../utils/infection";
 import { StateContext } from "../state/StateContext";
 import {
@@ -19,11 +20,13 @@ import {
   ADD_NAVIGATE_TO_FN,
 } from "../state/reducers/appReducer";
 import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
-import { featureEach, GeoJSONObject } from "@turf/turf";
+// import { featureEach, GeoJSONObject } from "@turf/turf";
 import { LeafletEvent } from "leaflet";
 import { Zone, ZoneStatus, PlaceType } from "../types/zone";
 import getZoneStatusColor from "../utils/getZoneStatusColor";
-import { getParents } from "../utils/getParents";
+import { useMediaQuery, Theme } from "@material-ui/core";
+import './zoomStyles.css'
+// import { getParents } from "../utils/getParents";
 
 export interface MapZonesProps {
   closeBottomSheet?: () => void;
@@ -35,6 +38,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
   const [zoomLevel, setZoomLevel] = useState(9);
   const [marker, setMarker] = useState<any>(null);
+  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   // console.log("Map Zones zones", zones);
 
   const mapRef = useRef<Map | null>(null);
@@ -64,10 +68,6 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
     console.log("selectedZone", selectedZone);
 
     if (selectedZone?.bbox?.length) {
-      console.log(
-        "mapRef.current?.leafletElement?.flyToBounds",
-        mapRef.current?.leafletElement?.flyToBounds
-      );
       const [westlon, minlat, eastlon, maxlat] = selectedZone?.bbox;
       mapRef.current?.leafletElement?.flyToBounds([
         [minlat, eastlon],
@@ -93,6 +93,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
       ref={mapRef}
       center={[40.7, 71.24]}
       zoom={9}
+      zoomControl={false}
       style={{ width: "100%", height: "100%" }}
       onmoveend={handleZoom}
     >
@@ -101,6 +102,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
         url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
       />
       {marker && <Marker position={{ lat: marker.lat, lng: marker.lng }} />}
+      {mdUp && <ZoomControl position="bottomright" />}
       <FeatureGroup>
         {zones.map((zone, i) => {
           // const { showFrom, showTo } = zone?.properties?.zoomRange;
@@ -223,15 +225,16 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                     // console.log("status", status);
                     const color =
                       status === "RED"
-                        ? "#ff5858"
+                        ? "rgb(237, 69, 67)"
                         : status === "YELLOW"
-                        ? "#ffc182"
-                        : "#2e8e58";
+                        ? "rgb(255, 210, 30)"
+                        : "rgb(86, 219, 64)";
                     // console.log("color", color);
                     return {
                       fillColor: color,
-                      fillOpacity: 0.4,
+                      fillOpacity: 0.301961,
                       color: color,
+                      weight: 1.5
                     };
                   }}
                 />

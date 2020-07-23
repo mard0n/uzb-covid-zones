@@ -31,6 +31,11 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
   const recoveredColor = getZoneStatusColor(ZoneStatus.GREEN)?.textInBlueishBg;
   const deadColor = getZoneStatusColor(ZoneStatus.RED)?.textInBlueishBg;
 
+  const [preLastHistory, lastHistory] = selectedZone?.properties?.history?.slice(-2) || [];
+  const infectedPercentOfIncrease = ((lastHistory?.infectedNumber / preLastHistory?.infectedNumber) * 100) - 100
+  const recoveredPercentOfIncrease = ((lastHistory?.recoveredNumber / preLastHistory?.recoveredNumber) * 100) - 100
+  const deadPercentOfIncrease = ((lastHistory?.deadNumber / preLastHistory?.deadNumber) * 100) - 100
+
   return (
     <Box mt={4} mb={4}>
       <Box mb={1}>
@@ -41,7 +46,7 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
           <OverallStatPaper
             title={"Infected"}
             number={totalInfected}
-            // caption={"12%"}
+            caption={infectedPercentOfIncrease}
             numberColor={infectedColor}
             position={OverallStatPaperPosition.LEFT}
           />
@@ -50,7 +55,7 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
           <OverallStatPaper
             title={"Recovered"}
             number={totalRecovered}
-            // caption={"11%"}
+            caption={recoveredPercentOfIncrease}
             numberColor={recoveredColor}
             position={OverallStatPaperPosition.MIDDLE}
           />
@@ -59,7 +64,7 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
           <OverallStatPaper
             title={"Dead"}
             number={totalDead}
-            // caption={"5%"}
+            caption={deadPercentOfIncrease}
             numberColor={deadColor}
             position={OverallStatPaperPosition.RIGHT}
           />

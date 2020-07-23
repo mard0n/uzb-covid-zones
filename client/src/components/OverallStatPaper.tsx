@@ -10,6 +10,10 @@ import {
   Divider,
   Grid,
 } from "@material-ui/core";
+import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import getZoneStatusColor from "../utils/getZoneStatusColor";
+import { ZoneStatus } from "../types/zone";
 
 export enum OverallStatPaperPosition {
   LEFT = "LEFT",
@@ -20,7 +24,7 @@ export enum OverallStatPaperPosition {
 export interface OverallStatPaperProps {
   title: string;
   number?: number;
-  caption?: string;
+  caption?: number;
   numberColor: string;
   position: OverallStatPaperPosition;
 }
@@ -60,14 +64,32 @@ const useStyles = makeStyles((theme) =>
     },
     paperCaption: {
       color: "#777FA9",
+      verticalAlign: 'super',
     },
   })
 );
 
 const OverallStatPaper: React.SFC<OverallStatPaperProps> = (props) => {
-  const { title, number, caption, numberColor, position } = props;
+  const { title, number, caption = 0, numberColor, position } = props;
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const classes = useStyles(props);
+  console.log('caption', caption)
+  let change: "NO_CHANGE" | "INCREASED" | "DECREASED";
+  if (isNaN(caption)) {
+    change = "NO_CHANGE";
+  } else if (caption === 0) {
+    change = "NO_CHANGE";
+  } else if (caption < 0) {
+    change = "DECREASED";
+  } else if (caption > 0) {
+    change = "INCREASED";
+  } else {
+    change = "NO_CHANGE";
+  }
+
+  const positiveChangeColor = getZoneStatusColor(ZoneStatus.GREEN).textInBlueishBg
+  const negativeChangeColor = getZoneStatusColor(ZoneStatus.RED).textInBlueishBg
+
   return number ? (
     <Paper className={classes.paper} color="secondary" elevation={0}>
       <Grid container justify="space-between" alignItems="stretch">
@@ -86,8 +108,15 @@ const OverallStatPaper: React.SFC<OverallStatPaperProps> = (props) => {
             {number}
           </Typography>
           <Typography variant="caption" className={classes.paperCaption}>
-            {caption}
+            {change === 'NO_CHANGE' ? '0' : Math.abs(Math.round(caption))}%
           </Typography>
+          {change === "INCREASED" ? (
+            <ArrowDropUpIcon style={{color: negativeChangeColor}} />
+          ) : change === "DECREASED" ? (
+            <ArrowDropDownIcon style={{color: positiveChangeColor}} />
+          ) : (
+            <></>
+          )}
         </Grid>
         {position === OverallStatPaperPosition.MIDDLE && !mdUp && (
           <Divider orientation="vertical" flexItem />
