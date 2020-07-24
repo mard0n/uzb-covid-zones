@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
-import { StateContext } from "../state/StateContext";
-import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
-import { editorToHTMLParser } from "../utils/editorToHTMLParser";
+import { StateContext } from "../../state/StateContext";
+import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
+import { editorToHTMLParser } from "../../utils/editorToHTMLParser";
 import { Box } from "@material-ui/core";
 
 export interface RestrictionsProps {}

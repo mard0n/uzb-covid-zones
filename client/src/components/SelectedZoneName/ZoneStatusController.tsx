@@ -6,8 +6,8 @@ import {
   MenuItem,
   makeStyles,
 } from "@material-ui/core";
-import { StateContext } from "../state/StateContext";
-import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
+import { StateContext } from "../../state/StateContext";
+import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
 
 export interface ZoneStatusControllerProps {
   socket: any;

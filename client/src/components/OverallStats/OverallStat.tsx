@@ -10,11 +10,11 @@ import {
   Theme,
 } from "@material-ui/core";
 import { center } from "@turf/turf";
-import getZoneStatusColor from "../utils/getZoneStatusColor";
-import { ZoneStatus } from "../types/zone";
-import OverallStatPaper, { OverallStatPaperPosition } from "./OverallStatPaper";
-import { StateContext } from "../state/StateContext";
-import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
+import getZoneStatusColor from "../../utils/getZoneStatusColor";
+import { ZoneStatus } from "../../types/zone";
+import OverallStatPaper, { OverallStatPaperPosition } from "../OverallStatPaper";
+import { StateContext } from "../../state/StateContext";
+import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
 
 export interface OverallStatProps {}
 

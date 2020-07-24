@@ -15,8 +15,8 @@ import {
   Link,
 } from "@material-ui/core";
 import KeyboardArrowDownRoundedIcon from "@material-ui/icons/KeyboardArrowDownRounded";
-import ZoneStatusPin from "./Search/ZoneStatusPin";
-import { ZoneStatus } from "../types/zone";
+import ZoneStatusPin from "../Search/ZoneStatusPin";
+import { ZoneStatus } from "../../types/zone";
 
 const useStyles = makeStyles({
   table: {

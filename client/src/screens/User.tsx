@@ -1,6 +1,6 @@
 import "leaflet/dist/leaflet.css";
 import React, { useEffect, useContext } from "react";
-import MapZones from "../components/MapZones";
+import MapZones from "../components/Map/MapZones";
 import { fetchZones } from "../api/zones";
 import { ADD_ZONES } from "../state/reducers/appReducer";
 import { StateContext } from "../state/StateContext";
@@ -8,15 +8,15 @@ import Search from "../components/Search/index";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { Typography, Grid, Box } from "@material-ui/core";
 import Layout from "../components/Layout";
-import SelectedZoneName from "../components/SelectedZoneName";
+import SelectedZoneName from "../components/SelectedZoneName/SelectedZoneName";
 import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
 import { Zone } from "../types/zone";
 import { AxiosResponse } from "axios";
-import OverallStat from "../components/OverallStat";
-import Graph from "../components/Graph";
-import Restrictions from "../components/Restrictions";
-import ChildZones from "../components/ChildZones";
-import CallBanner from "../components/CallBanner";
+import OverallStat from "../components/OverallStats/OverallStat";
+import Graph from "../components/HistoryGraph/Graph";
+import Restrictions from "../components/Restrictions/Restrictions";
+import ChildZones from "../components/ChildZonesTable/ChildZones";
+import CallBanner from "../components/Banners/CallBanner";
 import WelcomeBanner from "../components/WelcomeBanner";
 
 function User() {

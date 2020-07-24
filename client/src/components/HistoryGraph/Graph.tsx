@@ -11,8 +11,8 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import moment from "moment";
-import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
-import { StateContext } from "../state/StateContext";
+import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
+import { StateContext } from "../../state/StateContext";
 import Chart from "./Chart";
 import { Box, Typography } from "@material-ui/core";
 

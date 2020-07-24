@@ -13,17 +13,17 @@ import {
   ZoomControl,
 } from "react-leaflet";
 // import * as turf from "@turf/turf";
-import { getInfectionStatus } from "../utils/infection";
-import { StateContext } from "../state/StateContext";
+import { getInfectionStatus } from "../../utils/infection";
+import { StateContext } from "../../state/StateContext";
 import {
   ADD_SELECTED_ZONE_ID,
   ADD_NAVIGATE_TO_FN,
-} from "../state/reducers/appReducer";
-import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
+} from "../../state/reducers/appReducer";
+import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
 // import { featureEach, GeoJSONObject } from "@turf/turf";
 import { LeafletEvent } from "leaflet";
-import { Zone, ZoneStatus, PlaceType } from "../types/zone";
-import getZoneStatusColor from "../utils/getZoneStatusColor";
+import { Zone, ZoneStatus, PlaceType } from "../../types/zone";
+import getZoneStatusColor from "../../utils/getZoneStatusColor";
 import { useMediaQuery, Theme, Button } from "@material-ui/core";
 import "./zoomStyles.css";
 import { useTranslation } from "react-i18next";

@@ -1,15 +1,15 @@
 import io from "socket.io-client";
 import "leaflet/dist/leaflet.css";
 import React, { useEffect, useContext, useState } from "react";
-import MapZones from "../components/MapZones";
-import Graph from "../components/Graph";
-import Restrictions from "../components/Restrictions";
+import MapZones from "../components/Map/MapZones";
+import Graph from "../components/HistoryGraph/Graph";
+import Restrictions from "../components/Restrictions/Restrictions";
 import { fetchZones } from "../api/zones";
-import HistoryController from "../components/HistoryController";
+import HistoryController from "../components/HistoryGraph/HistoryController";
 import { StateContext } from "../state/StateContext";
 import { ADD_ZONES } from "../state/reducers/appReducer";
 import { useHistory, useLocation } from "react-router-dom";
-import ZoneStatusController from "../components/ZoneStatusController";
+import ZoneStatusController from "../components/SelectedZoneName/ZoneStatusController";
 import RestrictionController from "../components/RestrictionController";
 
 export interface AdminProps {}

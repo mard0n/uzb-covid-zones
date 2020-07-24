@@ -12,8 +12,8 @@ import {
 } from "@material-ui/core";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import getZoneStatusColor from "../utils/getZoneStatusColor";
-import { ZoneStatus } from "../types/zone";
+import getZoneStatusColor from "../../utils/getZoneStatusColor";
+import { ZoneStatus } from "../../types/zone";
 
 export enum OverallStatPaperPosition {
   LEFT = "LEFT",

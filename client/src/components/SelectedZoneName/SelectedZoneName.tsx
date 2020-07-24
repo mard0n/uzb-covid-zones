@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import { Alert } from "@material-ui/lab";
 import { Typography, makeStyles, useTheme, Grid, Box } from "@material-ui/core";
-import { ZoneStatus } from "../types/zone";
-import getZoneStatusColor from "../utils/getZoneStatusColor";
-import { StateContext } from "../state/StateContext";
-import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
-import { getParents } from "../utils/getParents";
+import { ZoneStatus } from "../../types/zone";
+import getZoneStatusColor from "../../utils/getZoneStatusColor";
+import { StateContext } from "../../state/StateContext";
+import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
+import { getParents } from "../../utils/getParents";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 
 export interface SelectedZoneNameProps {}
