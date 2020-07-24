@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const redis = require("redis");
+const path = require('path');
 require("dotenv").config();
 
 const app = express();
@@ -11,8 +12,13 @@ const client = redis.createClient(6379);
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(express.static(path.join(__dirname, 'client/build')));
 // app.set("redis", client);
 app.use("/api", require("./routes/api")(client));
+// app.get('/*', );
+app.use(function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+})
 
 const server = require("http").Server(app);
 server.listen(4000);

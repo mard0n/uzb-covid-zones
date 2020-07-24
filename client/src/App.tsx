@@ -12,55 +12,10 @@ import {
   useMediaQuery,
   Theme,
 } from "@material-ui/core";
-import RubikRegularWoff2 from "./assets/fonts/Rubik-Regular.woff2";
-import RubikRegularWoff from "./assets/fonts/Rubik-Regular.woff";
-import RubikRegularTtf from "./assets/fonts/Rubik-Regular.ttf";
-import RubikMediumWoff2 from "./assets/fonts/Rubik-Medium.woff2";
-import RubikMediumWoff from "./assets/fonts/Rubik-Medium.woff";
-import RubikMediumTtf from "./assets/fonts/Rubik-Medium.ttf";
 
-const Login = React.lazy(() => import("./screens/Login"));
-const Admin = React.lazy(() => import("./screens/Admin"));
+// const Login = React.lazy(() => import("./screens/Login"));
+// const Admin = React.lazy(() => import("./screens/Admin"));
 const User = React.lazy(() => import("./screens/User"));
-
-/* rubik-regular - latin_cyrillic */
-const raleway = {
-  fontFamily: "Rubik",
-  fontStyle: "normal",
-  fontWeight: 400,
-  src: `
-    local('Raleway'),
-    local('Raleway-Regular'),
-    url(${RubikRegularWoff2}) format('woff2'),
-    url(${RubikRegularWoff}) format('woff'),
-    url(${RubikRegularTtf}) format('truetype')
-  `,
-  // unicodeRange:
-  //   'U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF',
-};
-const RubikRegular = {
-  fontFamily: "Rubik",
-  fontStyle: "normal",
-  fontWeight: 400,
-  src: `
-    local('Rubik'),
-    local('Rubik-Regular'),
-    url(${RubikRegularWoff2}) format('woff2'),
-    url(${RubikRegularWoff}) format('woff'), 
-    url(${RubikRegularTtf}) format('truetype')`,
-};
-/* rubik-500 - latin_cyrillic */
-const RubikMedium = {
-  fontFamily: "Rubik",
-  fontStyle: "normal",
-  fontWeight: 500,
-  src: `
-    local('Rubik Medium'),
-    local('Rubik-Medium'),
-    url(${RubikMediumWoff2}) format('woff2'),
-    url(${RubikMediumWoff}) format('woff'),
-    url(${RubikMediumTtf}) format('truetype')`,
-};
 
 const theme = createMuiTheme({
   typography: {
@@ -106,40 +61,6 @@ const theme = createMuiTheme({
       fontWeight: 500,
     },
   },
-  overrides: {
-    MuiCssBaseline: {
-      "@global": {
-        "@font-face": [RubikRegular, RubikMedium],
-        body: {
-          fontFamily: '"Rubik", "Arial", "Helvetica", sans-serif',
-        },
-        h1: {
-          fontSize: 26,
-          fontWeight: 500,
-        },
-        h2: {
-          fontSize: 24,
-          fontWeight: 500,
-        },
-        h3: {
-          fontSize: 22,
-          fontWeight: 500,
-        },
-        h4: {
-          fontSize: 20,
-          fontWeight: 500,
-        },
-        h5: {
-          fontSize: 18,
-          fontWeight: 500,
-        },
-        p: {
-          fontSize: 16,
-          fontWeight: 500,
-        }
-      },
-    },
-  },
   palette: {
     primary: {
       main: "#4863F4",
@@ -167,8 +88,8 @@ function App() {
           <Suspense fallback={<div>Loading... </div>}>
             <Switch>
               <Route path={"/app"} component={User} />
-              <Route path={"/admin"} component={Admin} />
-              <Route path={"/login"} component={Login} />
+              {/* <Route path={"/admin"} component={Admin} />
+              <Route path={"/login"} component={Login} /> */}
               <Route path="*">Not found</Route>
             </Switch>
           </Suspense>

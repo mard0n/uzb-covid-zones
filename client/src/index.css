@@ -1,4 +1,24 @@
-body {
-  background-color: #434343;
-  color: white;
+h1 {
+  font-size: 26;
+  font-weight: 500;
+}
+h2 {
+  font-size: 24;
+  font-weight: 500;
+}
+h3 {
+  font-size: 22;
+  font-weight: 500;
+}
+h4 {
+  font-size: 20;
+  font-weight: 500;
+}
+h5 {
+  font-size: 18;
+  font-weight: 500;
+}
+p {
+  font-size: 16;
+  font-weight: 400;
 }
