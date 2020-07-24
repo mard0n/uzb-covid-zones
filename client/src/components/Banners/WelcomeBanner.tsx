@@ -7,8 +7,8 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import { useStyles as useCallBannerStyles } from "./CallBanner";
-import VirusBig from "../assets/images/virus-big.svg";
-import Hand from "../assets/images/hand.svg";
+import VirusBig from "../../assets/images/virus-big.svg";
+import Hand from "../../assets/images/hand.svg";
 import { useTranslation } from "react-i18next";
 
 export interface WelcomeBannerProps {}
@@ -40,7 +40,7 @@ const WelcomeBanner: React.SFC<WelcomeBannerProps> = () => {
       elevation={0}
     >
       <img style={backgroundVirusImg} src={VirusBig} alt="virus image" />
-      <Grid xs={12} sm={10} md={8}>
+      <Grid item xs={12} sm={10} md={8}>
         <img src={Hand} alt="Hand" />
         <Typography variant="subtitle1">{t("Welcome to UzCovid")}</Typography>
         <Typography variant="caption" className={classes.caption}>

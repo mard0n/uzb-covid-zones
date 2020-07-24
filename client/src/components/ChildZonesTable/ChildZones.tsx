@@ -34,8 +34,10 @@ const useStyles = makeStyles({
 const TableCell = withStyles({
   root: {
     borderBottom: "none",
-    paddingLeft: (props: any) => (props.leftMost ? "unset !important" : ""),
-    paddingRight: (props: any) => (props.rightMost ? "unset !important" : ""),
+    paddingLeft: (props: { leftmost?: string; rightmost?: string }) =>
+      props.leftmost ? "unset !important" : "",
+    paddingRight: (props: { leftmost?: string; rightmost?: string }) =>
+      props.rightmost ? "unset !important" : "",
   },
 })(MuiTableCell);
 
@@ -66,7 +68,7 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
         >
           <TableHead>
             <TableRow>
-              <TableCell leftMost>
+              <TableCell leftmost={'true'}>
                 <Typography variant="overline">Zone Name</Typography>
               </TableCell>
               <TableCell align="center">
@@ -75,7 +77,7 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
               <TableCell align="center">
                 <Typography variant="overline">Recovered</Typography>
               </TableCell>
-              <TableCell align="center" rightMost>
+              <TableCell align="center" rightmost={'true'}>
                 <Typography variant="overline">Dead</Typography>
               </TableCell>
             </TableRow>
@@ -85,7 +87,7 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
               (row, index: number) =>
                 index + 1 <= numberOfVisibleCells && (
                   <TableRow key={row.name}>
-                    <TableCell component="th" scope="row" leftMost>
+                    <TableCell component="th" scope="row" leftmost={'true'}>
                       <Box>
                         <ZoneStatusPin status={ZoneStatus.GREEN} />{" "}
                         <Box component="span" mr={1} />
@@ -102,7 +104,7 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
                     </TableCell>
                     <TableCell align="center">{row.calories}</TableCell>
                     <TableCell align="center">{row.fat}</TableCell>
-                    <TableCell align="center" rightMost>
+                    <TableCell align="center" rightmost={'true'}>
                       {row.carbs}
                     </TableCell>
                   </TableRow>

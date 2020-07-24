@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useContext } from "react";
 import {
   FormControl,
   InputLabel,
@@ -26,12 +26,10 @@ const useStyles = makeStyles((theme) => ({
 const ZoneStatusController: React.SFC<ZoneStatusControllerProps> = (props) => {
   const { socket } = props;
   const classes = useStyles();
-  // const [zoneStatus, setZoneStatus] = useState(undefined);
   const { zones, selectedZoneId } = useContext(StateContext);
   const selectedZone: any = getSelectedZoneObjById(selectedZoneId, zones);
 
   const handleZoneStatusChange = (event: any) => {
-    console.log("event", event.target.value);
     socket.emit("change_zone_status", {
       zoneId: selectedZoneId,
       status: event.target.value,

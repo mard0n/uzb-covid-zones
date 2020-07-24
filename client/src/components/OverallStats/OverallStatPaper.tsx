@@ -73,7 +73,6 @@ const OverallStatPaper: React.SFC<OverallStatPaperProps> = (props) => {
   const { title, number, caption = 0, numberColor, position } = props;
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const classes = useStyles(props);
-  console.log('caption', caption)
   let change: "NO_CHANGE" | "INCREASED" | "DECREASED";
   if (isNaN(caption)) {
     change = "NO_CHANGE";

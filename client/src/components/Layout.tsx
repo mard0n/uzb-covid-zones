@@ -9,8 +9,6 @@ import {
   Paper,
 } from "@material-ui/core";
 import SwipeableBottomSheet from "react-swipeable-bottom-sheet";
-import { transformTranslate } from "@turf/turf";
-import { SearchProps } from "./Search";
 import { Scrollbars } from "react-custom-scrollbars";
 
 export interface LayoutProps {
@@ -57,7 +55,6 @@ const Layout: React.SFC<LayoutProps> = (props) => {
   const classes = useStyles();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const { map, search, mainContent } = props;
-  console.log("isBottomSheetOpen", isBottomSheetOpen);
 
   return (
     <>

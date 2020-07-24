@@ -15,6 +15,7 @@ export interface SearchInputProps {
   InputProps: {
     ref: any;
   };
+  InputLabelProps: any;
   inputRef: any;
   bgColor: string;
   elevation: PaperProps["elevation"];
@@ -46,7 +47,15 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SearchInput: React.SFC<SearchInputProps> = (props) => {
-  const { handleAutoLocate } = props;
+  const {
+    handleAutoLocate,
+    InputProps,
+    InputLabelProps,
+    bgColor,
+    elevation,
+    inputRef,
+    ...otherProps
+  } = props;
   const theme = useTheme();
   const classes = useStyles(theme);
 
@@ -71,18 +80,18 @@ const SearchInput: React.SFC<SearchInputProps> = (props) => {
   };
   return (
     <Paper
-      ref={props.InputProps.ref}
+      ref={InputProps.ref}
       component="form"
       className={classes.inputContainer}
-      style={{ backgroundColor: props.bgColor }}
-      elevation={props.elevation}
+      style={{ backgroundColor: bgColor }}
+      elevation={elevation}
     >
       <SearchIcon />
       <InputBase
-        {...props}
+        {...otherProps}
         className={classes.input}
         placeholder="Search for the city..."
-        inputRef={props.inputRef}
+        inputRef={inputRef}
       />
       <IconButton
         className={classes.autoLocate}

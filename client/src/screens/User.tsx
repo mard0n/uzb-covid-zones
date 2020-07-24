@@ -6,7 +6,6 @@ import { ADD_ZONES } from "../state/reducers/appReducer";
 import { StateContext } from "../state/StateContext";
 import Search from "../components/Search/index";
 import CssBaseline from "@material-ui/core/CssBaseline";
-import { Typography, Grid, Box } from "@material-ui/core";
 import Layout from "../components/Layout";
 import SelectedZoneName from "../components/SelectedZoneName/SelectedZoneName";
 import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
@@ -17,7 +16,7 @@ import Graph from "../components/HistoryGraph/Graph";
 import Restrictions from "../components/Restrictions/Restrictions";
 import ChildZones from "../components/ChildZonesTable/ChildZones";
 import CallBanner from "../components/Banners/CallBanner";
-import WelcomeBanner from "../components/WelcomeBanner";
+import WelcomeBanner from "../components/Banners/WelcomeBanner";
 
 function User() {
   const { dispatch, selectedZoneId, zones = [] } = useContext(StateContext);

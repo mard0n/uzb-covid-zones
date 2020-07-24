@@ -1,33 +1,29 @@
-import React, { useRef, useState, useContext, useEffect, Ref } from "react";
+import React, {
+  useRef,
+  useState,
+  useContext,
+  useEffect,
+  Fragment,
+} from "react";
 import {
   Map,
   TileLayer,
   GeoJSON,
-  Rectangle,
-  Circle,
   FeatureGroup,
-  CircleMarker,
-  MapLayer,
-  Popup,
   Marker,
   ZoomControl,
 } from "react-leaflet";
-// import * as turf from "@turf/turf";
-import { getInfectionStatus } from "../../utils/infection";
 import { StateContext } from "../../state/StateContext";
 import {
   ADD_SELECTED_ZONE_ID,
   ADD_NAVIGATE_TO_FN,
 } from "../../state/reducers/appReducer";
 import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
-// import { featureEach, GeoJSONObject } from "@turf/turf";
 import { LeafletEvent } from "leaflet";
 import { Zone, ZoneStatus, PlaceType } from "../../types/zone";
 import getZoneStatusColor from "../../utils/getZoneStatusColor";
-import { useMediaQuery, Theme, Button } from "@material-ui/core";
+import { useMediaQuery, Theme } from "@material-ui/core";
 import "./zoomStyles.css";
-import { useTranslation } from "react-i18next";
-// import { getParents } from "../utils/getParents";
 
 export interface MapZonesProps {
   closeBottomSheet?: () => void;
@@ -40,7 +36,6 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
   const [zoomLevel, setZoomLevel] = useState(9);
   const [marker, setMarker] = useState<any>(null);
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
-  // console.log("Map Zones zones", zones);
 
   const mapRef = useRef<Map | null>(null);
 
@@ -66,7 +61,6 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
   }, []);
 
   useEffect(() => {
-    console.log("selectedZone", selectedZone);
 
     if (selectedZone?.bbox?.length) {
       const [westlon, minlat, eastlon, maxlat] = selectedZone?.bbox;
@@ -82,11 +76,11 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
     setZoomLevel(e.target._zoom);
   };
   const handleZoneSelect = (feature: Zone) => {
-    console.log("onZoneSelect", feature);
     dispatch({
       type: ADD_SELECTED_ZONE_ID,
       payload: feature._id,
     });
+    closeBottomSheet()
   };
 
   return (
@@ -108,7 +102,6 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
         {zones.map((zone, i) => {
           // const { showFrom, showTo } = zone?.properties?.zoomRange;
           const placeType = zone?.properties?.placeType;
-          console.log("zoomLevel", zoomLevel);
           let isShown;
 
           if (zoomLevel >= 9) {
@@ -121,12 +114,11 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
           }
           return (
             isShown && (
-              <>
+              <Fragment key={`zone-${i}`}>
                 <GeoJSON
                   key={i}
                   data={zone as GeoJSON.GeoJsonObject}
                   onEachFeature={(feat, layer) => {
-                    console.log("feat", feat);
                     layer.bindPopup(
                       `
                       <style>
@@ -223,14 +215,12 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                   }}
                   style={(feat) => {
                     const status = zone?.properties?.status;
-                    // console.log("status", status);
                     const color =
                       status === "RED"
                         ? "rgb(237, 69, 67)"
                         : status === "YELLOW"
                         ? "rgb(255, 210, 30)"
                         : "rgb(86, 219, 64)";
-                    // console.log("color", color);
                     return {
                       fillColor: color,
                       fillOpacity: 0.301961,
@@ -239,7 +229,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                     };
                   }}
                 />
-              </>
+              </Fragment>
             )
           );
         })}

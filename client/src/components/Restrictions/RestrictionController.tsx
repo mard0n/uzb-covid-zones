@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
-import { StateContext } from "../state/StateContext";
-import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
+import React, { useContext } from "react";
+import { StateContext } from "../../state/StateContext";
+import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
 import Editor from "./Editor";
 
 export interface RestrictionControllerProps {
@@ -15,8 +15,6 @@ const RestrictionController: React.SFC<RestrictionControllerProps> = (
   const selectedZone: any = getSelectedZoneObjById(selectedZoneId, zones);
 
   const handleSave = (data: any) => {
-    console.log("data", data);
-    console.log("socket", socket);
 
     socket.emit("edit_restrictions", {
       zoneId: selectedZoneId,

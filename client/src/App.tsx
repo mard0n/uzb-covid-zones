@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense } from "react";
 import {
   Route,
   BrowserRouter as Router,
@@ -6,8 +6,6 @@ import {
   Redirect,
 } from "react-router-dom";
 import StateContextProvider, { initialState } from "./state/StateContext";
-import auth from "./utils/auth";
-import ProtectedRoute from "./routes/ProtectedRoute";
 import {
   ThemeProvider,
   createMuiTheme,
@@ -66,7 +64,7 @@ const RubikMedium = {
 
 const theme = createMuiTheme({
   typography: {
-    fontFamily: "Rubik",
+    fontFamily: '"Rubik", "Arial", "Helvetica", sans-serif',
     h1: {
       fontSize: 26,
       fontWeight: 500,
@@ -133,30 +131,8 @@ const theme = createMuiTheme({
   },
 });
 
-// theme.typography.h1 = {
-//   fontFamily: 'Rubik',
-//   fontWeight: 500,
-//   letterSpacing: "-0.01562em",
-//   lineHeight: 1.167,
-//   fontSize: 24,
-//   [theme.breakpoints.up("md")]: {
-//     fontSize: 26,
-//   },
-// };
-// theme.typography.body2 = {
-//   // fontFamily: 'Rubik',
-//   fontFamily: '"Rubik", "Arial", "Helvetica", sans-serif',
-//   fontWeight: 400,
-//   letterSpacing: "0.01071em",
-//   lineHeight: 1.43,
-//   fontSize: 14,
-//   [theme.breakpoints.up("md")]: {
-//     fontSize: 16,
-//   },
-// };
 
 function App() {
-  console.log("theme ", theme);
   return (
     <StateContextProvider initialState={initialState}>
       <ThemeProvider theme={theme}>
@@ -164,10 +140,6 @@ function App() {
           <Suspense fallback={<div>Loading... </div>}>
             <Switch>
               <Route path={"/app"} component={User} />
-              {/* <ProtectedRoute
-              path={"/admin"}
-              component={Admin}
-            /> */}
               <Route path={"/admin"} component={Admin} />
               <Route path={"/login"} component={Login} />
               <Route path="*">Not found</Route>

@@ -20,11 +20,9 @@ export interface GraphProps {}
 
 const Graph: React.SFC<GraphProps> = () => {
   const { zones, selectedZoneId } = useContext(StateContext);
-  console.log("graph zones", zones);
 
   const selectedZone: any = getSelectedZoneObjById(selectedZoneId, zones);
   const { history = [] } = selectedZone?.properties || {};
-  console.log("history", history);
   return (
     <Box mt={4} mb={4}>
       <Box mb={1}>

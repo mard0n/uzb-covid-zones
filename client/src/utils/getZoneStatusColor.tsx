@@ -1,6 +1,4 @@
-import { Theme, ColorFormat } from "@material-ui/core";
 import { ZoneStatus } from "../types/zone";
-import { Color } from "@material-ui/lab";
 
 const getZoneStatusColor = (status: ZoneStatus) => {
   let textColorInWhite: string = "",

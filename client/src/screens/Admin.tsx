@@ -4,13 +4,12 @@ import React, { useEffect, useContext, useState } from "react";
 import MapZones from "../components/Map/MapZones";
 import Graph from "../components/HistoryGraph/Graph";
 import Restrictions from "../components/Restrictions/Restrictions";
-import { fetchZones } from "../api/zones";
 import HistoryController from "../components/HistoryGraph/HistoryController";
 import { StateContext } from "../state/StateContext";
 import { ADD_ZONES } from "../state/reducers/appReducer";
 import { useHistory, useLocation } from "react-router-dom";
 import ZoneStatusController from "../components/SelectedZoneName/ZoneStatusController";
-import RestrictionController from "../components/RestrictionController";
+import RestrictionController from "../components/Restrictions/RestrictionController";
 
 export interface AdminProps {}
 
@@ -24,12 +23,9 @@ const Admin: React.SFC<AdminProps> = () => {
       query: { token: sessionStorage.token },
     });
     setSocket(socket);
-    console.log("socket.id", socket.id);
     socket.on("connect", () => {
-      console.log("connect", socket.id); // 'G5p5...'
       socket.emit("initial_data");
       socket.on("push_zones", (zones: any) => {
-        console.log("zones", zones);
         dispatch({
           type: ADD_ZONES,
           payload: zones,
@@ -37,10 +33,8 @@ const Admin: React.SFC<AdminProps> = () => {
       });
     });
     socket.on("connect_error", (error: any) => {
-      console.log("connect_error", error);
     });
     socket.on("internal_error", (error: any) => {
-      console.log("internal_error", error);
     });
     socket.on("error", (reason: any) => {
       if (reason === "Authentication error") {
@@ -52,16 +46,9 @@ const Admin: React.SFC<AdminProps> = () => {
         });
       }
     });
-
-    // socket.emit('initial_data')
-    // fetchZones().then((res) => {
-
-    // });
   }, []);
-  console.log("socket", socket);
   return (
     <>
-      {/* <Search /> */}
       <div
         style={{
           position: "relative",

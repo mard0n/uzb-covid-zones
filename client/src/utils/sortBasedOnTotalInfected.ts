@@ -1,4 +1,4 @@
-import { Zone, ZoneStatus, PlaceType } from "../types/zone";
+import { Zone, PlaceType } from "../types/zone";
 
 export const sortBasedOnTotalInfected = (
   zones: Zone[],

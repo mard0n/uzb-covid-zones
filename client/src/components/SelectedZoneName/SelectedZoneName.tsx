@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
-import { Alert } from "@material-ui/lab";
 import { Typography, makeStyles, useTheme, Grid, Box } from "@material-ui/core";
-import { ZoneStatus } from "../../types/zone";
 import getZoneStatusColor from "../../utils/getZoneStatusColor";
 import { StateContext } from "../../state/StateContext";
 import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
@@ -38,9 +36,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SelectedZoneName: React.SFC<SelectedZoneNameProps> = (props) => {
-  const { zones, selectedZoneId, dispatch } = useContext(StateContext);
+  const { zones, selectedZoneId } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
-  console.log("SelectedZoneName selectedZone", selectedZone);
   const zoneName = selectedZone?.properties.displayName;
   const zoneStatus = selectedZone?.properties.status;
 

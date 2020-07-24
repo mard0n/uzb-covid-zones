@@ -25,7 +25,6 @@ export interface StateContextProviderProps {
 
 const StateContextProvider: React.SFC<StateContextProviderProps> = (props) => {
   const [state, dispatch] = useReducer(stateReducer, props.initialState);
-  console.log("state", state);
   return (
     <StateContext.Provider value={{ ...state, dispatch }}>
       {props.children}

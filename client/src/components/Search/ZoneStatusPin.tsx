@@ -9,7 +9,6 @@ export interface ZoneStatusPinProps {
 }
 
 const ZoneStatusPin: React.SFC<ZoneStatusPinProps> = (props) => {
-  const theme = useTheme();
   const { status, style = {} } = props;
 
   const statusColor = getZoneStatusColor(status);

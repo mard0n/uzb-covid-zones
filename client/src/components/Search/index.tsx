@@ -74,7 +74,7 @@ const useStyles = makeStyles((theme) => ({
 const Search: React.SFC<SearchProps> = (props) => {
   const { isInsidePaper, closeBottomSheet = () => {} } = props;
   const { zones = [], dispatch, navigateTo } = useContext(StateContext);
-  const [selectedZone, setSelectedZone] = useState<Zone | null>();
+  const [selectedZone, setSelectedZone] = useState<Zone | null>(null);
   const theme = useTheme();
   const classes = useStyles(theme);
   const inputRef = useRef<any>();
@@ -94,8 +94,6 @@ const Search: React.SFC<SearchProps> = (props) => {
     value: PropsWithChildren<SearchOptionProps> | null,
     reason: AutocompleteChangeReason
   ) => {
-    console.log("on change", value);
-    console.log("on change reason", reason);
     if (reason === "select-option" && value?._id) {
       selectZone(value)
     }
@@ -167,7 +165,6 @@ const Search: React.SFC<SearchProps> = (props) => {
             elevation={elevation}
             inputRef={inputRef}
             handleAutoLocate={handleAutoLocate}
-            // InputProps={{ ...params.InputProps, ref: inputRef }}
           />
         )}
         renderOption={(option) => <SearchOption zone={option} zones={zones} />}
@@ -190,8 +187,9 @@ const Search: React.SFC<SearchProps> = (props) => {
           return (
             index <= 5 && (
               <Box
-                ml={index !== 0 && 0.5}
-                mr={index !== zones.length - 1 && 0.5}
+                key={`suggestion-${index}`}
+                ml={index !== 0 ? 0.5 : 0}
+                mr={index !== zones.length - 1 ? 0.5 : 0}
               >
                 <Button
                   variant="contained"

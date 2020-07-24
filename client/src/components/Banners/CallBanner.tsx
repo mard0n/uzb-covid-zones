@@ -9,7 +9,7 @@ import {
   createStyles,
   Box,
 } from "@material-ui/core";
-import VirusSmall from "../assets/images/virus-small.svg";
+import VirusSmall from "../../assets/images/virus-small.svg";
 import ChevronRightRoundedIcon from "@material-ui/icons/ChevronRightRounded";
 
 export interface CallBannerProps {}
@@ -48,11 +48,11 @@ const CallBanner: React.SFC<CallBannerProps> = () => {
         elevation={0}
         onClick={() => handleClick()}
       >
-        <Grid container justify="space-between" alignItems="center">
-          <Grid className={classes.flex} item alignItems="center">
+        <Grid container justify="space-between" alignItems="center" wrap="nowrap">
+          <Grid className={classes.flex} container item alignItems="center" wrap="nowrap">
             <img src={VirusSmall} />
             <Box mr={2} />
-            <Grid item direction="column">
+            <Grid item container direction="column" wrap="nowrap">
               <Typography>Feel Covid-19 Symptoms?</Typography>
               <Typography className={classes.textSecondary}>
                 Call Covid-19 online support

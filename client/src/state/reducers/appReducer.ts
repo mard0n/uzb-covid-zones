@@ -11,7 +11,6 @@ export type Action =
   | { type: "ADD_NAVIGATE_TO_FN"; payload: Function };
 
 export const appReducer = (state: State, action: Action): State => {
-  console.log("action", action);
   switch (action.type) {
     case ADD_ZONES:
       return {

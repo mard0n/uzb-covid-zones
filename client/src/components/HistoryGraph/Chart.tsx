@@ -1,15 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
-import ChartLib from "chart.js";
-import { History, ZoneStatus } from "../types/zone";
-import moment, { min } from "moment";
-import getZoneStatusColor from "../utils/getZoneStatusColor";
-import { getDataFromRange } from "../utils/getDataFromRange";
+import { History, ZoneStatus } from "../../types/zone";
+import moment from "moment";
+import getZoneStatusColor from "../../utils/getZoneStatusColor";
+import { getDataFromRange } from "../../utils/getDataFromRange";
 import {
   Typography,
   Grid,
   Box,
   IconButton,
-  Paper,
   makeStyles,
 } from "@material-ui/core";
 import NavigateNextRoundedIcon from "@material-ui/icons/NavigateNextRounded";
@@ -50,7 +48,6 @@ const Chart: React.SFC<ChartProps> = (props) => {
       from: currentVisibleTicks.from,
       range: -Math.abs(currentVisibleTicks.range),
     });
-    var ctx = document.getElementById("myChart") as HTMLCanvasElement;
     const chartInstance = new window.Chart(canvas.current, {
       type: "line",
       data: {
@@ -91,8 +88,6 @@ const Chart: React.SFC<ChartProps> = (props) => {
           intersect: false,
           callbacks: {
             title: (item: any, data: any) => {
-              console.log('item', item);
-              console.log('data', data);
               return moment(item[0].label).format('DD MMM YYYY')
             },
           },
@@ -121,9 +116,7 @@ const Chart: React.SFC<ChartProps> = (props) => {
                 min: dataFromRange.from,
                 max: dataFromRange.to,
                 // callback: (value: number | string, index: number, values: any) => {
-                //   console.log(values[0].value);
                 //   const date = values.find((v: any, i: number) => i === index)?.value
-                //   console.log('date', date);
                 //   const day = moment(date).format('DD')
                 //   const weekDay = moment(date).format('ddd')
                 //   return day
@@ -187,13 +180,11 @@ const Chart: React.SFC<ChartProps> = (props) => {
               // threshold: 10,
 
               // Function called while the user is panning
-              onPan: function ({ chart }: { chart: any }) {
-                //   console.log(`I'm panning!!!`);
+              onPan: function () {
                 setIsGrabbed(true);
               },
               // // Function called once panning is completed
               onPanComplete: function ({ chart }: { chart: any }) {
-                console.log(`I was panned!!!`, chart);
                 const from = chart.scales["x-axis-0"].ticks[0];
                 const range = chart.scales["x-axis-0"].ticks.length - 1;
                 setCurrentVisibleTicks({
@@ -255,12 +246,10 @@ const Chart: React.SFC<ChartProps> = (props) => {
               // sensitivity: 3,
 
               // Function called while the user is zooming
-              onZoom: function ({ chart }: { chart: any }) {
-                // console.log(`I'm zooming!!!`, chart);
+              onZoom: function () {
               },
               // // Function called once zooming is completed
               // onZoomComplete: function ({ chart: any }) {
-              //   console.log(`I was zoomed!!!`);
               // },
             },
           },
@@ -289,7 +278,6 @@ const Chart: React.SFC<ChartProps> = (props) => {
   };
 
   const handleBackClick = () => {
-    console.log("back currentVisibleTicks", currentVisibleTicks);
 
     const { from, range } = currentVisibleTicks;
     const positiveRangeFrom = getDataFromRange({
@@ -298,18 +286,15 @@ const Chart: React.SFC<ChartProps> = (props) => {
       from: from,
       range: range,
     });
-    // console.log("positiveRangeFrom", positiveRangeFrom);
     const newRange = getDataFromRange({
       data: date_list,
       minVisible: minVisible,
       from: positiveRangeFrom.from,
       range: -Math.abs(range),
     });
-    console.log("newRange", newRange);
     updateRange(newRange);
   };
   const handleForwardClick = () => {
-    console.log("forward currentVisibleTicks", currentVisibleTicks);
 
     const { from, range } = currentVisibleTicks;
     const positiveRangeFrom = getDataFromRange({
@@ -318,7 +303,6 @@ const Chart: React.SFC<ChartProps> = (props) => {
       from: from,
       range: range,
     });
-    console.log("positiveRangeFrom", positiveRangeFrom);
     const newRange = getDataFromRange({
       data: date_list,
       minVisible: minVisible,
@@ -326,7 +310,6 @@ const Chart: React.SFC<ChartProps> = (props) => {
       range: Math.abs(range),
     });
 
-    console.log("newRange", newRange);
     updateRange(newRange);
   };
 

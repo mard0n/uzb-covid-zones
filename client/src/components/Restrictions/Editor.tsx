@@ -27,7 +27,6 @@ const Editor: React.SFC<EditorProps> = (props) => {
       data: restrictions,
     });
     return () => {
-      console.log("component loaded", editor);
       editor.current?.destroy();
     };
   }, [restrictions]);

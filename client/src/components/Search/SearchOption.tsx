@@ -12,7 +12,6 @@ export interface SearchOptionComponentProps {
 
 const SearchOption: React.SFC<SearchOptionComponentProps> = (props) => {
   const { zone, zones } = props;
-  console.log("option searchoption", zone, zones);
 
   const parentZonesString = getParents(zone, zones);
   return (

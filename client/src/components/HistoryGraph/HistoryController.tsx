@@ -61,8 +61,6 @@ const HistoryController: React.SFC<HistoryControllerProps> = (props) => {
   };
 
   const handleSaveAddedCell = () => {
-    console.log("selectedDate", selectedDate.toISOString());
-    console.log("selectedInfected", selectedInfected);
     socket.emit("add_case_to_history", {
       zoneId: selectedZoneId,
       date: selectedDate.toISOString(),
@@ -98,19 +96,16 @@ const HistoryController: React.SFC<HistoryControllerProps> = (props) => {
   };
 
   const handleColumnDelete = (index: any) => {
-    console.log("remove clicked");
 
     socket.emit("remove_case_from_history", {
       zoneId: selectedZoneId,
       historyId: index,
     });
     socket.once("remove_case_from_history_success", () => {
-      console.log("removed successfully");
       socket.emit("initial_data");
     });
   };
   const handleColumnEdit = (index: any) => {
-    // console.log("index edit", index);
     setShowColumnEditor(index);
 
     const selectedCase = history.find((h: any) => h._id === index);
