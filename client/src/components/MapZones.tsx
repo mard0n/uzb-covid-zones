@@ -24,8 +24,9 @@ import { getSelectedZoneObjById } from "../utils/getSelectedZoneObj";
 import { LeafletEvent } from "leaflet";
 import { Zone, ZoneStatus, PlaceType } from "../types/zone";
 import getZoneStatusColor from "../utils/getZoneStatusColor";
-import { useMediaQuery, Theme } from "@material-ui/core";
-import './zoomStyles.css'
+import { useMediaQuery, Theme, Button } from "@material-ui/core";
+import "./zoomStyles.css";
+import { useTranslation } from "react-i18next";
 // import { getParents } from "../utils/getParents";
 
 export interface MapZonesProps {
@@ -234,7 +235,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                       fillColor: color,
                       fillOpacity: 0.301961,
                       color: color,
-                      weight: 1.5
+                      weight: 1.5,
                     };
                   }}
                 />
