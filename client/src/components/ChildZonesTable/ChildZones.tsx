@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import {
   TableContainer,
   makeStyles,
@@ -20,6 +20,11 @@ import KeyboardArrowDownRoundedIcon from "@material-ui/icons/KeyboardArrowDownRo
 import ZoneStatusPin from "../Search/ZoneStatusPin";
 import { ZoneStatus } from "../../types/zone";
 import { useTranslation } from "react-i18next";
+import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
+import { StateContext } from "../../state/StateContext";
+import { getProperDisplayName } from "../../utils/getProperDisplayName";
+import { getChildZones } from "../../utils/getChildZones";
+import { ADD_SELECTED_ZONE_ID } from "../../state/reducers/appReducer";
 
 const useStyles = makeStyles({
   table: {
@@ -63,12 +68,19 @@ const rows = [
 export interface ChildZonesProps {}
 
 const ChildZones: React.SFC<ChildZonesProps> = () => {
+  const { zones, selectedZoneId, dispatch } = useContext(StateContext);
+  const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
   const classes = useStyles();
-  const [numberOfVisibleCells, setNumberOfVisibleCells] = useState(2);
+  const [numberOfVisibleCells, setNumberOfVisibleCells] = useState(4);
   const { t } = useTranslation();
   const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
 
-  return (
+  const childZones =
+    (selectedZone?.properties?.childZones &&
+      getChildZones(selectedZone?.properties?.childZones, zones)) ||
+    [];
+
+  return childZones.length ? (
     <Box mt={4} mb={4}>
       <Box mb={1}>
         <Typography variant="subtitle1">
@@ -118,10 +130,10 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map(
-              (row, index: number) =>
+            {childZones.map(
+              (zone, index: number) =>
                 index + 1 <= numberOfVisibleCells && (
-                  <TableRow key={row.name}>
+                  <TableRow key={zone._id}>
                     <TableCell component="th" scope="row" leftmost={"true"}>
                       <Box>
                         {smUp && <ZoneStatusPin status={ZoneStatus.GREEN} />}
@@ -136,17 +148,24 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
                             whiteSpace: "nowrap",
                           }}
                           onClick={() => {
-                            console.info("I'm a button.");
+                            dispatch({
+                              type: ADD_SELECTED_ZONE_ID,
+                              payload: zone._id,
+                            });
                           }}
                         >
-                          {row.name}
+                          {getProperDisplayName(zone)}
                         </Link>
                       </Box>
                     </TableCell>
-                    <TableCell align="center">{row.calories}</TableCell>
-                    <TableCell align="center">{row.fat}</TableCell>
+                    <TableCell align="center">
+                      {zone?.properties?.total?.infectedNumber}
+                    </TableCell>
+                    <TableCell align="center">
+                      {zone?.properties?.total?.recoveredNumber}
+                    </TableCell>
                     <TableCell align="center" rightmost={"true"}>
-                      {row.carbs}
+                      {zone?.properties?.total?.deadNumber}
                     </TableCell>
                   </TableRow>
                 )
@@ -163,15 +182,17 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
               color="primary"
               startIcon={<KeyboardArrowDownRoundedIcon />}
               onClick={() => {
-                setNumberOfVisibleCells(numberOfVisibleCells + 2);
+                setNumberOfVisibleCells(rows.length);
               }}
             >
-              {t('childZonesTable.seeMore')}
+              {t("childZonesTable.seeMore")}
             </Button>
           </Grid>
         </Box>
       )}
     </Box>
+  ) : (
+    <></>
   );
 };
 
