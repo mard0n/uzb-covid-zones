@@ -110,6 +110,33 @@ const theme = createMuiTheme({
     MuiCssBaseline: {
       "@global": {
         "@font-face": [RubikRegular, RubikMedium],
+        body: {
+          fontFamily: '"Rubik", "Arial", "Helvetica", sans-serif',
+        },
+        h1: {
+          fontSize: 26,
+          fontWeight: 500,
+        },
+        h2: {
+          fontSize: 24,
+          fontWeight: 500,
+        },
+        h3: {
+          fontSize: 22,
+          fontWeight: 500,
+        },
+        h4: {
+          fontSize: 20,
+          fontWeight: 500,
+        },
+        h5: {
+          fontSize: 18,
+          fontWeight: 500,
+        },
+        p: {
+          fontSize: 16,
+          fontWeight: 500,
+        }
       },
     },
   },

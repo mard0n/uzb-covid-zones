@@ -27,7 +27,10 @@ const Editor: React.SFC<EditorProps> = (props) => {
       data: restrictions,
     });
     return () => {
-      editor.current?.destroy();
+      console.log('editor.current', editor.current);
+      if(editor.current?.destroy){
+        editor.current?.destroy();
+      }
     };
   }, [restrictions]);
   return (

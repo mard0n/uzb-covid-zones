@@ -10,6 +10,7 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import NavigationRoundedIcon from "@material-ui/icons/NavigationRounded";
+import { useTranslation } from "react-i18next";
 
 export interface SearchInputProps {
   InputProps: {
@@ -58,6 +59,7 @@ const SearchInput: React.SFC<SearchInputProps> = (props) => {
   } = props;
   const theme = useTheme();
   const classes = useStyles(theme);
+  const { t } = useTranslation();
 
   const handleAutoLocateClick = () => {
     if (navigator.geolocation) {
@@ -90,7 +92,7 @@ const SearchInput: React.SFC<SearchInputProps> = (props) => {
       <InputBase
         {...otherProps}
         className={classes.input}
-        placeholder="Search for the city..."
+        placeholder={t('search.searchForCity')}
         inputRef={inputRef}
       />
       <IconButton

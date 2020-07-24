@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
-import getZoneStatusColor from "../../utils/getZoneStatusColor";
+import getZoneStatusProps from "../../utils/getZoneStatusProps";
 import { ZoneStatus } from "../../types/zone";
 
 export enum OverallStatPaperPosition {
@@ -86,8 +86,8 @@ const OverallStatPaper: React.SFC<OverallStatPaperProps> = (props) => {
     change = "NO_CHANGE";
   }
 
-  const positiveChangeColor = getZoneStatusColor(ZoneStatus.GREEN).textInBlueishBg
-  const negativeChangeColor = getZoneStatusColor(ZoneStatus.RED).textInBlueishBg
+  const positiveChangeColor = getZoneStatusProps(ZoneStatus.GREEN).textInBlueishBg
+  const negativeChangeColor = getZoneStatusProps(ZoneStatus.RED).textInBlueishBg
 
   return number ? (
     <Paper className={classes.paper} color="secondary" elevation={0}>

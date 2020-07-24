@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import VirusSmall from "../../assets/images/virus-small.svg";
 import ChevronRightRoundedIcon from "@material-ui/icons/ChevronRightRounded";
+import { useTranslation } from "react-i18next";
 
 export interface CallBannerProps {}
 
@@ -36,6 +37,7 @@ export const useStyles = makeStyles((theme) =>
 const CallBanner: React.SFC<CallBannerProps> = () => {
   const theme = useTheme();
   const classes = useStyles(theme);
+  const { t } = useTranslation()
 
   const handleClick = () => {
     window.open("tel:+1303499-7111", "_blank");
@@ -53,9 +55,9 @@ const CallBanner: React.SFC<CallBannerProps> = () => {
             <img src={VirusSmall} />
             <Box mr={2} />
             <Grid item container direction="column" wrap="nowrap">
-              <Typography>Feel Covid-19 Symptoms?</Typography>
+              <Typography>{t('callBanner.title')}</Typography>
               <Typography className={classes.textSecondary}>
-                Call Covid-19 online support
+                {t('callBanner.subtitle')}
               </Typography>
             </Grid>
           </Grid>

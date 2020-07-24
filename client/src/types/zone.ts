@@ -39,7 +39,8 @@ export type Zone = {
     | "Polygon"
     | "MultiPolygon";
   properties: {
-    displayName: string;
+    displayNameUz: string;
+    displayNameRu: string;
     alias: string[];
     parentZone: string;
     childZones: string[];
@@ -47,7 +48,8 @@ export type Zone = {
     status: ZoneStatus;
     total: Total;
     history: History[];
-    restrictions: any;
+    restrictionsUz: any;
+    restrictionsRu: any;
   };
   bbox: BBox;
   geometry: {

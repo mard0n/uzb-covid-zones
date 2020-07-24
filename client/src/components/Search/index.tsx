@@ -32,6 +32,7 @@ import { sortBasedOnTotalInfected } from "../../utils/sortBasedOnTotalInfected";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
+import { getProperDisplayName } from "../../utils/getProperDisplayName";
 
 export interface SearchProps {
   isInsidePaper?: boolean;
@@ -87,7 +88,7 @@ const Search: React.SFC<SearchProps> = (props) => {
     closeBottomSheet();
     setSelectedZone(zone);
     inputRef.current?.blur();
-  }
+  };
 
   const handleChange = (
     event: ChangeEvent<{}>,
@@ -95,7 +96,7 @@ const Search: React.SFC<SearchProps> = (props) => {
     reason: AutocompleteChangeReason
   ) => {
     if (reason === "select-option" && value?._id) {
-      selectZone(value)
+      selectZone(value);
     }
   };
 
@@ -108,7 +109,10 @@ const Search: React.SFC<SearchProps> = (props) => {
         i?.properties?.alias?.some((a) =>
           a?.toLowerCase().includes(state?.inputValue?.toLowerCase())
         ) ||
-        i?.properties?.displayName
+        i?.properties?.displayNameUz
+          ?.toLowerCase()
+          .includes(state?.inputValue?.toLowerCase()) ||
+        i?.properties?.displayNameRu
           ?.toLowerCase()
           .includes(state?.inputValue?.toLowerCase())
       );
@@ -133,12 +137,12 @@ const Search: React.SFC<SearchProps> = (props) => {
   };
 
   const handleSuggestionsClick = (zone: Zone) => {
-    selectZone(zone)
-  }
+    selectZone(zone);
+  };
 
   const handleAutoLocate = (lat: number, lng: number) => {
-    navigateTo(lat, lng)
-  }
+    navigateTo(lat, lng);
+  };
 
   return (
     <>
@@ -151,7 +155,7 @@ const Search: React.SFC<SearchProps> = (props) => {
         }}
         options={zones}
         getOptionLabel={(option: PropsWithChildren<SearchOptionProps>) =>
-          option?.properties?.displayName
+          getProperDisplayName(option)
         }
         value={selectedZone}
         onChange={handleChange}
@@ -199,7 +203,7 @@ const Search: React.SFC<SearchProps> = (props) => {
                   }
                   onClick={() => handleSuggestionsClick(zone)}
                 >
-                  {zone.properties.displayName}
+                  {getProperDisplayName(zone)}
                 </Button>
               </Box>
             )

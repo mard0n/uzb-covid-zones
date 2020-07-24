@@ -3,6 +3,7 @@ import ZoneStatusPin from "./ZoneStatusPin";
 import { Typography, Box, Grid } from "@material-ui/core";
 import { Zone } from "../../types/zone";
 import { getParents } from "../../utils/getParents";
+import { getProperDisplayName } from "../../utils/getProperDisplayName";
 
 export interface SearchOptionProps extends Zone {}
 export interface SearchOptionComponentProps {
@@ -18,9 +19,9 @@ const SearchOption: React.SFC<SearchOptionComponentProps> = (props) => {
     <Grid container direction='row' wrap="nowrap" alignItems="flex-start" style={{height: '100%'}}>
       <ZoneStatusPin status={zone?.properties?.status} style={{marginTop: 4, marginLeft: 8}} />
       <Box component="span" mr={1} />
-      <Grid container item direction='column' wrap="nowrap" style={{flexWrap: 'nowrap'}}>
+      <Grid container item direction='column' wrap="nowrap">
         <Typography variant="body1" noWrap style={{lineHeight: '20px'}}>
-          {zone?.properties?.displayName}
+          {getProperDisplayName(zone)}
         </Typography>
         {parentZonesString && (
           <Typography variant="caption" style={{lineHeight: '20px'}}>{parentZonesString}</Typography>

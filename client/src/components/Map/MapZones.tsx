@@ -21,9 +21,11 @@ import {
 import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
 import { LeafletEvent } from "leaflet";
 import { Zone, ZoneStatus, PlaceType } from "../../types/zone";
-import getZoneStatusColor from "../../utils/getZoneStatusColor";
+import getZoneStatusProps from "../../utils/getZoneStatusProps";
 import { useMediaQuery, Theme } from "@material-ui/core";
 import "./zoomStyles.css";
+import { useTranslation } from "react-i18next";
+import { getProperDisplayName } from "../../utils/getProperDisplayName";
 
 export interface MapZonesProps {
   closeBottomSheet?: () => void;
@@ -35,6 +37,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
   const [zoomLevel, setZoomLevel] = useState(9);
   const [marker, setMarker] = useState<any>(null);
+  const { t, i18n } = useTranslation();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
   const mapRef = useRef<Map | null>(null);
@@ -147,7 +150,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                           border-radius: 4px;
                           margin-right: 5px;
                           background-color: ${
-                            getZoneStatusColor(zone.properties.status)
+                            getZoneStatusProps(zone.properties.status)
                               .textInBlueishBg
                           };
                         }
@@ -168,17 +171,17 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                         }
                         .custom-popup-style .data.infected {
                           color: ${
-                            getZoneStatusColor(ZoneStatus.YELLOW).textInWhiteBg
+                            getZoneStatusProps(ZoneStatus.YELLOW).textInWhiteBg
                           };
                         }
                         .custom-popup-style .data.recovered {
                           color: ${
-                            getZoneStatusColor(ZoneStatus.GREEN).textInWhiteBg
+                            getZoneStatusProps(ZoneStatus.GREEN).textInWhiteBg
                           };
                         }
                         .custom-popup-style .data.dead {
                           color: ${
-                            getZoneStatusColor(ZoneStatus.RED).textInWhiteBg
+                            getZoneStatusProps(ZoneStatus.RED).textInWhiteBg
                           };
                         }
                       </style>
@@ -186,16 +189,16 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                       <div class='title-container'>
                         <span class="zone-status-pin"></span>
                         <h5 class="zone-name">${
-                          zone.properties.displayName
+                          getProperDisplayName(zone)
                         }</h5>
                       </div>
-                      <p class="data infected">Infected ${
+                      <p class="data infected">${t('dataType.infected')} ${
                         zone.properties.total.infectedNumber
                       }</p>
-                      <p class="data recovered">Recovered ${
+                      <p class="data recovered">${t('dataType.recovered')} ${
                         zone.properties.total.recoveredNumber
                       }</p>
-                      <p class="data dead">Dead ${
+                      <p class="data dead">${t('dataType.dead')} ${
                         zone.properties.total.deadNumber
                       }</p>
 

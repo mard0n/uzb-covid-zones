@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { History, ZoneStatus } from "../../types/zone";
 import moment from "moment";
-import getZoneStatusColor from "../../utils/getZoneStatusColor";
+import getZoneStatusProps from "../../utils/getZoneStatusProps";
 import { getDataFromRange } from "../../utils/getDataFromRange";
 import {
   Typography,
@@ -12,6 +12,7 @@ import {
 } from "@material-ui/core";
 import NavigateNextRoundedIcon from "@material-ui/icons/NavigateNextRounded";
 import NavigateBeforeRoundedIcon from "@material-ui/icons/NavigateBeforeRounded";
+import { useTranslation } from "react-i18next";
 
 export interface ChartProps {
   data: History[];
@@ -31,6 +32,7 @@ const useStyles = makeStyles({
 
 const Chart: React.SFC<ChartProps> = (props) => {
   const { data, minVisible } = props;
+  const { t } = useTranslation()
   let date_list = data.map((d) => moment(d.date).format("YYYY-MM-DD"));
   const classes = useStyles();
   const [isGrabbed, setIsGrabbed] = useState(false);
@@ -55,21 +57,21 @@ const Chart: React.SFC<ChartProps> = (props) => {
         // labels: [...data.map((h) => new Date(h.date))],
         datasets: [
           {
-            label: "infected",
-            borderColor: getZoneStatusColor(ZoneStatus.YELLOW).textInBlueishBg,
-            backgroundColor: getZoneStatusColor(ZoneStatus.YELLOW).textInBlueishBg,
+            label: t("dataType.infected"),
+            borderColor: getZoneStatusProps(ZoneStatus.YELLOW).textInBlueishBg,
+            backgroundColor: getZoneStatusProps(ZoneStatus.YELLOW).textInBlueishBg,
             data: [...data.map((h) => h.infectedNumber)],
           },
           {
-            label: "recovered",
-            borderColor: getZoneStatusColor(ZoneStatus.GREEN).textInBlueishBg,
-            backgroundColor: getZoneStatusColor(ZoneStatus.GREEN).textInBlueishBg,
+            label: t("dataType.recovered"),
+            borderColor: getZoneStatusProps(ZoneStatus.GREEN).textInBlueishBg,
+            backgroundColor: getZoneStatusProps(ZoneStatus.GREEN).textInBlueishBg,
             data: [...data.map((h) => h.recoveredNumber)],
           },
           {
-            label: "dead",
-            borderColor: getZoneStatusColor(ZoneStatus.RED).textInBlueishBg,
-            backgroundColor: getZoneStatusColor(ZoneStatus.RED).textInBlueishBg,
+            label: t("dataType.dead"),
+            borderColor: getZoneStatusProps(ZoneStatus.RED).textInBlueishBg,
+            backgroundColor: getZoneStatusProps(ZoneStatus.RED).textInBlueishBg,
             data: [...data.map((h) => h.deadNumber)],
           },
         ],

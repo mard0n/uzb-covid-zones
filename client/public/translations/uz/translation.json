@@ -1,3 +1,37 @@
 {
-  "Welcome to UzCovid": "Welcome to UzCovid uz"
+  "search": {
+    "searchResults": "Search Results",
+    "searchForCity": "Search for the city..."
+  },
+  "welcomeBanner": {
+    "title": "Welcome to UzCovid",
+    "subtitle": "Service for Uzbek people to monitor Covid-19 spread in the country. To start, put desired town, city, area in the search bar."
+  },
+  "selectedZoneName": {
+    "statusBadge": {
+      "safe": "Havfsiz",
+      "warning": "Ehtiyot",
+      "dangerous": "Havfli"
+    }
+  },
+  "overallStats": {
+    "title": "Hozirgi kungacha"
+  },
+  "history": {
+    "title": "Statistika"
+  },
+  "childZonesTable": {
+    "title": "Sub zonalar",
+    "zoneName": "Hudud nomi",
+    "seeMore": "Ko'proq"
+  },
+  "callBanner": {
+    "title": "Covid 19 simptomlarini sezyapsizmi?",
+    "subtitle": "Covid 19 online supporga qo'ng'iroq qiling"
+  },
+  "dataType": {
+    "infected": "Kasallangan",
+    "recovered": "Sog'aygan",
+    "dead": "Vafot etgan"
+  }
 }

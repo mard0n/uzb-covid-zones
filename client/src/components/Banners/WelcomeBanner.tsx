@@ -33,7 +33,7 @@ const WelcomeBanner: React.SFC<WelcomeBannerProps> = () => {
   const theme = useTheme();
   const callBannerClasses = useCallBannerStyles(theme);
   const classes = useStyles();
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   return (
     <Paper
       className={`${callBannerClasses.paper} ${classes.papar}`}
@@ -42,10 +42,9 @@ const WelcomeBanner: React.SFC<WelcomeBannerProps> = () => {
       <img style={backgroundVirusImg} src={VirusBig} alt="virus image" />
       <Grid item xs={12} sm={10} md={8}>
         <img src={Hand} alt="Hand" />
-        <Typography variant="subtitle1">{t("Welcome to UzCovid")}</Typography>
+        <Typography variant="subtitle1">{t("welcomeBanner.title")}</Typography>
         <Typography variant="caption" className={classes.caption}>
-          Service for Uzbek people to monitor Covid-19 spread in the country. To
-          start, put desired town, city, area in the search bar.
+          {t("welcomeBanner.subtitle")}
         </Typography>
       </Grid>
     </Paper>

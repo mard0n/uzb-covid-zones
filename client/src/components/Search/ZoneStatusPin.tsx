@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Box, useTheme } from "@material-ui/core";
 import { ZoneStatus } from "../../types/zone";
-import getZoneStatusColor from "../../utils/getZoneStatusColor";
+import getZoneStatusProps from "../../utils/getZoneStatusProps";
 
 export interface ZoneStatusPinProps {
   status: ZoneStatus;
@@ -11,7 +11,7 @@ export interface ZoneStatusPinProps {
 const ZoneStatusPin: React.SFC<ZoneStatusPinProps> = (props) => {
   const { status, style = {} } = props;
 
-  const statusColor = getZoneStatusColor(status);
+  const statusColor = getZoneStatusProps(status);
 
   const boxStyle = {
     display: 'inline-block',

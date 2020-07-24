@@ -6,7 +6,10 @@ const zoneSchema = new Schema({
     type: "String",
   },
   properties: {
-    displayName: {
+    displayNameUz: {
+      type: "String",
+    },
+    displayNameRu: {
       type: "String",
     },
     alias: {
@@ -44,7 +47,10 @@ const zoneSchema = new Schema({
         date: "Date",
       },
     ],
-    restrictions: {
+    restrictionsRu: {
+      type: "Mixed"
+    },
+    restrictionsUz: {
       type: "Mixed"
     }
   },
