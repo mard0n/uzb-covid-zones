@@ -75,10 +75,17 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
   const { t } = useTranslation();
   const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
 
+  const defaultZone = zones.find(
+    (zone) => zone.properties.displayNameUz === "Uzbekistan"
+  );
+
   const childZones =
-    (selectedZone?.properties?.childZones &&
-      getChildZones(selectedZone?.properties?.childZones, zones)) ||
-    [];
+    getChildZones(
+      (selectedZone
+        ? selectedZone?.properties?.childZones
+        : defaultZone?.properties?.childZones) || [],
+      zones
+    ) || [];
 
   return childZones.length ? (
     <Box mt={4} mb={4}>
