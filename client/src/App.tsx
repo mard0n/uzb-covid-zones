@@ -13,9 +13,10 @@ import {
   Theme,
 } from "@material-ui/core";
 
-// const Login = React.lazy(() => import("./screens/Login"));
-// const Admin = React.lazy(() => import("./screens/Admin"));
-const User = React.lazy(() => import("./screens/User"));
+const Login = React.lazy(() => import(/* webpackChunkName: 'Login' */"./screens/Login"));
+const Admin = React.lazy(() => import(/* webpackChunkName: 'Admin' */"./screens/Admin"));
+const User = React.lazy(() => import(/* webpackChunkName: 'User' */"./screens/User"));
+// import User from "./screens/User";
 
 const theme = createMuiTheme({
   typography: {
@@ -79,7 +80,6 @@ const theme = createMuiTheme({
   },
 });
 
-
 function App() {
   return (
     <StateContextProvider initialState={initialState}>
@@ -88,8 +88,8 @@ function App() {
           <Suspense fallback={<div>Loading... </div>}>
             <Switch>
               <Route path={"/app"} component={User} />
-              {/* <Route path={"/admin"} component={Admin} />
-              <Route path={"/login"} component={Login} /> */}
+              <Route path={"/admin"} component={Admin} />
+              <Route path={"/login"} component={Login} />
               <Route path="*">Not found</Route>
             </Switch>
           </Suspense>

@@ -54,7 +54,7 @@ const Layout: React.SFC<LayoutProps> = (props) => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const classes = useStyles();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
-  const { map, search, mainContent } = props;
+  const { map, mainContent, search } = props;
 
   return (
     <>

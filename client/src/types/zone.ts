@@ -51,7 +51,7 @@ export type Zone = {
     restrictionsUz: any;
     restrictionsRu: any;
   };
-  bbox: BBox;
+  bbox: [number, number, number, number];
   geometry: {
     type:
       | "FeatureCollection"

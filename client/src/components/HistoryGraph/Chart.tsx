@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { History, ZoneStatus } from "../../types/zone";
 import moment from "moment";
+import "chartjs-plugin-zoom/dist/chartjs-plugin-zoom";
+import ChartJs from "chart.js";
 import getZoneStatusProps from "../../utils/getZoneStatusProps";
-import { getDataFromRange } from "../../utils/getDataFromRange";
 import {
   Typography,
   Grid,
@@ -13,6 +14,14 @@ import {
 import NavigateNextRoundedIcon from "@material-ui/icons/NavigateNextRounded";
 import NavigateBeforeRoundedIcon from "@material-ui/icons/NavigateBeforeRounded";
 import { useTranslation } from "react-i18next";
+import { getDateRange } from "utils/getDateRange";
+
+export enum ChartDateFormats {
+  INNER = "YYYY-MM-DD",
+  DISPLAY = "DD MMM YYYY",
+  DISPLAY_NO_YEAR = "DD MMM",
+  MONTH = "MMM"
+}
 
 export interface ChartProps {
   data: History[];
@@ -21,19 +30,19 @@ export interface ChartProps {
 
 const useStyles = makeStyles({
   container: {
-    borderRadius: 9
+    borderRadius: 9,
   },
   btnStyle: {
     backgroundColor: "white",
     height: 32,
-    width: 32
+    width: 32,
   },
 });
 
 const Chart: React.SFC<ChartProps> = (props) => {
   const { data, minVisible } = props;
-  const { t } = useTranslation()
-  let date_list = data.map((d) => moment(d.date).format("YYYY-MM-DD"));
+  const { t } = useTranslation();
+  let date_list = data.map((d) => moment(d.date).format(ChartDateFormats.INNER));
   const classes = useStyles();
   const [isGrabbed, setIsGrabbed] = useState(false);
   const [currentVisibleTicks, setCurrentVisibleTicks] = useState({
@@ -44,13 +53,13 @@ const Chart: React.SFC<ChartProps> = (props) => {
   const chart = useRef<Chart>();
 
   useEffect(() => {
-    const dataFromRange = getDataFromRange({
+    const dataFromRange = getDateRange({
       data: date_list,
       minVisible: minVisible,
       from: currentVisibleTicks.from,
       range: -Math.abs(currentVisibleTicks.range),
     });
-    const chartInstance = new window.Chart(canvas.current, {
+    chart.current = new ChartJs(canvas.current, {
       type: "line",
       data: {
         labels: date_list,
@@ -59,13 +68,15 @@ const Chart: React.SFC<ChartProps> = (props) => {
           {
             label: t("dataType.infected"),
             borderColor: getZoneStatusProps(ZoneStatus.YELLOW).textInBlueishBg,
-            backgroundColor: getZoneStatusProps(ZoneStatus.YELLOW).textInBlueishBg,
+            backgroundColor: getZoneStatusProps(ZoneStatus.YELLOW)
+              .textInBlueishBg,
             data: [...data.map((h) => h.infectedNumber)],
           },
           {
             label: t("dataType.recovered"),
             borderColor: getZoneStatusProps(ZoneStatus.GREEN).textInBlueishBg,
-            backgroundColor: getZoneStatusProps(ZoneStatus.GREEN).textInBlueishBg,
+            backgroundColor: getZoneStatusProps(ZoneStatus.GREEN)
+              .textInBlueishBg,
             data: [...data.map((h) => h.recoveredNumber)],
           },
           {
@@ -86,21 +97,21 @@ const Chart: React.SFC<ChartProps> = (props) => {
           display: false,
         },
         tooltips: {
-          mode: 'index',
+          mode: "index",
           intersect: false,
           callbacks: {
             title: (item: any, data: any) => {
-              return moment(item[0].label).format('DD MMM YYYY')
+              return moment(item[0].label).format(ChartDateFormats.DISPLAY);
             },
           },
-          backgroundColor: 'white',
+          backgroundColor: "white",
           titleFontSize: 14,
-          titleFontColor: '#242B43',
+          titleFontColor: "#242B43",
           // titleFontStyle: 'inherit 600',
-          bodyFontColor: '#242B43',
+          bodyFontColor: "#242B43",
           bodyFontSize: 12,
           // bodyFontStyle: 'inherit',
-          displayColors: false
+          displayColors: false,
         },
         scales: {
           xAxes: [
@@ -190,9 +201,10 @@ const Chart: React.SFC<ChartProps> = (props) => {
                 const from = chart.scales["x-axis-0"].ticks[0];
                 const range = chart.scales["x-axis-0"].ticks.length - 1;
                 setCurrentVisibleTicks({
-                  from: moment(from).format("[2019]-MM-DD"),
+                  from: moment(from).format(`[${moment().year()}]-MM-DD`),
                   range,
                 });
+                console.log("panned", from, range);
                 setIsGrabbed(false);
               },
             },
@@ -248,8 +260,7 @@ const Chart: React.SFC<ChartProps> = (props) => {
               // sensitivity: 3,
 
               // Function called while the user is zooming
-              onZoom: function () {
-              },
+              onZoom: function () {},
               // // Function called once zooming is completed
               // onZoomComplete: function ({ chart: any }) {
               // },
@@ -258,7 +269,6 @@ const Chart: React.SFC<ChartProps> = (props) => {
         },
       },
     });
-    chart.current = chartInstance;
     return () => {};
   }, []);
 
@@ -280,35 +290,37 @@ const Chart: React.SFC<ChartProps> = (props) => {
   };
 
   const handleBackClick = () => {
-
+    console.log("currentVisibleTicks", currentVisibleTicks);
     const { from, range } = currentVisibleTicks;
-    const positiveRangeFrom = getDataFromRange({
+    // const positiveRangeFrom = getDateRange({
+    //   data: date_list,
+    //   minVisible: minVisible,
+    //   from: from,
+    //   range: range,
+    // });
+    // console.log("positiveRangeFrom", positiveRangeFrom);
+    const newRange = getDateRange({
       data: date_list,
       minVisible: minVisible,
       from: from,
-      range: range,
-    });
-    const newRange = getDataFromRange({
-      data: date_list,
-      minVisible: minVisible,
-      from: positiveRangeFrom.from,
       range: -Math.abs(range),
     });
+    console.log("newRange", newRange);
     updateRange(newRange);
   };
   const handleForwardClick = () => {
-
     const { from, range } = currentVisibleTicks;
-    const positiveRangeFrom = getDataFromRange({
+    const positiveRangeFrom = getDateRange({
       data: date_list,
       minVisible: minVisible,
       from: from,
       range: range,
     });
-    const newRange = getDataFromRange({
+    console.log("positiveRangeFrom", positiveRangeFrom);
+    const newRange = getDateRange({
       data: date_list,
       minVisible: minVisible,
-      from: positiveRangeFrom.to || positiveRangeFrom.from,
+      from: positiveRangeFrom.to,
       range: Math.abs(range),
     });
 
@@ -316,7 +328,7 @@ const Chart: React.SFC<ChartProps> = (props) => {
   };
 
   const getUniqueVisibleMonth = () => {
-    const currentVisibleRange = getDataFromRange({
+    const currentVisibleRange = getDateRange({
       data: date_list,
       minVisible: minVisible,
       from: currentVisibleTicks.from,
@@ -328,41 +340,47 @@ const Chart: React.SFC<ChartProps> = (props) => {
     return [...new Set(visibleMonths)];
   };
   return (
-      <Box pt={2} pr={2} pb={2} bgcolor="secondary.main" className={classes.container}>
-        <Box pl={2} pb={2}>
-          <Grid container justify="space-between">
-            <Typography variant="subtitle1">
-              {getUniqueVisibleMonth().join("-")}
-            </Typography>
-            <Grid item className="actions">
-              <Grid container>
-                <IconButton
-                  className={classes.btnStyle}
-                  onClick={handleBackClick}
-                  size="small"
-                >
-                  <NavigateBeforeRoundedIcon />
-                </IconButton>
-                <Box m={1} />
-                <IconButton
-                  className={classes.btnStyle}
-                  onClick={handleForwardClick}
-                  size="small"
-                >
-                  <NavigateNextRoundedIcon />
-                </IconButton>
-              </Grid>
+    <Box
+      pt={2}
+      pr={2}
+      pb={2}
+      bgcolor="secondary.main"
+      className={classes.container}
+    >
+      <Box pl={2} pb={2}>
+        <Grid container justify="space-between">
+          <Typography variant="subtitle1">
+            {getUniqueVisibleMonth().join("-")}
+          </Typography>
+          <Grid item className="actions">
+            <Grid container>
+              <IconButton
+                className={classes.btnStyle}
+                onClick={handleBackClick}
+                size="small"
+              >
+                <NavigateBeforeRoundedIcon />
+              </IconButton>
+              <Box m={1} />
+              <IconButton
+                className={classes.btnStyle}
+                onClick={handleForwardClick}
+                size="small"
+              >
+                <NavigateNextRoundedIcon />
+              </IconButton>
             </Grid>
           </Grid>
-        </Box>
-        <Box
-          style={{
-            cursor: isGrabbed ? "grabbing" : "grab",
-          }}
-        >
-          <canvas id="myChart" ref={canvas} />
-        </Box>
+        </Grid>
       </Box>
+      <Box
+        style={{
+          cursor: isGrabbed ? "grabbing" : "grab",
+        }}
+      >
+        <canvas id="myChart" ref={canvas} />
+      </Box>
+    </Box>
   );
 };
 

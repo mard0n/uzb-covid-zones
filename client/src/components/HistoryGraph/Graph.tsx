@@ -1,16 +1,4 @@
 import React, { useContext } from "react";
-
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
-import moment from "moment";
 import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
 import { StateContext } from "../../state/StateContext";
 import Chart from "./Chart";
@@ -30,7 +18,7 @@ const Graph: React.SFC<GraphProps> = () => {
       <Box mb={1}>
         <Typography variant="subtitle1">{t('history.title')}</Typography>
       </Box>
-      <Chart data={history} minVisible={5} />
+      <Chart data={history} minVisible={10} />
     </Box>
   );
 };

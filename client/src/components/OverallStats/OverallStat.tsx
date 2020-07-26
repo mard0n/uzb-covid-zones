@@ -9,7 +9,6 @@ import {
   useMediaQuery,
   Theme,
 } from "@material-ui/core";
-import { center } from "@turf/turf";
 import getZoneStatusProps from "../../utils/getZoneStatusProps";
 import { ZoneStatus } from "../../types/zone";
 import OverallStatPaper, { OverallStatPaperPosition } from "./OverallStatPaper";
