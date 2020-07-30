@@ -3,12 +3,12 @@ import {
   Paper,
   Typography,
   makeStyles,
-  useTheme,
   useMediaQuery,
   Theme,
   createStyles,
   Divider,
   Grid,
+  Box,
 } from "@material-ui/core";
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) =>
     },
     paperCaption: {
       color: "#777FA9",
-      verticalAlign: 'super',
+      verticalAlign: "super",
     },
   })
 );
@@ -86,8 +86,10 @@ const OverallStatPaper: React.SFC<OverallStatPaperProps> = (props) => {
     change = "NO_CHANGE";
   }
 
-  const positiveChangeColor = getZoneStatusProps(ZoneStatus.GREEN).textInBlueishBg
-  const negativeChangeColor = getZoneStatusProps(ZoneStatus.RED).textInBlueishBg
+  const positiveChangeColor = getZoneStatusProps(ZoneStatus.GREEN)
+    .textInBlueishBg;
+  const negativeChangeColor = getZoneStatusProps(ZoneStatus.RED)
+    .textInBlueishBg;
 
   return number ? (
     <Paper className={classes.paper} color="secondary" elevation={0}>
@@ -106,16 +108,18 @@ const OverallStatPaper: React.SFC<OverallStatPaperProps> = (props) => {
           >
             {number}
           </Typography>
-          <Typography variant="caption" className={classes.paperCaption}>
-            {change === 'NO_CHANGE' ? '0' : Math.abs(Math.round(caption))}%
-          </Typography>
-          {change === "INCREASED" ? (
-            <ArrowDropUpIcon style={{color: negativeChangeColor}} />
-          ) : change === "DECREASED" ? (
-            <ArrowDropDownIcon style={{color: positiveChangeColor}} />
-          ) : (
-            <></>
-          )}
+          <Box marginRight="-24px">
+            <Typography variant="caption" className={classes.paperCaption}>
+              {change === "NO_CHANGE" ? "0" : Math.abs(Math.round(caption))}%
+            </Typography>
+            {change === "INCREASED" ? (
+              <ArrowDropUpIcon style={{ color: negativeChangeColor }} />
+            ) : change === "DECREASED" ? (
+              <ArrowDropDownIcon style={{ color: positiveChangeColor }} />
+            ) : (
+              <></>
+            )}
+          </Box>
         </Grid>
         {position === OverallStatPaperPosition.MIDDLE && !mdUp && (
           <Divider orientation="vertical" flexItem />

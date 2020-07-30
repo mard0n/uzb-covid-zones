@@ -5,6 +5,7 @@ import {
   Grid,
   Typography,
   makeStyles,
+  Box,
 } from "@material-ui/core";
 import { useStyles as useCallBannerStyles } from "./CallBanner";
 import VirusBig from "../../assets/images/virus-big.svg";
@@ -41,7 +42,9 @@ const WelcomeBanner: React.SFC<WelcomeBannerProps> = () => {
     >
       <img style={backgroundVirusImg} src={VirusBig} alt="virus image" />
       <Grid item xs={12} sm={10} md={8}>
-        <img src={Hand} alt="Hand" />
+        <Box height="49px" mb={1}>
+          <img src={Hand} alt="Hi" />
+        </Box>
         <Typography variant="subtitle1">{t("welcomeBanner.title")}</Typography>
         <Typography variant="caption" className={classes.caption}>
           {t("welcomeBanner.subtitle")}

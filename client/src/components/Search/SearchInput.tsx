@@ -19,6 +19,7 @@ export interface SearchInputProps {
   InputLabelProps: any;
   inputRef: any;
   bgColor: string;
+  boxShadow: string;
   elevation: PaperProps["elevation"];
   handleAutoLocate: (lat: number, lng: number) => void;
 }
@@ -34,6 +35,7 @@ const useStyles = makeStyles((theme) => ({
   },
   input: {
     marginLeft: theme.spacing(1),
+    fontWeight: 400,
   },
   autoLocate: {
     boxShadow: "0px 4px 10px rgba(27, 41, 83, 0.24)",
@@ -53,6 +55,7 @@ const SearchInput: React.SFC<SearchInputProps> = (props) => {
     InputProps,
     InputLabelProps,
     bgColor,
+    boxShadow,
     elevation,
     inputRef,
     ...otherProps
@@ -85,7 +88,7 @@ const SearchInput: React.SFC<SearchInputProps> = (props) => {
       ref={InputProps.ref}
       component="form"
       className={classes.inputContainer}
-      style={{ backgroundColor: bgColor }}
+      style={{ backgroundColor: bgColor, boxShadow: boxShadow }}
       elevation={elevation}
     >
       <SearchIcon />

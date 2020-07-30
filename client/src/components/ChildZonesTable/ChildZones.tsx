@@ -25,6 +25,7 @@ import { StateContext } from "../../state/StateContext";
 import { getProperDisplayName } from "../../utils/getProperDisplayName";
 import { getChildZones } from "../../utils/getChildZones";
 import { ADD_SELECTED_ZONE_ID } from "../../state/reducers/appReducer";
+import ChildZonesSkeleton from '../Skeletons/ChildZones';
 
 const useStyles = makeStyles({
   table: {
@@ -40,6 +41,10 @@ const useStyles = makeStyles({
   tableCellText: {
     lineHeight: 1,
   },
+  skeleton: {
+    display: "inline-block",
+    backgroundColor: "rgb(245, 247, 253)",
+  },
 });
 
 const TableCell = withStyles({
@@ -53,18 +58,6 @@ const TableCell = withStyles({
   },
 })(MuiTableCell);
 
-function createData(name: any, calories: any, fat: any, carbs: any) {
-  return { name, calories, fat, carbs };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24),
-  createData("Ice cream sandwich", 237, 9.0, 37),
-  createData("Eclair", 262, 16.0, 24),
-  createData("Cupcake", 305, 3.7, 67),
-  // createData("Gingerbread", 356, 16.0, 49),
-];
-
 export interface ChildZonesProps {}
 
 const ChildZones: React.SFC<ChildZonesProps> = () => {
@@ -73,20 +66,18 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
   const classes = useStyles();
   const [numberOfVisibleCells, setNumberOfVisibleCells] = useState(4);
   const { t } = useTranslation();
-  const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
+  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
   const defaultZone = zones.find(
     (zone) => zone.properties.displayNameUz === "Uzbekistan"
   );
 
-  const childZones =
-    getChildZones(
-      (selectedZone
-        ? selectedZone?.properties?.childZones
-        : defaultZone?.properties?.childZones) || [],
-      zones
-    ) || [];
-
+  const childZones = getChildZones(
+    selectedZone
+      ? selectedZone?.properties?.childZones
+      : defaultZone?.properties?.childZones,
+    zones
+  );
   return childZones.length ? (
     <Box mt={4} mb={4}>
       <Box mb={1}>
@@ -102,35 +93,30 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
         >
           <TableHead>
             <TableRow>
-              <TableCell leftmost={"true"} style={{ maxWidth: "25vw" }}>
-                <Typography
-                  variant="overline"
-                  className={classes.tableCellText}
-                >
+              <TableCell
+                leftmost={"true"}
+                style={{ maxWidth: "25vw", paddingTop: 0 }}
+              >
+                <Typography variant="caption" className={classes.tableCellText}>
                   {t("childZonesTable.zoneName")}
                 </Typography>
               </TableCell>
-              <TableCell align="center">
-                <Typography
-                  variant="overline"
-                  className={classes.tableCellText}
-                >
+              <TableCell align="center" style={{ paddingTop: 0 }}>
+                <Typography variant="caption" className={classes.tableCellText}>
                   {t("dataType.infected")}
                 </Typography>
               </TableCell>
-              <TableCell align="center">
-                <Typography
-                  variant="overline"
-                  className={classes.tableCellText}
-                >
+              <TableCell align="center" style={{ paddingTop: 0 }}>
+                <Typography variant="caption" className={classes.tableCellText}>
                   {t("dataType.recovered")}
                 </Typography>
               </TableCell>
-              <TableCell align="center" rightmost={"true"}>
-                <Typography
-                  variant="overline"
-                  className={classes.tableCellText}
-                >
+              <TableCell
+                align="center"
+                style={{ paddingTop: 0 }}
+                rightmost={"true"}
+              >
+                <Typography variant="caption" className={classes.tableCellText}>
                   {t("dataType.dead")}
                 </Typography>
               </TableCell>
@@ -143,8 +129,8 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
                   <TableRow key={zone._id}>
                     <TableCell component="th" scope="row" leftmost={"true"}>
                       <Box>
-                        {smUp && <ZoneStatusPin status={ZoneStatus.GREEN} />}
-                        {smUp && <Box component="span" mr={1} />}
+                        {mdUp && <ZoneStatusPin status={ZoneStatus.GREEN} />}
+                        {mdUp && <Box component="span" mr={1} />}
                         <Link
                           variant="body1"
                           component="button"
@@ -153,6 +139,7 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
                             textOverflow: "ellipsis",
                             maxWidth: "25vw",
                             whiteSpace: "nowrap",
+                            textIndent: mdUp ? 0 : 1,
                           }}
                           onClick={() => {
                             dispatch({
@@ -180,7 +167,7 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
           </TableBody>
         </Table>
       </TableContainer>
-      {rows.length > numberOfVisibleCells && (
+      {childZones.length > numberOfVisibleCells && (
         <Box mt={2}>
           <Grid container justify="center">
             <Button
@@ -189,7 +176,7 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
               color="primary"
               startIcon={<KeyboardArrowDownRoundedIcon />}
               onClick={() => {
-                setNumberOfVisibleCells(rows.length);
+                setNumberOfVisibleCells(childZones.length);
               }}
             >
               {t("childZonesTable.seeMore")}
@@ -198,6 +185,8 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
         </Box>
       )}
     </Box>
+  ) : !selectedZone ? (
+    <ChildZonesSkeleton mdUp={mdUp} />
   ) : (
     <></>
   );

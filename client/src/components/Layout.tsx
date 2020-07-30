@@ -29,14 +29,16 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: "50%",
     maxWidth: 600,
+    boxShadow: '0px 4px 40px rgba(0, 30, 89, 0.09)',
   },
   bottomSheetPaper: {
-    position: "relative",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    borderBottomLeftRadius: 0,
-    borderBottomRightRadius: 0,
-    padding: "30px 20px 30px",
+    borderTopLeftRadius: "30px",
+    borderTopRightRadius: "30px",
+    backgroundColor: "white",
+    fontSize: "18px",
+    padding: "30px 20px",
+    // minHeight: "calc(100vh - 160px)",
+    // maxHeight: 'calc(100vh - 160px)',
   },
   notch: {
     position: "absolute",
@@ -56,6 +58,11 @@ const Layout: React.SFC<LayoutProps> = (props) => {
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const { map, mainContent, search } = props;
 
+  const handleSwipeableChange = (isOpen: boolean) =>
+    setIsBottomSheetOpen(isOpen);
+
+  const handleBottomSheetClose = () => setIsBottomSheetOpen(false);
+
   return (
     <>
       {mdUp ? (
@@ -70,7 +77,7 @@ const Layout: React.SFC<LayoutProps> = (props) => {
           >
             <Scrollbars style={{ padding: "32px 40px" }} autoHide>
               <Box pt={4} pb={4} pl={5} pr={5}>
-                <Box mb={4}>
+                <Box mb={3}>
                   {React.cloneElement(search, { isInsidePaper: true })}
                 </Box>
                 {mainContent}
@@ -87,41 +94,35 @@ const Layout: React.SFC<LayoutProps> = (props) => {
             <Box
               position="absolute"
               width={"100%"}
-              paddingTop={"24px"}
-              paddingLeft={"20px"}
-              paddingRight={"20px"}
+              paddingTop={"8px"}
+              paddingLeft={"8px"}
+              paddingRight={"8px"}
               zIndex={100}
             >
               {React.cloneElement(search, {
                 isInsidePaper: false,
-                closeBottomSheet: () => setIsBottomSheetOpen(false),
+                closeBottomSheet: handleBottomSheetClose,
               })}
             </Box>
-            <Box height={"calc(100vh - 260px)"} flexGrow={1} zIndex={1}>
+            <Box height={"calc(100vh - 190px)"} flexGrow={1} zIndex={1}>
               {React.cloneElement(map, {
-                closeBottomSheet: () => setIsBottomSheetOpen(false),
+                closeBottomSheet: handleBottomSheetClose,
               })}
             </Box>
             <Box zIndex={100}>
               <SwipeableBottomSheet
-                overflowHeight={150}
+                overflowHeight={200}
                 shadowTip={false}
                 topShadow={false}
                 overlay={false}
-                bodyStyle={{
-                  backgroundColor: "none",
-                  overflow: "visible",
-                }}
                 open={isBottomSheetOpen}
-                onChange={setIsBottomSheetOpen}
+                onChange={handleSwipeableChange}
               >
-                <Paper
-                  elevation={11}
-                  className={classes.bottomSheetPaper}
-                  style={{ height: "60vh" }}
-                >
+                <Paper elevation={11} className={classes.bottomSheetPaper}>
+                  {/* <Scrollbars style={{ padding: "30px 20px", }} autoHide> */}
                   <Box className={classes.notch}></Box>
-                  <Box height={"60vh"}>{mainContent}</Box>
+                  <Box>{mainContent}</Box>
+                  {/* </Scrollbars> */}
                 </Paper>
               </SwipeableBottomSheet>
             </Box>

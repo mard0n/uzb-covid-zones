@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, Suspense } from "react";
 import { fetchZones } from "../api/zones";
 import { ADD_ZONES } from "../state/reducers/appReducer";
 import { StateContext } from "../state/StateContext";
@@ -30,7 +30,7 @@ function User() {
     fetchZones().then((res: AxiosResponse<Zone[]>) => {
       dispatch({
         type: ADD_ZONES,
-        payload: res.data,
+        payload: res.data || [],
       });
       SelectedZoneName.preload()
       OverallStat.preload()
@@ -47,7 +47,7 @@ function User() {
         search={<Search />}
         map={<MapZones />}
         mainContent={
-          <>
+          <Suspense fallback={<>Loading...</>}>
             {!selectedZone && <WelcomeBanner />}
             {selectedZone && <SelectedZoneName />}
             {selectedZone && <OverallStat />}
@@ -55,7 +55,7 @@ function User() {
             <ChildZones />
             <CallBanner />
             {selectedZone && <Restrictions />}
-          </>
+          </Suspense>
         }
       />
     </>

@@ -27,7 +27,6 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
   const totalDead = selectedZone?.properties?.total.deadNumber;
 
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
-
   const infectedColor = getZoneStatusProps(ZoneStatus.YELLOW)?.textInBlueishBg;
   const recoveredColor = getZoneStatusProps(ZoneStatus.GREEN)?.textInBlueishBg;
   const deadColor = getZoneStatusProps(ZoneStatus.RED)?.textInBlueishBg;
@@ -43,7 +42,7 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
         <Typography variant="subtitle1">{t('overallStats.title')}</Typography>
       </Box>
       <Grid container spacing={mdUp ? 2 : 0}>
-        <Grid item xs>
+        <Grid item xs style={{transition: 'all .4s linear 0s'}}>
           <OverallStatPaper
             title={t('dataType.infected')}
             number={totalInfected}
@@ -52,7 +51,7 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
             position={OverallStatPaperPosition.LEFT}
           />
         </Grid>
-        <Grid item xs>
+        <Grid item xs style={{transition: 'all .4s linear 0s'}}>
           <OverallStatPaper
             title={t('dataType.recovered')}
             number={totalRecovered}
@@ -61,7 +60,7 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
             position={OverallStatPaperPosition.MIDDLE}
           />
         </Grid>
-        <Grid item xs>
+        <Grid item xs style={{transition: 'all .4s linear 0s'}}>
           <OverallStatPaper
             title={t('dataType.dead')}
             number={totalDead}

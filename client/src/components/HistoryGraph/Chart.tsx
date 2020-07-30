@@ -20,7 +20,7 @@ export enum ChartDateFormats {
   INNER = "YYYY-MM-DD",
   DISPLAY = "DD MMM YYYY",
   DISPLAY_NO_YEAR = "DD MMM",
-  MONTH = "MMM"
+  MONTH = "MMM",
 }
 
 export interface ChartProps {
@@ -42,7 +42,9 @@ const useStyles = makeStyles({
 const Chart: React.SFC<ChartProps> = (props) => {
   const { data, minVisible } = props;
   const { t } = useTranslation();
-  let date_list = data.map((d) => moment(d.date).format(ChartDateFormats.INNER));
+  let date_list = data.map((d) =>
+    moment(d.date).format(ChartDateFormats.INNER)
+  );
   const classes = useStyles();
   const [isGrabbed, setIsGrabbed] = useState(false);
   const [currentVisibleTicks, setCurrentVisibleTicks] = useState({
@@ -99,19 +101,107 @@ const Chart: React.SFC<ChartProps> = (props) => {
         tooltips: {
           mode: "index",
           intersect: false,
-          callbacks: {
-            title: (item: any, data: any) => {
-              return moment(item[0].label).format(ChartDateFormats.DISPLAY);
-            },
-          },
-          backgroundColor: "white",
-          titleFontSize: 14,
-          titleFontColor: "#242B43",
-          // titleFontStyle: 'inherit 600',
-          bodyFontColor: "#242B43",
-          bodyFontSize: 12,
-          // bodyFontStyle: 'inherit',
-          displayColors: false,
+          // callbacks: {
+          //   title: (item: any, data: any) => {
+          //     return moment(item[0].label).format(ChartDateFormats.DISPLAY);
+          //   },
+          // },
+          // backgroundColor: "white",
+          // titleFontSize: 14,
+          // titleFontColor: "#242B43",
+          // // titleFontStyle: 'inherit 600',
+          // bodyFontColor: "#242B43",
+          // bodyFontSize: 12,
+          // // bodyFontStyle: 'inherit',
+          // displayColors: false,
+          enabled: false,
+          custom: function(tooltipModel) {
+              // Tooltip Element
+              var tooltipEl: any = document.getElementById('chartjs-tooltip');
+
+              // Create element on first render
+              if (!tooltipEl) {
+                  tooltipEl = document.createElement('div');
+                  tooltipEl.id = 'chartjs-tooltip';
+                  tooltipEl.innerHTML = '<table></table>';
+                  document.body.appendChild(tooltipEl);
+              }
+
+              // Hide if no tooltip
+              if (tooltipModel.opacity === 0) {
+                  tooltipEl.style.opacity = 0;
+                  return;
+              }
+
+              // Set caret Position
+              tooltipEl.classList.remove('above', 'below', 'no-transform');
+              if (tooltipModel.yAlign) {
+                  tooltipEl.classList.add(tooltipModel.yAlign);
+              } else {
+                  tooltipEl.classList.add('no-transform');
+              }
+
+              function getBody(bodyItem: any) {
+                  return bodyItem.lines;
+              }
+
+              // Set Text
+              if (tooltipModel.body) {
+                  var titleLines = tooltipModel.title || [];
+                  var bodyLines = tooltipModel.body.map(getBody);
+
+                  var innerHtml = '<thead>';
+
+                  titleLines.forEach(function(title) {
+                    let style = 'color: #2C3D97; '
+                    // style += 'font-family: Rubik; '
+                    style += 'font-weight: 500; '
+                    style += 'font-size: 14px; '
+                    style += 'line-height: 16px; '
+                    style += 'text-align: left; '
+                    
+                    innerHtml += '<tr><th style="' + style + '">' + moment(title).format(ChartDateFormats.DISPLAY) + '</th></tr>';
+                  });
+                  innerHtml += '</thead><tbody>';
+
+                  bodyLines.forEach(function(body, i) {
+                      // var colors: any = tooltipModel.labelColors[i];
+                      // var style = 'background:' + colors.backgroundColor;
+                      // style += '; border-color:' + colors.borderColor;
+                      // style += '; border-width: 2px';
+                      // var span = '<span style="' + style + '"></span>';
+                      let style = 'color: ' + (tooltipModel.labelColors[i] as any).backgroundColor + '; ';
+                      style += 'font-weight: 400; '
+                      style += 'font-size: 14px; '
+                      style += 'line-height: 16px; '
+                      style += 'text-align: left; '
+                      innerHtml += '<tr><td style="' + style + '">' + body + '</td></tr>';
+                  });
+                  innerHtml += '</tbody>';
+
+                  var tableRoot = tooltipEl.querySelector('table');
+                  tableRoot.innerHTML = innerHtml;
+              }
+
+              // `this` will be the overall tooltip
+              var position: any = canvas.current.getBoundingClientRect();
+              // Display, position, and set styles for font
+              tooltipEl.style.opacity = 1;
+              tooltipEl.style.zIndex = 10000;
+              tooltipEl.style.transform = 'translate(10px, -100%)';
+              tooltipEl.style.padding = '8px 10px';
+              tooltipEl.style.position = 'absolute';
+              tooltipEl.style.backgroundColor = 'white';
+              tooltipEl.style.borderRadius = '6px';
+              tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px';
+              tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px';
+              tooltipEl.style.fontFamily = 'Rubik';
+              // tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily;
+              tooltipEl.style.fontSize = tooltipModel.bodyFontSize + 'px';
+              tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle;
+              // tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px';
+              tooltipEl.style.pointerEvents = 'none';
+          }
         },
         scales: {
           xAxes: [
@@ -123,11 +213,18 @@ const Chart: React.SFC<ChartProps> = (props) => {
                 // tooltipFormat: "DD MMM",
                 unit: "day",
                 minUnit: "day",
+                displayFormats: {
+                  day: "DD",
+                },
               },
               ticks: {
                 padding: 24,
                 min: dataFromRange.from,
                 max: dataFromRange.to,
+                fontColor: "#2C3D97",
+                fontFamily: "Rubik",
+                fontSize: 16,
+                fontStyle: "bold",
                 // callback: (value: number | string, index: number, values: any) => {
                 //   const date = values.find((v: any, i: number) => i === index)?.value
                 //   const day = moment(date).format('DD')
@@ -150,6 +247,11 @@ const Chart: React.SFC<ChartProps> = (props) => {
               ticks: {
                 beginAtZero: true,
                 padding: 16,
+                maxTicksLimit: 6,
+                fontFamily: "Rubik",
+                fontStyle: "normal",
+                fontSize: 12,
+                fontColor: "rgba(123, 129, 163, 0.5)",
               },
             },
           ],
@@ -204,7 +306,6 @@ const Chart: React.SFC<ChartProps> = (props) => {
                   from: moment(from).format(`[${moment().year()}]-MM-DD`),
                   range,
                 });
-                console.log("panned", from, range);
                 setIsGrabbed(false);
               },
             },
@@ -290,7 +391,6 @@ const Chart: React.SFC<ChartProps> = (props) => {
   };
 
   const handleBackClick = () => {
-    console.log("currentVisibleTicks", currentVisibleTicks);
     const { from, range } = currentVisibleTicks;
     // const positiveRangeFrom = getDateRange({
     //   data: date_list,
@@ -298,14 +398,12 @@ const Chart: React.SFC<ChartProps> = (props) => {
     //   from: from,
     //   range: range,
     // });
-    // console.log("positiveRangeFrom", positiveRangeFrom);
     const newRange = getDateRange({
       data: date_list,
       minVisible: minVisible,
       from: from,
       range: -Math.abs(range),
     });
-    console.log("newRange", newRange);
     updateRange(newRange);
   };
   const handleForwardClick = () => {
@@ -316,14 +414,12 @@ const Chart: React.SFC<ChartProps> = (props) => {
       from: from,
       range: range,
     });
-    console.log("positiveRangeFrom", positiveRangeFrom);
     const newRange = getDateRange({
       data: date_list,
       minVisible: minVisible,
       from: positiveRangeFrom.to,
       range: Math.abs(range),
     });
-
     updateRange(newRange);
   };
 

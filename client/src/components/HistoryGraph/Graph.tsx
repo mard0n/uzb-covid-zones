@@ -18,7 +18,7 @@ const Graph: React.SFC<GraphProps> = () => {
       <Box mb={1}>
         <Typography variant="subtitle1">{t('history.title')}</Typography>
       </Box>
-      <Chart data={history} minVisible={10} />
+      <Chart data={history} minVisible={8} />
     </Box>
   );
 };

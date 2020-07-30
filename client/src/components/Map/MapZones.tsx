@@ -36,16 +36,24 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
   const { closeBottomSheet = () => {} } = props;
   const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
-  const [zoomLevel, setZoomLevel] = useState(9);
+  console.log("selectedZone", selectedZone);
+  const [zoomLevel, setZoomLevel] = useState(6);
+  const [isRecentlySelected, setIsRecentlySelected] = useState(false);
+  console.log("isRecentlySelected", isRecentlySelected);
   const [marker, setMarker] = useState<any>(null);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
   const mapRef = useRef<Map | null>(null);
 
-  const navigateTo = (lat: number, lng: number) => {
-    mapRef.current?.leafletElement.setView({ lat, lng }, 12, { animate: true });
-    setMarker({ lat, lng });
+  const navigateTo = (
+    { lat, lng, zoom = 12 }: { lat: number; lng: number; zoom: number },
+    isMarked = true
+  ) => {
+    mapRef.current?.leafletElement.setView({ lat, lng }, zoom, {
+      animate: true,
+    });
+    isMarked && setMarker({ lat, lng });
   };
 
   useEffect(() => {
@@ -58,6 +66,18 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
       iconUrl: require("leaflet/dist/images/marker-icon.png"),
       shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
     }); // to show marker
+
+    const queryParam = new URLSearchParams(window.location.search);
+    const lat = queryParam.get("lat");
+    const lng = queryParam.get("lng");
+    const zoom = queryParam.get("zoom");
+    const latInt = lat && parseFloat(lat);
+    const lngInt = lng && parseFloat(lng);
+    const zoomInt = zoom && parseFloat(zoom);
+    if (latInt && lngInt && zoomInt) {
+      navigateTo({ lat: latInt, lng: lngInt, zoom: zoomInt }, false);
+    }
+
     dispatch({
       type: ADD_NAVIGATE_TO_FN,
       payload: navigateTo,
@@ -65,7 +85,6 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
   }, []);
 
   useEffect(() => {
-
     if (selectedZone?.bbox?.length) {
       const [westlon, minlat, eastlon, maxlat] = selectedZone?.bbox;
       mapRef.current?.leafletElement?.flyToBounds([
@@ -73,28 +92,59 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
         [westlon, maxlat],
       ]);
     }
+    setIsRecentlySelected(true);
+
     return () => {};
   }, [selectedZone]);
 
-  const handleZoom = (e: LeafletEvent) => {
-    setZoomLevel(e.target._zoom);
+  const handleMoveEnd = (e: LeafletEvent) => {
+    const zoom = mapRef.current?.leafletElement?.getZoom();
+    if (zoom) {
+      setZoomLevel(zoom);
+    }
+    const latLng = mapRef.current?.leafletElement?.getCenter();
+    console.log("latLng", latLng);
+    console.log("zoom", zoom);
+    console.log(
+      "latLng?.lat && latLng?.lng && zoom",
+      latLng?.lat && latLng?.lng && zoom
+    );
+
+    if (latLng?.lat && latLng?.lng && zoom) {
+      if ("URLSearchParams" in window) {
+        const queryParam = new URLSearchParams(window.location.search);
+        queryParam.set("lat", JSON.stringify(latLng.lat));
+        queryParam.set("lng", JSON.stringify(latLng.lng));
+        queryParam.set("zoom", JSON.stringify(zoom));
+        queryParam.toString();
+        const newRelativePathQuery =
+          window.location.pathname + "?" + queryParam.toString();
+        window.history.pushState(null, "", newRelativePathQuery);
+      }
+      console.log("latLng", latLng);
+    }
+  };
+  const handleMoveStart = () => {
+    setIsRecentlySelected(false);
   };
   const handleZoneSelect = (feature: Zone) => {
     dispatch({
       type: ADD_SELECTED_ZONE_ID,
       payload: feature._id,
     });
-    closeBottomSheet()
+    closeBottomSheet();
   };
 
   return (
     <Map
       ref={mapRef}
-      center={[40.7, 71.24]}
-      zoom={9}
+      center={[40.92930626579717, 64.61999498705462]}
+      zoom={zoomLevel}
       zoomControl={false}
       style={{ width: "100%", height: "100%" }}
-      onmoveend={handleZoom}
+      onmoveend={handleMoveEnd}
+      onzoomstart={handleMoveStart}
+      onmovestart={handleMoveStart}
     >
       <TileLayer
         attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
@@ -103,26 +153,30 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
       {marker && <Marker position={{ lat: marker.lat, lng: marker.lng }} />}
       {mdUp && <ZoomControl position="bottomright" />}
       <FeatureGroup>
-        {zones.map((zone, i) => {
-          // const { showFrom, showTo } = zone?.properties?.zoomRange;
+        {zones.map((zone) => {
           const placeType = zone?.properties?.placeType;
           let isShown;
-
-          if (zoomLevel >= 9) {
+          if (selectedZone && isRecentlySelected) {
             isShown =
-              placeType === PlaceType.DISTRICT || placeType === PlaceType.CITY;
-          } else if (zoomLevel < 9 && zoomLevel >= 6) {
-            isShown = placeType === PlaceType.REGION;
-          } else if (zoomLevel < 6) {
-            isShown = placeType === PlaceType.COUNTRY;
+              selectedZone.properties.placeType === zone.properties.placeType;
+          } else {
+            if (zoomLevel >= 10) {
+              isShown =
+                placeType === PlaceType.DISTRICT ||
+                placeType === PlaceType.CITY;
+            } else if (zoomLevel < 10 && zoomLevel >= 7) {
+              isShown = placeType === PlaceType.REGION;
+            } else if (zoomLevel < 7) {
+              isShown = placeType === PlaceType.COUNTRY;
+            }
           }
           return (
             isShown && (
-              <Fragment key={`zone-${i}`}>
-                <GeoJSON
-                  key={i}
-                  data={zone as GeoJSON.GeoJsonObject}
-                  onEachFeature={(feat, layer) => {
+              <GeoJSON
+                key={"zone-" + zone._id}
+                data={zone as GeoJSON.GeoJsonObject}
+                onEachFeature={(feat, layer) => {
+                  mdUp &&
                     layer.bindPopup(
                       `
                       <style>
@@ -189,17 +243,15 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
 
                       <div class='title-container'>
                         <span class="zone-status-pin"></span>
-                        <h5 class="zone-name">${
-                          getProperDisplayName(zone)
-                        }</h5>
+                        <h5 class="zone-name">${getProperDisplayName(zone)}</h5>
                       </div>
-                      <p class="data infected">${t('dataType.infected')} ${
+                      <p class="data infected">${t("dataType.infected")} ${
                         zone.properties.total.infectedNumber
                       }</p>
-                      <p class="data recovered">${t('dataType.recovered')} ${
+                      <p class="data recovered">${t("dataType.recovered")} ${
                         zone.properties.total.recoveredNumber
                       }</p>
-                      <p class="data dead">${t('dataType.dead')} ${
+                      <p class="data dead">${t("dataType.dead")} ${
                         zone.properties.total.deadNumber
                       }</p>
 
@@ -210,30 +262,29 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                         keepInView: true,
                       }
                     );
-                    layer.on({
-                      click: () => handleZoneSelect(zone),
-                      mouseover: (e) => {
-                        layer.openPopup();
-                      },
-                    });
-                  }}
-                  style={(feat) => {
-                    const status = zone?.properties?.status;
-                    const color =
-                      status === "RED"
-                        ? "rgb(237, 69, 67)"
-                        : status === "YELLOW"
-                        ? "rgb(255, 210, 30)"
-                        : "rgb(86, 219, 64)";
-                    return {
-                      fillColor: color,
-                      fillOpacity: 0.301961,
-                      color: color,
-                      weight: 1.5,
-                    };
-                  }}
-                />
-              </Fragment>
+                  layer.on({
+                    click: () => handleZoneSelect(zone),
+                    mouseover: (e) => {
+                      mdUp && layer.openPopup();
+                    },
+                  });
+                }}
+                style={(feat) => {
+                  const status = zone?.properties?.status;
+                  const color =
+                    status === "RED"
+                      ? "rgb(237, 69, 67)"
+                      : status === "YELLOW"
+                      ? "rgb(255, 210, 30)"
+                      : "rgb(86, 219, 64)";
+                  return {
+                    fillColor: color,
+                    fillOpacity: 0.301961,
+                    color: color,
+                    weight: 1.5,
+                  };
+                }}
+              />
             )
           );
         })}

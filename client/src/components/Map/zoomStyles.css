@@ -1,4 +1,7 @@
-.leaflet-control-zoom {
+.leaflet-container{
+  background: #ebebebc7;
+}
+.leaflet-control-zoom, .leaflet-touch .leaflet-bar {
   box-shadow: none !important;
   border-radius: unset;
 }

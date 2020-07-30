@@ -1,9 +1,9 @@
 import { BBox } from "@turf/turf";
 
 export enum ZoneStatus {
-  RED = "RED",
-  YELLOW = "YELLOW",
-  GREEN = "GREEN",
+  RED = "DANGEROUS",
+  YELLOW = "RISKY",
+  GREEN = "SAFE",
 }
 
 export enum PlaceType {

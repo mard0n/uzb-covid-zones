@@ -1,4 +1,4 @@
-import React, { createContext, useReducer } from "react";
+import React, { createContext, useReducer, useEffect } from "react";
 import stateReducer from "./stateReducer";
 import { Action } from "./reducers/appReducer";
 import { Zone } from "../types/zone";

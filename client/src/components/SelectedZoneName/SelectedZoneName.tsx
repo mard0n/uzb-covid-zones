@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   parentZones: {
     verticalAlign: "top",
+    color: '#8C93B2'
   },
   message: {
     padding: 0,

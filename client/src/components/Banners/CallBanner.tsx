@@ -8,6 +8,7 @@ import {
   useTheme,
   createStyles,
   Box,
+  useMediaQuery,
 } from "@material-ui/core";
 import VirusSmall from "../../assets/images/virus-small.svg";
 import ChevronRightRoundedIcon from "@material-ui/icons/ChevronRightRounded";
@@ -22,6 +23,8 @@ export const useStyles = makeStyles((theme) =>
       color: "white",
       padding: 16,
       borderRadius: 9,
+      position: "relative",
+      overflow: "hidden",
     },
     flex: {
       display: "flex",
@@ -31,13 +34,25 @@ export const useStyles = makeStyles((theme) =>
       opacity: "50%",
       fontWeight: 400,
     },
+    textSecondaryMobile: {
+      lineHeight: "1.2",
+      marginTop: "4px",
+      fontSize: "14px",
+    },
   })
 );
+const imgStyleMobile: any = {
+  position: "absolute",
+  bottom: "50%",
+  left: "0",
+  transform: "translate(-54%, 50%)",
+};
 
 const CallBanner: React.SFC<CallBannerProps> = () => {
   const theme = useTheme();
   const classes = useStyles(theme);
-  const { t } = useTranslation()
+  const { t } = useTranslation();
+  const smUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("sm"));
 
   const handleClick = () => {
     window.open("tel:+1303499-7111", "_blank");
@@ -48,16 +63,31 @@ const CallBanner: React.SFC<CallBannerProps> = () => {
         className={classes.paper}
         style={{ cursor: "pointer" }}
         elevation={0}
-        onClick={() => handleClick()}
+        onClick={handleClick}
       >
-        <Grid container justify="space-between" alignItems="center" wrap="nowrap">
-          <Grid className={classes.flex} container item alignItems="center" wrap="nowrap">
-            <img src={VirusSmall} />
+        <Grid
+          container
+          justify="space-between"
+          alignItems="center"
+          wrap="nowrap"
+        >
+          <Grid
+            className={classes.flex}
+            container
+            item
+            alignItems="center"
+            wrap="nowrap"
+          >
+            <img src={VirusSmall} style={!smUp ? imgStyleMobile : undefined} />
             <Box mr={2} />
             <Grid item container direction="column" wrap="nowrap">
-              <Typography>{t('callBanner.title')}</Typography>
-              <Typography className={classes.textSecondary}>
-                {t('callBanner.subtitle')}
+              <Typography>{t("callBanner.title")}</Typography>
+              <Typography
+                className={`${classes.textSecondary} ${
+                  !smUp && classes.textSecondaryMobile
+                }`}
+              >
+                {t("callBanner.subtitle")}
               </Typography>
             </Grid>
           </Grid>

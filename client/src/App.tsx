@@ -1,22 +1,18 @@
 import React, { Suspense } from "react";
-import {
-  Route,
-  BrowserRouter as Router,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import StateContextProvider, { initialState } from "./state/StateContext";
-import {
-  ThemeProvider,
-  createMuiTheme,
-  useMediaQuery,
-  Theme,
-} from "@material-ui/core";
+import { ThemeProvider, createMuiTheme } from "@material-ui/core";
+import Loader from "components/Skeletons/Loader";
 
-const Login = React.lazy(() => import(/* webpackChunkName: 'Login' */"./screens/Login"));
-const Admin = React.lazy(() => import(/* webpackChunkName: 'Admin' */"./screens/Admin"));
-const User = React.lazy(() => import(/* webpackChunkName: 'User' */"./screens/User"));
-// import User from "./screens/User";
+const Login = React.lazy(() =>
+  import(/* webpackChunkName: 'Login' */ "./screens/Login")
+);
+const Admin = React.lazy(() =>
+  import(/* webpackChunkName: 'Admin' */ "./screens/Admin")
+);
+const User = React.lazy(() =>
+  import(/* webpackChunkName: 'User' */ "./screens/User")
+);
 
 const theme = createMuiTheme({
   typography: {
@@ -85,7 +81,7 @@ function App() {
     <StateContextProvider initialState={initialState}>
       <ThemeProvider theme={theme}>
         <Router>
-          <Suspense fallback={<div>Loading... </div>}>
+          <Suspense fallback={<Loader />}>
             <Switch>
               <Route path={"/app"} component={User} />
               <Route path={"/admin"} component={Admin} />

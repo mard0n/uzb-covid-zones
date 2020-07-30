@@ -4,20 +4,10 @@ import React, {
   PropsWithChildren,
   ChangeEvent,
   useRef,
-  useEffect,
 } from "react";
 import { StateContext } from "../../state/StateContext";
-import {
-  makeStyles,
-  useTheme,
-  Paper,
-  Button,
-  Box,
-  Grid,
-} from "@material-ui/core";
-import LocationOnIcon from "@material-ui/icons/LocationOn";
+import { makeStyles, useTheme, useMediaQuery, Theme } from "@material-ui/core";
 import "./styles.css";
-
 import Autocomplete, {
   AutocompleteChangeReason,
 } from "@material-ui/lab/Autocomplete";
@@ -26,13 +16,10 @@ import SearchInput from "./SearchInput";
 import SearchOption, { SearchOptionProps } from "./SearchOption";
 import SearchOptionsPaper from "./SearchOptionsPaper";
 import ListboxComponent from "./ListboxComponent";
-import { Zone, PlaceType } from "../../types/zone";
+import { Zone } from "../../types/zone";
 import { FilterOptionsState } from "@material-ui/lab";
-import { sortBasedOnTotalInfected } from "../../utils/sortBasedOnTotalInfected";
-import Slider from "react-slick";
-import "slick-carousel/slick/slick-theme.css";
-import "slick-carousel/slick/slick.css";
 import { getProperDisplayName } from "../../utils/getProperDisplayName";
+import SuggestedZones from "components/Search/SuggestedZones";
 
 export interface SearchProps {
   isInsidePaper?: boolean;
@@ -48,12 +35,11 @@ const useStyles = makeStyles((theme) => ({
   option: {
     padding: "8px 0",
     height: 50,
-    // '&[data-focus="true"]': {
-    //   backgroundColor: "#ff5e00",
-    //   color: "white",
-    // },
+    '&[data-focus="true"]': {
+      backgroundColor: "rgba(0, 0, 0, .02)",
+    },
     // ":active": {
-    //   backgroundColor: "unset",
+    //   backgroundColor: "rgba(0, 0, 0, .02)",
     // },
   },
   suggestedZoneContainer: {
@@ -73,6 +59,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Search: React.SFC<SearchProps> = (props) => {
+  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const { isInsidePaper, closeBottomSheet = () => {} } = props;
   const { zones = [], dispatch, navigateTo } = useContext(StateContext);
   const [selectedZone, setSelectedZone] = useState<Zone | null>(null);
@@ -121,24 +108,12 @@ const Search: React.SFC<SearchProps> = (props) => {
 
   const bgColor = isInsidePaper
     ? theme.palette.type === "light"
-      ? "#F5F7FD"
+      ? "#ebebebc7"
       : "#bdc0cb"
     : theme.palette.type === "light"
     ? "#FFF"
     : "#bdc0cb";
   const elevation = isInsidePaper ? 0 : 2;
-
-  const settings = {
-    infinite: false,
-    variableWidth: true,
-    dots: false,
-    speed: 300,
-    arrows: false,
-  };
-
-  const handleSuggestionsClick = (zone: Zone) => {
-    selectZone(zone);
-  };
 
   const handleAutoLocate = (lat: number, lng: number) => {
     navigateTo(lat, lng);
@@ -147,7 +122,7 @@ const Search: React.SFC<SearchProps> = (props) => {
   return (
     <>
       <Autocomplete
-        debug
+        // debug
         id="search-bank-name"
         classes={{
           option: classes.option,
@@ -166,6 +141,7 @@ const Search: React.SFC<SearchProps> = (props) => {
           <SearchInput
             {...params}
             bgColor={bgColor}
+            boxShadow={mdUp ? "unset" : "4px 6px 10px rgba(30, 43, 114, 0.09)"}
             elevation={elevation}
             inputRef={inputRef}
             handleAutoLocate={handleAutoLocate}
@@ -182,34 +158,8 @@ const Search: React.SFC<SearchProps> = (props) => {
         autoComplete
         clearOnEscape
         clearOnBlur
-      />
-      <Slider {...settings}>
-        {sortBasedOnTotalInfected(zones, [
-          PlaceType.CITY,
-          PlaceType.REGION,
-        ]).map((zone, index) => {
-          return (
-            index <= 5 && (
-              <Box
-                key={`suggestion-${index}`}
-                ml={index !== 0 ? 0.5 : 0}
-                mr={index !== zones.length - 1 ? 0.5 : 0}
-              >
-                <Button
-                  variant="contained"
-                  className={classes.suggestedZones}
-                  startIcon={
-                    <LocationOnIcon fontSize="small" color={"primary"} />
-                  }
-                  onClick={() => handleSuggestionsClick(zone)}
-                >
-                  {getProperDisplayName(zone)}
-                </Button>
-              </Box>
-            )
-          );
-        })}
-      </Slider>
+      />      
+      <SuggestedZones zones={zones} selectZone={selectZone} />
     </>
   );
 };

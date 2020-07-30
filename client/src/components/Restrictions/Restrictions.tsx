@@ -11,8 +11,6 @@ const Restrictions: React.SFC<RestrictionsProps> = (props) => {
   const { zones, selectedZoneId } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
   let restrictions: any;
-  console.log('getLanguage()', getLanguage());
-  console.log('selectedZone', selectedZone);
   switch (getLanguage()) {
     case 'uz':
       restrictions = selectedZone?.properties?.restrictionsUz

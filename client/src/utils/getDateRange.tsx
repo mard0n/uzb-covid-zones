@@ -13,6 +13,7 @@ export const getDateRange = ({
   to?: string;
   range?: number;
 }) => {
+  
   const [dataRangeFrom, dataRangeTo] = [
     moment(data[0]).toDate(),
     moment(data[data.length - 1]).toDate(),
@@ -22,10 +23,6 @@ export const getDateRange = ({
     ? moment(to).toDate()
     : moment(from).add(range, "days").toDate();
   const _range = range ? range : moment(_to).diff(moment(_from), "days");
-  console.log("dataRangeFrom, dataRangeTo", dataRangeFrom, dataRangeTo);
-  console.log("_from", _from);
-  console.log("_to", _to);
-  console.log("_range", _range);
 
   let left: Date, right: Date;
   const isCurrentInsideRange =
@@ -36,8 +33,6 @@ export const getDateRange = ({
     moment(_to).isSameOrAfter(dataRangeFrom) &&
     moment(_to).isSameOrBefore(dataRangeTo);
 
-  console.log("isChangeInsideRange", isChangeInsideRange);
-  console.log("isCurrentInsideRange", isCurrentInsideRange);
   
   if (isCurrentInsideRange || isChangeInsideRange) {
     if (isChangeInsideRange) {
@@ -59,20 +54,16 @@ export const getDateRange = ({
     }
   } else {
     if (_range >= 0) {
-      left = moment(dataRangeTo).subtract(range, "days").toDate();
+      left = moment(dataRangeTo).subtract(minVisible, "days").toDate();
       right = dataRangeTo;
     } else {
       left = dataRangeFrom;
-      right = moment(dataRangeFrom).add(range, "days").toDate();
+      right = moment(dataRangeFrom).add(minVisible, "days").toDate();
     }
   }
-  console.log("left", left);
-  console.log("right", right);
 
   const diff = Math.abs(moment(right).diff(left, "days"));
-  console.log("diff", diff);
 
-  console.log("diff >= minVisible", diff >= minVisible);
   if (diff >= minVisible) {
     return {
       from: moment(left).format(ChartDateFormats.INNER),
@@ -84,14 +75,6 @@ export const getDateRange = ({
       ),
     };
   } else {
-    console.log(
-      "moment(left).isSame(dataRangeFrom)",
-      moment(left).isSame(dataRangeFrom)
-    );
-    console.log(
-      "moment(right).isSame(dataRangeTo)",
-      moment(right).isSame(dataRangeTo)
-    );
     if (moment(left).isSame(dataRangeFrom)) {
       const isMinVisRangeIsInsideOfData = moment(left)
         .add(minVisible, "days")

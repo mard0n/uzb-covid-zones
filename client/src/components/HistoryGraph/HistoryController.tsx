@@ -133,7 +133,7 @@ const HistoryController: React.SFC<HistoryControllerProps> = (props) => {
               <TableCell>Controls</TableCell>
               {history.map((row: any, index: number) => (
                 <TableCell
-                  key={`control-${index}`}
+                  key={`control-${row._id}`}
                   className={
                     hoveredColumnIndex === index ? classes.hoveredCell : ""
                   }
@@ -200,7 +200,7 @@ const HistoryController: React.SFC<HistoryControllerProps> = (props) => {
               <TableCell>Infected</TableCell>
               {history.map((row: any, index: number) => (
                 <TableCell
-                  key={`infected-${index}`}
+                  key={`infected-${row._id}`}
                   align="right"
                   className={
                     hoveredColumnIndex === index ? classes.hoveredCell : ""
@@ -239,7 +239,7 @@ const HistoryController: React.SFC<HistoryControllerProps> = (props) => {
               <TableCell>Recovery</TableCell>
               {history.map((row: any, index: number) => (
                 <TableCell
-                  key={`recovery-${index}`}
+                  key={`recovery-${row._id}`}
                   align="right"
                   className={
                     hoveredColumnIndex === index ? classes.hoveredCell : ""
@@ -278,7 +278,7 @@ const HistoryController: React.SFC<HistoryControllerProps> = (props) => {
               <TableCell>Death</TableCell>
               {history.map((row: any, index: number) => (
                 <TableCell
-                  key={`death-${index}`}
+                  key={`death-${row._id}`}
                   align="right"
                   className={
                     hoveredColumnIndex === index ? classes.hoveredCell : ""
@@ -317,7 +317,7 @@ const HistoryController: React.SFC<HistoryControllerProps> = (props) => {
               <TableCell>Date</TableCell>
               {history.map((row: any, index: number) => (
                 <TableCell
-                  key={`date-${index}`}
+                  key={`date-${row._id}`}
                   align="right"
                   className={
                     hoveredColumnIndex === index ? classes.hoveredCell : ""

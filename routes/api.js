@@ -5,7 +5,6 @@ const JSONStream = require("JSONStream");
 const getZones = require("../utils/get-zones-from-sheets");
 
 const Zone = require("../models/zone.model");
-const ZoneCategories = require("../models/zoneCategory.model");
 const Admin = require("../models/admin.model");
 
 module.exports = (redis) => {
@@ -65,17 +64,6 @@ module.exports = (redis) => {
     // });
   });
 
-  router.get("/zones-status", async (req, res) => {
-    ZoneCategories.find({})
-      .then((data) => {
-        res.send(data);
-      })
-      .catch((err) => {
-        console.log("Admin error catch", err);
-        res.sendStatus(500);
-      });
-  });
-
   router.get("/parse-files", async (req, res) => {
     console.log("parse called");
 
@@ -83,5 +71,6 @@ module.exports = (redis) => {
     console.log("status", status);
     res.send("success");
   });
+  
   return router;
 };
