@@ -5,7 +5,7 @@ const Admin = require("../models/admin.model");
 module.exports = function (socket, redis) {
   socket.on("initial_data", () => {
     console.log("initial_data called");
-    Zone.find({})
+    Zone.find({}, {lean: true})
       .then((data) => {
         console.log("zones found");
         // console.log("mongo type", typeof data);

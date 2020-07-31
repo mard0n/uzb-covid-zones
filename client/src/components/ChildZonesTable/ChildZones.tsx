@@ -25,7 +25,7 @@ import { StateContext } from "../../state/StateContext";
 import { getProperDisplayName } from "../../utils/getProperDisplayName";
 import { getChildZones } from "../../utils/getChildZones";
 import { ADD_SELECTED_ZONE_ID } from "../../state/reducers/appReducer";
-import ChildZonesSkeleton from '../Skeletons/ChildZones';
+import ChildZonesSkeleton from "../Skeletons/ChildZones";
 
 const useStyles = makeStyles({
   table: {
@@ -129,7 +129,9 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
                   <TableRow key={zone._id}>
                     <TableCell component="th" scope="row" leftmost={"true"}>
                       <Box>
-                        {mdUp && <ZoneStatusPin status={ZoneStatus.GREEN} />}
+                        {mdUp && (
+                          <ZoneStatusPin status={zone.properties?.status} />
+                        )}
                         {mdUp && <Box component="span" mr={1} />}
                         <Link
                           variant="body1"

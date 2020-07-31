@@ -8,19 +8,19 @@ const getZoneStatusProps = (status: ZoneStatus, t?: TFunction) => {
     text: string | undefined = "",
     bgColor: string = "";
   switch (status) {
-    case ZoneStatus.RED:
+    case ZoneStatus.DANGEROUS:
       textColorInWhite = "#EA5C73";
       textColorInBlue = "#FF4967";
       text = t && t("selectedZoneName.statusBadge.dangerous");
       bgColor = "#ff0c0c26";
       break;
-    case ZoneStatus.YELLOW:
+    case ZoneStatus.RISKY:
       textColorInWhite = "#EF7C38";
       textColorInBlue = "#FF9635";
       text = t && t("selectedZoneName.statusBadge.warning");
       bgColor = "#ffeb0159";
       break;
-    case ZoneStatus.GREEN:
+    case ZoneStatus.SAFE:
       textColorInWhite = "#87D03F";
       textColorInBlue = "#87D03F";
       text = t && t("selectedZoneName.statusBadge.safe");

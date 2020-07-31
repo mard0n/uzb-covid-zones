@@ -25,7 +25,7 @@ const Restrictions = lazyPreload(() => import(/* webpackChunkName: 'Restrictions
 function User() {
   const { dispatch, selectedZoneId, zones = [] } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
-
+  console.log('zones', zones)
   useEffect(() => {
     fetchZones().then((res: AxiosResponse<Zone[]>) => {
       dispatch({

@@ -2,27 +2,41 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const zoneSchema = new Schema({
-  _id: Schema.Types.ObjectId,
-  type: String,
+  type: {
+    type: "String",
+  },
   properties: {
-    displayNameUz: String,
-    displayNameRu: String,
-    alias: [String],
-    parentZone: { type: Schema.Types.ObjectId, ref: "Zone" },
-    childZones: [{ type: Schema.Types.ObjectId, ref: "Zone" }],
+    displayNameUz: {
+      type: "String",
+    },
+    displayNameRu: {
+      type: "String",
+    },
+    alias: {
+      type: ["String"],
+    },
+    refId: {
+      type: "String",
+    },
+    parentZone: {
+      type: "String",
+    },
+    childZones: {
+      type: ["String"],
+    },
     placeType: {
-      type: String,
+      type: "String",
       enum: ["DISTRICT", "CITY", "REGION", "COUNTRY"],
     },
     status: {
-      type: String,
+      type: "String",
       enum: ["DANGEROUS", "RISKY", "SAFE"],
       default: "SAFE",
     },
     total: {
-      infectedNumber: Number,
-      recoveredNumber: Number,
-      deadNumber: Number,
+      infectedNumber: "Number",
+      recoveredNumber: "Number",
+      deadNumber: "Number",
     },
     history: [
       {
@@ -31,10 +45,10 @@ const zoneSchema = new Schema({
           default: () => new mongoose.Types.ObjectId(),
           unique: true,
         },
-        infectedNumber: Number,
-        recoveredNumber: Number,
-        deadNumber: Number,
-        date: Date,
+        infectedNumber: "Number",
+        recoveredNumber: "Number",
+        deadNumber: "Number",
+        date: "Date",
       },
     ],
     restrictionsRu: {
@@ -44,10 +58,16 @@ const zoneSchema = new Schema({
       type: "Mixed",
     },
   },
-  bbox: [Number],
+  bbox: {
+    type: ["Number"],
+  },
   geometry: {
-    type: String,
-    coordinates: [Array],
+    type: {
+      type: "String",
+    },
+    coordinates: {
+      type: ["Array"],
+    },
   },
 });
 

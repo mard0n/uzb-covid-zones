@@ -52,6 +52,7 @@ const Admin: React.SFC<AdminProps> = () => {
     socket.on("connect", () => {
       socket.emit("initial_data");
       socket.on("push_zones", (zones: any) => {
+        console.log('zones', zones);
         dispatch({
           type: ADD_ZONES,
           payload: zones,

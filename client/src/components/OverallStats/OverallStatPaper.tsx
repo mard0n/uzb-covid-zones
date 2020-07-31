@@ -86,9 +86,9 @@ const OverallStatPaper: React.SFC<OverallStatPaperProps> = (props) => {
     change = "NO_CHANGE";
   }
 
-  const positiveChangeColor = getZoneStatusProps(ZoneStatus.GREEN)
+  const positiveChangeColor = getZoneStatusProps(ZoneStatus.SAFE)
     .textInBlueishBg;
-  const negativeChangeColor = getZoneStatusProps(ZoneStatus.RED)
+  const negativeChangeColor = getZoneStatusProps(ZoneStatus.DANGEROUS)
     .textInBlueishBg;
 
   return number ? (

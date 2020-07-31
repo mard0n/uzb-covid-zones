@@ -27,9 +27,9 @@ const OverallStat: React.SFC<OverallStatProps> = (props) => {
   const totalDead = selectedZone?.properties?.total.deadNumber;
 
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
-  const infectedColor = getZoneStatusProps(ZoneStatus.YELLOW)?.textInBlueishBg;
-  const recoveredColor = getZoneStatusProps(ZoneStatus.GREEN)?.textInBlueishBg;
-  const deadColor = getZoneStatusProps(ZoneStatus.RED)?.textInBlueishBg;
+  const infectedColor = getZoneStatusProps(ZoneStatus.RISKY)?.textInBlueishBg;
+  const recoveredColor = getZoneStatusProps(ZoneStatus.SAFE)?.textInBlueishBg;
+  const deadColor = getZoneStatusProps(ZoneStatus.DANGEROUS)?.textInBlueishBg;
 
   const [preLastHistory, lastHistory] = selectedZone?.properties?.history?.slice(-2) || [];
   const infectedPercentOfIncrease = ((lastHistory?.infectedNumber / preLastHistory?.infectedNumber) * 100) - 100

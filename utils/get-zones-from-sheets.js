@@ -11,7 +11,7 @@ function capitalizeFirstLetter(string) {
 const getZones = async () => {
   const content = await fs.readFile(
     path.join(__dirname, "../area-layers", "sheets", "Uzb-zones.json"),
-    "utf-8"
+    {encoding: "utf-8"}
   );
   console.log("content", content);
   const test = [

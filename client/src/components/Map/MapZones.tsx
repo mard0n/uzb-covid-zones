@@ -23,7 +23,14 @@ import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
 import { LeafletEvent } from "leaflet";
 import { Zone, ZoneStatus, PlaceType } from "../../types/zone";
 import getZoneStatusProps from "../../utils/getZoneStatusProps";
-import { useMediaQuery, Theme } from "@material-ui/core";
+import {
+  useMediaQuery,
+  Theme,
+  Paper,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+} from "@material-ui/core";
 import "./zoomStyles.css";
 import { useTranslation } from "react-i18next";
 import { getProperDisplayName } from "../../utils/getProperDisplayName";
@@ -32,14 +39,22 @@ export interface MapZonesProps {
   closeBottomSheet?: () => void;
 }
 
+enum VisibleZoneLayerController {
+  AUTO = "AUTO",
+  COUNTRY = "COUNTRY",
+  REGION = "REGION",
+  CITY_DISTRICT = "CITY_DISTRICT",
+}
+
 const MapZones: React.SFC<MapZonesProps> = (props) => {
   const { closeBottomSheet = () => {} } = props;
   const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
-  console.log("selectedZone", selectedZone);
   const [zoomLevel, setZoomLevel] = useState(6);
   const [isRecentlySelected, setIsRecentlySelected] = useState(false);
-  console.log("isRecentlySelected", isRecentlySelected);
+  const [visibleZoneLayer, setVisibleZoneLayer] = useState(
+    VisibleZoneLayerController.AUTO
+  );
   const [marker, setMarker] = useState<any>(null);
   const { t } = useTranslation();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
@@ -86,10 +101,11 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
 
   useEffect(() => {
     if (selectedZone?.bbox?.length) {
-      const [westlon, minlat, eastlon, maxlat] = selectedZone?.bbox;
+      const [minLng, minLat, maxLng, maxLat] = selectedZone?.bbox;
+
       mapRef.current?.leafletElement?.flyToBounds([
-        [minlat, eastlon],
-        [westlon, maxlat],
+        [maxLat, maxLng],
+        [minLat, minLng],
       ]);
     }
     setIsRecentlySelected(true);
@@ -134,6 +150,9 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
     });
     closeBottomSheet();
   };
+  const handleRadioChange = (e: any, value: string) => {
+    setVisibleZoneLayer(value as VisibleZoneLayerController);
+  };
 
   return (
     <Map
@@ -152,22 +171,75 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
       />
       {marker && <Marker position={{ lat: marker.lat, lng: marker.lng }} />}
       {mdUp && <ZoomControl position="bottomright" />}
+      <Paper style={{ zIndex: 1000, position: "relative" }}>
+        <RadioGroup
+          row
+          aria-label="position"
+          name="position"
+          defaultValue={VisibleZoneLayerController.AUTO}
+          value={visibleZoneLayer}
+          onChange={handleRadioChange}
+        >
+          <FormControlLabel
+            value={VisibleZoneLayerController.AUTO}
+            control={<Radio color="primary" />}
+            label="Auto"
+            labelPlacement="end"
+          />
+          <FormControlLabel
+            value={VisibleZoneLayerController.COUNTRY}
+            control={<Radio color="primary" />}
+            label="Country"
+            labelPlacement="end"
+          />
+          <FormControlLabel
+            value={VisibleZoneLayerController.REGION}
+            control={<Radio color="primary" />}
+            label="Region"
+            labelPlacement="end"
+          />
+          <FormControlLabel
+            value={VisibleZoneLayerController.CITY_DISTRICT}
+            control={<Radio color="primary" />}
+            label="City and District"
+          />
+        </RadioGroup>
+      </Paper>
       <FeatureGroup>
         {zones.map((zone) => {
           const placeType = zone?.properties?.placeType;
           let isShown;
-          if (selectedZone && isRecentlySelected) {
-            isShown =
-              selectedZone.properties.placeType === zone.properties.placeType;
-          } else {
-            if (zoomLevel >= 10) {
+          if (visibleZoneLayer === VisibleZoneLayerController.AUTO) {
+            if (selectedZone && isRecentlySelected) {
               isShown =
-                placeType === PlaceType.DISTRICT ||
-                placeType === PlaceType.CITY;
-            } else if (zoomLevel < 10 && zoomLevel >= 7) {
-              isShown = placeType === PlaceType.REGION;
-            } else if (zoomLevel < 7) {
-              isShown = placeType === PlaceType.COUNTRY;
+                selectedZone.properties.placeType === zone.properties.placeType;
+            } else {
+              if (zoomLevel >= 10) {
+                isShown =
+                  placeType === PlaceType.DISTRICT ||
+                  placeType === PlaceType.CITY;
+              } else if (zoomLevel < 10 && zoomLevel >= 7) {
+                isShown = placeType === PlaceType.REGION;
+              } else if (zoomLevel < 7) {
+                isShown = placeType === PlaceType.COUNTRY;
+              }
+            }
+          } else {
+            switch (visibleZoneLayer) {
+              case VisibleZoneLayerController.COUNTRY:
+                isShown = placeType === PlaceType.COUNTRY;
+                break;
+              case VisibleZoneLayerController.REGION:
+                isShown = placeType === PlaceType.REGION;
+                break;
+              case VisibleZoneLayerController.CITY_DISTRICT:
+                isShown =
+                  placeType === PlaceType.DISTRICT ||
+                  placeType === PlaceType.CITY;
+                break;
+
+              default:
+                break;
             }
           }
           return (
@@ -226,17 +298,18 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                         }
                         .custom-popup-style .data.infected {
                           color: ${
-                            getZoneStatusProps(ZoneStatus.YELLOW).textInWhiteBg
+                            getZoneStatusProps(ZoneStatus.RISKY).textInWhiteBg
                           };
                         }
                         .custom-popup-style .data.recovered {
                           color: ${
-                            getZoneStatusProps(ZoneStatus.GREEN).textInWhiteBg
+                            getZoneStatusProps(ZoneStatus.SAFE).textInWhiteBg
                           };
                         }
                         .custom-popup-style .data.dead {
                           color: ${
-                            getZoneStatusProps(ZoneStatus.RED).textInWhiteBg
+                            getZoneStatusProps(ZoneStatus.DANGEROUS)
+                              .textInWhiteBg
                           };
                         }
                       </style>
@@ -272,9 +345,9 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                 style={(feat) => {
                   const status = zone?.properties?.status;
                   const color =
-                    status === "RED"
+                    status === ZoneStatus.DANGEROUS
                       ? "rgb(237, 69, 67)"
-                      : status === "YELLOW"
+                      : status === ZoneStatus.RISKY
                       ? "rgb(255, 210, 30)"
                       : "rgb(86, 219, 64)";
                   return {
