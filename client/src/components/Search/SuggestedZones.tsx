@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import {
   Box,
@@ -48,10 +48,17 @@ export interface SuggestedZonesProps {
 
 const SuggestedZones: React.SFC<SuggestedZonesProps> = (props) => {
   const { zones, selectZone } = props;
-
+  const [lastSelectedZone, setLastSelectedZone] = useState<Zone>();
   const theme = useTheme();
   const classes = useStyles(theme);
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
+
+  useEffect(() => {
+    const lastSelectedZoneLS = localStorage.getItem("last-selected-zone") || "";
+    try {
+      setLastSelectedZone(JSON.parse(lastSelectedZoneLS));
+    } catch (error) {}
+  }, []);
 
   const settings = {
     infinite: false,
@@ -65,10 +72,26 @@ const SuggestedZones: React.SFC<SuggestedZonesProps> = (props) => {
   };
   return zones?.length > 0 ? (
     <Slider {...settings}>
+      {lastSelectedZone ? (
+        <Box key={`suggestion-${lastSelectedZone._id}`} mr={0.5}>
+          <Button
+            variant="contained"
+            className={`${classes.suggestedZones} ${
+              mdUp ? classes.suggestedZonesWeb : classes.suggestedZonesMobile
+            }`}
+            startIcon={<LocationOnIcon fontSize="small" color={"primary"} />}
+            onClick={() => handleSuggestionsClick(lastSelectedZone)}
+          >
+            {getProperDisplayName(lastSelectedZone)}
+          </Button>
+        </Box>
+      ) : (
+        <></>
+      )}
       {sortBasedOnTotalInfected(zones, [PlaceType.CITY, PlaceType.REGION]).map(
         (zone, index) => {
           return (
-            index <= 5 && (
+            index <= 1 && (
               <Box
                 key={`suggestion-${zone._id}`}
                 ml={index !== 0 ? 0.5 : 0}

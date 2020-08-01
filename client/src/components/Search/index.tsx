@@ -84,6 +84,9 @@ const Search: React.SFC<SearchProps> = (props) => {
   ) => {
     if (reason === "select-option" && value?._id) {
       selectZone(value);
+      try {
+        localStorage.setItem('last-selected-zone', JSON.stringify(value))
+      } catch (error) {}
     }
   };
 
