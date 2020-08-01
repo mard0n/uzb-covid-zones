@@ -12,8 +12,8 @@ import Search from "../components/Search/index";
 import WelcomeBanner from "../components/Banners/WelcomeBanner";
 import ChildZones from "../components/ChildZonesTable/ChildZones";
 import CallBanner from "../components/Banners/CallBanner";
-import Map from "../components/Map/Map";
-import MapZones from "../components/Map/MapZones";
+import Map from "../components/Map/Leaflet";
+// import MapZones from "../components/Map/MapZones";
 const SelectedZoneName = lazyPreload(() => import(/* webpackChunkName: 'SelectedZoneName' */"../components/SelectedZoneName/SelectedZoneName"))
 // import SelectedZoneName from "../components/SelectedZoneName/SelectedZoneName";
 const OverallStat = lazyPreload(() => import(/* webpackChunkName: 'OverallStat' */"../components/OverallStats/OverallStat"))
@@ -45,7 +45,6 @@ function User() {
       <CssBaseline />
       <Layout
         search={<Search />}
-        // map={<MapZones/>}
         map={<Map/>}
         mainContent={
           <Suspense fallback={<>Loading...</>}>

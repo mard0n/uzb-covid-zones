@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from "react";
+import React, { useContext, useRef, useEffect } from "react";
 import Leaflet from "./Leaflet";
 import { StateContext } from "state/StateContext";
 import { getSelectedZoneObjById } from "utils/getSelectedZoneObj";
@@ -16,6 +16,7 @@ const Map: React.SFC<MapProps> = () => {
   const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
   const { t } = useTranslation();
+  const leafletRef = useRef<any>();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
   const handleZoneSelect = (feature: Zone) => {
@@ -26,23 +27,26 @@ const Map: React.SFC<MapProps> = () => {
     // closeBottomSheet();
   };
 
-  const navigateToRef = (navigateToFn: Function) => {
-    console.log('navigateToFn', navigateToFn);
+  useEffect(() => {
+    console.log('leafletRef.current?.navigateTo', JSON.stringify(leafletRef.current?.navigateTo));
+    
     dispatch({
       type: ADD_NAVIGATE_TO_FN,
-      payload: navigateToFn,
+      payload: leafletRef.current?.navigateTo,
     });
-  };
+    return () => {};
+  }, [leafletRef.current]);
+
 
   return (
     <>
       {zones?.length && (
         <Leaflet
-          zones={zones}
-          handleZoneSelect={handleZoneSelect}
-          t={t}
-          selectedZone={selectedZone}
-          navigateToRef={navigateToRef}
+          // ref={leafletRef}
+          // zones={zones}
+          // handleZoneSelect={handleZoneSelect}
+          // t={t}
+          // selectedZone={selectedZone}
         />
       )}
     </>

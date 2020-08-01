@@ -1,4 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, {
+  useEffect,
+  useRef,
+  useImperativeHandle,
+  forwardRef,
+  useContext,
+} from "react";
 import L, { LeafletEvent } from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-edgebuffer";
@@ -14,27 +20,37 @@ import { getLatLngFromBBox } from "utils/getLatLngFromBBox";
 import getZoneStatusProps from "utils/getZoneStatusProps";
 import { getProperDisplayName } from "utils/getProperDisplayName";
 import { Controlls } from "./Controlls";
+import { useMediaQuery, Theme } from "@material-ui/core";
+import { useTranslation } from "react-i18next";
+import { getSelectedZoneObjById } from "utils/getSelectedZoneObj";
+import { StateContext } from "state/StateContext";
+import {
+  ADD_SELECTED_ZONE_ID,
+  ADD_NAVIGATE_TO_FN,
+} from "state/reducers/appReducer";
 // window.PouchDB = PouchDB;
 // L.vectorGrid = vectorGrid;
 
-export interface MapProps {
-  zones: Zone[];
-  handleZoneSelect: (zone: Zone) => void;
-  t: any;
-  selectedZone: Zone | undefined;
-  navigateToRef: (
-    fn: (
-      { lat, lng, zoom }: { lat: number; lng: number; zoom: number },
-      isMarked?: boolean
-    ) => void
-  ) => void;
-}
+export interface MapProps {}
 
 const Map: React.SFC<MapProps> = (props) => {
-  const { zones, handleZoneSelect, t, selectedZone, navigateToRef } = props;
+  const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
+  const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
+  const { t } = useTranslation();
+  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const mapContainer = useRef<any>();
   const map = useRef<any>();
   const selectedLayer = useRef<any>();
+  const currentLocation = useRef<any>();
+
+  const handleZoneSelect = (feature: Zone) => {
+    dispatch({
+      type: ADD_SELECTED_ZONE_ID,
+      payload: feature._id,
+    });
+
+    // closeBottomSheet();
+  };
 
   const layerStyle = (status: ZoneStatus, isHighlighted: boolean = false) => {
     let fillColor;
@@ -114,9 +130,19 @@ const Map: React.SFC<MapProps> = (props) => {
     { lat, lng, zoom = 12 }: { lat: number; lng: number; zoom: number },
     isMarked = true
   ) => {
+    delete (L.Icon.Default.prototype as any)._getIconUrl;
+
+    L.Icon.Default.mergeOptions({
+      iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+      iconUrl: require("leaflet/dist/images/marker-icon.png"),
+      shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+    }); // to show marker
+
     map.current?.setView({ lat, lng }, zoom, {
       animate: true,
     });
+    currentLocation.current = new L.Marker({ lat, lng });
+    currentLocation.current.addTo(map.current);
     // isMarked && setMarker({ lat, lng });
   };
 
@@ -142,29 +168,15 @@ const Map: React.SFC<MapProps> = (props) => {
     map.current = L.map(mapContainer.current, {
       renderer: L.canvas({ padding: 1 }),
       zoomControl: false,
-      zoomSnap: 0
+      zoomSnap: 0,
     });
 
-    map.current.on("load", (e: any) => {
-      // console.log('map load event', e);
-      // geoJson.addLayer()
-      map.current.setZoom(zoomInt - 1);
-      map.current.setZoom(zoomInt + 1);
-    });
-
-    // const layerOptions: any = {
-    //   attribution:
-    //     '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-    //   // useCache: true,
-    // // crossOrigin: true,
-    //   // cacheMaxAge: 1000 * 60 * 60 * 24 * 7,
-    //   edgeBufferTiles: 5,
-    // };
-    // const tileLayerRef = L.tileLayer(
-    //   // "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
-    //   "https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png",
-    //   layerOptions
-    // ).addTo(map.current);
+    // map.current.on("load", (e: any) => {
+    //   // console.log('map load event', e);
+    //   // geoJson.addLayer()
+    //   // map.current.setZoom(zoomInt - 1);
+    //   // map.current.setZoom(zoomInt + 1);
+    // });
 
     const tileLayerRef = new CachedTileLayer(
       "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
@@ -294,17 +306,10 @@ const Map: React.SFC<MapProps> = (props) => {
           },
           mouseout: (e: LeafletEvent) => {
             clearTimeout(openPopupTimer);
-            console.log(
-              "selectedLayer.current?.feature?._id",
-              selectedLayer.current?.feature?._id
-            );
-            console.log("e.target.feature?._id", e.target.feature?._id);
             if (
               selectedLayer.current?.feature?._id === e.target?.feature?._id
             ) {
             } else {
-              console.log("dehighlight");
-
               dehighlightLayer(e.target);
             }
           },
@@ -313,6 +318,11 @@ const Map: React.SFC<MapProps> = (props) => {
       // filter: (zone) => isLayerVisible(zone as Zone, map),
     }).addTo(map.current);
 
+    map.current.on("movestart", () => {
+      if(map.current && currentLocation.current) {
+        map.current?.removeLayer(currentLocation.current);
+      }
+    })
     map.current.on("moveend", (e: any) => {
       const zoom = map.current?.getZoom();
       const latLng = map.current?.getCenter();
@@ -346,232 +356,22 @@ const Map: React.SFC<MapProps> = (props) => {
         position: "bottomright",
       },
 
-      onAdd: Controlls
-    })
-    map.current.addControl(new controls());
-    // const data = {
-    //   type: "FeatureCollection",
-    //   features: zones,
-    // };
-    // const vectorGridRef = (L as any).vectorGrid.slicer(data, {
-    //   // rendererFactory: L.canvas,
-    //   rendererFactory: (L.svg as any).tile,
-    //   vectorTileLayerStyles: {
-    //     sliced: function (properties: any, zoom: any) {
-    //       // var p = properties.mapcolor7 % 5;
-    //       return {
-    //         fillColor: "#FFEDA0",
-    //         fillOpacity: 0.5,
-    //         //fillOpacity: 1,
-    //         stroke: true,
-    //         fill: true,
-    //         color: "black",
-    //         //opacity: 0.2,
-    //         weight: 0,
-    //       };
-    //     },
-    //   },
-    //   interactive: true,
-    //   // getFeatureId: function (f) {
-    //   //   return f.properties.wb_a3;
-    //   // },
-    // }).addTo(map.current);
-    // const zonesNotMulti = zones.filter(
-    //   (zone) => zone.geometry.type !== "MultiPolygon"
-    // );
-    // const data = {
-    //   type: "FeatureCollection",
-    //   features: zonesNotMulti,
-    // };
-    // console.log("data", data);
-    // console.log("map.current", map.current);
-    // function hexToRgb(hex: any) {
-    //   if (hex[0] === "#") hex = hex.substring(1, 7);
-    //   return {
-    //     r: parseInt(hex[0] + hex[1], 16),
-    //     g: parseInt(hex[2] + hex[3], 16),
-    //     b: parseInt(hex[4] + hex[5], 16),
-    //   };
-    // }
-    // glify.shapes({
-    //   map: map.current,
-    //   data: data,
-    //   color: (index: number, feature: Zone) => {
-    //     console.log("index", index);
-    //     console.log("feature", feature);
-    //     const status = feature.properties.status;
-    //     const color =
-    //       status === ZoneStatus.DANGEROUS
-    //         ? { r: 237, g: 69, b: 67 }
-    //         : status === ZoneStatus.RISKY
-    //         ? { r: 255, g: 210, b: 30 }
-    //         : { r: 86, g: 219, b: 64 };
-    //     console.log("color", color);
-    //     return {
-    //       r: color.r / 255,
-    //       g: color.g / 255,
-    //       b: color.b / 255,
-    //     };
-    //   },
-    //   hover: (e: any, feature: any) => {
-    //     console.log("feature", feature);
-    //     console.log("e", e);
-    //     L.popup()
-    //       .setLatLng(feature.geometry.coordinates)
-    //       .setContent("You clicked on:" + feature.properties.displayNameUz)
-    //       .openOn(map.current);
-    //     feature.bindPopup(
-    //       `
-    //               <style>
-    //                 .custom-popup-style .leaflet-popup-content-wrapper {
-    //                   background: #FFFFFF;
-    //                   box-shadow: 0px 4px 40px rgba(0, 30, 89, 0.09);
-    //                   border-radius: 11px;
-    //                 }
-    //                 .custom-popup-style .leaflet-popup-close-button {
-    //                   display: none
-    //                 }
-    //                 .custom-popup-style .leaflet-popup-tip-container {
-    //                 }
-    //                 .custom-popup-style .leaflet-popup-tip {
-    //                   box-shadow: 0px 4px 40px rgba(0, 30, 89, 0.09);
-    //                 }
-    //                 .custom-popup-style .title-container {
-    //                   display: flex;
-    //                   align-items: center;
-    //                   margin-bottom: 8px;
-    //                 }
-    //                 .custom-popup-style .zone-status-pin {
-    //                   display: inline-block;
-    //                   width: 8px;
-    //                   height: 8px;
-    //                   border-radius: 4px;
-    //                   margin-right: 5px;
-    //                   background-color: ${
-    //                     getZoneStatusProps(feature.properties.status)
-    //                       .textInBlueishBg
-    //                   };
-    //                 }
-    //                 .custom-popup-style .zone-name {
-    //                   font-family: Rubik;
-    //                   font-size: 16px;
-    //                   font-weight: 500;
-    //                   line-height: 16px;
-    //                   color: #242B43;
-    //                   margin: 0;
-    //                 }
-    //                 .custom-popup-style .data {
-    //                   font-family: Rubik;
-    //                   font-size: 14px;
-    //                   font-weight: 500;
-    //                   line-height: 20px;
-    //                   margin: 0;
-    //                 }
-    //                 .custom-popup-style .data.infected {
-    //                   color: ${
-    //                     getZoneStatusProps(ZoneStatus.RISKY).textInWhiteBg
-    //                   };
-    //                 }
-    //                 .custom-popup-style .data.recovered {
-    //                   color: ${
-    //                     getZoneStatusProps(ZoneStatus.SAFE).textInWhiteBg
-    //                   };
-    //                 }
-    //                 .custom-popup-style .data.dead {
-    //                   color: ${
-    //                     getZoneStatusProps(ZoneStatus.DANGEROUS).textInWhiteBg
-    //                   };
-    //                 }
-    //               </style>
+      onAdd: Controlls,
+    });
+    mdUp && map.current.addControl(new controls());
 
-    //               <div class='title-container'>
-    //                 <span class="zone-status-pin"></span>
-    //                 <h5 class="zone-name">${getProperDisplayName(
-    //                   feature as Zone
-    //                 )}</h5>
-    //               </div>
-    //               <p class="data infected">${t("dataType.infected")} ${
-    //         feature.properties.total.infectedNumber
-    //       }</p>
-    //               <p class="data recovered">${t("dataType.recovered")} ${
-    //         feature.properties.total.recoveredNumber
-    //       }</p>
-    //               <p class="data dead">${t("dataType.dead")} ${
-    //         feature.properties.total.deadNumber
-    //       }</p>
+    dispatch({
+      type: ADD_NAVIGATE_TO_FN,
+      payload: navigateTo,
+    });
 
-    //             `,
-    //       {
-    //         className: "custom-popup-style",
-    //         autoPan: false,
-    //         keepInView: true,
-    //       }
-    //     );
-    //   },
-    //   // click: (e, feature): boolean | void => {
-    //   //   // do something when a shape is clicked
-    //   //   // return false to continue traversing
-    //   // }
-    // });
-    // glify.points({
-    //   map: map.current,
-    //   size: (i: any) => {
-    //     return 20;
-    //   },
-    //   color: () => {
-    //     return {
-    //       r: 0,
-    //       g: 0,
-    //       b: 1,
-    //     };
-    //   },
-    //   click: (e: any, feature: any) => {
-    //     //set up a standalone popup (use a popup as a layer)
-    //     L.popup()
-    //       .setLatLng(feature.geometry.coordinates)
-    //       .setContent('You clicked on:' + feature.properties.name)
-    //       .openOn(map.current);
-
-    //     console.log(feature);
-    //   },
-    //   data: { //geojson
-    //     'type': 'FeatureCollection',
-    //     'features':[
-    //       {
-    //         'type':'Feature',
-    //         'geometry': {
-    //           'type': 'Point',
-    //           'coordinates': [90, 135]
-    //         },
-    //         'properties': {
-    //           'name': 'North Pole',
-    //           'color': 'red'
-    //         }
-    //       },
-    //       {
-    //         'type':'Feature',
-    //         'geometry': {
-    //           'type': 'Point',
-    //           'coordinates': [90, 45]
-    //         },
-    //         'properties': {
-    //           'name': 'South Pole',
-    //           'color': 'blue'
-    //         }
-    //       }
-    //     ],
-    //   }
-    // });
-
-    navigateToRef(navigateTo);
     return () => {
-      // console.log("map", map);
       if (map.current && map.current.remove) {
         map.current.off();
         map.current.remove();
       }
     };
-  }, [zones]);
+  }, [zones, mdUp]);
   return (
     <div ref={mapContainer} style={{ width: "100%", height: "100%" }}></div>
   );

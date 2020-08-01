@@ -119,7 +119,7 @@ const Search: React.SFC<SearchProps> = (props) => {
   const elevation = isInsidePaper ? 0 : 2;
 
   const handleAutoLocate = (lat: number, lng: number) => {
-    navigateTo(lat, lng);
+    navigateTo({lat, lng});
   };
 
   return (
