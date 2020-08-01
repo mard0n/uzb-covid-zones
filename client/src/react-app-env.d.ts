@@ -5,3 +5,4 @@ declare module "@editorjs/list";
 declare module "editorjs-html";
 declare module "react-html-parser";
 declare module "react-swipeable-bottom-sheet";
+declare module '@yaga/leaflet-cached-tile-layer';

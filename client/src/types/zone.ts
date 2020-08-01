@@ -10,7 +10,7 @@ export enum PlaceType {
   DISTRICT = "DISTRICT",
   CITY = "CITY",
   REGION = "REGION",
-  COUNTRY = "COUNTRY"
+  COUNTRY = "COUNTRY",
 }
 
 export type Total = {

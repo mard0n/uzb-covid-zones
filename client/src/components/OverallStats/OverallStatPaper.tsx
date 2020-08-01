@@ -108,7 +108,7 @@ const OverallStatPaper: React.SFC<OverallStatPaperProps> = (props) => {
           >
             {number}
           </Typography>
-          <Box marginRight="-24px">
+          <Box marginRight={change === "NO_CHANGE" ? "-8px" : "-24px"}>
             <Typography variant="caption" className={classes.paperCaption}>
               {change === "NO_CHANGE" ? "0" : Math.abs(Math.round(caption))}%
             </Typography>

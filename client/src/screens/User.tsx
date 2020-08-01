@@ -8,11 +8,12 @@ import { Zone } from "../types/zone";
 import { AxiosResponse } from "axios";
 import { lazyPreload } from "../utils/lazyPreload";
 import Layout from "../components/Layout";
-import MapZones from "../components/Map/MapZones";
 import Search from "../components/Search/index";
 import WelcomeBanner from "../components/Banners/WelcomeBanner";
 import ChildZones from "../components/ChildZonesTable/ChildZones";
 import CallBanner from "../components/Banners/CallBanner";
+import Map from "../components/Map/Map";
+import MapZones from "../components/Map/MapZones";
 const SelectedZoneName = lazyPreload(() => import(/* webpackChunkName: 'SelectedZoneName' */"../components/SelectedZoneName/SelectedZoneName"))
 // import SelectedZoneName from "../components/SelectedZoneName/SelectedZoneName";
 const OverallStat = lazyPreload(() => import(/* webpackChunkName: 'OverallStat' */"../components/OverallStats/OverallStat"))
@@ -25,7 +26,6 @@ const Restrictions = lazyPreload(() => import(/* webpackChunkName: 'Restrictions
 function User() {
   const { dispatch, selectedZoneId, zones = [] } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
-  console.log('zones', zones)
   useEffect(() => {
     fetchZones().then((res: AxiosResponse<Zone[]>) => {
       dispatch({
@@ -45,7 +45,8 @@ function User() {
       <CssBaseline />
       <Layout
         search={<Search />}
-        map={<MapZones />}
+        // map={<MapZones/>}
+        map={<Map/>}
         mainContent={
           <Suspense fallback={<>Loading...</>}>
             {!selectedZone && <WelcomeBanner />}

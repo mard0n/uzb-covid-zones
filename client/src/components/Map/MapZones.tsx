@@ -33,6 +33,7 @@ import {
 import "./zoomStyles.css";
 import { useTranslation } from "react-i18next";
 import { getProperDisplayName } from "../../utils/getProperDisplayName";
+import { getLatLngFromBBox } from "utils/getLatLngFromBBox";
 
 export interface MapZonesProps {
   closeBottomSheet?: () => void;
@@ -50,10 +51,10 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
   const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
   const [zoomLevel, setZoomLevel] = useState(6);
-  const [isRecentlySelected, setIsRecentlySelected] = useState(false);
-  // const [visibleZoneLayer, setVisibleZoneLayer] = useState(
-  // VisibleZoneLayerController.AUTO
-  // );
+  const [center, setCenter] = useState<[number, number]>([
+    40.92930626579717,
+    64.61999498705462,
+  ]);
   const [marker, setMarker] = useState<any>(null);
   const { t } = useTranslation();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
@@ -98,36 +99,24 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
     });
   }, []);
 
-  const getLatLngFromBBox = (bbox: number[]): any => {
-    const [minLng, minLat, maxLng, maxLat] = bbox;
-    return [
-      [maxLat, maxLng],
-      [minLat, minLng],
-    ];
-  };
-
   useEffect(() => {
     if (selectedZone?.bbox?.length) {
       const latLng = getLatLngFromBBox(selectedZone?.bbox);
       mapRef.current?.leafletElement?.flyToBounds(latLng);
     }
-    setIsRecentlySelected(true);
 
     return () => {};
   }, [selectedZone]);
 
   const handleMoveEnd = (e: any) => {
     const zoom = mapRef.current?.leafletElement?.getZoom();
-    if (zoom) {
-      setZoomLevel(zoom);
-    }
     const latLng = mapRef.current?.leafletElement?.getCenter();
-    console.log("latLng", latLng);
-    console.log("zoom", zoom);
-    console.log(
-      "latLng?.lat && latLng?.lng && zoom",
-      latLng?.lat && latLng?.lng && zoom
-    );
+    // if (zoom) {
+    //   setZoomLevel(zoom);
+    // }
+    // if(latLng){
+    //   setCenter([latLng.lat, latLng.lng]);
+    // }
 
     if (latLng?.lat && latLng?.lng && zoom) {
       if ("URLSearchParams" in window) {
@@ -140,11 +129,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
           window.location.pathname + "?" + queryParam.toString();
         window.history.pushState(null, "", newRelativePathQuery);
       }
-      console.log("latLng", latLng);
     }
-  };
-  const handleMoveStart = () => {
-    setIsRecentlySelected(false);
   };
   const handleZoneSelect = (feature: Zone) => {
     dispatch({
@@ -153,20 +138,17 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
     });
     closeBottomSheet();
   };
-  // const handleRadioChange = (e: any, value: string) => {
-  //   setVisibleZoneLayer(value as VisibleZoneLayerController);
-  // };
 
   return (
     <Map
       ref={mapRef}
-      center={[40.92930626579717, 64.61999498705462]}
+      preferCanvas={true}
+      center={center}
       zoom={zoomLevel}
       zoomControl={false}
       style={{ width: "100%", height: "100%" }}
       onmoveend={handleMoveEnd}
-      onzoomstart={handleMoveStart}
-      onmovestart={handleMoveStart}
+      // onmove={handleMove}
     >
       <TileLayer
         attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
@@ -176,67 +158,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
       {mdUp && <ZoomControl position="bottomright" />}
       <FeatureGroup>
         {zones.map((zone) => {
-          // const placeType = zone?.properties?.placeType;
           let isShown;
-          // if (visibleZoneLayer === VisibleZoneLayerController.AUTO) {
-          // const isInsideView = mapRef.current?.leafletElement
-          //   .getBounds()
-          //   .contains(getLatLngFromBBox(zone.bbox));
-          // if (isInsideView) {
-          //   const parentZone = zones.find(
-          //     (z) => z.properties.refId === zone.properties.parentZone
-          //   );
-          //   if (parentZone) {
-          //     const isParentInsideView = mapRef.current?.leafletElement
-          //       .getBounds()
-          //       .contains(getLatLngFromBBox(parentZone.bbox));
-          //     if (isParentInsideView) {
-          //       isShown = false;
-          //     } else {
-          //       isShown = true;
-          //     }
-          //   } else {
-          //     isShown = true
-          //   }
-          // } else {
-          //   isShown = false;
-          // }
-          // if (selectedZone && isRecentlySelected) {
-          //   isShown =
-          //     selectedZone.properties.placeType === zone.properties.placeType;
-          // } else {
-          // if (zoomLevel >= 10) {
-          //   isShown =
-          //     placeType === PlaceType.DISTRICT ||
-          //     placeType === PlaceType.CITY;
-          // } else if (zoomLevel < 10 && zoomLevel >= 7) {
-          //   isShown = placeType === PlaceType.REGION;
-          // } else if (zoomLevel < 7) {
-          //   isShown = placeType === PlaceType.COUNTRY;
-          // }
-          // }
-          // } else {
-          //   switch (visibleZoneLayer) {
-          //     case VisibleZoneLayerController.COUNTRY:
-          //       isShown = placeType === PlaceType.COUNTRY;
-          //       break;
-          //     case VisibleZoneLayerController.REGION:
-          //       isShown = placeType === PlaceType.REGION;
-          //       break;
-          //     case VisibleZoneLayerController.CITY_DISTRICT:
-          //       isShown =
-          //         placeType === PlaceType.DISTRICT ||
-          //         placeType === PlaceType.CITY;
-          //       break;
-
-          //     default:
-          //       break;
-          //   }
-          // }
-
-          console.log("zone", zone.properties.displayNameUz);
-          // console.log("zone", zone);
-
           let zoneZoomLevel;
           if (zone.properties?.childZones?.length) {
             zoneZoomLevel =
@@ -250,17 +172,16 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
           const parentZone = zones.find(
             (z) => z.properties.refId === zone.properties.parentZone
           );
-          // console.log("parentZone", parentZone);
           const parentZoomLevel =
             (parentZone &&
               mapRef.current?.leafletElement.getBoundsZoom(
                 getLatLngFromBBox(parentZone?.bbox)
               )) ||
             0;
-          console.log("zoneZoomLevel", zoneZoomLevel);
-          console.log("parentZoomLevel", parentZoomLevel);
 
-          if (zoomLevel <= zoneZoomLevel && zoomLevel > parentZoomLevel) {
+          const zoom = mapRef.current?.leafletElement?.getZoom() || 0;
+
+          if (zoom <= zoneZoomLevel && zoom > parentZoomLevel) {
             if (
               mapRef.current?.leafletElement
                 .getBounds()

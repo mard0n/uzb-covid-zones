@@ -2,6 +2,7 @@ const fs = require("fs").promises;
 const path = require("path");
 const fetch = require("node-fetch");
 const wait = require("../utils/wait");
+const topojson = require("topojson-server");
 const getBoundingBox = require("./getBoundingBox");
 
 function capitalizeFirstLetter(string) {
@@ -88,8 +89,20 @@ const parseZones = async () => {
               bbox: getBoundingBox(geometry),
               geometry: geometry,
             };
-            // wait(3000);
             // console.log("formatted", formatted);
+            // const isRegionCountry =
+            //   formatted.properties.placeType === "COUNTRY" ||
+            //   formatted.properties.placeType === "REGION";
+            // if (isRegionCountry) {
+            //   formatted = topojson.topology({
+            //     collection: {
+            //       type: "GeometryCollection",
+            //       geometries: [formatted],
+            //     },
+            //   });
+            //   console.log("formatted", formatted);
+            //   // wait(5000);
+            // }
             try {
               const pathDir = path.join(
                 __dirname,
@@ -101,6 +114,9 @@ const parseZones = async () => {
                 pathDir +
                   "/" +
                   zone_name_en.toLowerCase().replace(/\s/g, "-") +
+                  // isRegionCountry
+                  // ? ".topojson"
+                  // : ".json",
                   ".json",
                 JSON.stringify(formatted),
                 {
