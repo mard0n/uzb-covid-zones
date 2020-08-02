@@ -85,7 +85,7 @@ const Search: React.SFC<SearchProps> = (props) => {
     if (reason === "select-option" && value?._id) {
       selectZone(value);
       try {
-        localStorage.setItem('last-selected-zone', JSON.stringify(value))
+        localStorage.setItem("last-selected-zone", JSON.stringify(value));
       } catch (error) {}
     }
   };
@@ -119,7 +119,7 @@ const Search: React.SFC<SearchProps> = (props) => {
   const elevation = isInsidePaper ? 0 : 2;
 
   const handleAutoLocate = (lat: number, lng: number) => {
-    navigateTo({lat, lng});
+    navigateTo({ lat, lng });
   };
 
   return (
@@ -132,6 +132,7 @@ const Search: React.SFC<SearchProps> = (props) => {
           paper: classes.optionContainerPaper,
         }}
         options={zones}
+        getOptionSelected={(option, value) => value?._id === option?._id}
         getOptionLabel={(option: PropsWithChildren<SearchOptionProps>) =>
           getProperDisplayName(option)
         }
@@ -161,7 +162,7 @@ const Search: React.SFC<SearchProps> = (props) => {
         autoComplete
         clearOnEscape
         clearOnBlur
-      />      
+      />
       <SuggestedZones zones={zones} selectZone={selectZone} />
     </>
   );

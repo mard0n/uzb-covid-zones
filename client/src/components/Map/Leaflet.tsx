@@ -31,9 +31,12 @@ import {
 // window.PouchDB = PouchDB;
 // L.vectorGrid = vectorGrid;
 
-export interface MapProps {}
+export interface MapProps {
+  closeBottomSheet?: () => void;
+}
 
 const Map: React.SFC<MapProps> = (props) => {
+  const { closeBottomSheet } = props;
   const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
   const { t } = useTranslation();
@@ -49,7 +52,7 @@ const Map: React.SFC<MapProps> = (props) => {
       payload: feature._id,
     });
 
-    // closeBottomSheet();
+    closeBottomSheet && closeBottomSheet();
   };
 
   const layerStyle = (status: ZoneStatus, isHighlighted: boolean = false) => {
@@ -149,12 +152,10 @@ const Map: React.SFC<MapProps> = (props) => {
   useEffect(() => {
     if (selectedZone) {
       const latLng = getLatLngFromBBox(selectedZone?.bbox);
-      map.current.flyToBounds(latLng, {
-        animate: true,
-        duration: 0.5,
-      });
+      map.current?.flyToBounds(latLng);
     }
   }, [selectedZone]);
+
 
   useEffect(() => {
     const queryParam = new URLSearchParams(window.location.search);
@@ -168,30 +169,20 @@ const Map: React.SFC<MapProps> = (props) => {
     map.current = L.map(mapContainer.current, {
       renderer: L.canvas({ padding: 1 }),
       zoomControl: false,
-      zoomSnap: 0,
+      // zoomSnap: 0,
     });
 
-    // map.current.on("load", (e: any) => {
-    //   // console.log('map load event', e);
-    //   // geoJson.addLayer()
-    //   // map.current.setZoom(zoomInt - 1);
-    //   // map.current.setZoom(zoomInt + 1);
-    // });
-
-    const tileLayerRef = new CachedTileLayer(
-      "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
-      {
-        attribution: `&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors`,
-        // databaseName: "tile-cache-data", // optional
-        // databaseVersion: 1, // optional
-        // objectStoreName: "OSM", // optional
-        // crawlDelay: 500, // optional
-        crossOrigin: false,
-        maxAge: 1000 * 60 * 60 * 24 * 7, // optional,
-        minZoom: 5,
-        edgeBufferTiles: 5,
-      }
-    ).addTo(map.current);
+    new CachedTileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+      attribution: `&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors`,
+      // databaseName: "tile-cache-data", // optional
+      // databaseVersion: 1, // optional
+      // objectStoreName: "OSM", // optional
+      // crawlDelay: 500, // optional
+      crossOrigin: false,
+      maxAge: 1000 * 60 * 60 * 24 * 7, // optional,
+      minZoom: 4,
+      edgeBufferTiles: 5,
+    }).addTo(map.current);
 
     map.current.setView([latInt, lngInt], zoomInt);
 
@@ -209,84 +200,73 @@ const Map: React.SFC<MapProps> = (props) => {
       },
       onEachFeature: (zone, layer: L.Layer) => {
         let openPopupTimer: NodeJS.Timeout;
+
         layer.bindPopup(
           `
-            <style>
-              .custom-popup-style .leaflet-popup-content-wrapper {
-                background: #FFFFFF;
-                box-shadow: 0px 4px 40px rgba(0, 30, 89, 0.09);
-                border-radius: 11px;
-              }
-              .custom-popup-style .leaflet-popup-close-button {
-                display: none
-              }
-              .custom-popup-style .leaflet-popup-tip-container {
-              }
-              .custom-popup-style .leaflet-popup-tip {
-                box-shadow: 0px 4px 40px rgba(0, 30, 89, 0.09);
-              }
-              .custom-popup-style .title-container {
-                display: flex;
-                align-items: center;
-                margin-bottom: 8px;
-              }
-              .custom-popup-style .zone-status-pin {
-                display: inline-block;
-                width: 8px;
-                height: 8px;
-                border-radius: 4px;
-                margin-right: 5px;
-                background-color: ${
-                  getZoneStatusProps(zone.properties.status).textInBlueishBg
-                };
-              }
-              .custom-popup-style .zone-name {
-                font-family: Rubik;
-                font-size: 16px;
-                font-weight: 500;
-                line-height: 16px;
-                color: #242B43;
-                margin: 0;
-              }
-              .custom-popup-style .data {
-                font-family: Rubik;
-                font-size: 14px;
-                font-weight: 500;
-                line-height: 20px;
-                margin: 0;
-              }
-              .custom-popup-style .data.infected {
-                color: ${getZoneStatusProps(ZoneStatus.RISKY).textInWhiteBg};
-              }
-              .custom-popup-style .data.recovered {
-                color: ${getZoneStatusProps(ZoneStatus.SAFE).textInWhiteBg};
-              }
-              .custom-popup-style .data.dead {
-                color: ${
-                  getZoneStatusProps(ZoneStatus.DANGEROUS).textInWhiteBg
-                };
-              }
-            </style>
-
-            <div class='title-container'>
-              <span class="zone-status-pin"></span>
-              <h5 class="zone-name">${getProperDisplayName(zone as Zone)}</h5>
-            </div>
-            <p class="data infected">${t("dataType.infected")} ${
-            zone.properties.total.infectedNumber
-          }</p>
-            <p class="data recovered">${t("dataType.recovered")} ${
+        <style>
+        .custom-popup-style .leaflet-popup-content-wrapper {
+          background: #FFFFFF;
+          box-shadow: 0px 4px 40px rgba(0, 30, 89, 0.09);
+          border-radius: 11px;
+        }
+        .custom-popup-style .leaflet-popup-tip {
+          box-shadow: 0px 4px 40px rgba(0, 30, 89, 0.09);
+        }
+        .custom-popup-style .title-container {
+          display: flex;
+          align-items: center;
+          margin-bottom: 8px;
+          margin-right: 8px;
+          position: relative;
+        }
+        .custom-popup-style .zone-status-pin {
+          display: inline-block;
+          width: 8px;
+          height: 8px;
+          border-radius: 4px;
+          margin-right: 5px;
+        }
+        .custom-popup-style .zone-name {
+          font-family: Rubik;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 16px;
+          color: #242B43;
+          margin: 0;
+        }
+        .custom-popup-style .data {
+          font-family: Rubik;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 20px;
+          margin: 0;
+        }
+        </style>
+        <div class='title-container'>
+          <span class="zone-status-pin" style="
+            background-color: ${
+              getZoneStatusProps(zone.properties.status).textInBlueishBg
+            }
+          "></span>
+          <h5 class="zone-name">${getProperDisplayName(zone as Zone)}</h5>
+        </div>
+    
+        <p class="data infected" style="
+          color: ${getZoneStatusProps(ZoneStatus.RISKY).textInWhiteBg}
+        ">${t("dataType.infected")} ${zone.properties.total.infectedNumber}</p>
+    
+        <p class="data recovered" style="
+          color: ${getZoneStatusProps(ZoneStatus.SAFE).textInWhiteBg}
+        ">${t("dataType.recovered")} ${
             zone.properties.total.recoveredNumber
           }</p>
-            <p class="data dead">${t("dataType.dead")} ${
-            zone.properties.total.deadNumber
-          }</p>
-
-          `,
+    
+        <p class="data dead" style="
+          color: ${getZoneStatusProps(ZoneStatus.DANGEROUS).textInWhiteBg}
+        ">${t("dataType.dead")} ${zone.properties.total.deadNumber}</p>
+        `,
           {
             className: "custom-popup-style",
-            autoPan: false,
-            keepInView: true,
           }
         );
         layer.on({
@@ -297,6 +277,8 @@ const Map: React.SFC<MapProps> = (props) => {
             selectedLayer.current = e.target;
 
             handleZoneSelect(zone as Zone);
+
+            e.target.openPopup();
           },
           mouseover: (e: LeafletEvent) => {
             openPopupTimer = setTimeout(() => {
@@ -319,10 +301,10 @@ const Map: React.SFC<MapProps> = (props) => {
     }).addTo(map.current);
 
     map.current.on("movestart", () => {
-      if(map.current && currentLocation.current) {
+      if (map.current && currentLocation.current) {
         map.current?.removeLayer(currentLocation.current);
       }
-    })
+    });
     map.current.on("moveend", (e: any) => {
       const zoom = map.current?.getZoom();
       const latLng = map.current?.getCenter();
