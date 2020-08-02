@@ -1,6 +1,4 @@
 const Zone = require("../models/zone.model");
-// const ZoneCategories = require("../models/zoneCategory.model");
-const Admin = require("../models/admin.model");
 
 module.exports = function (socket, redis) {
   socket.on("initial_data", () => {

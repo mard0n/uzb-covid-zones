@@ -1,15 +1,9 @@
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
-const path = require("path");
-const fs = require("fs").promises;
 const JSONStream = require("JSONStream");
-const mongoose = require("mongoose");
-const wait = require("../utils/wait");
-const getZones = require("../utils/get-zones-from-sheets");
 
 const Zone = require("../models/zone.model");
 const Admin = require("../models/admin.model");
-const parseZones = require("../utils/parseZones");
 
 module.exports = (redis) => {
   const checkCache = require("../utils/checkCache")(redis);
@@ -68,58 +62,58 @@ module.exports = (redis) => {
     // });
   });
 
-  router.get("/parse-files", async (req, res) => {
-    console.log("parse called");
+  // router.get("/parse-files", async (req, res) => {
+  //   console.log("parse called");
 
-    const status = await parseZones();
-    console.log("status", status);
-    res.send("success");
-  });
+  //   const status = await parseZones();
+  //   console.log("status", status);
+  //   res.send("success");
+  // });
 
-  router.get("/save-files", async (req, res) => {
-    const folderPath = path.join(__dirname, "../area-layers", "formatted");
-    console.log("folderPath", folderPath);
-    const filenames = await fs.readdir(folderPath);
-    const zones = []
+  // router.get("/save-files", async (req, res) => {
+  //   const folderPath = path.join(__dirname, "../area-layers", "formatted");
+  //   console.log("folderPath", folderPath);
+  //   const filenames = await fs.readdir(folderPath);
+  //   const zones = []
 
-    // const failedToSave = [],
-    //   successToSave = [];
+  //   // const failedToSave = [],
+  //   //   successToSave = [];
 
-    for (const filename of filenames) {
-      console.log("filename", filename);
-      if (!filename.startsWith(".")) {
-        let sheetZone = await fs.readFile(path.join(folderPath, filename), {
-          encoding: "utf-8",
-        });
-        sheetZone = JSON.parse(sheetZone);
-        zones.push(sheetZone)
-        // const obj = {
-        //   ...sheetZone,
-        //   history:
-        // }
-        // const zone = new Zone(sheetZone, {upsert: true});
-        // // wait(5000)
-        // zone.save(function (err, results) {
-        //   if (err) {
-        //     failedToSave.push(sheetZone.properties.displayNameUz);
-        //     console.log("err", err);
-        //   } else {
-        //     successToSave.push(sheetZone.properties.displayNameUz);
-        //     console.log("saved", results);
-        //   }
-        // });
-      }
-    }
+  //   for (const filename of filenames) {
+  //     console.log("filename", filename);
+  //     if (!filename.startsWith(".")) {
+  //       let sheetZone = await fs.readFile(path.join(folderPath, filename), {
+  //         encoding: "utf-8",
+  //       });
+  //       sheetZone = JSON.parse(sheetZone);
+  //       zones.push(sheetZone)
+  //       // const obj = {
+  //       //   ...sheetZone,
+  //       //   history:
+  //       // }
+  //       // const zone = new Zone(sheetZone, {upsert: true});
+  //       // // wait(5000)
+  //       // zone.save(function (err, results) {
+  //       //   if (err) {
+  //       //     failedToSave.push(sheetZone.properties.displayNameUz);
+  //       //     console.log("err", err);
+  //       //   } else {
+  //       //     successToSave.push(sheetZone.properties.displayNameUz);
+  //       //     console.log("saved", results);
+  //       //   }
+  //       // });
+  //     }
+  //   }
     
-    Zone.insertMany(zones, (err, doc) => {
-      if(err){
-        console.log('err', err);
-      }
-    })
-    // console.log("successToSave", successToSave);
-    // console.log('failedToSave', failedToSave);
-    res.send("success");
-  });
+  //   Zone.insertMany(zones, (err, doc) => {
+  //     if(err){
+  //       console.log('err', err);
+  //     }
+  //   })
+  //   // console.log("successToSave", successToSave);
+  //   // console.log('failedToSave', failedToSave);
+  //   res.send("success");
+  // });
 
   return router;
 };
