@@ -178,7 +178,7 @@ const Map: React.SFC<MapProps> = (props) => {
       // useCache: true,
       // crossOrigin: true,
       // cacheMaxAge: 1000 * 60 * 60 * 24 * 7,
-      edgeBufferTiles: 5,
+      edgeBufferTiles: 2,
     };
     L.tileLayer(
       "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
