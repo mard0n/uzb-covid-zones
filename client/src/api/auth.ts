@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export const authenticate = ({ username = "", password = "" }) => {
-  return Axios.post("http://localhost:4000/api/authenticate", {
+  return Axios.post(process.env.PUBLIC_URL + "/api/authenticate", {
     username,
     password,
   });
