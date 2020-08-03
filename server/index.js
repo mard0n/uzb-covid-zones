@@ -34,7 +34,7 @@ app.use(function (req, res) {
 });
 
 const server = require("http").Server(app);
-server.listen(4000);
+server.listen(process.env.PORT || 4000);
 
 // Redis
 client.on("connect", () => {
