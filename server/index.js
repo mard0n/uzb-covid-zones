@@ -3,7 +3,6 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-const redis = require("redis");
 // const RedisClustr = require('redis-clustr');
 const redis = require("redis");
 const path = require("path");
