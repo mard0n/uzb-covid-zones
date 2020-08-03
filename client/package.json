@@ -54,7 +54,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts --max-old-space-size=512 build",
+    "build-aws": "react-scripts --max-old-space-size=512 build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "analyze": "source-map-explorer 'build/static/js/*.js'",
