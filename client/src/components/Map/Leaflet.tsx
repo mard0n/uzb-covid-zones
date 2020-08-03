@@ -10,7 +10,7 @@ import "leaflet/dist/leaflet.css";
 import "leaflet-edgebuffer";
 // import PouchDB from "pouchdb";
 // import "leaflet.tilelayer.pouchdbcached";
-import { CachedTileLayer } from "@yaga/leaflet-cached-tile-layer";
+// import { CachedTileLayer } from "@yaga/leaflet-cached-tile-layer";
 // import { scaleQuantize } from "d3-scale";
 // import glify from "leaflet.glify";
 // import vectorGrid from "leaflet.vectorgrid";
@@ -172,17 +172,31 @@ const Map: React.SFC<MapProps> = (props) => {
       // zoomSnap: 0,
     });
 
-    new CachedTileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
-      attribution: `&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors`,
-      // databaseName: "tile-cache-data", // optional
-      // databaseVersion: 1, // optional
-      // objectStoreName: "OSM", // optional
-      // crawlDelay: 500, // optional
-      crossOrigin: false,
-      maxAge: 1000 * 60 * 60 * 24 * 7, // optional,
-      minZoom: 4,
+    const layerOptions: any = {
+      attribution:
+        '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
+      // useCache: true,
+      // crossOrigin: true,
+      // cacheMaxAge: 1000 * 60 * 60 * 24 * 7,
       edgeBufferTiles: 5,
-    }).addTo(map.current);
+    };
+    L.tileLayer(
+      "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
+      // "https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png",
+      layerOptions
+    ).addTo(map.current);
+
+    // new CachedTileLayer("http://{s}.tile.osm.org/{z}/{x}/{y}.png", {
+    //   attribution: `&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors`,
+    //   // databaseName: "tile-cache-data", // optional
+    //   // databaseVersion: 1, // optional
+    //   // objectStoreName: "OSM", // optional
+    //   // crawlDelay: 500, // optional
+    //   crossOrigin: false,
+    //   maxAge: 1000 * 60 * 60 * 24 * 7, // optional,
+    //   minZoom: 4,
+    //   edgeBufferTiles: 5,
+    // }).addTo(map.current);
 
     map.current.setView([latInt, lngInt], zoomInt);
 

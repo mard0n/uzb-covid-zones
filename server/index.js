@@ -25,12 +25,12 @@ const client = redis.createClient(process.env.REDIS_URL || 6379);
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, "../client/deploy")));
+app.use(express.static(path.join(__dirname, "../client/build")));
 app.set("redis", client);
 app.use("/api", require("./routes/api")(client));
 // app.get('/*', );
 app.use(function (req, res) {
-  res.sendFile(path.join(__dirname, "client/deploy", "index.html"));
+  res.sendFile(path.join(__dirname, "../client/build", "index.html"));
 });
 
 const server = require("http").Server(app);
