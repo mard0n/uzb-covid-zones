@@ -8,6 +8,7 @@ node_modules/
 
 # production
 build/
+deploy/
 
 # misc
 .DS_Store
@@ -23,3 +24,5 @@ yarn-error.log*
 
 area-layers/
 utils-data-parse/
+buildspec.yml
+*.pem

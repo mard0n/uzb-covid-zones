@@ -4,21 +4,36 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 const redis = require("redis");
-const path = require('path');
+// const RedisClustr = require('redis-clustr');
+const redis = require("redis");
+const path = require("path");
 require("dotenv").config();
 
 const app = express();
-const client = redis.createClient(6379);
+const client = ""
+const client = redis.createClient(process.env.REDIS_URL || 6379);
+// const client = new RedisClustr({
+//   servers: [
+//       {
+//           host: 'http://coviduzredis.gjfzq7.0001.aps1.cache.amazonaws.com',
+//           port: '6379'
+//       }
+//   ],
+//   createClient: function (port, host) {
+//       // this is the default behaviour
+//       return RedisClient.createClient(port, host);
+//   }
+// });
 
 app.use(cors());
 app.use(bodyParser.json());
-app.use(express.static(path.join(__dirname, 'client/build')));
-// app.set("redis", client);
+app.use(express.static(path.join(__dirname, "../client/deploy")));
+app.set("redis", client);
 app.use("/api", require("./routes/api")(client));
 // app.get('/*', );
-app.use(function(req, res) {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-})
+app.use(function (req, res) {
+  res.sendFile(path.join(__dirname, "client/deploy", "index.html"));
+});
 
 const server = require("http").Server(app);
 server.listen(4000);
