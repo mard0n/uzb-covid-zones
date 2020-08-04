@@ -9,7 +9,8 @@ const path = require("path");
 require("dotenv").config();
 
 const app = express();
-const client = redis.createClient(process.env.REDIS_URL || 6379);
+let client = redis.createClient(process.env.REDIS_URL || 6379);
+
 // const client = new RedisClustr({
 //   servers: [
 //       {
@@ -39,6 +40,9 @@ server.listen(process.env.PORT || 4000);
 // Redis
 client.on("connect", () => {
   console.log("connected to redis...");
+});
+client.on("error", () => {
+  console.log("connection to redis failed");
 });
 
 // Socket
