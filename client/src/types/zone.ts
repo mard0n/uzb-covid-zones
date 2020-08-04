@@ -42,9 +42,9 @@ export type Zone = {
     displayNameUz: string;
     displayNameRu: string;
     alias: string[];
-    refId: string;
-    parentZone: string;
-    childZones: string[];
+    refId: number;
+    parentZone: number;
+    childZones: number[];
     placeType: PlaceType;
     status: ZoneStatus;
     total: Total;

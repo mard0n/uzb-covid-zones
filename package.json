@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./server/index.js",
-    "heroku_postbuild": "cd client && npm install && npm run build"
+    "heroku_postbuild": "cd client && npm install && npm run build",
+    "compress": "node ./server/utils-data-parse/compress.js"
   },
   "author": "",
   "license": "ISC",

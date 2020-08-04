@@ -42,7 +42,7 @@ const SelectedZoneName: React.SFC<SelectedZoneNameProps> = (props) => {
   const { zones, selectedZoneId } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
   const zoneName = selectedZone && getProperDisplayName(selectedZone);
-  const zoneStatus = selectedZone?.properties.status;
+  const zoneStatus = selectedZone?.properties?.status;
   const { t } = useTranslation();
 
   const theme = useTheme();

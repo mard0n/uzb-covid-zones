@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 // const RedisClustr = require('redis-clustr');
 const redis = require("redis");
 const path = require("path");
+const serveCompressed = require("./utils/serveCompressed");
 require("dotenv").config();
 
 const app = express();
@@ -26,6 +27,10 @@ let client = redis.createClient(process.env.REDIS_URL || 6379);
 
 app.use(cors());
 app.use(bodyParser.json());
+app.use(
+  ["*.js", "*.html", "*.json", "*.eot", "*.ttf", "*.woff", "*.woff2"],
+  serveCompressed
+);
 app.use(express.static(path.join(__dirname, "../client/build")));
 app.set("redis", client);
 app.use("/api", require("./routes/api")(client));
@@ -35,7 +40,8 @@ app.use(function (req, res) {
 });
 
 const server = require("http").Server(app);
-server.listen(process.env.PORT || 4000);
+const port = process.env.PORT || 4000
+server.listen(port);
 
 // Redis
 client.on("connect", () => {

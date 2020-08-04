@@ -1,6 +1,5 @@
 import React, { createContext, useReducer, useEffect } from "react";
 import stateReducer from "./stateReducer";
-import uzbekistan from "../assets/zone/uzbekistan.json";
 import { Action } from "./reducers/appReducer";
 import { Zone } from "../types/zone";
 
@@ -25,7 +24,6 @@ export interface StateContextProviderProps {
 }
 
 const StateContextProvider: React.SFC<StateContextProviderProps> = (props) => {
-  console.log('uzbekistan', uzbekistan);
   const [state, dispatch] = useReducer(stateReducer, props.initialState);
   return (
     <StateContext.Provider value={{ ...state, dispatch }}>

@@ -51,7 +51,7 @@ function User() {
             {!selectedZone && <WelcomeBanner />}
             {selectedZone && <SelectedZoneName />}
             {selectedZone && <OverallStat />}
-            {selectedZone?.properties.history && <Graph />}
+            {selectedZone?.properties?.history && <Graph />}
             <ChildZones />
             <CallBanner />
             {selectedZone && <Restrictions />}

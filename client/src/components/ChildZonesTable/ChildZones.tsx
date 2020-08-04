@@ -69,7 +69,7 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
 
   const defaultZone = zones.find(
-    (zone) => zone.properties.displayNameUz === "Uzbekistan"
+    (zone) => zone?.properties?.alias.indexOf("Uzbekistan") > -1
   );
 
   const childZones = getChildZones(

@@ -47,6 +47,7 @@ const Map: React.SFC<MapProps> = (props) => {
   const currentLocation = useRef<any>();
 
   const handleZoneSelect = (feature: Zone) => {
+    // console.log('feature', feature);
     dispatch({
       type: ADD_SELECTED_ZONE_ID,
       payload: feature._id,
@@ -84,26 +85,32 @@ const Map: React.SFC<MapProps> = (props) => {
     let isShown;
     let zoneZoomLevel;
     if (zone.properties?.childZones?.length) {
-      zoneZoomLevel = map.getBoundsZoom(getLatLngFromBBox(zone.bbox)) || 18;
+      const latLng = getLatLngFromBBox(zone?.bbox);
+      // console.log('latLng', latLng);
+      zoneZoomLevel = (latLng[0][0] && map.getBoundsZoom(latLng)) || 0;
+      // console.log('zoneZoomLevel', zoneZoomLevel);
     } else {
       zoneZoomLevel = 18;
     }
 
     const parentZone = zones.find(
-      (z) => z.properties.refId === zone.properties.parentZone
+      (z) => z?.properties?.refId === zone?.properties?.parentZone
     );
+    const latLng = getLatLngFromBBox(parentZone?.bbox);
+    // console.log('latLng', latLng);
     const parentZoomLevel =
-      (parentZone && map.getBoundsZoom(getLatLngFromBBox(parentZone?.bbox))) ||
-      0;
+    (parentZone && latLng[0][0] && map.getBoundsZoom(latLng)) ||
+    0;
+    // console.log('parentZoomLevel', parentZoomLevel);
 
     const zoom = map?.getZoom() || 0;
 
     if (zoom <= zoneZoomLevel && zoom > parentZoomLevel) {
-      // if (map.getBounds().overlaps(getLatLngFromBBox(zone.bbox))) {
-      //   isShown = true;
-      // } else {
-      //   isShown = false;
-      // }
+      if (map.getBounds().overlaps(getLatLngFromBBox(zone.bbox))) {
+        isShown = true;
+      } else {
+        isShown = false;
+      }
       isShown = true;
     } else {
       isShown = false;
@@ -259,7 +266,7 @@ const Map: React.SFC<MapProps> = (props) => {
         <div class='title-container'>
           <span class="zone-status-pin" style="
             background-color: ${
-              getZoneStatusProps(zone.properties.status).textInBlueishBg
+              getZoneStatusProps(zone.properties?.status).textInBlueishBg
             }
           "></span>
           <h5 class="zone-name">${getProperDisplayName(zone as Zone)}</h5>
@@ -267,17 +274,17 @@ const Map: React.SFC<MapProps> = (props) => {
     
         <p class="data infected" style="
           color: ${getZoneStatusProps(ZoneStatus.RISKY).textInWhiteBg}
-        ">${t("dataType.infected")} ${zone.properties.total.infectedNumber}</p>
+        ">${t("dataType.infected")} ${zone.properties?.total.infectedNumber}</p>
     
         <p class="data recovered" style="
           color: ${getZoneStatusProps(ZoneStatus.SAFE).textInWhiteBg}
         ">${t("dataType.recovered")} ${
-            zone.properties.total.recoveredNumber
+            zone.properties?.total.recoveredNumber
           }</p>
     
         <p class="data dead" style="
           color: ${getZoneStatusProps(ZoneStatus.DANGEROUS).textInWhiteBg}
-        ">${t("dataType.dead")} ${zone.properties.total.deadNumber}</p>
+        ">${t("dataType.dead")} ${zone.properties?.total.deadNumber}</p>
         `,
           {
             className: "custom-popup-style",
@@ -289,7 +296,7 @@ const Map: React.SFC<MapProps> = (props) => {
 
             highlightLayer(e.target);
             selectedLayer.current = e.target;
-
+            
             handleZoneSelect(zone as Zone);
 
             e.target.openPopup();

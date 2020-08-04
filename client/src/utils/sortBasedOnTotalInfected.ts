@@ -10,5 +10,5 @@ export const sortBasedOnTotalInfected = (
         b?.properties?.total?.infectedNumber -
         a?.properties?.total?.infectedNumber
     )
-    .filter((zone) => acceptedZoneTypes.includes(zone.properties.placeType));
+    .filter((zone) => acceptedZoneTypes.includes(zone?.properties?.placeType));
 };

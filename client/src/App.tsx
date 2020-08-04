@@ -2,7 +2,7 @@ import React, { Suspense } from "react";
 import { Route, BrowserRouter as Router, Switch } from "react-router-dom";
 import StateContextProvider, { initialState } from "./state/StateContext";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
-import Loader from "components/Skeletons/Loader";
+import Loader from "./components/Skeletons/Loader";
 
 const Login = React.lazy(() =>
   import(/* webpackChunkName: 'Login' */ "./screens/Login")

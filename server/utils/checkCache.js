@@ -1,15 +1,11 @@
 module.exports = function (redis) {
   return function checkCache(req, res, next) {
-    console.log("redis", redis);
-    if (redis) {
+    if (redis.connected) {
       redis.get("zones", (err, data) => {
-        if (err) throw err;
+        console.log("cache res", err, data);
+        if (err) next();
 
-        if (data !== null) {
-          res.send(data);
-        } else {
-          next();
-        }
+        data !== null ? res.send(data) : next();
       });
     } else {
       next();

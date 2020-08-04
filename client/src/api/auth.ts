@@ -1,7 +1,11 @@
 import Axios from "axios";
 
 export const authenticate = ({ username = "", password = "" }) => {
-  return Axios.post(process.env.PUBLIC_URL + "/api/authenticate", {
+  const url =
+    process.env.NODE_ENV === "production"
+      ? process.env.PUBLIC_URL + "/api/zones"
+      : "http://localhost:4000/api/zones";
+  return Axios.post(url, {
     username,
     password,
   });
