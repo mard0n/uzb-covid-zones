@@ -1,17 +1,17 @@
 {
   "search": {
-    "searchResults": "Search Results",
-    "searchForCity": "Search for the city..."
+    "searchResults": "Qidiruv natijalari",
+    "searchForCity": "Shahar nomini kiriting..."
   },
   "welcomeBanner": {
-    "title": "Welcome to UzCovid",
-    "subtitle": "Service for Uzbek people to monitor Covid-19 spread in the country. To start, put desired town, city, area in the search bar."
+    "title": "CovidUzga hush kelibsiz",
+    "subtitle": "Bu servis O'zbekiston aholisi uchun Covid-19ning tarqalishini monitoring qilish uchun yaralilgan. Boshlash uchun hudud nomini qidiruv satriga kiriting..."
   },
   "selectedZoneName": {
     "statusBadge": {
-      "safe": "Havfsiz",
-      "warning": "Ehtiyot",
-      "dangerous": "Havfli"
+      "safe": "Yashil",
+      "warning": "Sariq",
+      "dangerous": "Qizil"
     }
   },
   "overallStats": {
@@ -26,8 +26,8 @@
     "seeMore": "Ko'proq"
   },
   "callBanner": {
-    "title": "Covid 19 simptomlarini sezyapsizmi?",
-    "subtitle": "Covid 19 online supporga qo'ng'iroq qiling"
+    "title": "Covid-19 simptomlarini sezyapsizmi?",
+    "subtitle": "Covid-19 qollab-quvatlash markaziga qo'ng'iroq qiling"
   },
   "dataType": {
     "infected": "Kasallangan",
