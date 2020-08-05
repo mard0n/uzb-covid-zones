@@ -1,7 +1,37 @@
 {
-  "Welcome to UzCovid": "Welcome to UzCovid ru",
   "search": {
-    "searchResults": "Search Results",
-    "searchForCity": "Search for the city..."
+    "searchResults": "Результаты поиска",
+    "searchForCity": "Введите название города..."
+  },
+  "welcomeBanner": {
+    "title": "Добро пожаловать в CovidUz",
+    "subtitle": "Сервис для граждан Узбекистана по мониторингу разпрострония Covid-19. Введите название города..."
+  },
+  "selectedZoneName": {
+    "statusBadge": {
+      "safe": "Зеленый",
+      "warning": "Желтый",
+      "dangerous": "Красный"
+    }
+  },
+  "overallStats": {
+    "title": "До сегодняшнего дня"
+  },
+  "history": {
+    "title": "Статистика"
+  },
+  "childZonesTable": {
+    "title": "Регионы/Районы",
+    "zoneName": "Названия",
+    "seeMore": "Вольще"
+  },
+  "callBanner": {
+    "title": "Чувствуете симптоны Covid-19?",
+    "subtitle": "Позвоните в службу поддержки"
+  },
+  "dataType": {
+    "infected": "Больные",
+    "recovered": "Выздоровевшие",
+    "dead": "Умершие"
   }
 }
