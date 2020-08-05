@@ -4,10 +4,11 @@ import React, { useEffect, useContext, useState } from "react";
 import { StateContext } from "../state/StateContext";
 import { ADD_ZONES } from "../state/reducers/appReducer";
 import { useHistory, useLocation } from "react-router-dom";
+import Map from "../components/Map/Leaflet";
 // import MapZones from "../components/Map/MapZones";
-const MapZones = React.lazy(() =>
-  import(/* webpackChunkName: 'MapZones' */ "../components/Map/MapZones")
-);
+// const MapZones = React.lazy(() =>
+//   import(/* webpackChunkName: 'MapZones' */ "../components/Map/MapZones")
+// );
 // import Graph from "../components/HistoryGraph/Graph";
 const Graph = React.lazy(() =>
   import(/* webpackChunkName: 'Graph' */ "../components/HistoryGraph/Graph")
@@ -84,7 +85,7 @@ const Admin: React.SFC<AdminProps> = () => {
         }}
       >
         <div className="map">
-          <MapZones />
+          <Map />
         </div>
         <div className="status-controller">
           {socket && <ZoneStatusController socket={socket} />}

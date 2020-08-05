@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import { StateContext } from "../../state/StateContext";
 import { getSelectedZoneObjById } from "../../utils/getSelectedZoneObj";
+import { ZoneStatus } from "types/zone";
 
 export interface ZoneStatusControllerProps {
   socket: any;
@@ -50,9 +51,9 @@ const ZoneStatusController: React.SFC<ZoneStatusControllerProps> = (props) => {
             value={selectedZone?.properties?.status}
             onChange={handleZoneStatusChange}
           >
-            <MenuItem value={"RED"}>Red</MenuItem>
-            <MenuItem value={"YELLOW"}>Yellow</MenuItem>
-            <MenuItem value={"GREEN"}>Green</MenuItem>
+            <MenuItem value={ZoneStatus.DANGEROUS}>Red</MenuItem>
+            <MenuItem value={ZoneStatus.RISKY}>Yellow</MenuItem>
+            <MenuItem value={ZoneStatus.SAFE}>Green</MenuItem>
           </Select>
         </FormControl>
       </h2>

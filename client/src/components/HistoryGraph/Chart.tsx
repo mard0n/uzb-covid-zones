@@ -42,7 +42,8 @@ const useStyles = makeStyles({
 const Chart: React.SFC<ChartProps> = (props) => {
   const { data, minVisible } = props;
   const { t } = useTranslation();
-  let date_list = data.map((d) =>
+  const sortedArray = data.sort((a: any, b: any) => (moment(a.date).format('YYYYMMDD') as any) - (moment(b.date).format('YYYYMMDD') as any))
+  let date_list = sortedArray.map((d) =>
     moment(d.date).format(ChartDateFormats.INNER)
   );
   const classes = useStyles();
@@ -370,8 +371,10 @@ const Chart: React.SFC<ChartProps> = (props) => {
         },
       },
     });
-    return () => {};
-  }, []);
+    return () => {
+      chart.current && chart.current.destroy && chart.current.destroy()
+    };
+  }, [date_list]);
 
   const updateRange = (newRange: {
     from: string;
@@ -480,4 +483,4 @@ const Chart: React.SFC<ChartProps> = (props) => {
   );
 };
 
-export default React.memo(Chart, () => true);
+export default Chart;

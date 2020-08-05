@@ -27,7 +27,7 @@ const RestrictionController: React.SFC<RestrictionControllerProps> = (
   return (
     <div style={{ border: "1px solid #333" }}>
       <Editor
-        restrictions={selectedZone?.properties?.restrictions}
+        restrictions={selectedZone?.properties?.restrictionsUz}
         handleSave={handleSave}
       />
     </div>

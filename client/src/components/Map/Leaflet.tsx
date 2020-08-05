@@ -158,8 +158,8 @@ const Map: React.SFC<MapProps> = (props) => {
 
   useEffect(() => {
     if (selectedZone) {
-      const latLng = getLatLngFromBBox(selectedZone?.bbox);
-      map.current?.flyToBounds(latLng);
+      // const latLng = getLatLngFromBBox(selectedZone?.bbox);
+      // map.current?.flyToBounds(latLng);
     }
   }, [selectedZone]);
 

@@ -3,8 +3,9 @@ const Zone = require("../models/zone.model");
 module.exports = function (socket, redis) {
   socket.on("initial_data", () => {
     console.log("initial_data called");
-    Zone.find({}, {lean: true})
-      .then((data) => {
+    const query = Zone.find({}, null, { lean: true });
+    // Zone.find({}, {lean: true})
+    query.then((data) => {
         console.log("zones found");
         // console.log("mongo type", typeof data);
         // redis.set("zones", JSON.stringify(data));
@@ -145,7 +146,7 @@ module.exports = function (socket, redis) {
       zoneId,
       {
         $set: {
-          "properties.restrictions": restrictions,
+          "properties.restrictionsUz": restrictions,
         },
       },
       { new: true },
