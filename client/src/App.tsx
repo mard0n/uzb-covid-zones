@@ -83,7 +83,7 @@ function App() {
         <Router>
           <Suspense fallback={<Loader />}>
             <Switch>
-              <Route path={"/app"} component={User} />
+              <Route path={"/"} exact component={User} />
               <Route path={"/admin"} component={Admin} />
               <Route path={"/login"} component={Login} />
               <Route path="*">Not found</Route>
