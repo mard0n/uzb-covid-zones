@@ -22,5 +22,6 @@ yarn-error.log*
 
 area-layers/
 utils-data-parse/
+client/build/
 buildspec.yml
 *.pem

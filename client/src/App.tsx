@@ -4,12 +4,6 @@ import StateContextProvider, { initialState } from "./state/StateContext";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core";
 import Loader from "./components/Skeletons/Loader";
 
-const Login = React.lazy(() =>
-  import(/* webpackChunkName: 'Login' */ "./screens/Login")
-);
-const Admin = React.lazy(() =>
-  import(/* webpackChunkName: 'Admin' */ "./screens/Admin")
-);
 const User = React.lazy(() =>
   import(/* webpackChunkName: 'User' */ "./screens/User")
 );
@@ -84,8 +78,6 @@ function App() {
           <Suspense fallback={<Loader />}>
             <Switch>
               <Route path={"/"} exact component={User} />
-              <Route path={"/admin"} component={Admin} />
-              <Route path={"/login"} component={Login} />
               <Route path="*">Not found</Route>
             </Switch>
           </Suspense>
