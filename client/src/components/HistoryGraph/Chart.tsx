@@ -73,7 +73,7 @@ const Chart: React.SFC<ChartProps> = (props) => {
             borderColor: getZoneStatusProps(ZoneStatus.RISKY).textInBlueishBg,
             backgroundColor: getZoneStatusProps(ZoneStatus.RISKY)
               .textInBlueishBg,
-            data: [...data.map((h) => h.infectedNumber)],
+            data: [...data.map((h) => h?.infectedNumber)],
           },
           {
             label: t("dataType.recovered"),

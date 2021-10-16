@@ -269,13 +269,13 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
                         <h5 class="zone-name">${getProperDisplayName(zone)}</h5>
                       </div>
                       <p class="data infected">${t("dataType.infected")} ${
-                        zone.properties?.total.infectedNumber
+                        zone.properties?.total?.infectedNumber
                       }</p>
                       <p class="data recovered">${t("dataType.recovered")} ${
-                        zone.properties?.total.recoveredNumber
+                        zone.properties?.total?.recoveredNumber
                       }</p>
                       <p class="data dead">${t("dataType.dead")} ${
-                        zone.properties?.total.deadNumber
+                        zone.properties?.total?.deadNumber
                       }</p>
 
                     `,

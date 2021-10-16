@@ -109,9 +109,9 @@ const HistoryController: React.SFC<HistoryControllerProps> = (props) => {
     setShowColumnEditor(index);
 
     const selectedCase = history.find((h: any) => h._id === index);
-    setEditedInfected(selectedCase.infectedNumber);
-    setEditedRecovered(selectedCase.recoveredNumber);
-    setEditedDead(selectedCase.deadNumber);
+    setEditedInfected(selectedCase?.infectedNumber);
+    setEditedRecovered(selectedCase?.recoveredNumber);
+    setEditedDead(selectedCase?.deadNumber);
   };
 
   return selectedZoneId ? (
@@ -217,7 +217,7 @@ const HistoryController: React.SFC<HistoryControllerProps> = (props) => {
                       }}
                     />
                   ) : (
-                    row.infectedNumber
+                    row?.infectedNumber
                   )}
                 </TableCell>
               ))}

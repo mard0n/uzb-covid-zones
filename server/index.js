@@ -2,7 +2,6 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const jwt = require("jsonwebtoken");
 // const RedisClustr = require('redis-clustr');
 const redis = require("redis");
 const path = require("path");
@@ -40,7 +39,7 @@ app.use(function (req, res) {
 });
 
 const server = require("http").Server(app);
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4000;
 server.listen(port);
 
 // Redis
@@ -51,31 +50,8 @@ client.on("error", () => {
   console.log("connection to redis failed");
 });
 
-// Socket
-const io = require("socket.io")(server);
-io.use(function (socket, next) {
-  console.log("socket.handshake.query.token", socket.handshake.query.token);
-  if (socket.handshake.query && socket.handshake.query.token) {
-    jwt.verify(
-      socket.handshake.query.token,
-      process.env.JWT_SECRET_KEY,
-      function (err, decoded) {
-        console.log("jwt error", err);
-
-        if (err) return next(new Error("Authentication error"));
-        socket.decoded = decoded;
-        next();
-      }
-    );
-  } else {
-    next(new Error("Authentication error"));
-  }
-}).on("connection", (socket) => {
-  console.log("socket connected");
-  require("./routes/socket")(socket, client);
-});
-
 const uri = process.env.ATLAS_URI;
+console.log("uri", uri);
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
