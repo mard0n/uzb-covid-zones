@@ -274,17 +274,17 @@ const Map: React.SFC<MapProps> = (props) => {
     
         <p class="data infected" style="
           color: ${getZoneStatusProps(ZoneStatus.RISKY).textInWhiteBg}
-        ">${t("dataType.infected")} ${zone.properties?.total.infectedNumber}</p>
+        ">${t("dataType.infected")} ${zone.properties?.total?.infectedNumber}</p>
     
         <p class="data recovered" style="
           color: ${getZoneStatusProps(ZoneStatus.SAFE).textInWhiteBg}
         ">${t("dataType.recovered")} ${
-            zone.properties?.total.recoveredNumber
+            zone.properties?.total?.recoveredNumber
           }</p>
     
         <p class="data dead" style="
           color: ${getZoneStatusProps(ZoneStatus.DANGEROUS).textInWhiteBg}
-        ">${t("dataType.dead")} ${zone.properties?.total.deadNumber}</p>
+        ">${t("dataType.dead")} ${zone.properties?.total?.deadNumber}</p>
         `,
           {
             className: "custom-popup-style",

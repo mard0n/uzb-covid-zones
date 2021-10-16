@@ -39,7 +39,7 @@ app.use(function (req, res) {
 });
 
 const server = require("http").Server(app);
-const port = process.env.PORT || 4000
+const port = process.env.PORT || 4000;
 server.listen(port);
 
 // Redis
@@ -50,8 +50,8 @@ client.on("error", () => {
   console.log("connection to redis failed");
 });
 
-
 const uri = process.env.ATLAS_URI;
+console.log("uri", uri);
 mongoose.connect(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

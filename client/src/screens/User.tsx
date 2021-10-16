@@ -32,6 +32,8 @@ function User() {
         type: ADD_ZONES,
         payload: res.data || [],
       });
+      console.log('res.data', res.data);
+      
       SelectedZoneName.preload()
       OverallStat.preload()
       Graph.preload()
