@@ -1,8 +1,8 @@
 import { Zone } from "../types/zone";
 
 export const getChildZones = (
-  children: number[] | undefined,
+  children: string[] | undefined,
   zones: Zone[]
 ) => {
-  return zones.filter((zone) => children?.includes(zone.properties?.refId));
+  return zones.filter((zone) => children?.includes(zone.properties?.displayName));
 };

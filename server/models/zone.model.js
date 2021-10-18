@@ -20,45 +20,45 @@ const zoneSchema = new Schema({
     // displayNameRu: {
     //   type: "String",
     // },
-    // alias: {
-    //   type: ["String"],
-    // },
+    alias: {
+      type: ["String"],
+    },
     // refId: {
     //   type: "String",
     // },
-    // parentZone: {
-    //   type: "String",
-    // },
-    // childZones: {
-    //   type: ["String"],
-    // },
-    // placeType: {
-    //   type: "String",
-    //   enum: ["DISTRICT", "CITY", "REGION", "COUNTRY"],
-    // },
-    // status: {
-    //   type: "String",
-    //   enum: ["DANGEROUS", "RISKY", "SAFE"],
-    //   default: "SAFE",
-    // },
-    // total: {
-    //   infectedNumber: "Number",
-    //   recoveredNumber: "Number",
-    //   deadNumber: "Number",
-    // },
-    // history: [
-    //   {
-    //     _id: {
-    //       type: mongoose.Schema.Types.ObjectId,
-    //       default: () => new mongoose.Types.ObjectId(),
-    //       unique: true,
-    //     },
-    //     infectedNumber: "Number",
-    //     recoveredNumber: "Number",
-    //     deadNumber: "Number",
-    //     date: "Date",
-    //   },
-    // ],
+    parentZone: {
+      type: "String",
+    },
+    childZones: {
+      type: ["String"],
+    },
+    placeType: {
+      type: "String",
+      enum: ["DISTRICT", "CITY", "REGION", "COUNTRY"],
+    },
+    status: {
+      type: "String",
+      enum: ["DANGEROUS", "RISKY", "SAFE"],
+      default: "SAFE",
+    },
+    total: {
+      infectedNumber: "Number",
+      recoveredNumber: "Number",
+      deadNumber: "Number",
+    },
+    history: [
+      {
+        _id: {
+          type: mongoose.Schema.Types.ObjectId,
+          default: () => new mongoose.Types.ObjectId(),
+          unique: true,
+        },
+        infectedNumber: "Number",
+        recoveredNumber: "Number",
+        deadNumber: "Number",
+        date: "Date",
+      },
+    ],
     // restrictionsRu: {
     //   type: "Mixed",
     // },

@@ -94,7 +94,7 @@ const Map: React.SFC<MapProps> = (props) => {
     }
 
     const parentZone = zones.find(
-      (z) => z?.properties?.refId === zone?.properties?.parentZone
+      (z) => z?.properties?.displayName === zone?.properties?.parentZone
     );
     const latLng = getLatLngFromBBox(parentZone?.bbox);
     // console.log('latLng', latLng);
@@ -207,6 +207,7 @@ const Map: React.SFC<MapProps> = (props) => {
 
     map.current.setView([latInt, lngInt], zoomInt);
 
+    // Features, zones
     geoJson = L.geoJSON(zones as any, {
       style: (feat) => {
         const status = feat?.properties?.status;

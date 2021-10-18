@@ -8,7 +8,7 @@ export const getParents = (
   parentZoneList: string[] = []
 ): string => {
   const parentZone = zones.find(
-    (z) => z.properties?.refId === zone.properties?.parentZone
+    (z) => z.properties?.displayName === zone.properties?.parentZone
   );
   if (parentZone) {
     parentZoneList.push(getProperDisplayName(parentZone));

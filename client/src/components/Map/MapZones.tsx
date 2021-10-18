@@ -170,7 +170,7 @@ const MapZones: React.SFC<MapZonesProps> = (props) => {
           }
 
           const parentZone = zones.find(
-            (z) => z.properties?.refId === zone.properties?.parentZone
+            (z) => z.properties?.displayName === zone.properties?.parentZone
           );
           const parentZoomLevel =
             (parentZone &&

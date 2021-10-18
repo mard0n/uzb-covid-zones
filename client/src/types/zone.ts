@@ -39,12 +39,12 @@ export type Zone = {
     | "Polygon"
     | "MultiPolygon";
   properties: {
+    displayName: string;
     displayNameUz: string;
     displayNameRu: string;
     alias: string[];
-    refId: number;
-    parentZone: number;
-    childZones: number[];
+    parentZone: string;
+    childZones: string[];
     placeType: PlaceType;
     status: ZoneStatus;
     total: Total;
