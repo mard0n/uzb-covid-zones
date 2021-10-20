@@ -1,0 +1,37 @@
+{
+  "search": {
+    "searchResults": "Qidiruv natijalari",
+    "searchForCity": "Shahar nomini kiriting..."
+  },
+  "welcomeBanner": {
+    "title": "CovidUzga hush kelibsiz",
+    "subtitle": "Bu servis O'zbekiston aholisi uchun Covid-19ning tarqalishini monitoring qilish uchun yaralilgan. Boshlash uchun hudud nomini qidiruv satriga kiriting..."
+  },
+  "selectedZoneName": {
+    "statusBadge": {
+      "safe": "Yashil",
+      "warning": "Sariq",
+      "dangerous": "Qizil"
+    }
+  },
+  "overallStats": {
+    "title": "Hozirgi kungacha"
+  },
+  "history": {
+    "title": "Statistika"
+  },
+  "childZonesTable": {
+    "title": "Sub zonalar",
+    "zoneName": "Hudud nomi",
+    "seeMore": "Ko'proq"
+  },
+  "callBanner": {
+    "title": "Covid-19 simptomlarini sezyapsizmi?",
+    "subtitle": "Covid-19 qollab-quvatlash markaziga qo'ng'iroq qiling"
+  },
+  "dataType": {
+    "infected": "Kasallangan",
+    "recovered": "Sog'aygan",
+    "dead": "Vafot etgan"
+  }
+}
