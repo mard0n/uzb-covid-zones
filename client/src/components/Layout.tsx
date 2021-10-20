@@ -1,4 +1,4 @@
-import React, { useState, ReactElement } from "react";
+import React, { useState, ReactElement, useEffect, useContext } from "react";
 import {
   makeStyles,
   Drawer,
@@ -10,6 +10,8 @@ import {
 } from "@material-ui/core";
 import SwipeableBottomSheet from "react-swipeable-bottom-sheet";
 import { Scrollbars } from "react-custom-scrollbars";
+import { ADD_CLOSE_BOTTOM_SHEET_FN } from "state/reducers/appReducer";
+import { StateContext } from "state/StateContext";
 
 export interface LayoutProps {
   map: ReactElement;
@@ -29,7 +31,7 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: "50%",
     maxWidth: 600,
-    boxShadow: '0px 4px 40px rgba(0, 30, 89, 0.09)',
+    boxShadow: "0px 4px 40px rgba(0, 30, 89, 0.09)",
   },
   bottomSheetPaper: {
     borderTopLeftRadius: "30px",
@@ -54,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Layout: React.SFC<LayoutProps> = (props) => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const { dispatch } = useContext(StateContext);
   const classes = useStyles();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const { map, mainContent, search } = props;
@@ -62,6 +65,14 @@ const Layout: React.SFC<LayoutProps> = (props) => {
     setIsBottomSheetOpen(isOpen);
 
   const handleBottomSheetClose = () => setIsBottomSheetOpen(false);
+
+  useEffect(() => {
+    dispatch({
+      type: ADD_CLOSE_BOTTOM_SHEET_FN,
+      payload: handleBottomSheetClose,
+    });
+    return () => {};
+  }, []);
 
   return (
     <>
@@ -101,13 +112,10 @@ const Layout: React.SFC<LayoutProps> = (props) => {
             >
               {React.cloneElement(search, {
                 isInsidePaper: false,
-                closeBottomSheet: handleBottomSheetClose,
               })}
             </Box>
             <Box height={"calc(100vh - 190px)"} flexGrow={1} zIndex={1}>
-              {React.cloneElement(map, {
-                closeBottomSheet: handleBottomSheetClose,
-              })}
+              {map}
             </Box>
             <Box zIndex={100}>
               <SwipeableBottomSheet

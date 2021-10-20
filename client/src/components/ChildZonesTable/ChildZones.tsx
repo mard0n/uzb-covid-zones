@@ -77,8 +77,8 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
   const defaultZone = zones.find(
     (zone) => zone?.properties?.alias?.indexOf("Uzbekistan") > -1
   );
-  console.log("selectedZone", selectedZone);
-  console.log("defaultZone", defaultZone);
+  // console.log("selectedZone", selectedZone);
+  // console.log("defaultZone", defaultZone);
 
   const childZones = getChildZones(
     selectedZone
@@ -86,7 +86,7 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
       : defaultZone?.properties?.childZones,
     zones
   );
-  console.log("childZones", childZones);
+  // console.log("childZones", childZones);
   return childZones.length ? (
     <Box mt={4} mb={4}>
       <Box mb={1}>

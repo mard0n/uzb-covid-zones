@@ -12,7 +12,10 @@ import { Controlls } from "./Controlls";
 import { StateContext } from "state/StateContext";
 import { Zone, ZoneStatus } from "types/zone";
 import { getLatLngFromBBox } from "utils/getLatLngFromBBox";
-import { ADD_SELECTED_ZONE_ID } from "state/reducers/appReducer";
+import {
+  ADD_NAVIGATE_TO_FN,
+  ADD_SELECTED_ZONE_ID,
+} from "state/reducers/appReducer";
 import getZoneStatusProps from "utils/getZoneStatusProps";
 import { getProperDisplayName } from "utils/getProperDisplayName";
 import { useTranslation } from "react-i18next";
@@ -35,7 +38,6 @@ const mapOptions: MapOptions = {
   minZoom: 4,
 };
 
-
 const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
   const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
@@ -44,8 +46,7 @@ const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
   const selectedLayer = useRef<any>();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const { t } = useTranslation();
-
-
+  // console.log("selectedZone", selectedZone);
   const layerStyle = (status: ZoneStatus, isHighlighted: boolean = false) => {
     let fillColor;
     let fillOpacity;
@@ -71,42 +72,31 @@ const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
     return { fillColor, fillOpacity };
   };
   const isLayerVisible = (zone: Zone, map: any) => {
-    let isShown;
-    let zoneZoomLevel;
-    // const latLngTest = getLatLngFromBBox(zone?.bbox);
-    // console.log("zone.properties.displayName", zone.properties.displayName);
-    // console.log("map.getBoundsZoom(latLng)", map.getBoundsZoom(latLngTest));
-    if (zone.properties?.childZones?.length) {
-      const latLng = getLatLngFromBBox(zone?.bbox);
-      // console.log("latLng", latLng);
-      zoneZoomLevel = (latLng[0][0] && map.getBoundsZoom(latLng)) || 0;
-      // console.log('zoneZoomLevel', zoneZoomLevel);
-    } else {
-      zoneZoomLevel = 18;
+    const mapZoomLevel = map.getZoom();
+    let zoneType: "COUNTRY" | "REGION" | "DISTRICT" = "DISTRICT";
+    if (!zone.properties.parentZone && zone.properties.childZones.length) {
+      zoneType = "COUNTRY";
+    } else if (
+      zone.properties.parentZone &&
+      zone.properties.childZones.length
+    ) {
+      zoneType = "REGION";
+    } else if (
+      zone.properties.parentZone &&
+      !zone.properties.childZones.length
+    ) {
+      zoneType = "DISTRICT";
     }
 
-    const parentZone = zones.find(
-      (z) => z?.properties?.displayName === zone?.properties?.parentZone
-    );
-    const latLng = getLatLngFromBBox(parentZone?.bbox);
-    // console.log('latLng', latLng);
-    const parentZoomLevel =
-      (parentZone && latLng[0][0] && map.getBoundsZoom(latLng)) || 0;
-    // console.log('parentZoomLevel', parentZoomLevel);
-
-    const zoom = map?.getZoom() || 0;
-
-    if (zoom <= zoneZoomLevel && zoom > parentZoomLevel) {
-      if (map.getBounds().overlaps(getLatLngFromBBox(zone.bbox))) {
-        isShown = true;
-      } else {
-        isShown = false;
-      }
-      isShown = true;
+    if (zoneType === "COUNTRY" && mapZoomLevel <= 5) {
+      return true;
+    } else if (zoneType === "REGION" && mapZoomLevel > 5 && mapZoomLevel <= 8) {
+      return true;
+    } else if (zoneType === "DISTRICT" && mapZoomLevel > 8) {
+      return true;
     } else {
-      isShown = false;
+      return false;
     }
-    return isShown;
   };
   const highlightLayer = (layer: any) => {
     const status = layer.feature?.properties?.status;
@@ -124,15 +114,8 @@ const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
       fillOpacity: fillOpacity,
     });
   };
-  const handleZoneSelect = (feature: Zone) => {
-    dispatch({
-      type: ADD_SELECTED_ZONE_ID,
-      payload: feature._id,
-    });
-  };
-  const filterZonesOnZoom = () => {
+  const showOnlyRelevantZones = () => {
     geoJson.current?.eachLayer((layer: any) => {
-      // console.log("geoJson layer", layer);
       const isVisible = isLayerVisible(layer.feature, map.current);
       if (!isVisible) {
         map.current.removeLayer(layer);
@@ -143,11 +126,18 @@ const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
     });
   };
 
+  const flyToSelectedZone = (selectedZone: Zone) => {
+    console.log("flyToSelectedZone selectedZone", selectedZone);
+    const latLng = getLatLngFromBBox(selectedZone?.bbox);
+    map.current?.flyToBounds(latLng);
+  };
+
   useEffect(() => {
     map.current = L.map("map", mapOptions);
     const layerOptions: any = {
-      attribution:
-        mdUp ? '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors': "",
+      attribution: mdUp
+        ? '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        : "",
       edgeBufferTiles: 2, // loads tiles outside of view to better x, y scrolling
     };
     L.tileLayer(
@@ -164,7 +154,32 @@ const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
       },
       onAdd: Controlls,
     });
+
     mdUp && map.current.addControl(new controls());
+
+    map.current.on("zoomend", () => {
+      const zoom = map.current?.getZoom();
+      const latLng = map.current?.getCenter();
+
+      if (latLng?.lat && latLng?.lng && zoom) {
+        if ("URLSearchParams" in window) {
+          const queryParam = new URLSearchParams(window.location.search);
+          queryParam.set("lat", JSON.stringify(latLng.lat));
+          queryParam.set("lng", JSON.stringify(latLng.lng));
+          queryParam.set("zoom", JSON.stringify(zoom));
+          queryParam.toString();
+          const newRelativePathQuery =
+            window.location.pathname + "?" + queryParam.toString();
+          window.history.pushState(null, "", newRelativePathQuery);
+        }
+      }
+      showOnlyRelevantZones();
+    });
+
+    dispatch({
+      type: ADD_NAVIGATE_TO_FN,
+      payload: flyToSelectedZone,
+    });
 
     return () => {
       if (map.current && map.current.remove) {
@@ -172,7 +187,7 @@ const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
         map.current.remove();
       }
     };
-  }, []);
+  }, [mdUp]);
 
   useEffect(() => {
     geoJson.current = L.geoJSON(zones as any, {
@@ -192,16 +207,20 @@ const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
         layer.on({
           click: (e: LeafletMouseEvent) => {
             geoJson.current?.resetStyle(selectedLayer.current);
+            // console.log("zone", zone);
 
             highlightLayer(e.target);
             selectedLayer.current = e.target;
-            handleZoneSelect(zone as Zone);
+            dispatch({
+              type: ADD_SELECTED_ZONE_ID,
+              payload: (zone as any)?._id,
+            });
             e.target.openPopup();
           },
           mouseover: (e: LeafletEvent) => {
             openPopupTimer = setTimeout(() => {
               e.target.openPopup();
-            }, 1000);
+            }, 700);
             highlightLayer(e.target);
           },
           mouseout: (e: LeafletEvent) => {
@@ -284,39 +303,24 @@ const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
       },
     }).addTo(map.current);
 
-    filterZonesOnZoom();
+    showOnlyRelevantZones();
 
-    map.current.on("zoomend", () => {
-      const zoom = map.current?.getZoom();
-      const latLng = map.current?.getCenter();
-
-      if (latLng?.lat && latLng?.lng && zoom) {
-        if ("URLSearchParams" in window) {
-          const queryParam = new URLSearchParams(window.location.search);
-          queryParam.set("lat", JSON.stringify(latLng.lat));
-          queryParam.set("lng", JSON.stringify(latLng.lng));
-          queryParam.set("zoom", JSON.stringify(zoom));
-          queryParam.toString();
-          const newRelativePathQuery =
-            window.location.pathname + "?" + queryParam.toString();
-          window.history.pushState(null, "", newRelativePathQuery);
-        }
-      }
-      filterZonesOnZoom();
-    });
     return () => {};
   }, [zones]);
 
-  useEffect(() => {
-    // console.log("selectedZone", selectedZone);
-    if (selectedZone) {
-      const latLng = getLatLngFromBBox(selectedZone?.bbox);
-      map.current?.flyToBounds(latLng);
-      if (closeBottomSheet) {
-        closeBottomSheet();
-      }
-    }
-  }, [selectedZone]);
+  // useEffect(() => {
+  //   // console.log("selectedZone", selectedZone);
+  //   if (selectedZone) {
+  //     // const latLng = getLatLngFromBBox(selectedZone?.bbox);
+  //     // map.current?.flyToBounds(latLng);
+
+  //     // showOnlyRelevantZones();
+
+  //     // if (closeBottomSheet) {
+  //     //   closeBottomSheet();
+  //     // }
+  //   }
+  // }, [selectedZone]);
 
   return <div id="map" style={{ width: "100%", height: "100%" }}></div>;
 };

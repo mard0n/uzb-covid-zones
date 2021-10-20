@@ -7,6 +7,7 @@ export type State = {
   zones: Zone[];
   selectedZoneId: string;
   navigateTo: Function;
+  closeBottomSheet: Function;
   dispatch: React.Dispatch<Action>;
 };
 
@@ -14,6 +15,7 @@ export const initialState = {
   zones: [],
   selectedZoneId: "",
   navigateTo: () => null,
+  closeBottomSheet: () => null,
   dispatch: () => null,
 };
 

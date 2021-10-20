@@ -21,7 +21,6 @@ export interface SearchInputProps {
   bgColor: string;
   boxShadow: string;
   elevation: PaperProps["elevation"];
-  handleAutoLocate: (lat: number, lng: number) => void;
 }
 
 const useStyles = makeStyles((theme) => ({
@@ -51,7 +50,6 @@ const useStyles = makeStyles((theme) => ({
 
 const SearchInput: React.SFC<SearchInputProps> = (props) => {
   const {
-    handleAutoLocate,
     InputProps,
     InputLabelProps,
     bgColor,
@@ -64,25 +62,6 @@ const SearchInput: React.SFC<SearchInputProps> = (props) => {
   const classes = useStyles(theme);
   const { t } = useTranslation();
 
-  const handleAutoLocateClick = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        function (position) {
-          handleAutoLocate(position.coords.latitude, position.coords.longitude);
-          // infoWindow.setPosition(pos);
-          // infoWindow.setContent('Location found.');
-          // infoWindow.open(map);
-          // map.setCenter(pos);
-        },
-        function () {
-          // handleLocationError(true, infoWindow, map.getCenter());
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      // handleLocationError(false, infoWindow, map.getCenter());
-    }
-  };
   return (
     <Paper
       ref={InputProps.ref}
@@ -95,18 +74,9 @@ const SearchInput: React.SFC<SearchInputProps> = (props) => {
       <InputBase
         {...otherProps}
         className={classes.input}
-        placeholder={t('search.searchForCity')}
+        placeholder={t("search.searchForCity")}
         inputRef={inputRef}
       />
-      {/* <IconButton
-        className={classes.autoLocate}
-        onClick={handleAutoLocateClick}
-      >
-        <NavigationRoundedIcon
-          color="primary"
-          className={classes.autoLocateIcon}
-        />
-      </IconButton> */}
     </Paper>
   );
 };

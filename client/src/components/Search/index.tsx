@@ -60,8 +60,13 @@ const useStyles = makeStyles((theme) => ({
 
 const Search: React.SFC<SearchProps> = (props) => {
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
-  const { isInsidePaper, closeBottomSheet = () => {} } = props;
-  const { zones = [], dispatch, navigateTo } = useContext(StateContext);
+  const { isInsidePaper = () => {} } = props;
+  const {
+    zones = [],
+    dispatch,
+    navigateTo,
+    closeBottomSheet,
+  } = useContext(StateContext);
   const [selectedZone, setSelectedZone] = useState<Zone | null>(null);
   const theme = useTheme();
   const classes = useStyles(theme);
@@ -73,6 +78,7 @@ const Search: React.SFC<SearchProps> = (props) => {
       payload: zone._id,
     });
     closeBottomSheet();
+    navigateTo(zone);
     setSelectedZone(zone);
     inputRef.current?.blur();
   };
@@ -118,10 +124,6 @@ const Search: React.SFC<SearchProps> = (props) => {
     : "#bdc0cb";
   const elevation = isInsidePaper ? 0 : 2;
 
-  const handleAutoLocate = (lat: number, lng: number) => {
-    navigateTo({ lat, lng });
-  };
-
   return (
     <>
       <Autocomplete
@@ -138,7 +140,7 @@ const Search: React.SFC<SearchProps> = (props) => {
         }
         value={selectedZone}
         onChange={handleChange}
-        onFocus={closeBottomSheet}
+        onFocus={() => closeBottomSheet()}
         filterOptions={optionsToShow}
         // popupIcon={null}
         renderInput={(params) => (
@@ -148,7 +150,6 @@ const Search: React.SFC<SearchProps> = (props) => {
             boxShadow={mdUp ? "unset" : "4px 6px 10px rgba(30, 43, 114, 0.09)"}
             elevation={elevation}
             inputRef={inputRef}
-            handleAutoLocate={handleAutoLocate}
           />
         )}
         renderOption={(option) => <SearchOption zone={option} zones={zones} />}

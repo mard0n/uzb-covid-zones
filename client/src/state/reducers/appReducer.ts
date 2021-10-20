@@ -4,11 +4,13 @@ import { Zone } from "../../types/zone";
 export const ADD_ZONES = "ADD_ZONES";
 export const ADD_SELECTED_ZONE_ID = "ADD_SELECTED_ZONE_ID";
 export const ADD_NAVIGATE_TO_FN = "ADD_NAVIGATE_TO_FN";
+export const ADD_CLOSE_BOTTOM_SHEET_FN = "ADD_CLOSE_BOTTOM_SHEET_FN";
 
 export type Action =
   | { type: "ADD_ZONES"; payload: Zone[] }
   | { type: "ADD_SELECTED_ZONE_ID"; payload: string }
-  | { type: "ADD_NAVIGATE_TO_FN"; payload: Function };
+  | { type: "ADD_NAVIGATE_TO_FN"; payload: Function }
+  | { type: "ADD_CLOSE_BOTTOM_SHEET_FN"; payload: Function };
 
 export const appReducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -26,6 +28,11 @@ export const appReducer = (state: State, action: Action): State => {
       return {
         ...state,
         navigateTo: action.payload,
+      };
+    case ADD_CLOSE_BOTTOM_SHEET_FN:
+      return {
+        ...state,
+        closeBottomSheet: action.payload,
       };
     default:
       return state;
