@@ -20,9 +20,14 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+yarn.lock
+package-lock.json
+
 area-layers/
 utils-data-parse/
 
 build/
 buildspec.yml
 *.pem
+
+keys.json

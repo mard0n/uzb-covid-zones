@@ -98,7 +98,7 @@ const SearchInput: React.SFC<SearchInputProps> = (props) => {
         placeholder={t('search.searchForCity')}
         inputRef={inputRef}
       />
-      <IconButton
+      {/* <IconButton
         className={classes.autoLocate}
         onClick={handleAutoLocateClick}
       >
@@ -106,7 +106,7 @@ const SearchInput: React.SFC<SearchInputProps> = (props) => {
           color="primary"
           className={classes.autoLocateIcon}
         />
-      </IconButton>
+      </IconButton> */}
     </Paper>
   );
 };

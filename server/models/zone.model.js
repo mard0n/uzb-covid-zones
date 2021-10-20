@@ -14,12 +14,12 @@ const zoneSchema = new Schema({
     displayName: {
       type: "String",
     },
-    // displayNameUz: {
-    //   type: "String",
-    // },
-    // displayNameRu: {
-    //   type: "String",
-    // },
+    displayNameUz: {
+      type: "String",
+    },
+    displayNameRu: {
+      type: "String",
+    },
     alias: {
       type: ["String"],
     },
@@ -66,9 +66,9 @@ const zoneSchema = new Schema({
     //   type: "Mixed",
     // },
   },
-  // bbox: {
-  //   type: ["Number"],
-  // },
+  bbox: {
+    type: ["Number"],
+  },
   geometry: {
     type: {
       type: "String",

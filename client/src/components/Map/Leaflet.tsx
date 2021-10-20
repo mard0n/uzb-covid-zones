@@ -39,12 +39,12 @@ const Map: React.SFC<MapProps> = (props) => {
   const { closeBottomSheet } = props;
   const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
   const selectedZone = getSelectedZoneObjById(selectedZoneId, zones);
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const mapContainer = useRef<any>();
   const map = useRef<any>();
   const selectedLayer = useRef<any>();
-  const currentLocation = useRef<any>();
+  // const currentLocation = useRef<any>();
 
   const handleZoneSelect = (feature: Zone) => {
     // console.log('feature', feature);
@@ -84,9 +84,11 @@ const Map: React.SFC<MapProps> = (props) => {
   const isLayerVisible = (zone: Zone, map: any) => {
     let isShown;
     let zoneZoomLevel;
+    const latLngTest = getLatLngFromBBox(zone?.bbox);
+    console.log('map.getBoundsZoom(latLng)', map.getBoundsZoom(latLngTest));
     if (zone.properties?.childZones?.length) {
       const latLng = getLatLngFromBBox(zone?.bbox);
-      // console.log('latLng', latLng);
+      console.log('latLng', latLng);
       zoneZoomLevel = (latLng[0][0] && map.getBoundsZoom(latLng)) || 0;
       // console.log('zoneZoomLevel', zoneZoomLevel);
     } else {
@@ -140,19 +142,19 @@ const Map: React.SFC<MapProps> = (props) => {
     { lat, lng, zoom = 12 }: { lat: number; lng: number; zoom: number },
     isMarked = true
   ) => {
-    delete (L.Icon.Default.prototype as any)._getIconUrl;
+    // delete (L.Icon.Default.prototype as any)._getIconUrl;
 
-    L.Icon.Default.mergeOptions({
-      iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
-      iconUrl: require("leaflet/dist/images/marker-icon.png"),
-      shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
-    }); // to show marker
+    // L.Icon.Default.mergeOptions({
+    //   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
+    //   iconUrl: require("leaflet/dist/images/marker-icon.png"),
+    //   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
+    // }); // to show marker
 
     map.current?.setView({ lat, lng }, zoom, {
       animate: true,
     });
-    currentLocation.current = new L.Marker({ lat, lng });
-    currentLocation.current.addTo(map.current);
+    // currentLocation.current = new L.Marker({ lat, lng });
+    // currentLocation.current.addTo(map.current);
     // isMarked && setMarker({ lat, lng });
   };
 
@@ -220,113 +222,113 @@ const Map: React.SFC<MapProps> = (props) => {
           weight: 2,
         };
       },
-      onEachFeature: (zone, layer: L.Layer) => {
-        let openPopupTimer: NodeJS.Timeout;
+      // onEachFeature: (zone, layer: L.Layer) => {
+      //   let openPopupTimer: NodeJS.Timeout;
 
-        layer.bindPopup(
-          `
-        <style>
-        .custom-popup-style .leaflet-popup-content-wrapper {
-          background: #FFFFFF;
-          box-shadow: 0px 4px 40px rgba(0, 30, 89, 0.09);
-          border-radius: 11px;
-        }
-        .custom-popup-style .leaflet-popup-tip {
-          box-shadow: 0px 4px 40px rgba(0, 30, 89, 0.09);
-        }
-        .custom-popup-style .title-container {
-          display: flex;
-          align-items: center;
-          margin-bottom: 8px;
-          margin-right: 8px;
-          position: relative;
-        }
-        .custom-popup-style .zone-status-pin {
-          display: inline-block;
-          width: 8px;
-          height: 8px;
-          border-radius: 4px;
-          margin-right: 5px;
-        }
-        .custom-popup-style .zone-name {
-          font-family: Rubik;
-          font-size: 16px;
-          font-weight: 500;
-          line-height: 16px;
-          color: #242B43;
-          margin: 0;
-        }
-        .custom-popup-style .data {
-          font-family: Rubik;
-          font-size: 14px;
-          font-weight: 500;
-          line-height: 20px;
-          margin: 0;
-        }
-        </style>
-        <div class='title-container'>
-          <span class="zone-status-pin" style="
-            background-color: ${
-              getZoneStatusProps(zone.properties?.status).textInBlueishBg
-            }
-          "></span>
-          <h5 class="zone-name">${getProperDisplayName(zone as Zone)}</h5>
-        </div>
+      //   layer.bindPopup(
+      //     `
+      //   <style>
+      //   .custom-popup-style .leaflet-popup-content-wrapper {
+      //     background: #FFFFFF;
+      //     box-shadow: 0px 4px 40px rgba(0, 30, 89, 0.09);
+      //     border-radius: 11px;
+      //   }
+      //   .custom-popup-style .leaflet-popup-tip {
+      //     box-shadow: 0px 4px 40px rgba(0, 30, 89, 0.09);
+      //   }
+      //   .custom-popup-style .title-container {
+      //     display: flex;
+      //     align-items: center;
+      //     margin-bottom: 8px;
+      //     margin-right: 8px;
+      //     position: relative;
+      //   }
+      //   .custom-popup-style .zone-status-pin {
+      //     display: inline-block;
+      //     width: 8px;
+      //     height: 8px;
+      //     border-radius: 4px;
+      //     margin-right: 5px;
+      //   }
+      //   .custom-popup-style .zone-name {
+      //     font-family: Rubik;
+      //     font-size: 16px;
+      //     font-weight: 500;
+      //     line-height: 16px;
+      //     color: #242B43;
+      //     margin: 0;
+      //   }
+      //   .custom-popup-style .data {
+      //     font-family: Rubik;
+      //     font-size: 14px;
+      //     font-weight: 500;
+      //     line-height: 20px;
+      //     margin: 0;
+      //   }
+      //   </style>
+      //   <div class='title-container'>
+      //     <span class="zone-status-pin" style="
+      //       background-color: ${
+      //         getZoneStatusProps(zone.properties?.status).textInBlueishBg
+      //       }
+      //     "></span>
+      //     <h5 class="zone-name">${getProperDisplayName(zone as Zone)}</h5>
+      //   </div>
     
-        <p class="data infected" style="
-          color: ${getZoneStatusProps(ZoneStatus.RISKY).textInWhiteBg}
-        ">${t("dataType.infected")} ${zone.properties?.total?.infectedNumber}</p>
+      //   <p class="data infected" style="
+      //     color: ${getZoneStatusProps(ZoneStatus.RISKY).textInWhiteBg}
+      //   ">${t("dataType.infected")} ${zone.properties?.total?.infectedNumber}</p>
     
-        <p class="data recovered" style="
-          color: ${getZoneStatusProps(ZoneStatus.SAFE).textInWhiteBg}
-        ">${t("dataType.recovered")} ${
-            zone.properties?.total?.recoveredNumber
-          }</p>
+      //   <p class="data recovered" style="
+      //     color: ${getZoneStatusProps(ZoneStatus.SAFE).textInWhiteBg}
+      //   ">${t("dataType.recovered")} ${
+      //       zone.properties?.total?.recoveredNumber
+      //     }</p>
     
-        <p class="data dead" style="
-          color: ${getZoneStatusProps(ZoneStatus.DANGEROUS).textInWhiteBg}
-        ">${t("dataType.dead")} ${zone.properties?.total?.deadNumber}</p>
-        `,
-          {
-            className: "custom-popup-style",
-          }
-        );
-        layer.on({
-          click: (e) => {
-            geoJson.resetStyle(selectedLayer.current);
+      //   <p class="data dead" style="
+      //     color: ${getZoneStatusProps(ZoneStatus.DANGEROUS).textInWhiteBg}
+      //   ">${t("dataType.dead")} ${zone.properties?.total?.deadNumber}</p>
+      //   `,
+      //     {
+      //       className: "custom-popup-style",
+      //     }
+      //   );
+      //   layer.on({
+      //     click: (e) => {
+      //       geoJson.resetStyle(selectedLayer.current);
 
-            highlightLayer(e.target);
-            selectedLayer.current = e.target;
+      //       highlightLayer(e.target);
+      //       selectedLayer.current = e.target;
             
-            handleZoneSelect(zone as Zone);
+      //       handleZoneSelect(zone as Zone);
 
-            e.target.openPopup();
-          },
-          mouseover: (e: LeafletEvent) => {
-            openPopupTimer = setTimeout(() => {
-              e.target.openPopup();
-            }, 1000);
-            highlightLayer(e.target);
-          },
-          mouseout: (e: LeafletEvent) => {
-            clearTimeout(openPopupTimer);
-            if (
-              selectedLayer.current?.feature?._id === e.target?.feature?._id
-            ) {
-            } else {
-              dehighlightLayer(e.target);
-            }
-          },
-        });
-      },
+      //       e.target.openPopup();
+      //     },
+      //     mouseover: (e: LeafletEvent) => {
+      //       openPopupTimer = setTimeout(() => {
+      //         e.target.openPopup();
+      //       }, 1000);
+      //       highlightLayer(e.target);
+      //     },
+      //     mouseout: (e: LeafletEvent) => {
+      //       clearTimeout(openPopupTimer);
+      //       if (
+      //         selectedLayer.current?.feature?._id === e.target?.feature?._id
+      //       ) {
+      //       } else {
+      //         dehighlightLayer(e.target);
+      //       }
+      //     },
+      //   });
+      // },
       // filter: (zone) => isLayerVisible(zone as Zone, map),
     }).addTo(map.current);
 
-    map.current.on("movestart", () => {
-      if (map.current && currentLocation.current) {
-        map.current?.removeLayer(currentLocation.current);
-      }
-    });
+    // map.current.on("movestart", () => {
+    //   if (map.current && currentLocation.current) {
+    //     map.current?.removeLayer(currentLocation.current);
+    //   }
+    // });
     map.current.on("moveend", (e: any) => {
       const zoom = map.current?.getZoom();
       const latLng = map.current?.getCenter();
@@ -351,7 +353,7 @@ const Map: React.SFC<MapProps> = (props) => {
         } else {
           map.current.addLayer(layer);
         }
-        // console.log("geoJson isVisible", isVisible);
+        console.log("geoJson isVisible", isVisible);
       });
     });
 

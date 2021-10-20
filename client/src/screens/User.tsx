@@ -12,8 +12,8 @@ import Search from "../components/Search/index";
 import WelcomeBanner from "../components/Banners/WelcomeBanner";
 import ChildZones from "../components/ChildZonesTable/ChildZones";
 import CallBanner from "../components/Banners/CallBanner";
-import Map from "../components/Map/Leaflet";
-// import MapZones from "../components/Map/MapZones";
+// import Map from "../components/Map/Leaflet";
+import Map from "../components/Map";
 const SelectedZoneName = lazyPreload(() => import(/* webpackChunkName: 'SelectedZoneName' */"../components/SelectedZoneName/SelectedZoneName"))
 // import SelectedZoneName from "../components/SelectedZoneName/SelectedZoneName";
 const OverallStat = lazyPreload(() => import(/* webpackChunkName: 'OverallStat' */"../components/OverallStats/OverallStat"))

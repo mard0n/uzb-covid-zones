@@ -38,6 +38,12 @@ const useStyles = makeStyles({
     padding: "4px 16px",
     boxShadow: "unset !important",
   },
+  tableCell: {
+    textAlign: "center",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  },
   tableCellText: {
     lineHeight: 1,
   },
@@ -71,6 +77,8 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
   const defaultZone = zones.find(
     (zone) => zone?.properties?.alias?.indexOf("Uzbekistan") > -1
   );
+  console.log("selectedZone", selectedZone);
+  console.log("defaultZone", defaultZone);
 
   const childZones = getChildZones(
     selectedZone
@@ -78,6 +86,7 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
       : defaultZone?.properties?.childZones,
     zones
   );
+  console.log("childZones", childZones);
   return childZones.length ? (
     <Box mt={4} mb={4}>
       <Box mb={1}>
@@ -85,90 +94,80 @@ const ChildZones: React.SFC<ChildZonesProps> = () => {
           {t("childZonesTable.title")}
         </Typography>
       </Box>
-      <TableContainer component={Box}>
-        <Table
-          className={classes.table}
-          size="small"
-          aria-label="a dense table"
-        >
-          <TableHead>
-            <TableRow>
-              <TableCell
-                leftmost={"true"}
-                style={{ maxWidth: "25vw", paddingTop: 0 }}
-              >
-                <Typography variant="caption" className={classes.tableCellText}>
-                  {t("childZonesTable.zoneName")}
-                </Typography>
-              </TableCell>
-              <TableCell align="center" style={{ paddingTop: 0 }}>
-                <Typography variant="caption" className={classes.tableCellText}>
-                  {t("dataType.infected")}
-                </Typography>
-              </TableCell>
-              <TableCell align="center" style={{ paddingTop: 0 }}>
-                <Typography variant="caption" className={classes.tableCellText}>
-                  {t("dataType.recovered")}
-                </Typography>
-              </TableCell>
-              <TableCell
-                align="center"
-                style={{ paddingTop: 0 }}
-                rightmost={"true"}
-              >
-                <Typography variant="caption" className={classes.tableCellText}>
-                  {t("dataType.dead")}
-                </Typography>
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {childZones.map(
-              (zone, index: number) =>
-                index + 1 <= numberOfVisibleCells && (
-                  <TableRow key={zone._id}>
-                    <TableCell component="th" scope="row" leftmost={"true"}>
-                      <Box>
-                        {mdUp && (
-                          <ZoneStatusPin status={zone.properties?.status} />
-                        )}
-                        {mdUp && <Box component="span" mr={1} />}
-                        <Link
-                          variant="body1"
-                          component="button"
-                          style={{
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            maxWidth: "25vw",
-                            whiteSpace: "nowrap",
-                            textIndent: mdUp ? 0 : 1,
-                          }}
-                          onClick={() => {
-                            dispatch({
-                              type: ADD_SELECTED_ZONE_ID,
-                              payload: zone._id,
-                            });
-                          }}
-                        >
-                          {getProperDisplayName(zone)}
-                        </Link>
-                      </Box>
-                    </TableCell>
-                    <TableCell align="center">
-                      {zone?.properties?.total?.infectedNumber}
-                    </TableCell>
-                    <TableCell align="center">
-                      {zone?.properties?.total?.recoveredNumber}
-                    </TableCell>
-                    <TableCell align="center" rightmost={"true"}>
-                      {zone?.properties?.total?.deadNumber}
-                    </TableCell>
-                  </TableRow>
-                )
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <Grid container spacing={2}>
+        <Grid container item>
+          <Grid item xs={6}>
+            <Typography variant="caption">
+              {t("childZonesTable.zoneName")}
+            </Typography>
+          </Grid>
+          <Grid item xs={2} className={classes.tableCell}>
+            <Typography variant="caption" className={classes.tableCellText}>
+              {t("dataType.infected")}
+            </Typography>
+          </Grid>
+          <Grid item xs={2} className={classes.tableCell}>
+            <Typography variant="caption" className={classes.tableCellText}>
+              {t("dataType.recovered")}
+            </Typography>
+          </Grid>
+          <Grid item xs={2} className={classes.tableCell}>
+            <Typography variant="caption" className={classes.tableCellText}>
+              {t("dataType.dead")}
+            </Typography>
+          </Grid>
+        </Grid>
+        {childZones.map(
+          (zone, index: number) =>
+            index + 1 <= numberOfVisibleCells && (
+              <Grid container item key={zone._id}>
+                <Grid
+                  item
+                  xs={6}
+                  style={{
+                    overflow: "hidden",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                  }}
+                >
+                  <Box>
+                    {mdUp && <ZoneStatusPin status={zone.properties?.status} />}
+                    {mdUp && <Box component="span" mr={1} />}
+                    <Link
+                      variant="body1"
+                      component="button"
+                      style={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        textIndent: mdUp ? 0 : 1,
+                        width: "calc(100% - 10px)",
+                        textAlign: "left",
+                      }}
+                      onClick={() => {
+                        dispatch({
+                          type: ADD_SELECTED_ZONE_ID,
+                          payload: zone._id,
+                        });
+                      }}
+                    >
+                      {getProperDisplayName(zone)}
+                    </Link>
+                  </Box>
+                </Grid>
+                <Grid item xs={2} className={classes.tableCell}>
+                  {zone?.properties?.total?.infectedNumber}
+                </Grid>
+                <Grid item xs={2} className={classes.tableCell}>
+                  {zone?.properties?.total?.recoveredNumber}
+                </Grid>
+                <Grid item xs={2} className={classes.tableCell}>
+                  {zone?.properties?.total?.deadNumber}
+                </Grid>
+              </Grid>
+            )
+        )}
+      </Grid>
       {childZones.length > numberOfVisibleCells && (
         <Box mt={2}>
           <Grid container justify="center">
