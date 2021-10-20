@@ -4,17 +4,17 @@ const JSONStream = require("JSONStream");
 
 const Zone = require("../models/zone.model");
 
-module.exports = (redis) => {
-  const checkCache = require("../utils/checkCache")(redis);
+module.exports = () => {
+  // const checkCache = require("../utils/checkCache")(redis);
 
-  router.get("/zones", checkCache, async (req, res) => {
+  router.get("/zones", async (req, res) => {
     // console.time("zones");
     console.log("Zones have been called");
     const query = Zone.find({}, null, { lean: true });
     query.exec((err, zones) => {
       if (err) throw err;
       console.log("zones", zones);
-      redis.set("zones", JSON.stringify(zones));
+      // redis.set("zones", JSON.stringify(zones));
     });
     query
       .cursor()

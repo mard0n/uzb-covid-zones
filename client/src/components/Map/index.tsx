@@ -17,6 +17,7 @@ import getZoneStatusProps from "utils/getZoneStatusProps";
 import { getProperDisplayName } from "utils/getProperDisplayName";
 import { useTranslation } from "react-i18next";
 import { getSelectedZoneObjById } from "utils/getSelectedZoneObj";
+import { Theme, useMediaQuery } from "@material-ui/core";
 
 export interface MapTestProps {
   closeBottomSheet?: () => void;
@@ -34,11 +35,6 @@ const mapOptions: MapOptions = {
   minZoom: 4,
 };
 
-const layerOptions: any = {
-  attribution:
-    '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
-  edgeBufferTiles: 2, // loads tiles outside of view to better x, y scrolling
-};
 
 const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
   const { zones = [], selectedZoneId, dispatch } = useContext(StateContext);
@@ -46,7 +42,9 @@ const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
   const map = useRef<any>();
   const geoJson = useRef<GeoJSON>();
   const selectedLayer = useRef<any>();
+  const mdUp = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
   const { t } = useTranslation();
+
 
   const layerStyle = (status: ZoneStatus, isHighlighted: boolean = false) => {
     let fillColor;
@@ -147,6 +145,11 @@ const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
 
   useEffect(() => {
     map.current = L.map("map", mapOptions);
+    const layerOptions: any = {
+      attribution:
+        mdUp ? '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors': "",
+      edgeBufferTiles: 2, // loads tiles outside of view to better x, y scrolling
+    };
     L.tileLayer(
       "http://{s}.tile.osm.org/{z}/{x}/{y}.png",
       // "https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png",
@@ -161,7 +164,7 @@ const MapTest: FunctionComponent<MapTestProps> = ({ closeBottomSheet }) => {
       },
       onAdd: Controlls,
     });
-    map.current.addControl(new controls());
+    mdUp && map.current.addControl(new controls());
 
     return () => {
       if (map.current && map.current.remove) {
