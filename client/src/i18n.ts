@@ -9,8 +9,8 @@ i18n
   .use(initReactI18next) // passes i18n down to react-i18next
   .init({
     // debug: true,
-    fallbackLng: 'uz',
-    supportedLngs: ['uz', 'ru'],
+    fallbackLng: "en",
+    supportedLngs: ["uz", "ru", "en"],
     interpolation: {
       escapeValue: false,
     },

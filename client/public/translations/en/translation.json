@@ -1,0 +1,37 @@
+{
+  "search": {
+    "searchResults": "Search results",
+    "searchForCity": "Enter a city name..."
+  },
+  "welcomeBanner": {
+    "title": "Welcome to Coviduz",
+    "subtitle": "Service for citizens of Uzbekistan to monitor the spread of Covid-19. Enter the name of the city..."
+  },
+  "selectedZoneName": {
+    "statusBadge": {
+      "safe": "Green",
+      "warning": "Yellow",
+      "dangerous": "Red"
+    }
+  },
+  "overallStats": {
+    "title": "Up to this day"
+  },
+  "history": {
+    "title": "Statistics"
+  },
+  "childZonesTable": {
+    "title": "Regions / Districts",
+    "zoneName": "Name",
+    "seeMore": "See more"
+  },
+  "callBanner": {
+    "title": "Feeling Covid-19 Symptoms?",
+    "subtitle": "Call Support Center"
+  },
+  "dataType": {
+    "infected": "Infected",
+    "recovered": "Recovered",
+    "dead": "Deceased"
+  }
+}

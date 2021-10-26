@@ -5,13 +5,13 @@ export const getProperDisplayName = (zone: Zone) => {
   let displayName: string;
   switch (getLanguage()) {
     case "uz":
-      displayName = zone?.properties?.displayNameUz;
+      displayName = zone?.properties?.displayName;
       break;
     case "ru":
-      displayName = zone?.properties?.displayNameRu;
+      displayName = zone?.properties?.displayName;
       break;
     default:
-      displayName = zone?.properties?.displayNameUz;
+      displayName = zone?.properties?.displayName;
       break;
   }
   return displayName;
