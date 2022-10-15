@@ -1,3 +1,3 @@
-export default function handler(request, response) {
-  return response.end(`Hello there!`);
+export default function handler(req, res) {
+  return res.json({ hello: `there!` });
 }
