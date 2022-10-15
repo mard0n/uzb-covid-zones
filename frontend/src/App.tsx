@@ -3,7 +3,7 @@ import { Map } from "./components/Map";
 
 function App() {
   useEffect(() => {
-    fetch("/hello")
+    fetch(`${import.meta.env.VITE_SERVERLESS_ENDPOINT}/hello`)
       .then((res) => res.json())
       .then((res) => {
         console.log("res", res);
