@@ -1,0 +1,5 @@
+.mapboxgl-popup,
+.mapboxgl-popup .mapboxgl-popup-content,
+.mapboxgl-popup .mapboxgl-popup-tip {
+  pointer-events: none;
+}

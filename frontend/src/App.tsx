@@ -1,11 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Map } from "./components/Map";
+import { Zone } from "./types/zone";
 
 function App() {
+  const [zones, setZones] = useState<Zone>();
   useEffect(() => {
-    fetch(`api/handler`)
+    fetch(`api/zones`)
       .then((res) => res.json())
       .then((res) => {
+        setZones(res.zones);
         console.log("res", res);
       });
 
@@ -14,7 +17,7 @@ function App() {
 
   return (
     <>
-      <Map />
+      <Map zones={zones} />
     </>
   );
 }
