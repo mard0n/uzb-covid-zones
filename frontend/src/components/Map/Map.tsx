@@ -58,6 +58,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   const [lng, setLng] = useState(64.62);
   const [lat, setLat] = useState(40.93);
   const [zoom, setZoom] = useState(4);
+  console.log("zoom", zoom);
 
   useEffect(() => {
     if (map.current) return;
@@ -159,7 +160,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
         "step",
         ["zoom"],
         ["==", ["get", "zoneType"], "COUNTRY"],
-        5,
+        6,
         ["==", ["get", "zoneType"], "REGION"],
         8,
         ["==", ["get", "zoneType"], "DISTRICT"],
