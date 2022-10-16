@@ -4,6 +4,7 @@ import { Zone } from "./types/zone";
 
 function App() {
   const [zones, setZones] = useState<Zone>();
+  const [showOnlySelectedZones, setShowOnlySelectedZones] = useState(false);
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = urlSearchParams.getAll("zone");
@@ -13,6 +14,7 @@ function App() {
         .then((res) => res.json())
         .then((res) => {
           setZones(res.zones);
+          setShowOnlySelectedZones(true);
           console.log("res", res);
         });
     } else {
@@ -29,7 +31,7 @@ function App() {
 
   return (
     <>
-      <Map zones={zones} />
+      <Map zones={zones} showOnlySelectedZones={showOnlySelectedZones} />
     </>
   );
 }

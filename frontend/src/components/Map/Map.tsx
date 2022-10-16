@@ -5,6 +5,7 @@ import "./Map.css";
 
 export interface MapComponentProps {
   zones: any;
+  showOnlySelectedZones: boolean;
 }
 
 const moveToFitBounds = (map: Map, feature: MapboxGeoJSONFeature) => {
@@ -47,7 +48,10 @@ const popupGenerator = (feature: MapboxGeoJSONFeature) => {
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESSTOKEN;
 
-const MapComponent: React.FC<MapComponentProps> = ({ zones }) => {
+const MapComponent: React.FC<MapComponentProps> = ({
+  zones,
+  showOnlySelectedZones,
+}) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<Map | null>(null);
   const popup = useRef<Popup | null>(null);
@@ -95,15 +99,6 @@ const MapComponent: React.FC<MapComponentProps> = ({ zones }) => {
       type: "fill",
       source: "zones",
       layout: {},
-      filter: [
-        "step",
-        ["zoom"],
-        ["==", ["get", "zoneType"], "COUNTRY"],
-        5,
-        ["==", ["get", "zoneType"], "REGION"],
-        8,
-        ["==", ["get", "zoneType"], "DISTRICT"],
-      ],
       paint: {
         "fill-color": [
           "case",
@@ -157,6 +152,21 @@ const MapComponent: React.FC<MapComponentProps> = ({ zones }) => {
     });
 
     moveToFitBounds(map.current, zones);
+
+    if (!showOnlySelectedZones) {
+      // If all zones are shown, apply usual zoom step and zoneType based filter
+      map.current.setFilter("zones-layer", [
+        "step",
+        ["zoom"],
+        ["==", ["get", "zoneType"], "COUNTRY"],
+        5,
+        ["==", ["get", "zoneType"], "REGION"],
+        8,
+        ["==", ["get", "zoneType"], "DISTRICT"],
+      ]);
+    }
+    // else show all zones. Later on selecting childzone and parent zone should be prevented
+    // to avoid zone overlaps
 
     let hoveredFeatureId: string | number | undefined | null = null;
     map.current.on("mousemove", "zones-layer", (e) => {
