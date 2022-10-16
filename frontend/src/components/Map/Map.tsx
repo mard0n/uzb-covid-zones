@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import mapboxgl, { Map, MapboxGeoJSONFeature } from "mapbox-gl";
+import mapboxgl, { Map, MapboxGeoJSONFeature, Popup } from "mapbox-gl";
 import { bbox as turfBbox, centerOfMass as turfCenterOfMass } from "@turf/turf";
 import "./Map.css";
 
@@ -12,12 +12,45 @@ const moveToFitBounds = (map: Map, feature: MapboxGeoJSONFeature) => {
 
   map.fitBounds(bbox, { padding: 100 });
 };
+const popupGenerator = (feature: MapboxGeoJSONFeature) => {
+  let statusColor, zoneName, infectedNumber, recoveredNumber, deadNumber;
+
+  const { status, displayName } = feature.properties || {};
+
+  switch (status) {
+    case "DANGEROUS":
+      statusColor = "#FF4967";
+      break;
+    case "RISKY":
+      statusColor = "#FF9635";
+      break;
+    case "SAFE":
+      statusColor = "#87D03F";
+      break;
+    default:
+      statusColor = "#87D03F";
+      break;
+  }
+
+  return `
+  <div class='custom-popup-style'>
+    <div class='title-container'>
+      <span class="zone-status-pin" style="background-color: ${statusColor}"></span>
+      <h5 class="zone-name" style="color: #242B43">${displayName}</h5>
+    </div>
+    <p class="data infected" style="color: #EF7C38">${"Infected: "} ${1000}</p>
+    <p class="data recovered" style="color: #87D03F">${"Recovered: "} ${900}</p>
+    <p class="data dead" style="color: #EA5C73">${"Dead: "} ${20}</p>
+  </div>
+  `;
+};
 
 mapboxgl.accessToken = import.meta.env.VITE_MAPBOX_ACCESSTOKEN;
 
 const MapComponent: React.FC<MapComponentProps> = ({ zones }) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<Map | null>(null);
+  const popup = useRef<Popup | null>(null);
   const [lng, setLng] = useState(64.62);
   const [lat, setLat] = useState(40.93);
   const [zoom, setZoom] = useState(6);
@@ -32,6 +65,11 @@ const MapComponent: React.FC<MapComponentProps> = ({ zones }) => {
       zoom: zoom, // starting zoom
       minZoom: 4,
       maxZoom: 12,
+    });
+
+    popup.current = new mapboxgl.Popup({
+      closeButton: false,
+      closeOnClick: false,
     });
   }, []);
 
@@ -118,13 +156,10 @@ const MapComponent: React.FC<MapComponentProps> = ({ zones }) => {
       },
     });
 
-    const popup = new mapboxgl.Popup({
-      closeButton: false,
-      closeOnClick: false,
-    });
     let hoveredFeatureId: string | number | undefined | null = null;
     map.current.on("mousemove", "zones-layer", (e) => {
       if ((e.features && e.features.length <= 0) || !map.current) return;
+      const feature = e.features?.[0] as MapboxGeoJSONFeature;
 
       if (hoveredFeatureId !== null) {
         map.current?.setFeatureState(
@@ -132,16 +167,21 @@ const MapComponent: React.FC<MapComponentProps> = ({ zones }) => {
           { hover: false }
         );
       }
-      hoveredFeatureId = e.features?.[0].id;
+      hoveredFeatureId = feature.id;
       map.current.setFeatureState(
         { source: "zones", id: hoveredFeatureId },
         { hover: true }
       );
 
       map.current.getCanvas().style.cursor = "pointer";
-      const centerCoordinates = turfCenterOfMass(e.features?.[0] as any)
-        .geometry.coordinates as [number, number];
-      popup.setLngLat(centerCoordinates).setHTML("test").addTo(map.current);
+      const centerCoordinates = turfCenterOfMass(feature).geometry
+        .coordinates as [number, number];
+      const popupHtml = popupGenerator(feature);
+
+      popup.current
+        ?.setLngLat(centerCoordinates)
+        .setHTML(popupHtml)
+        .addTo(map.current);
     });
     map.current.on("mouseleave", "zones-layer", (e) => {
       if (!map.current) return;
@@ -155,7 +195,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ zones }) => {
       hoveredFeatureId = null;
 
       map.current.getCanvas().style.cursor = "";
-      popup.remove();
+      // popup.current.remove();
     });
 
     map.current.on("click", "zones-layer", (e) => {
