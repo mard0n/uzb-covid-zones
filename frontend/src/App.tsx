@@ -5,12 +5,24 @@ import { Zone } from "./types/zone";
 function App() {
   const [zones, setZones] = useState<Zone>();
   useEffect(() => {
-    fetch(`api/zones`)
-      .then((res) => res.json())
-      .then((res) => {
-        setZones(res.zones);
-        console.log("res", res);
-      });
+    const urlSearchParams = new URLSearchParams(window.location.search);
+    const params = urlSearchParams.getAll("zone");
+
+    if (params && params.length > 0) {
+      fetch(`api/zones?${params.map((p) => "zone=" + p).join("&")}`)
+        .then((res) => res.json())
+        .then((res) => {
+          setZones(res.zones);
+          console.log("res", res);
+        });
+    } else {
+      fetch(`api/zones`)
+        .then((res) => res.json())
+        .then((res) => {
+          setZones(res.zones);
+          console.log("res", res);
+        });
+    }
 
     return () => {};
   }, []);

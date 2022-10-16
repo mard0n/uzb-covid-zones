@@ -53,16 +53,16 @@ const MapComponent: React.FC<MapComponentProps> = ({ zones }) => {
   const popup = useRef<Popup | null>(null);
   const [lng, setLng] = useState(64.62);
   const [lat, setLat] = useState(40.93);
-  const [zoom, setZoom] = useState(6);
+  const [zoom, setZoom] = useState(4);
 
   useEffect(() => {
     if (map.current) return;
 
     map.current = new mapboxgl.Map({
-      container: mapContainer.current || "", // container ID
-      style: "mapbox://styles/mapbox/streets-v11", // style URL
-      center: [lng, lat], // starting position [lng, lat]
-      zoom: zoom, // starting zoom
+      container: mapContainer.current || "",
+      style: "mapbox://styles/mapbox/streets-v11",
+      center: [lng, lat],
+      zoom: zoom,
       minZoom: 4,
       maxZoom: 12,
     });
@@ -156,6 +156,8 @@ const MapComponent: React.FC<MapComponentProps> = ({ zones }) => {
       },
     });
 
+    moveToFitBounds(map.current, zones);
+
     let hoveredFeatureId: string | number | undefined | null = null;
     map.current.on("mousemove", "zones-layer", (e) => {
       if ((e.features && e.features.length <= 0) || !map.current) return;
@@ -195,7 +197,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ zones }) => {
       hoveredFeatureId = null;
 
       map.current.getCanvas().style.cursor = "";
-      // popup.current.remove();
+      popup.current?.remove();
     });
 
     map.current.on("click", "zones-layer", (e) => {
