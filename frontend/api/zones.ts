@@ -1,8 +1,13 @@
-const allZones = [
+import { Feature, Geometry } from "geojson";
+import { Request, Response } from "express";
+import { ZoneProperties, ZoneResType } from "../src/types/zone";
+
+const allZones: Feature<Geometry, ZoneProperties>[] = [
   {
-    id: 1,
+    id: "1",
     type: "Feature",
     properties: {
+      id: "1",
       displayName: "Republic of Karakalpakstan",
       zoneType: "REGION",
       status: "RISKY",
@@ -87,9 +92,10 @@ const allZones = [
     ],
   },
   {
-    id: 2,
+    id: "2",
     type: "Feature",
     properties: {
+      id: "2",
       displayName: "Khorezm region",
       zoneType: "REGION",
       status: "DANGEROUS",
@@ -143,9 +149,10 @@ const allZones = [
     ],
   },
   {
-    id: 3,
+    id: "3",
     type: "Feature",
     properties: {
+      id: "3",
       displayName: "Bukhara region",
       zoneType: "REGION",
       status: "RISKY",
@@ -208,9 +215,10 @@ const allZones = [
     bbox: [62.13317871093751, 38.95727304112803, 65.390625, 41.4684573556768],
   },
   {
-    id: 4,
+    id: "4",
     type: "Feature",
     properties: {
+      id: "4",
       displayName: "Navoiy region",
       zoneType: "REGION",
       status: "DANGEROUS",
@@ -315,9 +323,10 @@ const allZones = [
     ],
   },
   {
-    id: 5,
+    id: "5",
     type: "Feature",
     properties: {
+      id: "5",
       displayName: "Kashkadarya region",
       zoneType: "REGION",
       status: "RISKY",
@@ -384,9 +393,10 @@ const allZones = [
     ],
   },
   {
-    id: 6,
+    id: "6",
     type: "Feature",
     properties: {
+      id: "6",
       displayName: "Samarkand region",
       zoneType: "REGION",
       status: "RISKY",
@@ -463,9 +473,10 @@ const allZones = [
     ],
   },
   {
-    id: 7,
+    id: "7",
     type: "Feature",
     properties: {
+      id: "7",
       displayName: "Jizzakh region",
       zoneType: "REGION",
       status: "DANGEROUS",
@@ -549,9 +560,10 @@ const allZones = [
     ],
   },
   {
-    id: 8,
+    id: "8",
     type: "Feature",
     properties: {
+      id: "8",
       displayName: "Syrdarya region",
       zoneType: "REGION",
       status: "RISKY",
@@ -611,9 +623,10 @@ const allZones = [
     ],
   },
   {
-    id: 9,
+    id: "9",
     type: "Feature",
     properties: {
+      id: "9",
       displayName: "Tashkent region",
       zoneType: "REGION",
       status: "DANGEROUS",
@@ -766,9 +779,10 @@ const allZones = [
     ],
   },
   {
-    id: 10,
+    id: "10",
     type: "Feature",
     properties: {
+      id: "10",
       displayName: "Tashkent city",
       zoneType: "REGION",
       status: "SAFE",
@@ -809,9 +823,10 @@ const allZones = [
     ],
   },
   {
-    id: 11,
+    id: "11",
     type: "Feature",
     properties: {
+      id: "11",
       displayName: "Namangan region",
       zoneType: "REGION",
       status: "DANGEROUS",
@@ -927,9 +942,10 @@ const allZones = [
     ],
   },
   {
-    id: 12,
+    id: "12",
     type: "Feature",
     properties: {
+      id: "12",
       displayName: "Andijan region",
       zoneType: "REGION",
       status: "DANGEROUS",
@@ -1014,9 +1030,10 @@ const allZones = [
     ],
   },
   {
-    id: 13,
+    id: "13",
     type: "Feature",
     properties: {
+      id: "13",
       displayName: "Ferghana region",
       zoneType: "REGION",
       status: "RISKY",
@@ -1216,9 +1233,10 @@ const allZones = [
     ],
   },
   {
-    id: 14,
+    id: "14",
     type: "Feature",
     properties: {
+      id: "14",
       displayName: "Surkhandarya region",
       zoneType: "REGION",
       status: "SAFE",
@@ -1280,9 +1298,10 @@ const allZones = [
     ],
   },
   {
-    id: 15,
+    id: "15",
     type: "Feature",
     properties: {
+      id: "15",
       displayName: "Uzbekistan",
       zoneType: "COUNTRY",
       status: "DANGEROUS",
@@ -1708,10 +1727,19 @@ const allZones = [
     ],
   },
 ];
-export default function handler(req, res) {
+
+export type TypedReq = Request<{}, {}, {}, { zone?: string[] | string }>;
+export type TypedRes = Response<ZoneResType>;
+
+export default function handler(req: TypedReq, res: TypedRes) {
+  req.query.zone;
   if (req.query?.zone?.length) {
     const selectedZones = allZones.filter((zone) => {
-      return [].concat(req.query?.zone || []).includes(zone.id.toString()); // to make sure it is always array
+      if (Array.isArray(req.query.zone)) {
+        return req.query.zone.includes(zone.id as string);
+      } else {
+        return req.query.zone === zone.id;
+      }
     });
     if (selectedZones?.length) {
       return res.json({

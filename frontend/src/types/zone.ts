@@ -1,27 +1,12 @@
-export type Zone = {
-  type:
-    | "FeatureCollection"
-    | "Feature"
-    | "GeometryCollection"
-    | "Point"
-    | "MultiPoint"
-    | "LineString"
-    | "MultiLineString"
-    | "Polygon"
-    | "MultiPolygon";
-  properties: {};
-  bbox: [number, number, number, number];
-  geometry: {
-    type:
-      | "FeatureCollection"
-      | "Feature"
-      | "GeometryCollection"
-      | "Point"
-      | "MultiPoint"
-      | "LineString"
-      | "MultiLineString"
-      | "Polygon"
-      | "MultiPolygon";
-    coordinates: [];
-  };
+import { FeatureCollection, Geometry } from "geojson";
+
+export type ZoneProperties = {
+  id: string;
+  displayName: string;
+  zoneType: "REGION" | "COUNTRY" | "CITY" | "DISTRICT";
+  status: "SAFE" | "RISKY" | "DANGEROUS";
 };
+
+export type ZoneFeature = FeatureCollection<Geometry, ZoneProperties>;
+
+export type ZoneResType = { zones: ZoneFeature };

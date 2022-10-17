@@ -1,19 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
-import mapboxgl, { Map, MapboxGeoJSONFeature, Popup } from "mapbox-gl";
+import { FeatureCollection, Feature } from "geojson";
+import mapboxgl, { Map, Popup } from "mapbox-gl";
 import { bbox as turfBbox, centerOfMass as turfCenterOfMass } from "@turf/turf";
+import { ZoneFeature } from "../../types/zone";
 import "./Map.css";
 
 export interface MapComponentProps {
-  zones: any;
+  zones?: ZoneFeature;
   showOnlySelectedZones: boolean;
 }
 
-const moveToFitBounds = (map: Map, feature: MapboxGeoJSONFeature) => {
+const moveToFitBounds = (map: Map, feature: Feature | FeatureCollection) => {
   const bbox = turfBbox(feature) as [number, number, number, number];
 
   map.fitBounds(bbox, { padding: 100 });
 };
-const popupGenerator = (feature: MapboxGeoJSONFeature) => {
+const popupGenerator = (feature: Feature) => {
   let statusColor, zoneName, infectedNumber, recoveredNumber, deadNumber;
 
   const { status, displayName } = feature.properties || {};
@@ -171,8 +173,8 @@ const MapComponent: React.FC<MapComponentProps> = ({
 
     let hoveredFeatureId: string | number | undefined | null = null;
     map.current.on("mousemove", "zones-layer", (e) => {
-      if ((e.features && e.features.length <= 0) || !map.current) return;
-      const feature = e.features?.[0] as MapboxGeoJSONFeature;
+      if (!e.features?.length || !map.current) return;
+      const feature = e.features[0];
 
       if (hoveredFeatureId !== null) {
         map.current?.setFeatureState(

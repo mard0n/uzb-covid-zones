@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Map } from "./components/Map";
-import { Zone } from "./types/zone";
+import { ZoneFeature, ZoneResType } from "./types/zone";
 
 function App() {
-  const [zones, setZones] = useState<Zone>();
+  const [zones, setZones] = useState<ZoneFeature>();
   const [showOnlySelectedZones, setShowOnlySelectedZones] = useState(false);
   useEffect(() => {
     const urlSearchParams = new URLSearchParams(window.location.search);
     const params = urlSearchParams.getAll("zone");
 
-    if (params && params.length > 0) {
+    if (params.length) {
       fetch(`api/zones?${params.map((p) => "zone=" + p).join("&")}`)
         .then((res) => res.json())
         .then((res) => {
@@ -20,7 +20,7 @@ function App() {
     } else {
       fetch(`api/zones`)
         .then((res) => res.json())
-        .then((res) => {
+        .then((res: ZoneResType) => {
           setZones(res.zones);
           console.log("res", res);
         });
