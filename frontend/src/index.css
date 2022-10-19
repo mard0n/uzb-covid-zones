@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @font-face {
   font-family: "Rubik"; /*Rubik-Regular*/
   font-weight: 400;
@@ -26,3 +30,4 @@ body {
   margin: 0;
   padding: 0;
 }
+
