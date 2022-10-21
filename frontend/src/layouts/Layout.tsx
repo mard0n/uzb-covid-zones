@@ -1,6 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import SwipeableBottomSheet from "react-swipeable-bottom-sheet";
-import "react-spring-bottom-sheet/dist/style.css";
 import "./Layout.css";
 
 interface LayoutProps {
