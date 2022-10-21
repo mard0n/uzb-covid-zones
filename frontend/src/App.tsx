@@ -1,19 +1,38 @@
-import { Map } from "./components/Map";
-import useFetchZones from "./hooks/useFetchZones";
 import { Layout } from "./layouts";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import ErrorPage from "./error-page";
+import { ZoneResType } from "./types/zone";
+
+async function rootloader() {
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = urlSearchParams.getAll("zone");
+
+  if (params.length) {
+    const res: ZoneResType = await fetch(
+      `api/zones?${params.map((p) => "zone=" + p).join("&")}`
+    ).then((res) => res.json());
+    if (res?.zones) {
+      return [res.zones, true] as const;
+    }
+  } else {
+    const res: ZoneResType = await fetch(`api/zones`).then((res) => res.json());
+    if (res?.zones) {
+      return [res.zones, false] as const;
+    }
+  }
+}
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    errorElement: <ErrorPage />,
+    loader: rootloader,
+  },
+]);
 
 function App() {
-  const [zones, showOnlySelectedZones] = useFetchZones();
-  return (
-    <>
-      <Layout
-        map={
-          <Map zones={zones} showOnlySelectedZones={showOnlySelectedZones} />
-        }
-        body={<>test</>}
-      />
-    </>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { Outlet, useLoaderData } from "react-router-dom";
 import SwipeableBottomSheet from "react-swipeable-bottom-sheet";
+import { Embed } from "../components/Embed";
+import { Map } from "../components/Map";
 import "./Layout.css";
 
-interface LayoutProps {
-  map: React.ReactNode;
-  body: React.ReactNode;
-}
+interface LayoutProps {}
 
-const Layout: React.FC<LayoutProps> = ({ map, body }) => {
+const Layout: React.FC<LayoutProps> = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
+  const [zones, showOnlySelectedZones]: any = useLoaderData();
 
   const handleSwipeableChange = (isOpen: boolean) =>
     setIsBottomSheetOpen(isOpen);
@@ -17,12 +18,19 @@ const Layout: React.FC<LayoutProps> = ({ map, body }) => {
     <>
       <div className="hidden md:flex h-screen w-screen ">
         <div className="w-[min(45vw,600px)] z-10 h-full shadow-[0px_4px_40px_rgba(0,30,89,0.09)]">
-          {body}
+          <Outlet />
         </div>
-        <div className="grow h-full relative">{map}</div>
+        <div className="grow h-full relative">
+          <Map zones={zones} showOnlySelectedZones={showOnlySelectedZones} />
+        </div>
       </div>
       <div className="block md:hidden h-screen w-screen">
-        <div className="h-full w-full">{map}</div>
+        <div className="h-full w-full">
+          <Map zones={zones} showOnlySelectedZones={showOnlySelectedZones} />
+        </div>
+        <div className="absolute z-10 bottom-[210px] right-[10px]">
+          {<Embed />}
+        </div>
         <SwipeableBottomSheet
           overflowHeight={200}
           shadowTip={false}
@@ -31,7 +39,7 @@ const Layout: React.FC<LayoutProps> = ({ map, body }) => {
           scrollTopAtClose={true}
           open={isBottomSheetOpen}
           onChange={handleSwipeableChange}
-          style={{ zIndex: 3 }}
+          style={{ zIndex: 20 }}
           bodyStyle={{
             borderTopLeftRadius: "1.5rem",
             borderTopRightRadius: "1.5rem",
@@ -42,7 +50,7 @@ const Layout: React.FC<LayoutProps> = ({ map, body }) => {
         >
           <div className="max-h-[calc(100vh*0.65)] min-h-[136px]">
             <div className="bottom-sheet-notch" />
-            {body}
+            <Outlet />
           </div>
         </SwipeableBottomSheet>
       </div>

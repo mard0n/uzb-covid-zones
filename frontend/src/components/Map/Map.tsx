@@ -91,132 +91,135 @@ const MapComponent: React.FC<MapComponentProps> = ({
   }, [map.current]);
 
   useEffect(() => {
-    if (!map.current || !zones) return;
+    if (!map.current) return;
+    map.current.on("load", () => {
+      if (!map.current || !zones) return;
 
-    map.current.addSource("zones", {
-      type: "geojson",
-      data: zones,
-    });
-    map.current.addLayer({
-      id: "zones-layer",
-      type: "fill",
-      source: "zones",
-      layout: {},
-      paint: {
-        "fill-color": [
-          "case",
-          ["boolean", ["feature-state", "hover"], false],
-          [
+      map.current.addSource("zones", {
+        type: "geojson",
+        data: zones,
+      });
+      map.current.addLayer({
+        id: "zones-layer",
+        type: "fill",
+        source: "zones",
+        layout: {},
+        paint: {
+          "fill-color": [
             "case",
-            ["==", ["get", "status"], "DANGEROUS"],
-            "#FA0303",
-            ["==", ["get", "status"], "RISKY"],
-            "#FAFF00",
-            ["==", ["get", "status"], "SAFE"],
-            "#23FF00",
-            "#23FF00",
+            ["boolean", ["feature-state", "hover"], false],
+            [
+              "case",
+              ["==", ["get", "status"], "DANGEROUS"],
+              "#FA0303",
+              ["==", ["get", "status"], "RISKY"],
+              "#FAFF00",
+              ["==", ["get", "status"], "SAFE"],
+              "#23FF00",
+              "#23FF00",
+            ],
+            [
+              "case",
+              ["==", ["get", "status"], "DANGEROUS"],
+              "#FB3535",
+              ["==", ["get", "status"], "RISKY"],
+              "#FAFF00",
+              ["==", ["get", "status"], "SAFE"],
+              "#23FD00",
+              "#23FD00",
+            ],
           ],
-          [
+          "fill-opacity": [
             "case",
-            ["==", ["get", "status"], "DANGEROUS"],
-            "#FB3535",
-            ["==", ["get", "status"], "RISKY"],
-            "#FAFF00",
-            ["==", ["get", "status"], "SAFE"],
-            "#23FD00",
-            "#23FD00",
+            ["boolean", ["feature-state", "hover"], false],
+            [
+              "case",
+              ["==", ["get", "status"], "DANGEROUS"],
+              0.3,
+              ["==", ["get", "status"], "RISKY"],
+              0.4,
+              ["==", ["get", "status"], "SAFE"],
+              0.5,
+              0.5,
+            ],
+            [
+              "case",
+              ["==", ["get", "status"], "DANGEROUS"],
+              0.2,
+              ["==", ["get", "status"], "RISKY"],
+              0.2,
+              ["==", ["get", "status"], "SAFE"],
+              0.2,
+              0.2,
+            ],
           ],
-        ],
-        "fill-opacity": [
-          "case",
-          ["boolean", ["feature-state", "hover"], false],
-          [
-            "case",
-            ["==", ["get", "status"], "DANGEROUS"],
-            0.3,
-            ["==", ["get", "status"], "RISKY"],
-            0.4,
-            ["==", ["get", "status"], "SAFE"],
-            0.5,
-            0.5,
-          ],
-          [
-            "case",
-            ["==", ["get", "status"], "DANGEROUS"],
-            0.2,
-            ["==", ["get", "status"], "RISKY"],
-            0.2,
-            ["==", ["get", "status"], "SAFE"],
-            0.2,
-            0.2,
-          ],
-        ],
-      },
-    });
+        },
+      });
 
-    moveToFitBounds(map.current, zones);
+      moveToFitBounds(map.current, zones);
 
-    if (!showOnlySelectedZones) {
-      // If all zones are shown, apply usual zoom step and zoneType based filter
-      map.current.setFilter("zones-layer", [
-        "step",
-        ["zoom"],
-        ["==", ["get", "zoneType"], "COUNTRY"],
-        6,
-        ["==", ["get", "zoneType"], "REGION"],
-        8,
-        ["==", ["get", "zoneType"], "DISTRICT"],
-      ]);
-    }
-    // else show all zones. Later on selecting childzone and parent zone should be prevented
-    // to avoid zone overlaps
-
-    let hoveredFeatureId: string | number | undefined | null = null;
-    map.current.on("mousemove", "zones-layer", (e) => {
-      if (!e.features?.length || !map.current) return;
-      const feature = e.features[0];
-
-      if (hoveredFeatureId !== null) {
-        map.current?.setFeatureState(
-          { source: "zones", id: hoveredFeatureId },
-          { hover: false }
-        );
+      if (!showOnlySelectedZones) {
+        // If all zones are shown, apply usual zoom step and zoneType based filter
+        map.current.setFilter("zones-layer", [
+          "step",
+          ["zoom"],
+          ["==", ["get", "zoneType"], "COUNTRY"],
+          6,
+          ["==", ["get", "zoneType"], "REGION"],
+          8,
+          ["==", ["get", "zoneType"], "DISTRICT"],
+        ]);
       }
-      hoveredFeatureId = feature.id;
-      map.current.setFeatureState(
-        { source: "zones", id: hoveredFeatureId },
-        { hover: true }
-      );
+      // else show all zones. Later on selecting childzone and parent zone should be prevented
+      // to avoid zone overlaps
 
-      map.current.getCanvas().style.cursor = "pointer";
-      const centerCoordinates = turfCenterOfMass(feature).geometry
-        .coordinates as [number, number];
-      const popupHtml = popupGenerator(feature);
+      let hoveredFeatureId: string | number | undefined | null = null;
+      map.current.on("mousemove", "zones-layer", (e) => {
+        if (!e.features?.length || !map.current) return;
+        const feature = e.features[0];
 
-      popup.current
-        ?.setLngLat(centerCoordinates)
-        .setHTML(popupHtml)
-        .addTo(map.current);
-    });
-    map.current.on("mouseleave", "zones-layer", (e) => {
-      if (!map.current) return;
-
-      if (hoveredFeatureId !== null) {
+        if (hoveredFeatureId !== null) {
+          map.current?.setFeatureState(
+            { source: "zones", id: hoveredFeatureId },
+            { hover: false }
+          );
+        }
+        hoveredFeatureId = feature.id;
         map.current.setFeatureState(
           { source: "zones", id: hoveredFeatureId },
-          { hover: false }
+          { hover: true }
         );
-      }
-      hoveredFeatureId = null;
 
-      map.current.getCanvas().style.cursor = "";
-      popup.current?.remove();
-    });
+        map.current.getCanvas().style.cursor = "pointer";
+        const centerCoordinates = turfCenterOfMass(feature).geometry
+          .coordinates as [number, number];
+        const popupHtml = popupGenerator(feature);
 
-    map.current.on("click", "zones-layer", (e) => {
-      if (!map.current || !e.features) return;
+        popup.current
+          ?.setLngLat(centerCoordinates)
+          .setHTML(popupHtml)
+          .addTo(map.current);
+      });
+      map.current.on("mouseleave", "zones-layer", (e) => {
+        if (!map.current) return;
 
-      moveToFitBounds(map.current, e.features[0]);
+        if (hoveredFeatureId !== null) {
+          map.current.setFeatureState(
+            { source: "zones", id: hoveredFeatureId },
+            { hover: false }
+          );
+        }
+        hoveredFeatureId = null;
+
+        map.current.getCanvas().style.cursor = "";
+        popup.current?.remove();
+      });
+
+      map.current.on("click", "zones-layer", (e) => {
+        if (!map.current || !e.features) return;
+
+        moveToFitBounds(map.current, e.features[0]);
+      });
     });
 
     return () => {
