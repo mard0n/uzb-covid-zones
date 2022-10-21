@@ -41,3 +41,12 @@
   line-height: 20px;
   margin: 0;
 }
+
+@media screen and (max-width: 1024px) {
+  .mapboxgl-ctrl-bottom-left {
+    bottom: 200px;
+  }
+  .mapboxgl-ctrl-bottom-right {
+    bottom: 200px;
+  }
+}

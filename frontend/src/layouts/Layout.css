@@ -1,8 +1,10 @@
-[data-rsbs-backdrop] {
-  display: none;
-}
-
-[data-rsbs-overlay] {
-  box-shadow: 0px -10px 40px rgb(0 30 89 / 9%);
-  border-radius: 30px;
+.bottom-sheet-notch {
+  position: absolute;
+  top: 12.5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 37px;
+  height: 5px;
+  background: #e3e3e3;
+  border-radius: 9px;
 }
