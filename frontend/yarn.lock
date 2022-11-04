@@ -2526,7 +2526,7 @@ potpack@^1.0.2:
   resolved "https://registry.yarnpkg.com/potpack/-/potpack-1.0.2.tgz#23b99e64eb74f5741ffe7656b5b5c4ddce8dfc14"
   integrity sha512-choctRBIV9EMT9WGAZHn3V7t0Z2pMQyl0EZE6pFc/6ml3ssw7Dlf/oAOvFwjm1HVsqfQN8GfeFyJ+d8tRzqueQ==
 
-prop-types@^15.5.4, prop-types@^15.6.0:
+prop-types@^15.5.4, prop-types@^15.6.0, prop-types@^15.7.2:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -2596,6 +2596,20 @@ react-event-listener@^0.6.0:
     "@babel/runtime" "^7.2.0"
     prop-types "^15.6.0"
     warning "^4.0.1"
+
+react-folder-tree@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/react-folder-tree/-/react-folder-tree-5.0.3.tgz#586c28f26b1a5340e5a36c22d71f4067f5026f48"
+  integrity sha512-rCrojPpvJJZPzU9SrAEpcc/I2XddZ1eQ7wOnFPWHesZ9KQWehptm5QEbCw+eWRapDK+t8Nb/TVRPfE+oX0jVSA==
+  dependencies:
+    prop-types "^15.7.2"
+    react-icons "^4.1.0"
+    use-tree-state "^1.0.0"
+
+react-icons@^4.1.0:
+  version "4.6.0"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.6.0.tgz#f83eda179af5d02c047449a20b702c858653d397"
+  integrity sha512-rR/L9m9340yO8yv1QT1QurxWQvWpbNHqVX0fzMln2HEb9TEIrQRGsqiNFQfiv9/JEUbyHmHPlNTB2LWm2Ttz0g==
 
 react-is@^16.13.1:
   version "16.13.1"
@@ -2880,6 +2894,11 @@ update-browserslist-db@^1.0.9:
   dependencies:
     escalade "^3.1.1"
     picocolors "^1.0.0"
+
+use-tree-state@^1.0.0, use-tree-state@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/use-tree-state/-/use-tree-state-1.1.1.tgz#229c0eb1019c382c446506b474f676ecfedd7b11"
+  integrity sha512-oNLnmUaAef97UGvw83L0tfTYj7ZBmPdf3tsaehr8FumSdq9Th/cc97jVTnSoOCoq9wYmhDuSffJxHv+wbgUlrA==
 
 util-deprecate@^1.0.2:
   version "1.0.2"

@@ -1,15 +1,23 @@
 import React, { useState } from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
 import SwipeableBottomSheet from "react-swipeable-bottom-sheet";
-import { Embed } from "../components/Embed";
-import { Map } from "../components/Map";
+import { Embed } from "../../components/Embed";
+import { Map } from "../../components/Map";
+import { ZoneFeatureCollection } from "../../types/zone";
 import "./Layout.css";
 
 interface LayoutProps {}
 
 const Layout: React.FC<LayoutProps> = () => {
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
-  const [zones, showOnlySelectedZones]: any = useLoaderData();
+  const zones = useLoaderData() as ZoneFeatureCollection | undefined;
+
+  if (!zones) {
+    return <>loading...</>;
+  }
+
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  const params = urlSearchParams.getAll("zone");
 
   const handleSwipeableChange = (isOpen: boolean) =>
     setIsBottomSheetOpen(isOpen);
@@ -21,15 +29,15 @@ const Layout: React.FC<LayoutProps> = () => {
           <Outlet />
         </div>
         <div className="grow h-full relative">
-          <Map zones={zones} showOnlySelectedZones={showOnlySelectedZones} />
+          <Map zones={zones} applyLayerZoomFilter={!params.length} />
+          <div className="absolute z-10 top-[10px] right-[10px]">
+            {<Embed />}
+          </div>
         </div>
       </div>
       <div className="block md:hidden h-screen w-screen">
         <div className="h-full w-full">
-          <Map zones={zones} showOnlySelectedZones={showOnlySelectedZones} />
-        </div>
-        <div className="absolute z-10 bottom-[210px] right-[10px]">
-          {<Embed />}
+          <Map zones={zones} applyLayerZoomFilter={!params.length} />
         </div>
         <SwipeableBottomSheet
           overflowHeight={200}

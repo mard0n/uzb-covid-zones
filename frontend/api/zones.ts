@@ -11,6 +11,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Republic of Karakalpakstan",
       zoneType: "REGION",
       status: "RISKY",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -99,6 +101,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Khorezm region",
       zoneType: "REGION",
       status: "DANGEROUS",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -156,6 +160,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Bukhara region",
       zoneType: "REGION",
       status: "RISKY",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -222,6 +228,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Navoiy region",
       zoneType: "REGION",
       status: "DANGEROUS",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -330,6 +338,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Kashkadarya region",
       zoneType: "REGION",
       status: "RISKY",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -400,6 +410,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Samarkand region",
       zoneType: "REGION",
       status: "RISKY",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -480,6 +492,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Jizzakh region",
       zoneType: "REGION",
       status: "DANGEROUS",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -567,6 +581,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Syrdarya region",
       zoneType: "REGION",
       status: "RISKY",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -630,6 +646,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Tashkent region",
       zoneType: "REGION",
       status: "DANGEROUS",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -786,6 +804,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Tashkent city",
       zoneType: "REGION",
       status: "SAFE",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -830,6 +850,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Namangan region",
       zoneType: "REGION",
       status: "DANGEROUS",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -949,6 +971,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Andijan region",
       zoneType: "REGION",
       status: "DANGEROUS",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -1037,6 +1061,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Ferghana region",
       zoneType: "REGION",
       status: "RISKY",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -1240,6 +1266,8 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Surkhandarya region",
       zoneType: "REGION",
       status: "SAFE",
+      parentZoneId: "15",
+      childZoneIds: [],
     },
     geometry: {
       type: "Polygon",
@@ -1305,6 +1333,23 @@ const allZones: Feature<Geometry, ZoneProperties>[] = [
       displayName: "Uzbekistan",
       zoneType: "COUNTRY",
       status: "DANGEROUS",
+      parentZoneId: "",
+      childZoneIds: [
+        "1",
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+      ],
     },
     geometry: {
       type: "Polygon",

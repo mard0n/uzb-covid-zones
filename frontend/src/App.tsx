@@ -1,4 +1,4 @@
-import { Layout } from "./layouts";
+import { Layout, EmbedLayout } from "./layouts";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./error-page";
 import { ZoneResType } from "./types/zone";
@@ -12,12 +12,12 @@ async function rootloader() {
       `api/zones?${params.map((p) => "zone=" + p).join("&")}`
     ).then((res) => res.json());
     if (res?.zones) {
-      return [res.zones, true] as const;
+      return res.zones;
     }
   } else {
     const res: ZoneResType = await fetch(`api/zones`).then((res) => res.json());
     if (res?.zones) {
-      return [res.zones, false] as const;
+      return res.zones;
     }
   }
 }
@@ -26,6 +26,12 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
+    errorElement: <ErrorPage />,
+    loader: rootloader,
+  },
+  {
+    path: "/embed",
+    element: <EmbedLayout />,
     errorElement: <ErrorPage />,
     loader: rootloader,
   },
