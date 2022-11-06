@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Outlet, useLoaderData } from "react-router-dom";
 import SwipeableBottomSheet from "react-swipeable-bottom-sheet";
-import { Embed } from "../../components/Embed";
-import { Map } from "../../components/Map";
+import { Map } from "../../components";
 import { ZoneFeatureCollection } from "../../types/zone";
 import "./Layout.css";
 
@@ -30,9 +29,7 @@ const Layout: React.FC<LayoutProps> = () => {
         </div>
         <div className="grow h-full relative">
           <Map zones={zones} applyLayerZoomFilter={!params.length} />
-          <div className="absolute z-10 top-[10px] right-[10px]">
-            {<Embed />}
-          </div>
+          <div className="absolute z-10 top-[10px] right-[10px]"></div>
         </div>
       </div>
       <div className="block md:hidden h-screen w-screen">
