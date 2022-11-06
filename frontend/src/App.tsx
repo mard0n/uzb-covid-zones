@@ -42,3 +42,7 @@ function App() {
 }
 
 export default App;
+
+// TODO: Add select all children Button in embed screen
+// TODO: Minify Zones
+// TODO: Test on interactivity, drag, pan on different devices

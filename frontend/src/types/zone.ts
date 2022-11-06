@@ -3,10 +3,14 @@ import { FeatureCollection, Feature, Geometry } from "geojson";
 export type ZoneProperties = {
   id: string;
   displayName: string;
-  zoneType: "REGION" | "COUNTRY" | "CITY" | "DISTRICT";
+  displayNameUz: string;
+  displayNameRu: string;
+  placeType: "REGION" | "COUNTRY" | "CITY" | "DISTRICT";
   status: "SAFE" | "RISKY" | "DANGEROUS";
+  parentZone: string;
   parentZoneId: string;
   childZoneIds: string[];
+  alias: string[];
 };
 
 export type ZoneFeature = Feature<Geometry, ZoneProperties>;

@@ -95,6 +95,7 @@ const MapComponent = forwardRef<any, MapComponentProps>(
         zoom: zoom,
         minZoom: 4,
         maxZoom: 12,
+        // hash: true,
       });
 
       popup.current = new mapboxgl.Popup({
@@ -230,16 +231,16 @@ const MapComponent = forwardRef<any, MapComponentProps>(
 
     useEffect(() => {
       map.current?.on("load", () => {
-        // If all zones are shown, apply usual zoom step and zoneType based filter
+        // If all zones are shown, apply usual zoom step and placeType based filter
         applyLayerZoomFilter &&
           map.current?.setFilter("zones-layer", [
             "step",
             ["zoom"],
-            ["==", ["get", "zoneType"], "COUNTRY"],
-            6,
-            ["==", ["get", "zoneType"], "REGION"],
-            8,
-            ["==", ["get", "zoneType"], "DISTRICT"],
+            ["==", ["get", "placeType"], "COUNTRY"],
+            5,
+            ["==", ["get", "placeType"], "REGION"],
+            7,
+            ["match", ["get", "placeType"], ["DISTRICT", "CITY"], true, false],
           ]);
         // else show all zones. Later on selecting childzone and parent zone should be prevented
         // to avoid zone overlaps
