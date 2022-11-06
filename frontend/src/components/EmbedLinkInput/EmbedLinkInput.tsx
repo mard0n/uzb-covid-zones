@@ -25,7 +25,7 @@ const EmbedLinkInput: FC<EmbedLinkInputProps> = ({ link }) => {
     <div className="relative">
       <input
         ref={inputRef}
-        className="h-12 min-w-[500px] rounded-full px-4 py-3 pr-[70px]"
+        className="h-12 w-full rounded-full px-4 py-3 pr-[70px]"
         type="text"
         value={link}
         onChange={() => {}}

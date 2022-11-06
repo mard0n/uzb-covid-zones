@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Outlet, useLoaderData } from "react-router-dom";
 import SwipeableBottomSheet from "react-swipeable-bottom-sheet";
 import { Map } from "../../components";
@@ -29,7 +30,15 @@ const Layout: React.FC<LayoutProps> = () => {
         </div>
         <div className="grow h-full relative">
           <Map zones={zones} applyLayerZoomFilter={!params.length} />
-          <div className="absolute z-10 top-[10px] right-[10px]"></div>
+          {params.length ? (
+            <div className="absolute z-10 top-[10px] right-[10px]">
+              Open big map
+            </div>
+          ) : (
+            <Link className="absolute z-10 top-[10px] right-[10px]" to="/embed">
+              Embed
+            </Link>
+          )}
         </div>
       </div>
       <div className="block md:hidden h-screen w-screen">

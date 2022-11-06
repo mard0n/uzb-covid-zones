@@ -24,6 +24,7 @@
 
 html {
   font-family: "Rubik", "Helvetica Neue", "Arial", sans-serif;
+  color: #242b43;
 }
 
 body {
@@ -31,3 +32,6 @@ body {
   padding: 0;
 }
 
+svg {
+  display: inline-block;
+}

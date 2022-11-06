@@ -4,7 +4,9 @@ import { Map, TreeView } from "../../components";
 import EmbedLinkInput from "../../components/EmbedLinkInput/EmbedLinkInput";
 import { buildTree } from "../../components/TreeView/TreeView";
 import { ZoneFeature, ZoneFeatureCollection } from "../../types/zone";
+import logo from "../../assets/logo.svg";
 import "./EmbedLayout.css";
+import { Link } from "react-router-dom";
 
 interface EmbedLayoutProps {}
 
@@ -17,22 +19,23 @@ const EmbedLayout: React.FC<EmbedLayoutProps> = () => {
   if (!zones) {
     return <>loading...</>;
   }
-  console.log("embedLink", embedLink);
 
   useEffect(() => {
-    console.log("shwSpecificZones");
-
-    (mapRef.current as any).showSpecificZones({
-      type: "FeatureCollection",
-      features: selectedZones,
-    });
+    mapRef.current &&
+      (mapRef.current as any).showSpecificZones({
+        type: "FeatureCollection",
+        features: selectedZones,
+      });
 
     const selectedZoneIds = selectedZones.map((zone) => zone.properties.id);
-    console.log("window.location", window.location);
 
-    const embedLink = selectedZoneIds.length
-      ? window.location.origin + "?zone=" + selectedZoneIds.join("&zone=")
-      : window.location.origin;
+    const embedLink = `<iframe id="coviduz-embed" src="${
+      selectedZoneIds.length
+        ? window.location.origin + "?zone=" + selectedZoneIds.join("&zone=")
+        : window.location.origin
+    }" sandbox="allow-scripts allow-same-origin allow-popups" style="border: none;" height="640" width="1024" scrolling="no">
+      </iframe>
+    `;
     setEmbedLink(embedLink);
     return () => {};
   }, [selectedZones, mapRef.current]);
@@ -41,7 +44,6 @@ const EmbedLayout: React.FC<EmbedLayoutProps> = () => {
     const selectedZonesObj = zones.features.filter((zone) =>
       selectedZoneIds.includes(zone.properties.id)
     );
-    console.log("selectedZonesObj", selectedZonesObj);
     setSelectedZones(selectedZonesObj);
   };
 
@@ -50,33 +52,25 @@ const EmbedLayout: React.FC<EmbedLayoutProps> = () => {
   return (
     <>
       <div className="flex h-screen w-screen">
-        <div className="w-[min(45vw,600px)] z-10 h-full shadow-[0px_4px_40px_rgba(0,30,89,0.09)]">
-          <TreeView data={tree} onSelect={handleZoneSelect} />
+        <div className="w-[min(45vw,600px)] z-10 h-full shadow-[0px_4px_40px_rgba(0,30,89,0.09)] px-9 py-6 relative">
+          <div className="flex flex-col justify-between h-full">
+            <div className=" overflow-scroll ">
+              <div className="mb-8">
+                <Link to="/">
+                  <img src={logo} alt="CovidUz" />
+                </Link>
+              </div>
+              <TreeView data={tree} onSelect={handleZoneSelect} />
+            </div>
+            <div>
+              <EmbedLinkInput link={embedLink} />
+            </div>
+          </div>
         </div>
         <div className="grow h-full relative">
-          <div className="absolute z-10 bottom-[50px] right-2/4 translate-x-2/4">
-            <EmbedLinkInput link={embedLink} />
-          </div>
           <Map ref={mapRef} />
         </div>
       </div>
-      {/* <div className="">
-        <div className="w-full max-w-screen-md mx-auto pt-10 grid grid-cols-1 sm:grid-cols-[3fr_2fr]">
-          <div className="overflow-scroll min-h-[300px] max-h-[500px]"></div>
-          <div className="overflow-scroll min-h-[300px] max-h-[500px] hidden sm:block">
-            {selectedZones &&
-              selectedZones.map((zone) => {
-                return (
-                  <div key={zone.properties.displayName}>
-                    {zone.properties.displayName}
-                  </div>
-                );
-              })}
-          </div>
-          <div></div>
-          <div className="relative grow aspect-video col-span-full"></div>
-        </div>
-      </div> */}
     </>
   );
 };

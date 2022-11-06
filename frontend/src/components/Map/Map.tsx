@@ -70,10 +70,10 @@ const MapComponent = forwardRef<any, MapComponentProps>(
       () => {
         return {
           showSpecificZones(zones: ZoneFeatureCollection) {
-            if (!map.current || !zones?.features?.length) return;
+            if (!map.current) return;
 
             const zonesSource = map.current.getSource("zones") as GeoJSONSource;
-            zonesSource.setData(zones);
+            zonesSource && zonesSource.setData(zones);
           },
           moveToFitBounds: (zones: Feature | FeatureCollection) => {
             if (!map.current) return;

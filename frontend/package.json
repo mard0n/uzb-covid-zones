@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/forms": "^0.5.3",
     "@turf/turf": "^6.5.0",
     "mapbox-gl": "^2.10.0",
     "postcss-custom-properties-fallback": "^1.0.2",
